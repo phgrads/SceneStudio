@@ -1,0 +1,11 @@
+
+<li class='scene-item'>
+  <div class="btn-group">
+    <!--<%= link_to scene.name, 'scenes/' + scene.id.to_s + '/edit',
+          class: 'btn scene-name' %>-->
+    <%= link_to scene.name, { action: 'edit', id: scene.id },
+          class: 'btn scene-name' %>
+    <%= link_to '×', scene, confirm: 'Are you sure?', method: :delete,
+          class: 'btn btn-danger scene-delete' %>
+  </div>
+</li>

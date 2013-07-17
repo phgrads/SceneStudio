@@ -1,0 +1,27 @@
+
+<header class='navbar navbar-fixed-top navbar-inverse'>
+  <div class='navbar-inner'>
+    <div class='container'>
+      <%= link_to 'SceneStudio', root_path, id: 'logo' %>
+      <nav>
+        <ul class='nav pull-right'>
+          <li><%= link_to 'Home', root_path %></li>
+          <li><%= link_to 'Help', help_path %></li>
+          <li class="divider-vertical"></li>
+          <% if signed_in? %>
+            <li><%= link_to "Logout ", signout_path %></li>
+            <li><a id='username'><%= current_user.name %></a></li>
+          <% else %>
+            <li>
+              <%= link_to "Login", signin_path %>
+            </li>
+          <% end %>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<script>
+  $('dropdown-toggle').dropdown();
+</script>

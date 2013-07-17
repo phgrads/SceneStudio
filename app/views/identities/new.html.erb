@@ -1,0 +1,39 @@
+<h1>New Local Account</h1>
+
+
+<div class="row">
+<div class="span6 offset3">
+  <%= render 'shared/error_messages', object: @identity %>
+  <%= form_tag("/auth/identity/register", class: 'form-horizontal') do %>
+    <div class="field control-group">
+      <%= label_tag :name, nil, class: 'control-label' %>
+      <div class='controls'>
+        <%= text_field_tag :name, @identity.try(:name) %>
+      </div>
+    </div>
+    <div class="field control-group">
+      <%= label_tag :email, nil, class: 'control-label' %>
+      <div class='controls'>
+        <%= text_field_tag :email, @identity.try(:email) %>
+      </div>
+    </div>
+    <div class="field control-group">
+      <%= label_tag :password, nil, class: 'control-label' %>
+      <div class='controls'>
+        <%= password_field_tag :password %>
+      </div>
+    </div>
+    <div class="field control-group">
+      <%= label_tag :password_confirmation, 'Confirm Password', class: 'control-label' %>
+      <div class='controls'>
+        <%= password_field_tag :password_confirmation %>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="actions controls">
+        <%= submit_tag "Register", class: 'btn' %>
+      </div>
+    </div>
+  <% end %>
+</div>
+</div>

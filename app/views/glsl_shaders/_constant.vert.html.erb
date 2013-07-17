@@ -1,0 +1,11 @@
+<script id="constant.vert", type="text/x-vertex">
+  precision highp float;
+  
+  uniform mat4 u_mvp;
+  attribute vec3 a_position;
+  
+  void main(void)
+  {
+    gl_Position = u_mvp * vec4(a_position, 1.0);
+  }
+</script>

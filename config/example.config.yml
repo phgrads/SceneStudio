@@ -1,0 +1,25 @@
+# This is only an example of a config.yml file
+# you will need to create a config/config.yml file
+# in this format for the app to work
+
+development:
+    # The following keys and secrets are used for O-Auth authentication
+    # By registering with the respective service, you can get copies
+    # of these values
+    TWITTER_CONSUMER_KEY:     'xxxxx' # register w/ twitter
+    TWITTER_CONSUMER_SECRET:  'xxxxx' # register w/ twitter
+    GOOGLE_CONSUMER_KEY:      'xxxxx' # register w/ Google
+    GOOGLE_CONSUMER_SECRET:   'xxxxx' # register w/ Google
+    # The following secret is used by rails.
+    # You can generate a new secret from scratch by running the rake task
+    #   rake secret
+    APP_SECRET_TOKEN:         'xxxxxxxxxxxxxx'
+
+test:
+    # copy development verbatim
+
+production:
+    # copy again verbatim
+
+# If you want to configure differently in dev and production, you can
+# control that here

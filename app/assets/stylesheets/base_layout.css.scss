@@ -1,0 +1,109 @@
+@import "bootstrap";
+
+$grayMediumLight: #eaeaea;
+
+/* universal */
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+  padding-top: 60px;
+}
+
+section {
+  overflow: auto;
+}
+
+.center {
+  text-align: center;
+}
+
+
+
+/* basic typography */
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+
+h1 {
+  font-size: 3.0em;
+  letter-spacing: 0px;
+  margin-bottom: 30px;
+  text-align:center;
+}
+
+h2 {
+  font-size: 1.7em;
+  letter-spacing: 0px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: normal;
+  color: $grayLight;
+}
+
+
+/* kludges to fix things */
+
+.modal-form {
+  margin: 0px;
+}
+
+
+/* header */
+
+#logo {
+  float: left;
+  margin-right: 10px;
+  font-size: 1.7em;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  padding-top: 9px;
+  font-weight: bold;
+  line-height: 1;
+  &:hover {
+    color: white;
+    text-decoration: none;
+  }
+}
+a#username {
+  pointer-events: none;
+  cursor: default;
+  font-size: 1.2em;
+  color: $grayMediumLight;
+}
+
+/* footer */
+
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid $grayMediumLight;
+  color: $grayLight;
+  a {
+    color: $gray;
+    &:hover {
+      color: $grayDarker
+    }
+  }
+  small {
+    float: left;
+  }
+  ul {
+    float: right;
+    list-style: none;
+    li {
+      float: left;
+      margin-left: 10px;
+    }
+  }
+}
+
+.debug_dump {
+  clear: both;
+  margin-top:45px;
+  width:100%;
+}

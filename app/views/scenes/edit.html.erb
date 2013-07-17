@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= full_title(@scene.name) %></title>
+  <link href="/gl_app/gl_app.css" type="text/css" rel="stylesheet"></link>
+  <link type="text/css" rel="stylesheet"
+    href=
+    "/gl_app/javascripts/jquery-ui/css/redmond/jquery-ui-1.8.21.custom.css">
+  </link>
+  <%= csrf_meta_tags %>
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div id="ui">
+    <div id="graphicsArea">
+      <canvas id="canvas"
+              oncontextmenu="return false;"
+              tabindex="-1"
+              onclick="$('#canvas').focus();"></canvas>
+    </div>
+    <div id="graphicsOverlay">
+      <div id="toolbar"
+           oncontextmenu="$('#canvas').focus(); return false;"
+           onclick="$('#canvas').focus();"></div>
+      <div id="cameraControls"
+           oncontextmenu="$('#canvas').focus(); return false;"
+           onclick="$('#canvas').focus();"></div>
+    </div>
+    <div id="searchArea">
+      <h3 id="searchInputHeader"> Model Search </h3>
+      <div id="searchBoxWrapper">
+        <input type="text" id="searchInputBox"></input>
+      </div>
+      <button id="searchButton"> Search </button>
+      <div id="searchResults" class="panel">
+        <div id="searchResultsContents"></div>
+      </div>
+    </div>
+  </div>
+  <%= render 'glsl_shaders/constant.frag' %>
+  <%= render 'glsl_shaders/constant.vert' %>
+  <%= render 'glsl_shaders/model.frag' %>
+  <%= render 'glsl_shaders/model.vert' %>
+  <%= render 'glsl_shaders/picking.frag' %>
+  <%= render 'glsl_shaders/picking.vert' %>
+  
+  <script type='text/javascript'>
+    // We use the following structure to send data from the
+    // controller to the client about what it is that they're editing
+    window.globalViewData = {
+      user: {
+        name: "<%= current_user.name %>",
+        id:   "<%= current_user.id %>",
+      },
+      scene: {
+        name: "<%= @scene.name %>",
+        id:   "<%= @scene.id %>",
+      },
+      on_close_url: "<%= @on_close_url %>",
+    };
+  </script>
+
+  <script type="text/javascript"
+          src="/gl_app/javascripts/shared/custom_shims.js"></script>
+  <script type="text/javascript"
+          data-main="/gl_app/javascripts/main"
+          src="/gl_app/javascripts/require.js"></script>
+  
+</body>
+</html>

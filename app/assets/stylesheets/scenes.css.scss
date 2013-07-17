@@ -1,0 +1,23 @@
+// Place all the styles related to the scenes controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.scene-item {
+  margin: 2px;
+}
+.scene-item a {
+  &.scene-name {
+    width: 530px;
+    font-size: 20px;
+    text-align: left;
+  }
+  &.scene-delete {
+    font-size: 30px;
+    padding: 7px 5px;
+    padding-top: 1px;
+  }
+}
+
+.new-scene {
+  width:590px;
+}
