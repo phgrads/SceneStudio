@@ -38,6 +38,17 @@ Picker.UnpackIDs = function(rgba)
 	return [v1, v2];
 };
 
+Picker.generalUnpackIDs = function(array)
+{
+    var ids = []; 
+    var uint16view = new Uint16Array(array.buffer);
+    for( var i = 0; i < uint16view.length; i+=2){
+        var v1 = uint16view[i];
+        var v2 = uint16view[i+1];
+        ids.push([v1,v2]);
+    }
+    return ids; 
+}
 /**
  * Read pick buffer at pixel coordinates (x,y).
  * Returns: 2 element array with integers [modelID, subgeometryID].
@@ -49,6 +60,7 @@ Picker.prototype.PickModelGeoIDs = function(x,y)
     var pixel = new Uint8Array(4);
     this.pickAfbo.bind(gl);
     gl.readPixels(x, y, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
+   
     this.pickAfbo.unbind(gl);
 
     // NOTE: subtract 1 to handle background pixels
