@@ -29,7 +29,7 @@ function createContextFromCanvas(canvas) {
     }) : context;
 }
 
-function Renderer(canvas, scene) {
+function Renderer(canvas, scene, viewportsize) {
   var self = this;
   this.canvas_ = canvas;
 
@@ -75,7 +75,7 @@ function Renderer(canvas, scene) {
   // Picker
   this.picker = new Picker(gl);
   
-  this.setViewport_();
+  this.setViewport_(viewportsize);
   
   this.optStack = [{}];
 }
@@ -129,19 +129,35 @@ Renderer.prototype.ProjectVector = function(vector)
 	return vec2.create([v[0], v[1]]);
 }
 
-Renderer.prototype.setViewport_ = function ()
+Renderer.prototype.setViewport_ = function (viewportsize)
 {
-  var canvas = this.canvas_;
-  var newWidth = Math.round(this.scaleX * canvas.clientWidth);
-  var newHeight = Math.round(this.scaleY * canvas.clientHeight);
-  newWidth = clamp(newWidth, 1, this.maxWidth);
-  newHeight = clamp(newHeight, 1, this.maxHeight);
 
-  if (canvas.width !== newWidth || canvas.height !== newHeight) {
-    canvas.width = newWidth;
-    canvas.height = newHeight;
+  /*
+  modified function to allow switching between optimization and canvas viewports
 
+  */
+  if(viewportsize){
+   // console.log('setting optimization viewport');
+    this.gl_.viewport(0, 0, viewportsize.width, viewportsize.height);
+
+  }
+  else{
+    //console.log('setting canvas viewport');
+    var canvas = this.canvas_;
+    var newWidth = Math.round(this.scaleX * canvas.clientWidth);
+    var newHeight = Math.round(this.scaleY * canvas.clientHeight);
+    newWidth = clamp(newWidth, 1, this.maxWidth);
+    newHeight = clamp(newHeight, 1, this.maxHeight);
     this.gl_.viewport(0, 0, newWidth, newHeight);
+
+    
+    if (canvas.width !== newWidth || canvas.height !== newHeight) {
+      canvas.width = newWidth;
+      canvas.height = newHeight;
+
+     // this.gl_.viewport(0, 0, newWidth, newHeight);
+    }
+    
   }
 }
 
@@ -190,6 +206,12 @@ Renderer.prototype.pickingDrawPass = function()
 	this.scene.Pick(this);
 	this.picker.CleanupAfterPicking();
 };
+
+Renderer.prototype.areaPickingDrawPass = function()
+{
+  this.commonDrawSetup();
+  this.scene.Pick(this);
+}
 
 Renderer.prototype.resize = function(event)
 {
