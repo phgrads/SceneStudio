@@ -15,6 +15,7 @@ gem 'bootstrap-will_paginate', '0.0.6'
 
 group :development, :test, :production do
   gem 'sqlite3', '1.3.5'
+  gem 'paper_trail', '~> 2'
 end
 
 group :development, :test do

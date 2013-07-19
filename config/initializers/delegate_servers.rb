@@ -24,11 +24,11 @@ end
 
 # launch solr server
 solr_pid = fork do
-  exec("cd vendor/solr; python StartServer.py &> ../solr_log.txt")
+  exec("cd vendor/solr; python StartServer.py >& ../../log/solr.log")
 end
 
+# When the ruby/rails process exits, take down all the forked
+# processes with it.
 at_exit do
-  for i in 0..20
-    puts "PID is #{solr_pid}"
-  end
+  Process.kill('INT', -Process.getpgrp)
 end
