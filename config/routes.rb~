@@ -12,16 +12,11 @@ SceneStudio::Application.routes.draw do
 
   resources :scenes, only: [:index, :create, :edit, :update, :destroy]
   match "/scenes/:id/load",         to: "scenes#load"
-match "/scenes/:id/loadcamera", to: "scenes#loadcamera"
 
-  # mTurk
-  get "/mturk/task",                to: "mturk#task"
-  post "/mturk/report",             to: "mturk#report"
-  post "/mturk/coupon",             to: "mturk#coupon"
+  #resources :identities
 
+  #match "/home", to: "static_pages/home"
 
-
-  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

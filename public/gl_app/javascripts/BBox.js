@@ -133,6 +133,18 @@ BBox.prototype.FarthestPoint = function(point)
 	return this.corners[maxpointi];
 }
 
+//checks if point is inside of this bounding box
+BBox.prototype.ContainsPoint = function(point){
+	if(point[0] > this.mins[0] && point[0] < this.maxs[0] 
+	 && point[1] > this.mins[1] && point[1] < this.maxs[1]
+	&& point[2] > this.mins[2] && point[2] < this.maxs[2]){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
 // Exports
 return BBox;
 

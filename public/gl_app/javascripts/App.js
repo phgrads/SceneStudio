@@ -75,6 +75,7 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
 
         this.scene = new Scene();
         this.renderer = new Renderer(canvas, this.scene);
+        this.viewportoptimizer = new ViewPortOptimizer(this.renderer, this.scene, this.camera, this);
         this.assman = new AssetManager(this.renderer.gl_);
 		this.uistate = new UIState(this.renderer.gl_);
 
@@ -273,6 +274,28 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
             }.bind(this)));
         
         // Keyboard Tumble
+
+	 Behaviors.keypress(this.uimap, 'T')
+            .onpress(function(data) {
+                data.preventDefault();
+                var vopt = this.viewportoptimizer;
+                var optstate = vopt.optimizeCameraState();
+                this.camera.Reset(optstate.eyePos, optstate.lookAtPoint, null);
+                //console.log(this.camera.State());
+                this.renderer.setViewport_();
+                this.UpdateView();
+            }.bind(this));
+
+        Behaviors.keypress(this.uimap, 'U')
+            .onpress(function(data) {
+                data.preventDefault();
+                var vopt = this.viewportoptimizer;
+                var area = vopt.getStateValue(this.camera.State());
+                this.renderer.setViewport_();
+
+                console.log(area);
+            }.bind(this));
+	
         Behaviors.keyhold(this.uimap, 'M')
             .onhold(ensureInstance(function(opts) {
                 this.Tumble(opts.instance, false);
