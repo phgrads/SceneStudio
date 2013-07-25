@@ -33,6 +33,14 @@ class ScenesController < ApplicationController
     end
   end
 
+	def loadcamera
+		if @scene.ui_log
+			render text: @scene.ui_log
+		else 
+			raise ActionController::RoutingError.new('Not Found')
+		end
+	end
+
   # view for observing the scene available at scenes/#id
   #def show
   #end

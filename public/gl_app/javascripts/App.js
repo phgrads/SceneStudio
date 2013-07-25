@@ -20,10 +20,11 @@ define([
 	'uibehaviors',
 	'fsm',
     'UILog',
+	'ViewPortOptimizer',
 	'jquery'
 ],
 function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, SearchController,
-		  ArchitectureGenerator, Manipulators, UndoStack, Toolbar, CameraControls, PubSub, SplitView, uimap, Behaviors, FSM, ViewPortOptimizer)
+		  ArchitectureGenerator, Manipulators, UndoStack, Toolbar, CameraControls, PubSub, SplitView, uimap, Behaviors, FSM, UILog, ViewPortOptimizer)
 {
     // support function should be factored out...?
     function mapTable(table, perField) {
@@ -44,11 +45,11 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
         this.isBusy = false;
     }
 
-function App(canvas, mode)
+    function App(canvas)
     {
 		// Extend PubSub
 		PubSub.call(this);
-	this.mode = mode; 
+		
         this.canvas = canvas;
 
         // ensure that AJAX requests to Rails will properly
@@ -628,7 +629,17 @@ function App(canvas, mode)
 		this.renderer.postRedisplay();	
 	}
 	
-	
+	App.prototype.LoadScene = function(on_success, on_error)
+	{
+        $.get(this.base_url + '/scenes/' + this.scene_record.id + '/load')
+        .error(on_error).success(function(json) {
+            var scene_json = JSON.parse(json.scene);
+            this.uilog.fromJSONString(json.ui_log);
+            this.scene.LoadFromNetworkSerialized(scene_json,
+                                                 this.assman,
+                                                 on_success);
+        }.bind(this));
+	}
 	
 	App.prototype.SaveScene = function(on_success, on_error)
 	{

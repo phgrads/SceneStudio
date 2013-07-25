@@ -81,6 +81,20 @@ FPCamera.prototype.DollyForward = function(dist)
 	}
 }
 
+//Removed view flipping check from Camera implementation
+FPCamera.prototype.PanUp = function(theta)
+{	
+	var rotmat = mat4.create(); mat4.identity(rotmat); mat4.rotate(rotmat, theta, this.leftVec);
+    	var newUp = vec3.create(); vec3.set(this.upVec, newUp);
+    	mat4.multiplyVec3(rotmat, newUp);
+	var lookdir = vec3.create(); vec3.subtract(this.lookAtPoint, this.eyePos, lookdir);
+	mat4.multiplyVec3(rotmat, lookdir);
+	vec3.add(this.eyePos, lookdir, this.lookAtPoint);
+	vec3.normalize(lookdir, this.lookVec);
+	mat4.multiplyVec3(rotmat, this.upVec);
+}
+
+
 return FPCamera;
 })
 
