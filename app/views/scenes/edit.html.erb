@@ -13,6 +13,10 @@
   <![endif]-->
 </head>
 <body>
+	
+  
+  </div>
+
   <div id="ui">
     <div id="graphicsArea">
       <canvas id="canvas"
@@ -28,6 +32,7 @@
            oncontextmenu="$('#canvas').focus(); return false;"
            onclick="$('#canvas').focus();"></div>
     </div>
+
     <div id="searchArea">
       <h3 id="searchInputHeader"> Model Search </h3>
       <div id="searchBoxWrapper">
@@ -38,7 +43,9 @@
         <div id="searchResultsContents"></div>
       </div>
     </div>
+
   </div>
+	<div id="blocker">
   <%= render 'glsl_shaders/constant.frag' %>
   <%= render 'glsl_shaders/constant.vert' %>
   <%= render 'glsl_shaders/model.frag' %>

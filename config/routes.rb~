@@ -12,7 +12,6 @@ SceneStudio::Application.routes.draw do
 
   resources :scenes, only: [:index, :create, :edit, :update, :destroy]
   match "/scenes/:id/load",         to: "scenes#load"
-match "/scenes/:id/loadcamera", to: "scenes#loadcamera"
 
   #resources :identities
 

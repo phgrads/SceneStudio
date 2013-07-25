@@ -23,7 +23,7 @@ define([
 	'ViewPortOptimizer',
 	'jquery'
 ],
-function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, SearchController,
+function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Scene, SearchController,
 		  ArchitectureGenerator, Manipulators, UndoStack, Toolbar, CameraControls, PubSub, SplitView, uimap, Behaviors, FSM, UILog, ViewPortOptimizer)
 {
     // support function should be factored out...?
@@ -49,8 +49,21 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
     {
 		// Extend PubSub
 		PubSub.call(this);
+	
+	function pointerLockChange() {
+  		if (document.mozPointerLockElement === elem ||
+      			document.webkitPointerLockElement === elem) {
+    			console.log("Pointer Lock was successful.");
+  		} else {
+    			console.log("Pointer Lock was lost.");
+  		}
+	}
+
 		
+	
         this.canvas = canvas;
+
+
 
         // ensure that AJAX requests to Rails will properly
         // include the CSRF authenticity token in their headers
@@ -71,11 +84,15 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
         
         this.uimap = uimap.create(canvas);
 
-        this.camera = new FPCamera();
-        var cameraData = JSON.parse("{\"eyePos\":{\"0\":3.776055335998535,\"1\":-187.77793884277344,\"2\":164.77069091796875,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"lookAtPoint\":{\"0\":0,\"1\":1,\"2\":0,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"upVec\":{\"0\":-0.01314918976277113,\"1\":0.6573730707168579,\"2\":0.7534525990486145,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"lookVec\":{\"0\":-0.015068011358380318,\"1\":0.7533015012741089,\"2\":-0.6575027108192444,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"leftVec\":{\"0\":-0.9998010993003845,\"1\":-0.019998691976070404,\"2\":0,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12}}");
-        $.extend(this.camera, cameraData);
-
+       
+        
         this.scene = new Scene();
+	this.camera = new FPCamera(this.scene);
+/*
+	        var cameraData = JSON.parse("{\"eyePos\":{\"0\":3.776055335998535,\"1\":-187.77793884277344,\"2\":164.77069091796875,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"lookAtPoint\":{\"0\":0,\"1\":1,\"2\":0,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"upVec\":{\"0\":-0.01314918976277113,\"1\":0.6573730707168579,\"2\":0.7534525990486145,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"lookVec\":{\"0\":-0.015068011358380318,\"1\":0.7533015012741089,\"2\":-0.6575027108192444,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"leftVec\":{\"0\":-0.9998010993003845,\"1\":-0.019998691976070404,\"2\":0,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12}}");
+        $.extend(this.camera, cameraData);
+*/	
+
         this.renderer = new Renderer(canvas, this.scene);
         this.viewportoptimizer = new ViewPortOptimizer(this.renderer, this.scene, this.camera, this);
         this.assman = new AssetManager(this.renderer.gl_);
@@ -84,9 +101,77 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
         preventSelection(this.canvas);
 
         this.scene.AddManipulator(new Manipulators.RotationManipulator(this.renderer.gl_));
-		this.scene.AddManipulator(new Manipulators.ScaleManipulator(this.renderer.gl_));
+	this.scene.AddManipulator(new Manipulators.ScaleManipulator(this.renderer.gl_));
+	
+	var canvas = document.getElementById("canvas");
+	var elem = canvas;
+	var blocker = document.getElementById("blocker");
+	function fullscreenChange() {
+  	elem.requestPointerLock = elem.requestPointerLock    ||
+                             elem.mozRequestPointerLock ||
+                             elem.webkitRequestPointerLock;
+  	elem.requestPointerLock();
+	}
 
-        this.AttachEventHandlers();
+	blocker.addEventListener( 'click', function( event ) {	
+		canvas.mozRequestFullScreen();
+	});
+	document.addEventListener('fullscreenchange', fullscreenChange, false);
+	document.addEventListener('mozfullscreenchange', fullscreenChange, false);
+	document.addEventListener('webkitfullscreenchange', fullscreenChange, false);
+
+
+	document.addEventListener("mousemove", function(e) {
+	// FP view manipulation 
+  	var movementX = e.movementX       ||
+                  e.mozMovementX    ||
+                  e.webkitMovementX ||
+                  0,
+     	 movementY = e.movementY       ||
+                  e.mozMovementY    ||
+                  e.webkitMovementY ||
+                  0;
+
+  	// Print the mouse movement delta values
+  	//console.log("movementX=" + movementX, "movementY=" + movementY);
+	
+	this.camera.PanLeft( -1 * movementX/(Math.PI * 100));
+	this.camera.PanUp(movementY/(Math.PI * 100));
+	this.UpdateView();
+	}.bind(this)
+	, false);
+	// FP movement manipulation 
+	document.addEventListener("keydown", function(e){
+		var movespeed = 5; 
+		var actualkey=String.fromCharCode(e.keyCode);
+		//console.log(actualkey);
+		if(actualkey == "A"){
+			this.camera.DollyLeft(movespeed);
+			this.UpdateView();
+		}	
+		else if(actualkey=="W"){
+			this.camera.DollyForward(movespeed);
+			this.UpdateView();
+		}
+		else if(actualkey=="S"){
+			this.camera.DollyForward(-1 * movespeed);
+			this.UpdateView();			
+		}
+		else if(actualkey=="D"){
+			this.camera.DollyLeft(-1 * movespeed);
+			this.UpdateView();		
+		}
+	}.bind(this));
+	document.addEventListener("keypress", function(e){
+		if(e.keyCode == 13){
+			
+
+		}
+	}.bind(this));
+	
+
+		
+        //this.AttachEventHandlers();
 
 		this.undoStack = new UndoStack.UndoStack(this, Constants.undoStackMaxSize);
 		this.toolbar = new Toolbar(this);
@@ -283,6 +368,7 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
 	 Behaviors.keypress(this.uimap, 'T')
             .onpress(function(data) {
                 data.preventDefault();
+		console.log("t pressed");
                 var vopt = this.viewportoptimizer;
                 var optstate = vopt.optimizeCameraState();
                 this.camera.Reset(optstate.eyePos, optstate.lookAtPoint, null);
@@ -685,7 +771,66 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
             timeout: 10000
         }).error(on_error).success(on_success);
 	}
-    
+
+
+	App.prototype.SaveCamera = function(on_success, on_error)
+	{
+        on_success = on_success || function() {
+            alert('saved!  Please develop a better UI alert');
+        };
+        on_error = on_error || function() {
+            alert('did not save!  Please develop a better UI alert');
+        };
+        var serialized = this.camera.Serialize();
+        $.ajax({
+            type: 'POST',
+            url: this.base_url + '/scenes/' +
+                 this.scene_record.id,
+            data: {
+                _method: 'PUT', // PUT verb for Rails
+                ui_log: JSON.stringify(serialized),
+            },
+            dataType: 'json',
+            timeout: 10000,
+        }).error(on_error).success(on_success);
+	}
+
+
+	//Save the camera state to the ui_log field
+	App.prototype.LoadCamera = function(on_success, on_error)
+	{	
+		on_error = on_error || function() {
+            	alert('did not work!');
+        	};
+
+		on_success = on_success || function() {
+           	 alert('saved!  Please develop a better UI alert');
+      		 };
+		
+
+        	$.get(this.base_url + '/scenes/' + this.scene_record.id + '/loadcamera')
+        	.error(on_error).success(function(scene_json) {
+            		var scene = JSON.parse(scene_json);
+            		console.log(scene);
+        		});
+	};
+   		
+	//Load the camera state from the ui_log field 
+	App.prototype.LoadScene = function(on_success, on_error)
+	{
+	on_error = on_error || function() {
+            	alert('did not work!');
+        	};
+
+        $.get('/scenes/' + this.scene_record.id + '/load')
+        .error(on_error).success(function(scene_json) {
+            scene_json = JSON.parse(scene_json);
+            this.scene.LoadFromNetworkSerialized(scene_json,
+                                                 this.assman,
+                                                 on_success);
+        }.bind(this));
+	} 
+
     App.prototype.ExitTo = function(destination)
     {
         this.SaveScene(function() { // on success
