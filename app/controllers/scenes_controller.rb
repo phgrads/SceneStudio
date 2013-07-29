@@ -1,6 +1,6 @@
 class ScenesController < ApplicationController
   before_filter :signed_in_user_filter
-  before_filter :access_by_owner, only: [:edit, :load, :update, :destroy]
+  before_filter :access_by_owner, only: [:edit, :load, :update, :destroy, :loadcamera]
 
   def index
     @scene_list = current_user.scenes;
@@ -37,9 +37,9 @@ class ScenesController < ApplicationController
 	def loadcamera
 		if @scene.ui_log
 			render text: @scene.ui_log
-		else 
+		else
 			raise ActionController::RoutingError.new('Not Found')
-		end
+		end		
 	end
 
   # view for observing the scene available at scenes/#id
@@ -52,6 +52,8 @@ class ScenesController < ApplicationController
       :data => params[:scene_file],
       :ui_log => params[:ui_log]
     })
+	puts 'printing camera' 	
+	puts @scene.ui_log
     # if that failed, an error is raised, otherwise...
 
     # send 200 response

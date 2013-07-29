@@ -112,7 +112,7 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
 	}
 
 	blocker.addEventListener( 'click', function( event ) {	
-		canvas.mozRequestFullScreen();
+		elem.mozRequestFullScreen();
 	});
 	document.addEventListener('fullscreenchange', fullscreenChange, false);
 	document.addEventListener('mozfullscreenchange', fullscreenChange, false);
@@ -159,12 +159,13 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
 			this.camera.DollyLeft(-1 * movespeed);
 			this.UpdateView();		
 		}
+		else if(e.keyCode == 13){
+			this.SaveCamera();
+			canvas.mozCancelFullScreen();
+		}
 	}.bind(this));
 	document.addEventListener("keypress", function(e){
-		if(e.keyCode == 13){
-			
-
-		}
+		
 	}.bind(this));
 	
 
@@ -795,8 +796,8 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
 
         	$.get('/scenes/' + this.scene_record.id + '/loadcamera')
         	.error(on_error).success(function(scene_json) {
-            		var scene = JSON.parse(scene_json);
-            		console.log(scene);
+            		var camera = JSON.parse(scene_json);
+            		console.log(camera);
         		});
 	};
    		
