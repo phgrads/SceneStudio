@@ -159,9 +159,9 @@ Camera.prototype.PanUp = function(theta)
     var newUp = vec3.create(); vec3.set(this.upVec, newUp);
     mat4.multiplyVec3(rotmat, newUp);
     // throw in the second part of the check to prevent sticking
-    if(newUp[2] < 0.0 && this.upVec[2] >= 0.0)  {
-        return;
-    }
+   // if(newUp[2] < 0.0 && this.upVec[2] >= 0.0)  {
+  //      return;
+    //}
 	var lookdir = vec3.create(); vec3.subtract(this.lookAtPoint, this.eyePos, lookdir);
 	mat4.multiplyVec3(rotmat, lookdir);
 	vec3.add(this.eyePos, lookdir, this.lookAtPoint);
