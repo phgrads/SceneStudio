@@ -49,8 +49,21 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
     {
 		// Extend PubSub
 		PubSub.call(this);
+	
+	function pointerLockChange() {
+  		if (document.mozPointerLockElement === elem ||
+      			document.webkitPointerLockElement === elem) {
+    			console.log("Pointer Lock was successful.");
+  		} else {
+    			console.log("Pointer Lock was lost.");
+  		}
+	}
+
 		
+	
         this.canvas = canvas;
+
+
 
         // ensure that AJAX requests to Rails will properly
         // include the CSRF authenticity token in their headers
@@ -279,6 +292,29 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
             }.bind(this)));
         
         // Keyboard Tumble
+
+	 Behaviors.keypress(this.uimap, 'T')
+            .onpress(function(data) {
+                data.preventDefault();
+		console.log("t pressed");
+                var vopt = this.viewportoptimizer;
+                var optstate = vopt.optimizeCameraState();
+                this.camera.Reset(optstate.eyePos, optstate.lookAtPoint, null);
+                //console.log(this.camera.State());
+                this.renderer.setViewport_();
+                this.UpdateView();
+            }.bind(this));
+
+        Behaviors.keypress(this.uimap, 'U')
+            .onpress(function(data) {
+                data.preventDefault();
+                var vopt = this.viewportoptimizer;
+                var area = vopt.getStateValue(this.camera.State());
+                this.renderer.setViewport_();
+
+                console.log(area);
+            }.bind(this));
+	
         Behaviors.keyhold(this.uimap, 'M')
             .onhold(ensureInstance(function(opts) {
                 this.Tumble(opts.instance, false);
