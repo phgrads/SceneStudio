@@ -1,1323 +1,0 @@
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-2013-07-14 20:14:30.087:INFO:oejs.Server:jetty-8.1.2.v20120308
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-2013-07-14 20:14:30.119:INFO:oejdp.ScanningAppProvider:Deployment monitor /Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/modelsearch/webapps at interval 0
-2013-07-14 20:14:30.126:INFO:oejd.DeploymentManager:Deployable added: /Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/modelsearch/webapps/solr.war
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-2013-07-14 20:14:32.103:INFO:oejw.StandardDescriptorProcessor:NO JSP Support for /solr, did not find org.apache.jasper.servlet.JspServlet
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-2013-07-14 20:14:32.218:INFO:oejsh.ContextHandler:started o.e.j.w.WebAppContext{/solr,file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/modelsearch/work/jetty-0.0.0.0-8983-solr.war-_solr-any-/webapp/},/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/modelsearch/webapps/solr.war
-2013-07-14 20:14:32.218:INFO:oejsh.ContextHandler:started o.e.j.w.WebAppContext{/solr,file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/modelsearch/work/jetty-0.0.0.0-8983-solr.war-_solr-any-/webapp/},/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/modelsearch/webapps/solr.war
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:32 PM org.apache.solr.core.SolrResourceLoader locateSolrHome
-INFO: JNDI not configured for solr (NoInitialContextEx)
-Jul 14, 2013 8:14:32 PM org.apache.solr.core.SolrResourceLoader locateSolrHome
-INFO: solr home defaulted to 'solr/' (could not find system property or JNDI)
-Jul 14, 2013 8:14:32 PM org.apache.solr.core.SolrResourceLoader <init>
-INFO: new SolrResourceLoader for deduced Solr Home: 'solr/'
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:32 PM org.apache.solr.servlet.SolrDispatchFilter init
-INFO: SolrDispatchFilter.init()
-Jul 14, 2013 8:14:32 PM org.apache.solr.core.SolrResourceLoader locateSolrHome
-INFO: JNDI not configured for solr (NoInitialContextEx)
-Jul 14, 2013 8:14:32 PM org.apache.solr.core.SolrResourceLoader locateSolrHome
-INFO: solr home defaulted to 'solr/' (could not find system property or JNDI)
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:32 PM org.apache.solr.core.CoreContainer$Initializer initialize
-INFO: looking for solr.xml: /Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/modelsearch/solr/solr.xml
-Jul 14, 2013 8:14:32 PM org.apache.solr.core.CoreContainer <init>
-INFO: New CoreContainer 1653858092
-Jul 14, 2013 8:14:32 PM org.apache.solr.core.CoreContainer load
-INFO: Loading CoreContainer using Solr Home: 'solr/'
-Jul 14, 2013 8:14:32 PM org.apache.solr.core.SolrResourceLoader <init>
-INFO: new SolrResourceLoader for directory: 'solr/'
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:32 PM org.apache.solr.core.CoreContainer load
-INFO: Registering Log Listener
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:32 PM org.apache.solr.handler.component.HttpShardHandlerFactory getParameter
-INFO: Setting socketTimeout to: 0
-Jul 14, 2013 8:14:32 PM org.apache.solr.handler.component.HttpShardHandlerFactory getParameter
-INFO: Setting urlScheme to: http://
-Jul 14, 2013 8:14:32 PM org.apache.solr.handler.component.HttpShardHandlerFactory getParameter
-INFO: Setting connTimeout to: 0
-Jul 14, 2013 8:14:32 PM org.apache.solr.handler.component.HttpShardHandlerFactory getParameter
-INFO: Setting maxConnectionsPerHost to: 20
-Jul 14, 2013 8:14:32 PM org.apache.solr.handler.component.HttpShardHandlerFactory getParameter
-INFO: Setting corePoolSize to: 0
-Jul 14, 2013 8:14:32 PM org.apache.solr.handler.component.HttpShardHandlerFactory getParameter
-INFO: Setting maximumPoolSize to: 2147483647
-Jul 14, 2013 8:14:32 PM org.apache.solr.handler.component.HttpShardHandlerFactory getParameter
-INFO: Setting maxThreadIdleTime to: 5
-Jul 14, 2013 8:14:32 PM org.apache.solr.handler.component.HttpShardHandlerFactory getParameter
-INFO: Setting sizeOfQueue to: -1
-Jul 14, 2013 8:14:32 PM org.apache.solr.handler.component.HttpShardHandlerFactory getParameter
-INFO: Setting fairnessPolicy to: false
-Jul 14, 2013 8:14:32 PM org.apache.solr.client.solrj.impl.HttpClientUtil createClient
-INFO: Creating new http client, config:maxConnectionsPerHost=20&maxConnections=10000&socketTimeout=0&connTimeout=0&retry=false
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.CoreContainer create
-INFO: Creating SolrCore 'collection1' using instanceDir: solr/.
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader <init>
-INFO: new SolrResourceLoader for directory: 'solr/./'
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrConfig initLibs
-INFO: Adding specified lib dirs to ClassLoader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/dist/apache-solr-cell-4.0.0-ALPHA.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/apache-mime4j-core-0.7.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/apache-mime4j-dom-0.7.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/asm-3.1.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/bcmail-jdk15-1.45.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/bcprov-jdk15-1.45.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/boilerpipe-1.1.0.jar' to classloader
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/commons-compress-1.3.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/dom4j-1.6.1.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/fontbox-1.6.0.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/icu4j-4.8.1.1.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/isoparser-1.0-beta-5.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/javassist-3.6.0.GA.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/jdom-1.0.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/jempbox-1.6.0.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/metadata-extractor-2.4.0-beta-1.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/netcdf-4.2-min.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/pdfbox-1.6.0.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/poi-3.8-beta5.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/poi-ooxml-3.8-beta5.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/poi-ooxml-schemas-3.8-beta5.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/poi-scratchpad-3.8-beta5.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/rome-0.9.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/scannotation-1.0.2.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/tagsoup-1.2.1.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/tika-core-1.1.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/tika-parsers-1.1.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/vorbis-java-core-0.1.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/vorbis-java-tika-0.1.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/xercesImpl-2.8.1.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/extraction/lib/xmlbeans-2.3.0.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/dist/apache-solr-clustering-4.0.0-ALPHA.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/clustering/lib/carrot2-core-3.5.0.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/clustering/lib/hppc-0.3.3.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/clustering/lib/jackson-core-asl-1.7.4.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/clustering/lib/jackson-mapper-asl-1.7.4.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/clustering/lib/mahout-collections-0.3.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/clustering/lib/mahout-math-0.3.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/clustering/lib/simple-xml-2.4.1.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/dist/apache-solr-langid-4.0.0-ALPHA.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/langid/lib/jsonic-1.2.7.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/langid/lib/langdetect-1.1-20120112.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/dist/apache-solr-velocity-4.0.0-ALPHA.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/velocity/lib/commons-beanutils-1.7.0.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/velocity/lib/commons-collections-3.2.1.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/velocity/lib/velocity-1.6.4.jar' to classloader
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrResourceLoader replaceClassLoader
-INFO: Adding 'file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/contrib/velocity/lib/velocity-tools-2.0.jar' to classloader
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:33 PM org.apache.solr.core.SolrConfig <init>
-INFO: Using Lucene MatchVersion: LUCENE_40
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:34 PM org.apache.solr.core.SolrConfig <init>
-INFO: Loaded SolrConfig: solrconfig.xml
-Jul 14, 2013 8:14:34 PM org.apache.solr.schema.IndexSchema readSchema
-INFO: Reading Solr Schema
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:34 PM org.apache.solr.schema.IndexSchema readSchema
-INFO: Schema name=modelsearch
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:35 PM org.apache.solr.schema.IndexSchema readSchema
-INFO: unique key field: id
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:35 PM org.apache.solr.schema.FileExchangeRateProvider reload
-INFO: Reloading exchange rates from file currency.xml
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:35 PM org.apache.solr.schema.FileExchangeRateProvider reload
-INFO: Reloading exchange rates from file currency.xml
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.SolrCore <init>
-INFO: [collection1] Opening new SolrCore at solr/./, dataDir=solr/./data/
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.JmxMonitoredMap <init>
-INFO: JMX monitoring is enabled. Adding Solr mbeans to JMX Server: com.sun.jmx.mbeanserver.JmxMBeanServer@7afccada
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.SolrCore initListeners
-INFO: [collection1] Added SolrEventListener for newSearcher: org.apache.solr.core.QuerySenderListener{queries=[]}
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.SolrCore initListeners
-INFO: [collection1] Added SolrEventListener for firstSearcher: org.apache.solr.core.QuerySenderListener{queries=[{q=static firstSearcher warming in solrconfig.xml}]}
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.SolrCore getNewIndexDir
-WARNING: New index directory detected: old=null new=solr/./data/index/
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.SolrCore initWriters
-INFO: created json: solr.JSONResponseWriter
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.SolrCore initWriters
-INFO: adding lazy queryResponseWriter: solr.VelocityResponseWriter
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.SolrCore initWriters
-INFO: created velocity: solr.VelocityResponseWriter
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.SolrCore initWriters
-INFO: created xslt: solr.XSLTResponseWriter
-Jul 14, 2013 8:14:36 PM org.apache.solr.response.XSLTResponseWriter init
-INFO: xsltCacheLifetimeSeconds=5
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: created /select: solr.SearchHandler
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: created /query: solr.SearchHandler
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: created /get: solr.RealTimeGetHandler
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: created /browse: solr.SearchHandler
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: created /update: solr.UpdateRequestHandler
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: adding lazy requestHandler: solr.extraction.ExtractingRequestHandler
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: created /update/extract: solr.extraction.ExtractingRequestHandler
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: adding lazy requestHandler: solr.FieldAnalysisRequestHandler
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: created /analysis/field: solr.FieldAnalysisRequestHandler
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: adding lazy requestHandler: solr.DocumentAnalysisRequestHandler
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: created /analysis/document: solr.DocumentAnalysisRequestHandler
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: created /admin/: solr.admin.AdminHandlers
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: created /admin/ping: solr.PingRequestHandler
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: created /debug/dump: solr.DumpRequestHandler
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: adding lazy requestHandler: solr.ReplicationHandler
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: created /replication: solr.ReplicationHandler
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: adding lazy requestHandler: solr.SearchHandler
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: created /spell: solr.SearchHandler
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: adding lazy requestHandler: solr.SearchHandler
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: created /tvrh: solr.SearchHandler
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: adding lazy requestHandler: solr.SearchHandler
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: created /terms: solr.SearchHandler
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: adding lazy requestHandler: solr.SearchHandler
-Jul 14, 2013 8:14:36 PM org.apache.solr.core.RequestHandlers initHandlersFromConfig
-INFO: created /elevate: solr.SearchHandler
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:36 PM org.apache.solr.handler.loader.XMLLoader init
-INFO: xsltCacheLifetimeSeconds=60
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:36 PM org.apache.solr.search.SolrIndexSearcher <init>
-INFO: Opening Searcher@30721965 main
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:36 PM org.apache.solr.update.CommitTracker <init>
-INFO: Hard AutoCommit: if uncommited for 15000ms; 
-Jul 14, 2013 8:14:36 PM org.apache.solr.update.CommitTracker <init>
-INFO: Soft AutoCommit: disabled
-Jul 14, 2013 8:14:36 PM org.apache.solr.handler.component.SpellCheckComponent inform
-INFO: Initializing spell checkers
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:36 PM org.apache.solr.spelling.DirectSolrSpellChecker init
-INFO: init: {name=default,field=name,classname=solr.DirectSolrSpellChecker,distanceMeasure=internal,accuracy=0.5,maxEdits=2,minPrefix=1,maxInspections=5,minQueryLength=4,maxQueryFrequency=0.01}
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn'tJcl 14, 2013 8:14:36 PM org.apache.solr.handler.component.SpellCheckComponent inform
-INFO: No queryConverter defined, using default converter
-  onnect to host
-Jul 14, 2013 8:14:36 PM org.apache.solr.handler.component.QueryElevationComponent inform
-INFO: Loading QueryElevation from: /Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/modelsearch/solr/./conf/elevate.xml
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:37 PM org.apache.solr.core.QuerySenderListener newSearcher
-INFO: QuerySenderListener sending requests to Searcher@30721965 main{StandardDirectoryReader(segments_9:32 _8(4.0):C12301)}
-Jul 14, 2013 8:14:37 PM org.apache.solr.core.CoreContainer register
-INFO: registering core: collection1
-Jul 14, 2013 8:14:37 PM org.apache.solr.servlet.SolrDispatchFilter init
-INFO: user.dir=/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/modelsearch
-Jul 14, 2013 8:14:37 PM org.apache.solr.servlet.SolrDispatchFilter init
-INFO: SolrDispatchFilter.init() done
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:37 PM org.apache.solr.core.SolrCore execute
-INFO: [collection1] webapp=null path=null params={event=firstSearcher&q=static+firstSearcher+warming+in+solrconfig.xml&distrib=false} hits=8 status=0 QTime=89 
-Jul 14, 2013 8:14:37 PM org.apache.solr.core.QuerySenderListener newSearcher
-INFO: QuerySenderListener done.
-  % Total    % Received % Xferd  AveraJel 14, 2013 8:14:37 PM org.apache.solr.handler.component.SpellCheckComponent$SpellCheckerListener newSearcher
-INFO: Loading spell index for spellchecker: default
-   Speed   Time    Time     Time  Current
-           ul 14, 2013 8:14:37 PM org.apache.solr.handler.component.SpellCheckComponent$SpellCheckerListener newSearcher
-INFO: Loading spell index for spellchecker: wordbreak
-                       Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-Jul 14, 2013 8:14:37 PM org.apache.solr.core.SolrCore registerSearcher
-INFO: [collection1] Registered new searcher Searcher@30721965 main{StandardDirectoryReader(segments_9:32 _8(4.0):C12301)}
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) couldn't connect to host
-2013-07-14 20:14:37.291:INFO:oejs.AbstractConnector:Started SocketConnector@0.0.0.0:8983
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0Jul 14, 2013 8:14:37 PM org.apache.solr.client.solrj.impl.HttpClientUtil createClient
-INFO: Creating new http client, config:maxConnections=200&maxConnectionsPerHost=8
-Jul 14, 2013 8:14:37 PM org.apache.solr.update.processor.LogUpdateProcessor finish
-INFO: [collection1] webapp=/solr path=/update params={} {} 0 20
-Jul 14, 2013 8:14:37 PM org.apache.solr.common.SolrException log
-SEVERE: org.apache.solr.common.SolrException: missing content stream
-	at org.apache.solr.handler.ContentStreamHandlerBase.handleRequestBody(ContentStreamHandlerBase.java:69)
-	at org.apache.solr.handler.RequestHandlerBase.handleRequest(RequestHandlerBase.java:129)
-	at org.apache.solr.core.SolrCore.execute(SolrCore.java:1561)
-	at org.apache.solr.servlet.SolrDispatchFilter.execute(SolrDispatchFilter.java:442)
-	at org.apache.solr.servlet.SolrDispatchFilter.doFilter(SolrDispatchFilter.java:263)
-	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1337)
-	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:484)
-	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:119)
-	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:524)
-	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:233)
-	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1065)
-	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:413)
-	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:192)
-	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:999)
-	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:117)
-	at org.eclipse.jetty.server.handler.ContextHandlerCollection.handle(ContextHandlerCollection.java:250)
-	at org.eclipse.jetty.server.handler.HandlerCollection.handle(HandlerCollection.java:149)
-	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:111)
-	at org.eclipse.jetty.server.Server.handle(Server.java:351)
-	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:454)
-	at org.eclipse.jetty.server.BlockingHttpConnection.handleRequest(BlockingHttpConnection.java:47)
-	at org.eclipse.jetty.server.AbstractHttpConnection.headerComplete(AbstractHttpConnection.java:890)
-	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.headerComplete(AbstractHttpConnection.java:944)
-	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:634)
-	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:230)
-	at org.eclipse.jetty.server.BlockingHttpConnection.handle(BlockingHttpConnection.java:66)
-	at org.eclipse.jetty.server.bio.SocketConnector$ConnectorEndPoint.run(SocketConnector.java:254)
-	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:599)
-	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:534)
-	at java.lang.Thread.run(Thread.java:680)
-
-100   244    0   244    0     0   1444      0 --:--:-- --:--:-- --:--:--  1936
-<?xml version="1.0" encoding="UTF-8"?>
-<response>
-<lst name="responseHeader"><int name="status">400</int><int name="QTime">20</int></lst><lst name="error"><str name="msg">missing content stream</str><int name="code">400</int></lst>
-</response>
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0Jul 14, 2013 8:14:37 PM org.apache.solr.core.SolrDeletionPolicy onInit
-INFO: SolrDeletionPolicy.onInit: commits:num=1
-	commit{dir=/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/modelsearch/solr/data/index,segFN=segments_9,generation=9,filenames=[_8_nrm.cfs, _8_Lucene40_0.frq, _8.si, segments_9, _8_nrm.cfe, _8_Lucene40_0.tim, _8.fnm, _8_Lucene40_0.prx, _8.fdx, _8_Lucene40_0.tip, _8.fdt]
-Jul 14, 2013 8:14:37 PM org.apache.solr.core.SolrDeletionPolicy updateCommits
-INFO: newest commit = 9
- 41 1897k    0     0   41  783k      0   769k  0:00:02  0:00:01  0:00:01  772k 41 1897k    0     0   41  783k      0   387k  0:00:04  0:00:02  0:00:02  388k 41 1897k    0     0   41  784k      0   352k  0:00:05  0:00:02  0:00:03  353k 83 1897k    0     0   83 1584k      0   490k  0:00:03  0:00:03 --:--:--  491kJul 14, 2013 8:14:42 PM org.apache.solr.update.DirectUpdateHandler2 commit
-INFO: start commit{flags=0,version=0,optimize=false,openSearcher=true,waitSearcher=true,expungeDeletes=false,softCommit=false}
-100 1897k    0     0  100 1897k      0   427k  0:00:04  0:00:04 --:--:--  428k100 1897k    0     0  100 1897k      0   349k  0:00:05  0:00:05 --:--:--  252k100 1897k    0     0  100 1897k      0   294k  0:00:06  0:00:06 --:--:--  252k100 1897k    0     0  100 1897k      0   255k  0:00:07  0:00:07 --:--:--  213k100 1897k    0     0  100 1897k      0   224k  0:00:08  0:00:08 --:--:-- 61538Jul 14, 2013 8:14:47 PM org.apache.solr.core.SolrDeletionPolicy onCommit
-INFO: SolrDeletionPolicy.onCommit: commits:num=2
-	commit{dir=/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/modelsearch/solr/data/index,segFN=segments_9,generation=9,filenames=[_8_nrm.cfs, _8_Lucene40_0.frq, _8.si, segments_9, _8_nrm.cfe, _8_Lucene40_0.tim, _8.fnm, _8_Lucene40_0.prx, _8.fdx, _8_Lucene40_0.tip, _8.fdt]
-	commit{dir=/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/modelsearch/solr/data/index,segFN=segments_a,generation=10,filenames=[_9_Lucene40_0.tim, segments_a, _9_nrm.cfe, _9.fnm, _9_nrm.cfs, _9.fdt, _9.si, _9_Lucene40_0.tip, _9_Lucene40_0.prx, _9.fdx, _9_Lucene40_0.frq]
-Jul 14, 2013 8:14:47 PM org.apache.solr.core.SolrDeletionPolicy updateCommits
-INFO: newest commit = 10
-Jul 14, 2013 8:14:47 PM org.apache.solr.search.SolrIndexSearcher <init>
-INFO: Opening Searcher@6719b1ca main
-Jul 14, 2013 8:14:47 PM org.apache.solr.core.QuerySenderListener newSearcher
-INFO: QuerySenderListener sending requests to Searcher@6719b1ca main{StandardDirectoryReader(segments_a:36 _9(4.0):C12301)}
-Jul 14, 2013 8:14:47 PM org.apache.solr.core.QuerySenderListener newSearcher
-INFO: QuerySenderListener done.
-Jul 14, 2013 8:14:47 PM org.apache.solr.update.DirectUpdateHandler2 commit
-INFO: end_commit_flush
-Jul 14, 2013 8:14:47 PM org.apache.solr.core.SolrCore registerSearcher
-INFO: [collection1] Registered new searcher Searcher@6719b1ca main{StandardDirectoryReader(segments_a:36 _9(4.0):C12301)}
-Jul 14, 2013 8:14:47 PM org.apache.solr.update.processor.LogUpdateProcessor finish
-INFO: [collection1] webapp=/solr path=/update params={commit=true} {add=[1004f30be305f33d28a1548e344f0e2e, 100f39dce7690f59efb94709f30ce0d2, 101354f9d8dede686f7b08d9de913afe, 1018f01d42ae7fad52249d8432f6087e, 102273fdf8d1b90041fbc1e2da054acb, 1022fe7dd03f6a4d4d5ad9f13ac9f4e7, 1028b32dc1873c2afe26a3ac360dbd4, 1029fd5d71a06ea32ea98d69e91ba870, 102a6b7809f4e51813842bc8ef6fe18, 102ea1d8d5fe24e8485059ffe7a2f9c7, ... (12301 adds)],commit=} 0 9276
-100 1897k    0     0  100 1897k      0   204k  0:00:09  0:00:09 --:--:--     0100 1897k    0    45  100 1897k      4   204k  0:00:09  0:00:09 --:--:--     0
-{"responseHeader":{"status":0,"QTime":9276}}
-======================================================
-STARTING SOLR...
-======================================================
-======================================================
-WAITING FOR SERVER TO START...
-======================================================
-======================================================
-AGGREGATING JSON METADATA...
-======================================================
-12301
-======================================================
-SENDING AGGREGATED DATA TO SOLR...
-======================================================
-======================================================
-SOLR SUCCESSFULLY STARTED; RUNNING...
-======================================================
-2013-07-14 20:15:23.009:INFO:oejs.Server:Graceful shutdown SocketConnector@0.0.0.0:8983
-2013-07-14 20:15:23.010:INFO:oejs.Server:Graceful shutdown o.e.j.w.WebAppContext{/solr,file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/modelsearch/work/jetty-0.0.0.0-8983-solr.war-_solr-any-/webapp/},/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/modelsearch/webapps/solr.war
-2013-07-14 20:15:24.032:INFO:oejsh.ContextHandler:stopped o.e.j.w.WebAppContext{/solr,file:/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/modelsearch/work/jetty-0.0.0.0-8983-solr.war-_solr-any-/webapp/},/Users/gilbo/code/rscene_rewrite/SceneStudio/vendor/solr/modelsearch/webapps/solr.war
