@@ -13,7 +13,7 @@ function(Constants, Ray, Camera){
 function FPCamera(scene){
 	Camera.call(this);
 	this.scene = scene;
-	this.eyePos = vec3.create([0,0,50]);//scene.Bounds().Centroid();
+	//this.eyePos = vec3.create([0,0,50]);//scene.Bounds().Centroid();
 	//this.lookAtPoint = vec3.create([10,0,50]);
 	//this.upVec = vec3.create([0,0,1]);
 	
