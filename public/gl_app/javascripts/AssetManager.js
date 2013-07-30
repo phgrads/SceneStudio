@@ -82,7 +82,7 @@ AssetManager.prototype.GetTexture = function(url, callback)
 AssetManager.prototype.DownloadModel = function(id, callback)
 {
 	var that = this;
-	
+
 	var materials = {};
 	var numUrls = 0;
 	var numMeshesPerUrl = {};
@@ -118,7 +118,7 @@ AssetManager.prototype.DownloadModel = function(id, callback)
 		{
 			meshDump[keys[i]] = [];
 		}
-		
+
 		var downloads = downloadMeshes(Constants.geomDir, jsonObj.urls, jsonObj.decodeParams, meshDecompressed);
 		AppendObject(downloads, that.downloadingMeshes);
 	}
@@ -141,7 +141,7 @@ AssetManager.prototype.DownloadModel = function(id, callback)
 				getTextures();
 		}
 	}
-	
+
 	var getTextures = function()
 	{
 		var texnames = {};
@@ -160,7 +160,7 @@ AssetManager.prototype.DownloadModel = function(id, callback)
 				that.GetTexture(texname, textureReady);
 		}
 	}
-	
+
 	var textureReady = function(texture)
 	{
 		numTexturesRetrieved++;
@@ -199,13 +199,13 @@ AssetManager.prototype.DownloadModel = function(id, callback)
 		}
 		var model = new Model(id, components);
 		that.modelCache.AddAsset(id, model);
-		
+
 		// safely uninstall, and then call callback
 		var toCall = that.callOnDownload[id];
 		delete that.callOnDownload[id];
 		toCall(model);
 	}
-	
+
 	var download = getHttpRequest(Constants.modelDir + id + '.json', function(req, e) { jsonFileDownloaded(req); });
 	this.downloadingModels[id] = download;
 	this.callOnDownload[id] = callback;
@@ -221,7 +221,10 @@ AssetManager.prototype.DownloadTexture = function(url, callback)
 		// If this download was cancelled, ignore this image
 		// There unfortunately is no stable way to stop the download of an image, so
 		// we have to wait for it to finish and just ignore it
-		if (!(url in that.downloadingImages)) return;
+		if (!(url in that.downloadingImages)) {
+            if (callback) callback();
+            else return;
+        }
 		delete that.downloadingImages[url];
 		
 		var gl = that.gl;
@@ -243,7 +246,7 @@ AssetManager.prototype.DownloadTexture = function(url, callback)
 	{
 		throw new Error("Texture.DownloadAsync - Could not load texture '" + url + "'");
 	};
-	
+
 	this.downloadingImages[url] = image;
 	image.src = Constants.textureDir + url;
 }
