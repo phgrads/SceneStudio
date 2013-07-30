@@ -19,11 +19,11 @@ define([
 	'uimap',
 	'uibehaviors',
 	'fsm',
-	'UILog',
+	'ViewPortOptimizer',
 	'jquery'
 ],
-function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, SearchController,
-		  ArchitectureGenerator, Manipulators, UndoStack, Toolbar, CameraControls, PubSub, SplitView, uimap, Behaviors, FSM, UILog)
+function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Scene, SearchController,
+		  ArchitectureGenerator, Manipulators, UndoStack, Toolbar, CameraControls, PubSub, SplitView, uimap, Behaviors, FSM, ViewPortOptimizer)
 {
     // support function should be factored out...?
     function mapTable(table, perField) {
@@ -49,17 +49,11 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
 		// Extend PubSub
 		PubSub.call(this);
 	
-	function pointerLockChange() {
-  		if (document.mozPointerLockElement === elem ||
-      			document.webkitPointerLockElement === elem) {
-    			console.log("Pointer Lock was successful.");
-  		} else {
-    			console.log("Pointer Lock was lost.");
-  		}
-	}
+	
 
 		
-	
+	this.bestCollected = false;
+	this.worstCollected = false; 
         this.canvas = canvas;
 
 
@@ -125,7 +119,8 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
   		}
 	}
 	function fullscreenChange() {
-  	elem.requestPointerLock = elem.requestPointerLock    ||
+		//console.log(canvas.clientWidth, canvas.clientHeight);
+  		elem.requestPointerLock = elem.requestPointerLock    ||
                              elem.mozRequestPointerLock ||
                              elem.webkitRequestPointerLock;
 		app.camera.SaveStateForReset();
@@ -188,9 +183,24 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
 			this.UpdateView();		
 		}
 		else if(e.keyCode == 13){
-			this.SaveCamera();
-			canvas.mozCancelFullScreen();
+			if( !this.bestCollected ){
+				var c = confirm("Save current view as best view?");
+				if(c){
+					this.SaveCamera(function(){});
+					this.bestCollected = true; 
+				}
+			}
+			else if( !this.worstCollected){
+				var c = confirm("Save current view as worst view?");
+				if(c){
+					this.SaveCamera(function(){});
+					this.worstCollected = true;
+					this.ExitTo('scenes/');
+				}
+				
+			}
 		}
+	
 	}.bind(this));
 	document.addEventListener("keypress", function(e){
 		
