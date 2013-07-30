@@ -100,122 +100,15 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
         this.scene.AddManipulator(new Manipulators.RotationManipulator(this.renderer.gl_));
 	this.scene.AddManipulator(new Manipulators.ScaleManipulator(this.renderer.gl_));
 	
-	var canvas = document.getElementById("canvas");
-	var elem = canvas;
-	var blocker = document.getElementById("blocker");
-	var app = this;
-	function pointerLockChange() {
-  		if (document.mozPointerLockElement === elem ||
-      			document.webkitPointerLockElement === elem) {
-			app.camera.ResetSavedState();
-			//console.log(app.camera.upVec);
-    			//console.log("Pointer Lock was successful.");
-			//app.renderer.setViewport_();
-			//app.renderer = new Renderer(canvas, app.scene);
-			//var fscamera = new FPCamera(app.scene);
-			//var state = app.camera.State();
-			//fscamera.Reset(state.eyePos, state.lookAtPoint);
-			//app.camera = fscamera;
-			app.UpdateView();
-  		} else {
-    			//console.log("Pointer Lock was lost.");
-  		}
-	}
-	function fullscreenChange() {
-		//console.log(canvas.clientWidth, canvas.clientHeight);
-  		elem.requestPointerLock = elem.requestPointerLock    ||
-                             elem.mozRequestPointerLock ||
-                             elem.webkitRequestPointerLock;
-		app.camera.SaveStateForReset();
-		//console.log(app.camera.upVec);
-  		elem.requestPointerLock();
-	}
 	
-	blocker.addEventListener( 'click', function( event ) {	
-		//console.log(canvas.clientWidth, canvas.clientHeight);
-		elem.mozRequestFullScreen();
-	});
-	document.addEventListener('fullscreenchange', fullscreenChange, false);
-	document.addEventListener('mozfullscreenchange', fullscreenChange, false);
-	document.addEventListener('webkitfullscreenchange', fullscreenChange, false);
-	
-	
-	document.addEventListener('pointerlockchange', pointerLockChange, false);
-	document.addEventListener('mozpointerlockchange', pointerLockChange, false);
-	document.addEventListener('webkitpointerlockchange', pointerLockChange, false);
-
-
-	document.addEventListener("mousemove", function(e) {
-	// FP view manipulation 
-  	var movementX = e.movementX       ||
-                  e.mozMovementX    ||
-                  e.webkitMovementX ||
-                  0,
-     	 movementY = e.movementY       ||
-                  e.mozMovementY    ||
-                  e.webkitMovementY ||
-                  0;
-
-  	// Print the mouse movement delta values
-  	//console.log("movementX=" + movementX, "movementY=" + movementY);
-	
-	this.camera.PanLeft( -1 * movementX/(Math.PI * 100));
-	this.camera.PanUp(movementY/(Math.PI * 100));
-	this.UpdateView();
-	}.bind(this)
-	, false);
-	// FP movement manipulation 
-	document.addEventListener("keydown", function(e){
-		var movespeed = 5; 
-		var actualkey=String.fromCharCode(e.keyCode);
-		//console.log(actualkey);
-		if(actualkey == "A"){
-			this.camera.DollyLeft(movespeed);
-			this.UpdateView();
-		}	
-		else if(actualkey=="W"){
-			this.camera.DollyForward(movespeed);
-			this.UpdateView();
-		}
-		else if(actualkey=="S"){
-			this.camera.DollyForward(-1 * movespeed);
-			this.UpdateView();			
-		}
-		else if(actualkey=="D"){
-			this.camera.DollyLeft(-1 * movespeed);
-			this.UpdateView();		
-		}
-		else if(e.keyCode == 13){
-			if( !this.bestCollected ){
-				var c = confirm("Save current view as best view?");
-				if(c){
-					this.SaveCamera(function(){});
-					this.bestCollected = true; 
-				}
-			}
-			else if( !this.worstCollected){
-				var c = confirm("Save current view as worst view?");
-				if(c){
-					this.SaveCamera(function(){});
-					this.worstCollected = true;
-					this.ExitTo('scenes/');
-				}
-				
-			}
-		}
-	
-	}.bind(this));
-	document.addEventListener("keypress", function(e){
-		
-	}.bind(this));
 	
 
 		
         //this.AttachEventHandlers();
 
-		this.undoStack = new UndoStack.UndoStack(this, Constants.undoStackMaxSize);
-		this.toolbar = new Toolbar(this);
-		this.cameraControls = new CameraControls(this);
+	this.undoStack = new UndoStack.UndoStack(this, Constants.undoStackMaxSize);
+	this.toolbar = new Toolbar(this);
+	this.cameraControls = new CameraControls(this);
         this.searchController = new SearchController(this);
         this.architectureGenerator = new ArchitectureGenerator(this);
         this.uilog = new UILog.UILog();
@@ -271,6 +164,113 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
 		
 	}
 	
+	App.prototype.AttachViewSelectionEventHandlers = function(){
+		var canvas = document.getElementById("canvas");
+		var elem = canvas;
+		var blocker = document.getElementById("blocker");
+		var app = this;
+		function pointerLockChange() {
+	  		if (document.mozPointerLockElement === elem ||
+	      			document.webkitPointerLockElement === elem) {
+				app.camera.ResetSavedState();
+				//console.log(app.camera.upVec);
+	    			//console.log("Pointer Lock was successful.");
+				//app.renderer.setViewport_();
+				//app.renderer = new Renderer(canvas, app.scene);
+				//var fscamera = new FPCamera(app.scene);
+				//var state = app.camera.State();
+				//fscamera.Reset(state.eyePos, state.lookAtPoint);
+				//app.camera = fscamera;
+				app.UpdateView();
+	  		} else {
+	    			//console.log("Pointer Lock was lost.");
+	  		}
+		}
+		function fullscreenChange() {
+			//console.log(canvas.clientWidth, canvas.clientHeight);
+	  		elem.requestPointerLock = elem.requestPointerLock    ||
+		                     elem.mozRequestPointerLock ||
+		                     elem.webkitRequestPointerLock;
+			app.camera.SaveStateForReset();
+			//console.log(app.camera.upVec);
+	  		elem.requestPointerLock();
+		}
+	
+		blocker.addEventListener( 'click', function( event ) {	
+			//console.log(canvas.clientWidth, canvas.clientHeight);
+			elem.mozRequestFullScreen();
+		});
+		document.addEventListener('fullscreenchange', fullscreenChange, false);
+		document.addEventListener('mozfullscreenchange', fullscreenChange, false);
+		document.addEventListener('webkitfullscreenchange', fullscreenChange, false);
+	
+	
+		document.addEventListener('pointerlockchange', pointerLockChange, false);
+		document.addEventListener('mozpointerlockchange', pointerLockChange, false);
+		document.addEventListener('webkitpointerlockchange', pointerLockChange, false);
+
+
+		document.addEventListener("mousemove", function(e) {
+		// FP view manipulation 
+	  	var movementX = e.movementX       ||
+		          e.mozMovementX    ||
+		          e.webkitMovementX ||
+		          0,
+	     	 movementY = e.movementY       ||
+		          e.mozMovementY    ||
+		          e.webkitMovementY ||
+		          0;
+
+	  	// Print the mouse movement delta values
+	  	//console.log("movementX=" + movementX, "movementY=" + movementY);
+	
+		this.camera.PanLeft( -1 * movementX/(Math.PI * 100));
+		this.camera.PanUp(movementY/(Math.PI * 100));
+		this.UpdateView();
+		}.bind(this)
+		, false);
+		// FP movement manipulation 
+		document.addEventListener("keydown", function(e){
+			var movespeed = 5; 
+			var actualkey=String.fromCharCode(e.keyCode);
+			//console.log(actualkey);
+			if(actualkey == "A"){
+				this.camera.DollyLeft(movespeed);
+				this.UpdateView();
+			}	
+			else if(actualkey=="W"){
+				this.camera.DollyForward(movespeed);
+				this.UpdateView();
+			}
+			else if(actualkey=="S"){
+				this.camera.DollyForward(-1 * movespeed);
+				this.UpdateView();			
+			}
+			else if(actualkey=="D"){
+				this.camera.DollyLeft(-1 * movespeed);
+				this.UpdateView();		
+			}
+			else if(e.keyCode == 13){
+				if( !this.bestCollected ){
+					var c = confirm("Save current view as best view?");
+					if(c){
+						this.SaveCamera(function(){});
+						this.bestCollected = true; 
+					}
+				}
+				else if( !this.worstCollected){
+					var c = confirm("Save current view as worst view?");
+					if(c){
+						this.SaveCamera(function(){});
+						this.worstCollected = true;
+						this.ExitTo('scenes/');
+					}
+				
+				}
+			}
+		}.bind(this));
+	}	
+	
     App.prototype.Launch = function ()
     {
         this.LoadScene(
@@ -279,6 +279,7 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
 			this.camera.UpdateSceneBounds(this.scene.Bounds());
 			this.SetCamera();
 			this.camera.SaveStateForReset();
+			this.AttachViewSelectionEventHandlers();
             this.undoStack.clear();
             this.uilog.log(UILog.EVENT.SCENE_LOAD, null);
             this.renderer.postRedisplay();
@@ -291,6 +292,7 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
                 this.camera.UpdateSceneBounds(this.scene.Bounds());
 		this.SetCamera();
                 this.camera.SaveStateForReset();
+		this.AttachViewSelectionEventHandlers();
                 this.undoStack.clear();
                 this.uilog.log(UILog.EVENT.SCENE_CREATE, null);
                 this.renderer.postRedisplay();
@@ -302,6 +304,8 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
 		this.renderer.resizeEnd();
         this.UpdateView();
     };
+
+
     
     App.prototype.UpdateView = function ()
     {
@@ -310,6 +314,8 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
                       this.renderer.viewProj_);
         this.renderer.postRedisplay();
     };
+	
+			
     
     App.prototype.AttachEventHandlers = function ()
     {
