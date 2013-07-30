@@ -19,7 +19,7 @@ define([
 	'uimap',
 	'uibehaviors',
 	'fsm',
-    'UILog',
+	'UILog',
 	'jquery'
 ],
 function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, SearchController,
@@ -86,6 +86,11 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
         
         this.scene = new Scene();
 	this.camera = new FPCamera(this.scene);
+	var upVec = vec3.create([0,0,1]);
+	var eyePos = vec3.create([0,0,50]);
+	var lookAt = vec3.create([1,1,1]);
+	this.camera.Reset(eyePos, lookAt, upVec);
+	//this.UpdateView();
 /*
 	        var cameraData = JSON.parse("{\"eyePos\":{\"0\":3.776055335998535,\"1\":-187.77793884277344,\"2\":164.77069091796875,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"lookAtPoint\":{\"0\":0,\"1\":1,\"2\":0,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"upVec\":{\"0\":-0.01314918976277113,\"1\":0.6573730707168579,\"2\":0.7534525990486145,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"lookVec\":{\"0\":-0.015068011358380318,\"1\":0.7533015012741089,\"2\":-0.6575027108192444,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"leftVec\":{\"0\":-0.9998010993003845,\"1\":-0.019998691976070404,\"2\":0,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12}}");
         $.extend(this.camera, cameraData);
@@ -104,19 +109,45 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
 	var canvas = document.getElementById("canvas");
 	var elem = canvas;
 	var blocker = document.getElementById("blocker");
+	var app = this;
+	function pointerLockChange() {
+  		if (document.mozPointerLockElement === elem ||
+      			document.webkitPointerLockElement === elem) {
+			app.camera.ResetSavedState();
+			//console.log(app.camera.upVec);
+    			//console.log("Pointer Lock was successful.");
+			//app.renderer.setViewport_();
+			//app.renderer = new Renderer(canvas, app.scene);
+			//var fscamera = new FPCamera(app.scene);
+			//var state = app.camera.State();
+			//fscamera.Reset(state.eyePos, state.lookAtPoint);
+			//app.camera = fscamera;
+			app.UpdateView();
+  		} else {
+    			//console.log("Pointer Lock was lost.");
+  		}
+	}
 	function fullscreenChange() {
   	elem.requestPointerLock = elem.requestPointerLock    ||
                              elem.mozRequestPointerLock ||
                              elem.webkitRequestPointerLock;
-  	elem.requestPointerLock();
+		app.camera.SaveStateForReset();
+		//console.log(app.camera.upVec);
+  		elem.requestPointerLock();
 	}
-
+	
 	blocker.addEventListener( 'click', function( event ) {	
-		canvas.mozRequestFullScreen();
+		//console.log(canvas.clientWidth, canvas.clientHeight);
+		elem.mozRequestFullScreen();
 	});
 	document.addEventListener('fullscreenchange', fullscreenChange, false);
 	document.addEventListener('mozfullscreenchange', fullscreenChange, false);
 	document.addEventListener('webkitfullscreenchange', fullscreenChange, false);
+	
+	
+	document.addEventListener('pointerlockchange', pointerLockChange, false);
+	document.addEventListener('mozpointerlockchange', pointerLockChange, false);
+	document.addEventListener('webkitpointerlockchange', pointerLockChange, false);
 
 
 	document.addEventListener("mousemove", function(e) {
@@ -159,12 +190,13 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
 			this.camera.DollyLeft(-1 * movespeed);
 			this.UpdateView();		
 		}
+		else if(e.keyCode == 13){
+			this.SaveCamera();
+			canvas.mozCancelFullScreen();
+		}
 	}.bind(this));
 	document.addEventListener("keypress", function(e){
-		if(e.keyCode == 13){
-			
-
-		}
+		
 	}.bind(this));
 	
 
@@ -795,8 +827,8 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
 
         	$.get('/scenes/' + this.scene_record.id + '/loadcamera')
         	.error(on_error).success(function(scene_json) {
-            		var scene = JSON.parse(scene_json);
-            		console.log(scene);
+            		var camera = JSON.parse(scene_json);
+            		console.log(camera);
         		});
 	};
    		
