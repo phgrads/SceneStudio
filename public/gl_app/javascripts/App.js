@@ -81,7 +81,7 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
        
         
         this.scene = new Scene();
-	//this.camera = new FPCamera(this.scene);
+	this.camera = new FPCamera(this.scene);
 	
 	//this.UpdateView();
 /*
@@ -149,7 +149,7 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
 				if(this.isValidCameraPosition(pos)){
 					//var upVec = vec3.create([0,0,1]);
 					var eyePos = vec3.create([pos[0], pos[1] ,50]);
-					console.log(eyePos);
+					//console.log(eyePos);
 					//var lookAt = vec3.create([1,1,1]); 
 					this.camera.Reset(eyePos);
 					return; 
@@ -274,27 +274,28 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
     {
         this.LoadScene(
         function() { // on success finish up some setup
-			this.camera = new FPCamera(this.scene);
+			//this.camera = new FPCamera(this.scene);
 			this.camera.UpdateSceneBounds(this.scene.Bounds());
 			this.SetCamera();
 			this.camera.SaveStateForReset();
 			this.AttachViewSelectionEventHandlers();
-            this.undoStack.clear();
-            this.uilog.log(UILog.EVENT.SCENE_LOAD, null);
-            this.renderer.postRedisplay();
+      this.undoStack.clear();
+      this.uilog.log(UILog.EVENT.SCENE_LOAD, null);
+			this.UpdateView();
+
         }.bind(this),
         function() { // on failure create an empty room
             this.assman.GetModel('room', function (model)
             {
                 this.scene.Reset(new ModelInstance(model, null));
-		this.camera = new FPCamera(this.scene);
+		//this.camera = new FPCamera(this.scene);
                 this.camera.UpdateSceneBounds(this.scene.Bounds());
 		this.SetCamera();
                 this.camera.SaveStateForReset();
 		this.AttachViewSelectionEventHandlers();
                 this.undoStack.clear();
                 this.uilog.log(UILog.EVENT.SCENE_CREATE, null);
-                this.renderer.postRedisplay();
+		            this.UpdateView();
             }.bind(this));
         }.bind(this)
         );
@@ -902,22 +903,6 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
             		console.log(camera);
         		});
 	};
-   		
-	//Load the camera state from the ui_log field 
-	App.prototype.LoadScene = function(on_success, on_error)
-	{
-	on_error = on_error || function() {
-            	alert('did not work!');
-        	};
-
-        $.get('/scenes/' + this.scene_record.id + '/load')
-        .error(on_error).success(function(scene_json) {
-            scene_json = JSON.parse(scene_json);
-            this.scene.LoadFromNetworkSerialized(scene_json,
-                                                 this.assman,
-                                                 on_success);
-        }.bind(this));
-	} 
 
     App.prototype.ExitTo = function(destination)
     {
