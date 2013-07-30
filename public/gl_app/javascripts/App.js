@@ -53,7 +53,8 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
 	
 
 		
-	
+	this.bestCollected = false;
+	this.worstCollected = false; 
         this.canvas = canvas;
 
 
@@ -185,11 +186,24 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
 			this.UpdateView();		
 		}
 		else if(e.keyCode == 13){
-			console.log(this.camera.upVec);
-			console.log(this.camera.lookVec);
-			//this.SaveCamera();
-			//canvas.mozCancelFullScreen();
+			if( !this.bestCollected ){
+				var c = confirm("Save current view as best view?");
+				if(c){
+					this.SaveCamera(function(){});
+					this.bestCollected = true; 
+				}
+			}
+			else if( !this.worstCollected){
+				var c = confirm("Save current view as worst view?");
+				if(c){
+					this.SaveCamera(function(){});
+					this.worstCollected = true;
+					this.ExitTo('scenes/');
+				}
+				
+			}
 		}
+	
 	}.bind(this));
 	document.addEventListener("keypress", function(e){
 		
