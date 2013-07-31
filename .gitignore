@@ -27,3 +27,7 @@
 /vendor/solr/modelsearch/solr/data
 /vendor/solr/modelsearch/solr/data/*
 /vendor/solr/tmp_agg.json
+
+# Ignore IntelliJ project metafiles
+.idea
+*.iml
