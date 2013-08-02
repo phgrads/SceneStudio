@@ -6,20 +6,22 @@
 # NOTE: In production, it would probably be a better idea to
 # use Apache or nginx to reverse proxy the requests
 
-# configure reverse proxy on dev machines
-require 'rack/reverse_proxy'
-Rails.application.config.middleware.use Rack::ReverseProxy do 
-  # Set :preserve_host to true globally (default is true already)
-  #reverse_proxy_options :preserve_host => true
+if (Rails.env.development? || Rails.env.test?) then
+  # configure reverse proxy on dev machines
+  require 'rack/reverse_proxy'
+  Rails.application.config.middleware.use Rack::ReverseProxy do 
+    # Set :preserve_host to true globally (default is true already)
+    #reverse_proxy_options :preserve_host => true
 
-  # Forward the path /test* to http://example.com/test*
-  #reverse_proxy '/test', 'http://example.com/'
+    # Forward the path /test* to http://example.com/test*
+    #reverse_proxy '/test', 'http://example.com/'
 
-  # Forward the path /foo/* to http://example.com/bar/*
-  #reverse_proxy /^\/foo(\/.*)$/, 'http://example.com/bar$1',
-  #              :username => 'name', :password => 'basic_auth_secret'
+    # Forward the path /foo/* to http://example.com/bar/*
+    #reverse_proxy /^\/foo(\/.*)$/, 'http://example.com/bar$1',
+    #              :username => 'name', :password => 'basic_auth_secret'
 
-  reverse_proxy '/solr', 'http://127.0.0.1:8983/'
+    reverse_proxy '/solr', 'http://127.0.0.1:8983/'
+  end
 end
 
 # launch solr server
