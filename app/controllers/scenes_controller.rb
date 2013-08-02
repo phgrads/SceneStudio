@@ -21,7 +21,7 @@ class ScenesController < ApplicationController
 
   # view for working on the scene available at scenes/#id/edit
   def edit
-    @on_close_url = '/scenes'
+    @on_close_url = scenes_path
     render 'edit', layout: false
   end
 
@@ -29,7 +29,7 @@ class ScenesController < ApplicationController
     if @scene.data
       render text: @scene.data
     else
-      raise ActionController::RoutingError.new('Not Found')
+      raise ActionController::RoutingError.new('Scene Not Found')
     end
   end
 

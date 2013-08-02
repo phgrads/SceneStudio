@@ -64,6 +64,7 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
         this.on_close_url   = window.globalViewData.on_close_url;
         this.user_name  = window.globalViewData.user_name;
         this.scene_name = window.globalViewData.scene_name;
+        this.base_url   = window.globalViewData.base_url;
         
         this.uimap = uimap.create(canvas);
 
@@ -623,7 +624,7 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
 	
 	App.prototype.LoadScene = function(on_success, on_error)
 	{
-        $.get('/scenes/' + this.scene_record.id + '/load')
+        $.get(this.base_url + '/scenes/' + this.scene_record.id + '/load')
         .error(on_error).success(function(scene_json) {
             scene_json = JSON.parse(scene_json);
             this.scene.LoadFromNetworkSerialized(scene_json,
@@ -643,7 +644,7 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
         var serialized = this.scene.SerializeForNetwork();
         $.ajax({
             type: 'POST',
-            url: '/scenes/' +
+            url: this.base_url + '/scenes/' +
                  this.scene_record.id,
             data: {
                 _method: 'PUT', // PUT verb for Rails

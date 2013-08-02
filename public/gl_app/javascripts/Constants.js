@@ -8,11 +8,12 @@ function(){
 var Constants = {};
 
 // Asset directories
-Constants.modelDir= '/data/model/';
-Constants.geomDir= '/data/geometry/';
-Constants.textureDir = '/data/texture/';
-Constants.imageDir = '/data/image/';
-Constants.resourceDir = '/gl_app/images/';
+Constants.base_url= window.globalViewData.base_url;
+Constants.modelDir= Constants.base_url + '/data/model/';
+Constants.geomDir= Constants.base_url + '/data/geometry/';
+Constants.textureDir = Constants.base_url + '/data/texture/';
+Constants.imageDir = Constants.base_url + '/data/image/';
+Constants.resourceDir = Constants.base_url + '/gl_app/images/';
 
 // Shader locations
 Constants.modelVertShaderSource = id('model.vert').text;

@@ -4,7 +4,7 @@
 <div class="row">
 <div class="span6 offset3">
   <%= render 'shared/error_messages', object: @identity %>
-  <%= form_tag("/auth/identity/register", class: 'form-horizontal') do %>
+  <%= form_tag(base_url + "/auth/identity/register", class: 'form-horizontal') do %>
     <div class="field control-group">
       <%= label_tag :name, nil, class: 'control-label' %>
       <div class='controls'>
