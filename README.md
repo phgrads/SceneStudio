@@ -36,6 +36,10 @@ Deployment (Apache + Passenger)
    ProxyPassReverse /scenestudio/solr http://localhost:8983/solr
    ```
 
-6. Before running in the production environment, make sure to precompile assets through `RAILS_ENV=production bundle exec rake assets:precompile`
+6. Before running in the production environment, make sure to precompile assets through:
 
+    ```
+    RAILS_RELATIVE_URL_ROOT="/scenestudio" bundle exec rake assets:clean
+    RAILS_RELATIVE_URL_ROOT="/scenestudio" bundle exec rake assets:precompile
+    ```
 7. Restart apache server using `sudo service apache2 restart`
