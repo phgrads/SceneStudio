@@ -25,8 +25,12 @@ if (Rails.env.development? || Rails.env.test?) then
 end
 
 # launch solr server
-solr_pid = fork do
-  exec("cd vendor/solr; python StartServer.py >& ../../log/solr.log")
+fork do
+  File.open('log/solr.log','w') do |_io|
+	  $stdout.reopen(_io)
+	  $stderr.reopen(_io)
+  end
+  exec("cd vendor/solr; python StartServer.py")
 end
 
 # When the ruby/rails process exits, take down all the forked
