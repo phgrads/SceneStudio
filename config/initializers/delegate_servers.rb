@@ -6,10 +6,10 @@
 # NOTE: In production, it would probably be a better idea to
 # use Apache or nginx to reverse proxy the requests
 
-if (Rails.env.development? || Rails.env.test?) then
+if Rails.env.development? || Rails.env.test?
   # configure reverse proxy on dev machines
   require 'rack/reverse_proxy'
-  Rails.application.config.middleware.use Rack::ReverseProxy do 
+  Rails.application.config.middleware.use Rack::ReverseProxy do
     # Set :preserve_host to true globally (default is true already)
     #reverse_proxy_options :preserve_host => true
 
@@ -25,12 +25,16 @@ if (Rails.env.development? || Rails.env.test?) then
 end
 
 # launch solr server
-solr_pid = fork do
-  exec("cd vendor/solr; python StartServer.py > ../../log/solr.log 2>&1")
-end
+solrlog = File.open('log/solr.log','w')
+solrpid = spawn('python StartServer.py', [:out, :err]=>solrlog, :chdir=>'vendor/solr')
 
 # When the ruby/rails process exits, take down all the forked
 # processes with it.
 at_exit do
-  Process.kill('INT', -Process.getpgrp)
+  #getpgrp is unavailable on Windows but kill works there anyway so not a problem
+  if RUBY_PLATFORM == 'i386-mingw32'
+    Process.kill('INT', solrpid)
+  else
+    Process.kill('INT', -Process.getpgrp)
+  end
 end
