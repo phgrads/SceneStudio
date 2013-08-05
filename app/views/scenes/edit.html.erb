@@ -2,10 +2,10 @@
 <html>
 <head>
   <title><%= full_title(@scene.name) %></title>
-  <link href="/gl_app/gl_app.css" type="text/css" rel="stylesheet"></link>
+  <link href="<%= base_url %>/gl_app/gl_app.css" type="text/css" rel="stylesheet"></link>
   <link type="text/css" rel="stylesheet"
     href=
-    "/gl_app/javascripts/jquery-ui/css/redmond/jquery-ui-1.8.21.custom.css">
+    "<%= base_url %>/gl_app/javascripts/jquery-ui/css/redmond/jquery-ui-1.8.21.custom.css">
   </link>
   <%= csrf_meta_tags %>
   <!--[if lt IE 9]>
@@ -64,10 +64,10 @@
   </script>
 
   <script type="text/javascript"
-          src="/gl_app/javascripts/shared/custom_shims.js"></script>
+          src="<%= base_url %>/gl_app/javascripts/shared/custom_shims.js"></script>
   <script type="text/javascript"
-          data-main="/gl_app/javascripts/main"
-          src="/gl_app/javascripts/require.js"></script>
+          data-main="<%= base_url %>/gl_app/javascripts/main"
+          src="<%= base_url %>/gl_app/javascripts/require.js"></script>
   
 </body>
 </html>
