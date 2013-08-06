@@ -18,10 +18,11 @@ define([
 	'uimap',
 	'uibehaviors',
 	'fsm',
+    'UILog',
 	'jquery'
 ],
 function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, SearchController,
-		  ArchitectureGenerator, Manipulators, UndoStack, Toolbar, CameraControls, PubSub, SplitView, uimap, Behaviors, FSM)
+		  ArchitectureGenerator, Manipulators, UndoStack, Toolbar, CameraControls, PubSub, SplitView, uimap, Behaviors, FSM, UILog)
 {
     // support function should be factored out...?
     function mapTable(table, perField) {
@@ -89,6 +90,7 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
 		this.cameraControls = new CameraControls(this);
         this.searchController = new SearchController(this);
         this.architectureGenerator = new ArchitectureGenerator(this);
+        this.uilog = new UILog.UILog();
 		
 		SplitView.MakeSplitView({
 			leftElem: $('#graphicsOverlay'),
@@ -109,6 +111,7 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
 			this.camera.SaveStateForReset();
 			this.camera.UpdateSceneBounds(this.scene.Bounds());
             this.undoStack.clear();
+            this.uilog.log(UILog.EVENT.SCENE_LOAD, null);
             this.renderer.postRedisplay();
         }.bind(this),
         function() { // on failure create an empty room
@@ -118,6 +121,7 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
                 this.camera.SaveStateForReset();
                 this.camera.UpdateSceneBounds(this.scene.Bounds());
                 this.undoStack.clear();
+                this.uilog.log(UILog.EVENT.SCENE_CREATE, null);
                 this.renderer.postRedisplay();
             }.bind(this));
         }.bind(this)
@@ -625,8 +629,9 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
 	App.prototype.LoadScene = function(on_success, on_error)
 	{
         $.get(this.base_url + '/scenes/' + this.scene_record.id + '/load')
-        .error(on_error).success(function(scene_json) {
-            scene_json = JSON.parse(scene_json);
+        .error(on_error).success(function(json) {
+            var scene_json = JSON.parse(json.scene);
+            this.uilog.fromJSONString(json.ui_log);
             this.scene.LoadFromNetworkSerialized(scene_json,
                                                  this.assman,
                                                  on_success);
@@ -649,10 +654,10 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
             data: {
                 _method: 'PUT', // PUT verb for Rails
                 scene_file: JSON.stringify(serialized),
-                ui_log: '',
+                ui_log: this.uilog.stringify()
             },
             dataType: 'json',
-            timeout: 10000,
+            timeout: 10000
         }).error(on_error).success(on_success);
 	}
     

@@ -3,7 +3,7 @@ class ScenesController < ApplicationController
   before_filter :access_by_owner, only: [:edit, :load, :update, :destroy]
 
   def index
-    @scene_list = current_user.scenes;
+    @scene_list = current_user.scenes
   end
 
   def create
@@ -27,7 +27,7 @@ class ScenesController < ApplicationController
 
   def load
     if @scene.data
-      render text: @scene.data
+      render :json => { :scene => @scene.data, :ui_log => @scene.ui_log }
     else
       raise ActionController::RoutingError.new('Scene Not Found')
     end
