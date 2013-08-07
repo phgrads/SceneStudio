@@ -112,6 +112,9 @@ GEM
     omniauth-twitter (1.0.0)
       multi_json (~> 1.3)
       omniauth-oauth (~> 1.0)
+    paper_trail (2.7.2)
+      activerecord (~> 3.0)
+      railties (~> 3.0)
     polyglot (0.3.3)
     rack (1.4.5)
     rack-cache (1.2)
@@ -202,6 +205,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-identity
   omniauth-twitter
+  paper_trail (~> 2)
   rack-reverse-proxy
   rails (= 3.2.13)
   rspec-rails (= 2.11.0)

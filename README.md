@@ -15,3 +15,31 @@ Installation / Setup  (local development)
 
 6. run `rails server` to start an instance of the server running at `localhost:3000`.  Point your browser here to visit the app.
 
+Deployment (Apache + Passenger)
+----------
+0. Follow steps 1 - 5 as above (more convenient if checkout is through https and into a shared folder such as `/home/shared`)
+1. make sure the checked out repository has permissions allowing access by apache process (ensure group ownership is set to `www-pub`)
+2. create symlink in active apache DocumentRoot path (usually `/var/www/`) pointing to the `SceneStudio/public` directory
+3. install Phusion Passenger: `gem install passenger` ([documentation](http://www.modrails.com/documentation/Users%20guide%20Apache.html))
+4. install passenger module for Apache: `passenger-install-apache2-module` and follow directions to modify apache files
+5. add a block of the following form into the active Apache site virtual host (currently `/etc/apache2/sites-available/default`):
+
+   ```
+   RackBaseURI /scenestudio
+   RackEnv production
+   PassengerAppRoot /path/to/SceneStudio/
+   <Directory /var/www/scenestudio>
+    	Options -MultiViews
+   </Directory>
+   # Proxy for solr used by SceneStudio
+   ProxyPass /scenestudio/solr http://localhost:8983/solr
+   ProxyPassReverse /scenestudio/solr http://localhost:8983/solr
+   ```
+
+6. Before running in the production environment, make sure to precompile assets through:
+
+    ```
+    RAILS_RELATIVE_URL_ROOT="/scenestudio" bundle exec rake assets:clean
+    RAILS_RELATIVE_URL_ROOT="/scenestudio" bundle exec rake assets:precompile
+    ```
+7. Restart apache server using `sudo service apache2 restart`

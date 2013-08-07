@@ -390,7 +390,7 @@ function (Constants, ModelInstance, Scene)
         $.ajax
 	({
 	    type: 'POST',
-	    url: 'http://' + window.location.host + '/architectureGenerator/generate',
+	    url: 'http://' + window.location.host + window.globalViewData.base_url + '/architectureGenerator/generate',
 	    contentType: "charset=utf-8",
 	    //data:
 	    //{

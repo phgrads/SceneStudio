@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130710220312) do
+ActiveRecord::Schema.define(:version => 20130731221022) do
 
   create_table "identities", :force => true do |t|
     t.string   "name"
@@ -20,6 +20,37 @@ ActiveRecord::Schema.define(:version => 20130710220312) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
+
+  create_table "mt_assignments", :force => true do |t|
+    t.string   "mtId"
+    t.integer  "mt_hit_id"
+    t.integer  "mt_worker_id"
+    t.text     "input_data"
+    t.text     "output_data"
+    t.boolean  "completed"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "mt_assignments", ["mtId", "mt_hit_id", "mt_worker_id"], :name => "index_mt_assignments_on_mtId_and_mt_hit_id_and_mt_worker_id"
+
+  create_table "mt_hits", :force => true do |t|
+    t.string   "mtId"
+    t.string   "name"
+    t.text     "mtParams"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "mt_hits", ["mtId", "name"], :name => "index_mt_hits_on_mtId_and_name"
+
+  create_table "mt_workers", :force => true do |t|
+    t.string   "mtId"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "mt_workers", ["mtId"], :name => "index_mt_workers_on_mtId"
 
   create_table "scenes", :force => true do |t|
     t.string   "name"
@@ -39,5 +70,16 @@ ActiveRecord::Schema.define(:version => 20130710220312) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "versions", :force => true do |t|
+    t.string   "item_type",  :null => false
+    t.integer  "item_id",    :null => false
+    t.string   "event",      :null => false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
 end

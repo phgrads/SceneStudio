@@ -1,18 +1,15 @@
 # == Schema Information
 #
-# Table name: scenes
+# Table name: mt_workers
 #
 #  id         :integer          not null, primary key
-#  name       :string(255)
-#  user_id    :integer
-#  data       :text
-#  ui_log     :text
+#  mtId       :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
 require 'spec_helper'
 
-describe Scene do
+describe MtWorker do
   pending "add some examples to (or delete) #{__FILE__}"
 end

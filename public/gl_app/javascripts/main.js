@@ -2,7 +2,7 @@
 
 // Set up names and dependencies for non-module scripts
 requirejs.config({
-    baseUrl: '/gl_app/javascripts',
+    baseUrl: window.globalViewData.base_url + '/gl_app/javascripts',
 	paths: {
 		'async' : 'async.min',
 		'jquery' : 'jquery-ui/js/jquery-1.7.2.min',

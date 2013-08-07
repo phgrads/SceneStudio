@@ -19,11 +19,12 @@ define([
 	'uimap',
 	'uibehaviors',
 	'fsm',
+    'UILog',
 	'ViewPortOptimizer',
 	'jquery'
 ],
 function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Scene, SearchController,
-		  ArchitectureGenerator, Manipulators, UndoStack, Toolbar, CameraControls, PubSub, SplitView, uimap, Behaviors, FSM, ViewPortOptimizer)
+		  ArchitectureGenerator, Manipulators, UndoStack, Toolbar, CameraControls, PubSub, SplitView, uimap, Behaviors, FSM, UILog, ViewPortOptimizer)
 {
     // support function should be factored out...?
     function mapTable(table, perField) {
@@ -48,7 +49,13 @@ function App(canvas, mode)
     {
 		// Extend PubSub
 		PubSub.call(this);
-	this.mode = mode; 
+	
+	
+
+		
+	this.bestCollected = false;
+	this.worstCollected = false;
+ 	this.mode = mode; 
         this.canvas = canvas;
 
 
@@ -68,6 +75,7 @@ function App(canvas, mode)
         this.on_close_url   = window.globalViewData.on_close_url;
         this.user_name  = window.globalViewData.user_name;
         this.scene_name = window.globalViewData.scene_name;
+        this.base_url   = window.globalViewData.base_url;
         
         this.uimap = uimap.create(canvas);
 
@@ -78,6 +86,7 @@ function App(canvas, mode)
 	   
         this.assman = new AssetManager(this.renderer.gl_);
 		this.uistate = new UIState(this.renderer.gl_);
+        this.uilog = new UILog.UILog();
 
 	if(mode == "VIEWCOLLECTION"){
 		document.getElementById("graphicsOverlay").style.visibility='hidden';
@@ -100,11 +109,11 @@ function App(canvas, mode)
 			
         	this.AttachEventHandlers();
 
-		this.undoStack = new UndoStack.UndoStack(this, Constants.undoStackMaxSize);
-		this.toolbar = new Toolbar(this);
-		this.cameraControls = new CameraControls(this);
-		this.searchController = new SearchController(this);
-		this.architectureGenerator = new ArchitectureGenerator(this);
+	this.undoStack = new UndoStack.UndoStack(this, Constants.undoStackMaxSize);
+	this.toolbar = new Toolbar(this);
+	this.cameraControls = new CameraControls(this);
+        this.searchController = new SearchController(this);
+        this.architectureGenerator = new ArchitectureGenerator(this);
 		
 		SplitView.MakeSplitView({
 			leftElem: $('#graphicsOverlay'),
@@ -130,8 +139,10 @@ function App(canvas, mode)
 		return pos;
 	}
 	App.prototype.isValidCameraPosition = function(pos){
+		//TODO: Unhack this
+		return true;
 		for( var j = 1; j < this.scene.modelList.length; j++){
-			if( this.scene.modelList[i].bbox.ContainsPoint(pos) ){
+			if( this.scene.modelList[j].bbox.ContainsPoint(pos) ){
 				return false;
 			}
 		}
@@ -819,7 +830,17 @@ function App(canvas, mode)
 		this.renderer.postRedisplay();	
 	}
 	
-	
+	App.prototype.LoadScene = function(on_success, on_error)
+	{
+        $.get(this.base_url + '/scenes/' + this.scene_record.id + '/load')
+        .error(on_error).success(function(json) {
+            var scene_json = JSON.parse(json.scene);
+            this.uilog.fromJSONString(json.ui_log);
+            this.scene.LoadFromNetworkSerialized(scene_json,
+                                                 this.assman,
+                                                 on_success);
+        }.bind(this));
+	}
 	
 	App.prototype.SaveScene = function(on_success, on_error)
 	{
@@ -832,15 +853,15 @@ function App(canvas, mode)
         var serialized = this.scene.SerializeForNetwork();
         $.ajax({
             type: 'POST',
-            url: '/scenes/' +
+            url: this.base_url + '/scenes/' +
                  this.scene_record.id,
             data: {
                 _method: 'PUT', // PUT verb for Rails
                 scene_file: JSON.stringify(serialized),
-                ui_log: '',
+                ui_log: this.uilog.stringify()
             },
             dataType: 'json',
-            timeout: 10000,
+            timeout: 10000
         }).error(on_error).success(on_success);
 	}
 
@@ -856,7 +877,7 @@ function App(canvas, mode)
         var serialized = this.camera.Serialize();
         $.ajax({
             type: 'POST',
-            url: '/scenes/' +
+            url: this.base_url + '/scenes/' +
                  this.scene_record.id,
             data: {
                 _method: 'PUT', // PUT verb for Rails
@@ -880,28 +901,12 @@ function App(canvas, mode)
       		 };
 		
 
-        	$.get('/scenes/' + this.scene_record.id + '/loadcamera')
+        	$.get(this.base_url + '/scenes/' + this.scene_record.id + '/loadcamera')
         	.error(on_error).success(function(scene_json) {
             		var camera = JSON.parse(scene_json);
             		console.log(camera);
         		});
 	};
-   		
-	//Load the camera state from the ui_log field 
-	App.prototype.LoadScene = function(on_success, on_error)
-	{
-	on_error = on_error || function() {
-            	alert('did not work!');
-        	};
-
-        $.get('/scenes/' + this.scene_record.id + '/load')
-        .error(on_error).success(function(scene_json) {
-            scene_json = JSON.parse(scene_json);
-            this.scene.LoadFromNetworkSerialized(scene_json,
-                                                 this.assman,
-                                                 on_success);
-        }.bind(this));
-	} 
 
     App.prototype.ExitTo = function(destination)
     {
