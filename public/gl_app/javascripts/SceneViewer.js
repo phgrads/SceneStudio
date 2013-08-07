@@ -44,17 +44,15 @@ define([
 
             this.uimap = uimap.create(canvas);
             this.scene = new Scene();
-            this.renderer = new Renderer(canvas, this.scene);
+            this.camera = new FPCamera(this.scene);
+            this.renderer = new Renderer(canvas, this.scene, undefined, this.camera);
             this.assman = new AssetManager(this.renderer.gl_);
             this.uilog = new UILog.UILog();
 
             this.bestCollected = false;
             this.worstCollected = false;
-            this.camera = new FPCamera(this.scene);
 
             this.AttachEventHandlers();
-
-            this.cameraControls = new CameraControls(this);
 
             preventSelection(this.canvas);
         }
@@ -68,20 +66,16 @@ define([
             var pointerLockChange = function() {
                 if (document.pointerLockElement === this.canvas) {
                     this.camera.ResetSavedState();
-                    this.UpdateView();
+                    this.renderer.UpdateView();
                 } else {
                     //console.log("Pointer Lock was lost.");
                 }
             }.bind(this);
             var fullscreenChange = function() {
-                //console.log(canvas.clientWidth, canvas.clientHeight);
                 this.camera.SaveStateForReset();
-                //console.log(this.camera.upVec);
                 this.canvas.requestPointerLock();
             }.bind(this);
-            var blocker = document.getElementById("blocker");
-            blocker.addEventListener( 'click', function() {
-                //console.log(canvas.clientWidth, canvas.clientHeight);
+            this.canvas.addEventListener( 'click', function() {
                 this.canvas.requestFullScreen();
             }.bind(this));
 
@@ -103,7 +97,7 @@ define([
                 //console.log("movementX=" + movementX, "movementY=" + movementY);
                 this.camera.PanLeft( -1 * movementX/(Math.PI * 100));
                 this.camera.PanUp(movementY/(Math.PI * 100));
-                this.UpdateView();
+                this.renderer.UpdateView();
             }.bind(this), false);
 
             // FP movement manipulation
@@ -113,19 +107,19 @@ define([
                 //console.log(actualkey);
                 if(actualkey == "A") {
                     this.camera.DollyLeft(movespeed);
-                    this.UpdateView();
+                    this.renderer.UpdateView();
                 }
                 else if(actualkey=="W") {
                     this.camera.DollyForward(movespeed);
-                    this.UpdateView();
+                    this.renderer.UpdateView();
                 }
                 else if(actualkey=="S") {
                     this.camera.DollyForward(-1 * movespeed);
-                    this.UpdateView();
+                    this.renderer.UpdateView();
                 }
                 else if(actualkey=="D") {
                     this.camera.DollyLeft(-1 * movespeed);
-                    this.UpdateView();
+                    this.renderer.UpdateView();
                 }
                 else if(e.keyCode == 13) {
                     if( !this.bestCollected ) {
@@ -173,62 +167,18 @@ define([
             );
 
             this.renderer.resizeEnd();
-            this.UpdateView();
-        };
-
-        SceneViewer.prototype.UpdateView = function () {
-            this.renderer.view_ = this.camera.LookAtMatrix();
-            mat4.multiply(this.renderer.proj_, this.renderer.view_,
-                this.renderer.viewProj_);
-            this.renderer.postRedisplay();
+            this.renderer.UpdateView();
         };
 
         // TODO: Update for camera and consider moving this out into a separate behavior events class
         SceneViewer.prototype.AttachEventHandlers = function () {
             /*** Behaviors are specified here ***/
-            // orbiting rotation
-            var orbiting_behavior =
-                Behaviors.mousedrag(this.uimap, 'right')
-                    .ondrag(function(data) {
-                        this.camera.OrbitLeft(-data.dx * Constants.cameraOrbitSpeed);
-                        this.camera.OrbitUp(data.dy * Constants.cameraOrbitSpeed);
-                        this.UpdateView();
-                    }.bind(this));
-
-            // dollying
-            var dollying_behavior =
-                Behaviors.mousedrag(this.uimap, 'middle, shift+right')
-                    .ondrag(function(data) {
-                        this.camera.DollyLeft(data.dx * Constants.cameraDollySpeed);
-                        this.camera.DollyUp(data.dy * Constants.cameraDollySpeed);
-                        this.UpdateView();
-                    }.bind(this));
-
-            // no need to install handlers, as events are
-            // dynamically routed by the machine
-            var focus = FSM.focusmachine(this);
-            // inhibit focusing during view manipulations
-            orbiting_behavior
-                .onstart(focus.start_interruption.bind(focus))
-                .onfinish(focus.finish_interruption.bind(focus));
-            dollying_behavior
-                .onstart(focus.start_interruption.bind(focus))
-                .onfinish(focus.finish_interruption.bind(focus));
-
-            // mouse wheel scrolls
-            addWheelHandler(this.canvas, this.MouseWheel.bind(this));
 
             // spit out bare JSON data for the scene
             Behaviors.keypress(this.uimap, 'K')
                 .onpress(function() {
                     console.log(this.scene.SerializeBare());
                 }.bind(this))
-        };
-
-        SceneViewer.prototype.MouseWheel = function (dx, dy)
-        {
-            this.camera.Zoom(dy * Constants.cameraZoomSpeed);
-            this.UpdateView();
         };
 
         SceneViewer.prototype.LoadScene = function(on_success, on_error)
@@ -282,8 +232,7 @@ define([
             this.SaveScene(function() { // on success
                 window.onbeforeunload = null;
                 window.location.href = destination;
-            }.bind(this)); // should add dialog to ask if the user wants to leave
-            // even though nothing was saved in event of error
+            }.bind(this));
         };
 
         // Exports

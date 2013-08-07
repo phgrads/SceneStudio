@@ -75,8 +75,12 @@ function App(canvas, mode)
        
         
         this.scene = new Scene();
+<<<<<<< HEAD
 	this.renderer = new Renderer(canvas, this.scene);
 	   
+=======
+	    this.renderer = new Renderer(canvas, this.scene, undefined, this.camera);
+>>>>>>> Moved UpdateView into Renderer.js and some other camera related clean up
         this.assman = new AssetManager(this.renderer.gl_);
 		this.uistate = new UIState(this.renderer.gl_);
 
@@ -294,22 +298,18 @@ function App(canvas, mode)
                 this.camera.UpdateSceneBounds(this.scene.Bounds());
                  this.LaunchSetup();
 	          }.bind(this));
+<<<<<<< HEAD
          }.bind(this)
         );
 	  
 	      this.renderer.resizeEnd();
         this.UpdateView();
+=======
+         }.bind(this));
+	    this.renderer.resizeEnd();
+        this.renderer.UpdateView();
+>>>>>>> Moved UpdateView into Renderer.js and some other camera related clean up
     };
-
-
-    App.prototype.UpdateView = function (){
-        this.renderer.view_ = this.camera.LookAtMatrix();
-        mat4.multiply(this.renderer.proj_, this.renderer.view_,
-                      this.renderer.viewProj_);
-        this.renderer.postRedisplay();
-    };
-	
-			
     
     App.prototype.AttachEventHandlers = function ()
     {
@@ -326,7 +326,7 @@ function App(canvas, mode)
             .ondrag(function(data) {
                 this.camera.OrbitLeft(-data.dx * Constants.cameraOrbitSpeed);
                 this.camera.OrbitUp(data.dy * Constants.cameraOrbitSpeed);
-                this.UpdateView();
+                this.renderer.UpdateView();
             }.bind(this));
 
         // dollying
@@ -335,7 +335,7 @@ function App(canvas, mode)
             .ondrag(function(data) {
                 this.camera.DollyLeft(data.dx * Constants.cameraDollySpeed);
                 this.camera.DollyUp(data.dy * Constants.cameraDollySpeed);
-                this.UpdateView();
+                this.renderer.UpdateView();
             }.bind(this));
         
         // no need to install handlers, as events are
@@ -748,7 +748,7 @@ function App(canvas, mode)
     App.prototype.MouseWheel = function (dx, dy)
     {
         this.camera.Zoom(dy * Constants.cameraZoomSpeed);
-        this.UpdateView();
+        this.renderer.UpdateView();
     };
 	
 	App.prototype.Undo = function()
