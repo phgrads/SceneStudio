@@ -24,8 +24,8 @@ requirejs.config({
 var app;
 // Application entry point
 require(['App'], function(App) {
-	//app = new App(id('canvas'), "VIEWCOLLECTION");
-    app = new App(id('canvas'), "SCENECOLLECTION");
+	app = new App(id('canvas'), "VIEWCOLLECTION");
+    //app = new App(id('canvas'), "SCENECOLLECTION");
 	app.Launch();
 	app.UpdateView();
 });
