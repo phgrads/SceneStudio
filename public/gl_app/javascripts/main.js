@@ -23,9 +23,9 @@ requirejs.config({
 // TODO: Global scope for runtime debugging, pull declaration into scope below
 var app;
 // Application entry point
-require(['App'], function(App) {
-	app = new App(id('canvas'), "VIEWCOLLECTION");
-    //app = new App(id('canvas'), "SCENECOLLECTION");
+require(['App','SceneViewer'], function(App,SceneViewer) {
+	app = new SceneViewer(id('canvas'));
+    //app = new App(id('canvas'));
 	app.Launch();
 	app.UpdateView();
 });

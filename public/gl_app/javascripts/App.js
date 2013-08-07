@@ -3,13 +3,11 @@
 define([
 	'Constants',
 	'Camera',
-	'FPCamera',
 	'Renderer',
 	'AssetManager',
 	'ModelInstance',
 	'Scene',
 	'SearchController',
-    'ArchitectureGenerator',
 	'Manipulators',
     'UndoStack',
 	'Toolbar',
@@ -20,12 +18,10 @@ define([
 	'uibehaviors',
 	'fsm',
     'UILog',
-	'ViewPortOptimizer',
-	'jquery',
-    'game-shim'
+	'jquery'
 ],
-function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Scene, SearchController,
-		  ArchitectureGenerator, Manipulators, UndoStack, Toolbar, CameraControls, PubSub, SplitView, uimap, Behaviors, FSM, UILog, ViewPortOptimizer)
+function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, SearchController,
+		  Manipulators, UndoStack, Toolbar, CameraControls, PubSub, SplitView, uimap, Behaviors, FSM, UILog)
 {
     function UIState(gl)
     {
@@ -38,14 +34,11 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
         this.isBusy = false;
     }
 
-    function App(canvas, mode)
+    function App(canvas)
     {
 		// Extend PubSub
 		PubSub.call(this);
 
-	    this.bestCollected = false;
-	    this.worstCollected = false;
- 	    this.mode = mode;
         this.canvas = canvas;
 
         // ensure that AJAX requests to Rails will properly
@@ -66,38 +59,26 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
         this.base_url   = window.globalViewData.base_url;
         
         this.uimap = uimap.create(canvas);
+
+        this.camera = new Camera();
+        var cameraData = JSON.parse("{\"eyePos\":{\"0\":3.776055335998535,\"1\":-187.77793884277344,\"2\":164.77069091796875,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"lookAtPoint\":{\"0\":0,\"1\":1,\"2\":0,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"upVec\":{\"0\":-0.01314918976277113,\"1\":0.6573730707168579,\"2\":0.7534525990486145,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"lookVec\":{\"0\":-0.015068011358380318,\"1\":0.7533015012741089,\"2\":-0.6575027108192444,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"leftVec\":{\"0\":-0.9998010993003845,\"1\":-0.019998691976070404,\"2\":0,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12}}");
+        $.extend(this.camera, cameraData);
+
         this.scene = new Scene();
 	    this.renderer = new Renderer(canvas, this.scene);
         this.assman = new AssetManager(this.renderer.gl_);
 		this.uistate = new UIState(this.renderer.gl_);
         this.uilog = new UILog.UILog();
 
-	if(mode == "VIEWCOLLECTION"){
-		document.getElementById("graphicsOverlay").style.visibility='hidden';
-		document.getElementById("searchArea").style.visibility='hidden';
-		this.bestCollected = false;
-		this.worstCollected = false;
-		this.camera = new FPCamera(this.scene);
-		
-	}
-	else if(mode == "SCENECOLLECTION"){
-		
-		document.getElementById("blocker").style.visibility='hidden';
-		this.camera = new Camera();
-		$.extend(this.camera, cameraData);
-
-	        var cameraData = JSON.parse("{\"eyePos\":{\"0\":3.776055335998535,\"1\":-187.77793884277344,\"2\":164.77069091796875,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"lookAtPoint\":{\"0\":0,\"1\":1,\"2\":0,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"upVec\":{\"0\":-0.01314918976277113,\"1\":0.6573730707168579,\"2\":0.7534525990486145,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"lookVec\":{\"0\":-0.015068011358380318,\"1\":0.7533015012741089,\"2\":-0.6575027108192444,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"leftVec\":{\"0\":-0.9998010993003845,\"1\":-0.019998691976070404,\"2\":0,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12}}");
-		$.extend(this.camera, cameraData);
 		this.scene.AddManipulator(new Manipulators.RotationManipulator(this.renderer.gl_));
 		this.scene.AddManipulator(new Manipulators.ScaleManipulator(this.renderer.gl_));
-			
-        	this.AttachEventHandlers();
 
-	this.undoStack = new UndoStack.UndoStack(this, Constants.undoStackMaxSize);
-	this.toolbar = new Toolbar(this);
-	this.cameraControls = new CameraControls(this);
+        this.AttachEventHandlers();
+
+	    this.undoStack = new UndoStack.UndoStack(this, Constants.undoStackMaxSize);
+	    this.toolbar = new Toolbar(this);
+	    this.cameraControls = new CameraControls(this);
         this.searchController = new SearchController(this);
-        this.architectureGenerator = new ArchitectureGenerator(this);
 		
 		SplitView.MakeSplitView({
 			leftElem: $('#graphicsOverlay'),
@@ -106,140 +87,31 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
 			rightMaxWidth: Constants.searchAreaMaxWidth,
 			snapToGrid: Constants.searchAreaResizeGrid
 		});
-    	}
 
-     	this.viewportoptimizer = new ViewPortOptimizer(this.renderer, this.scene, this.camera, this);
         preventSelection(this.canvas);
-}	
-        	
+    }
+
 	// Extend PubSub
 	App.prototype = Object.create(PubSub.prototype);
-	
-	App.prototype.AttachViewSelectionEventHandlers = function(){
-		var canvas = document.getElementById("canvas");
-		var elem = canvas;
-		var app = this;
-		function pointerLockChange() {
-	  		if (document.mozPointerLockElement === elem ||
-	      			document.webkitPointerLockElement === elem) {
-				app.camera.ResetSavedState();
-				//console.log(app.camera.upVec);
-	    			//console.log("Pointer Lock was successful.");
-				//app.renderer.setViewport_();
-				//app.renderer = new Renderer(canvas, app.scene);
-				//var fscamera = new FPCamera(app.scene);
-				//var state = app.camera.State();
-				//fscamera.Reset(state.eyePos, state.lookAtPoint);
-				//app.camera = fscamera;
-				app.UpdateView();
-	  		} else {
-	    			//console.log("Pointer Lock was lost.");
-	  		}
-		}
-		function fullscreenChange() {
-			//console.log(canvas.clientWidth, canvas.clientHeight);
-			app.camera.SaveStateForReset();
-			//console.log(app.camera.upVec);
-	  		elem.requestPointerLock();
-		}
-        var blocker = document.getElementById("blocker");
-		blocker.addEventListener( 'click', function() {
-			//console.log(canvas.clientWidth, canvas.clientHeight);
-			elem.requestFullScreen();
-		});
-		document.addEventListener('fullscreenchange', fullscreenChange, false);
-		document.addEventListener('mozfullscreenchange', fullscreenChange, false);
-		document.addEventListener('webkitfullscreenchange', fullscreenChange, false);
-	
-	
-		document.addEventListener('pointerlockchange', pointerLockChange, false);
-		document.addEventListener('mozpointerlockchange', pointerLockChange, false);
-		document.addEventListener('webkitpointerlockchange', pointerLockChange, false);
 
-
-		document.addEventListener("mousemove", function(e) {
-            // FP view manipulation
-            var movementX = e.movementX;
-            var movementY = e.movementY;
-            //console.log("movementX=" + movementX, "movementY=" + movementY);
-            this.camera.PanLeft( -1 * movementX/(Math.PI * 100));
-            this.camera.PanUp(movementY/(Math.PI * 100));
-            this.UpdateView();
-		}.bind(this), false);
-
-		// FP movement manipulation 
-		document.addEventListener("keydown", function(e){
-			var movespeed = 5; 
-			var actualkey=String.fromCharCode(e.keyCode);
-			//console.log(actualkey);
-			if(actualkey == "A"){
-				this.camera.DollyLeft(movespeed);
-				this.UpdateView();
-			}	
-			else if(actualkey=="W"){
-				this.camera.DollyForward(movespeed);
-				this.UpdateView();
-			}
-			else if(actualkey=="S"){
-				this.camera.DollyForward(-1 * movespeed);
-				this.UpdateView();			
-			}
-			else if(actualkey=="D"){
-				this.camera.DollyLeft(-1 * movespeed);
-				this.UpdateView();		
-			}
-			else if(e.keyCode == 13){
-				if( !this.bestCollected ){
-					var c = confirm("Save current view as best view?");
-					if(c){
-						this.SaveCamera(function(){});
-						this.bestCollected = true; 
-					}
-				}
-				else if( !this.worstCollected){
-					var c = confirm("Save current view as worst view?");
-					if(c){
-						this.SaveCamera(function(){});
-						this.worstCollected = true;
-						this.ExitTo('scenes/');
-					}
-				
-				}
-			}
-		}.bind(this));
-	};
-    
-    App.prototype.LaunchSetup = function(){
-        if(this.mode == "VIEWCOLLECTION"){
-            var pos = this.scene.Bounds().RandomPointInside();
-            var eyePos = vec3.create([pos[0], pos[1] ,50]);
-            this.camera.Reset(eyePos);
-			this.camera.SaveStateForReset();
-			this.AttachViewSelectionEventHandlers();
-	    }
-		else if(this.mode == "SCENECOLLECTION"){
-		    this.undoStack.clear();
-        }
-        this.UpdateView();
-    };
-    App.prototype.Launch = function ()
-    {
+    App.prototype.Launch = function () {
         this.LoadScene(
-        function() { // on success finish up some setup0
-          this.LaunchSetup();			 
-		      this.camera.UpdateSceneBounds(this.scene.Bounds());
+        function() { // on success finish up some setup
+            this.camera.SaveStateForReset();
+            this.camera.UpdateSceneBounds(this.scene.Bounds());
+            this.undoStack.clear();
+            this.renderer.postRedisplay();
         }.bind(this),
         function() { // on failure create an empty room
             this.assman.GetModel('room', function (model)
             {
                 this.scene.Reset(new ModelInstance(model, null));
                 this.camera.UpdateSceneBounds(this.scene.Bounds());
-                 this.LaunchSetup();
+                this.undoStack.clear();
+                this.renderer.postRedisplay();
 	          }.bind(this));
-         }.bind(this)
-        );
-	  
-	      this.renderer.resizeEnd();
+         }.bind(this));
+	    this.renderer.resizeEnd();
         this.UpdateView();
     };
 
@@ -258,7 +130,7 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
         // Try to prevent accidental navigation away from app
         window.onbeforeunload = function(e) {
             return 'If you leave this page, you may lose unsaved work!'
-        }
+        };
         
         /*** Behaviors are specified here ***/
         
@@ -389,29 +261,6 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
             }.bind(this)));
         
         // Keyboard Tumble
-
-	 Behaviors.keypress(this.uimap, 'T')
-            .onpress(function(data) {
-                data.preventDefault();
-		console.log("t pressed");
-                var vopt = this.viewportoptimizer;
-                var optstate = vopt.optimizeCameraState();
-                this.camera.Reset(optstate.eyePos, optstate.lookAtPoint, null);
-                //console.log(this.camera.State());
-                this.renderer.setViewport_();
-                this.UpdateView();
-            }.bind(this));
-
-        Behaviors.keypress(this.uimap, 'U')
-            .onpress(function(data) {
-                data.preventDefault();
-                var vopt = this.viewportoptimizer;
-                var area = vopt.getStateValue(this.camera.State());
-                this.renderer.setViewport_();
-
-                console.log(area);
-            }.bind(this));
-	
         Behaviors.keyhold(this.uimap, 'M')
             .onhold(ensureInstance(function(opts) {
                 this.Tumble(opts.instance, false);
@@ -473,12 +322,6 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
                 this.insertion_behavior.cancel();
                 this.SelectInstance(null);
                 this.renderer.postRedisplay();
-            }.bind(this));
-        
-        // open dialog
-        Behaviors.keypress(this.uimap, 'Q')
-            .onpress(function(data) {
-                this.architectureGenerator.openDialog();
             }.bind(this));
         
         // debug which instance is currently being manipulated
@@ -669,18 +512,6 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
             dataType: 'json',
             timeout: 10000
         }).error(on_error).success(on_success);
-	};
-
-
-	App.prototype.SaveCamera = function()
-	{
-        //TODO: Save camera to backend
-        console.log(this.camera);
-	};
-
-	App.prototype.LoadCamera = function()
-	{
-        //TODO: Load camera from backend
 	};
 
     App.prototype.ExitTo = function(destination)

@@ -2,7 +2,7 @@
 <html>
 <head>
   <title><%= full_title(@scene.name) %></title>
-  <link href="<%= base_url %>/gl_app/gl_app.css" type="text/css" rel="stylesheet"></link>
+  <link href="<%= base_url %>/gl_app/gl_app.css" type="text/css" rel="stylesheet"/>
   <link type="text/css" rel="stylesheet"
     href=
     "<%= base_url %>/gl_app/javascripts/jquery-ui/css/redmond/jquery-ui-1.8.21.custom.css">
@@ -14,8 +14,6 @@
 </head>
 <body>
 	
-  
-  </div>
 
   <div id="ui">
     <div id="graphicsArea">
@@ -36,7 +34,7 @@
     <div id="searchArea">
       <h3 id="searchInputHeader"> Model Search </h3>
       <div id="searchBoxWrapper">
-        <input type="text" id="searchInputBox"></input>
+        <input type="text" id="searchInputBox"/>
       </div>
       <button id="searchButton"> Search </button>
       <div id="searchResults" class="panel">
@@ -45,15 +43,13 @@
     </div>
 
   </div>
-	<div id="blocker">
-	
-		<div id = "instructions">		
-			<p> Press enter to capture best and worst views in this scene </p>
-			<p> Click to enter fullscreen mode </p>
-			<p> Use AWSD to move </p>
-		</div>
-		 
-	</div>
+  <div id="blocker" style="display: none;">
+    <div id="instructions">
+      <p> Press enter to capture best and worst views in this scene </p>
+      <p> Click to enter fullscreen mode </p>
+      <p> Use AWSD to move </p>
+    </div>
+  </div>
   <%= render 'glsl_shaders/constant.frag' %>
   <%= render 'glsl_shaders/constant.vert' %>
   <%= render 'glsl_shaders/model.frag' %>
@@ -67,11 +63,11 @@
     window.globalViewData = {
       user: {
         name: "<%= current_user.name %>",
-        id:   "<%= current_user.id %>",
+        id:   "<%= current_user.id %>"
       },
       scene: {
         name: "<%= @scene.name %>",
-        id:   "<%= @scene.id %>",
+        id:   "<%= @scene.id %>"
       },
       on_close_url: "<%= @on_close_url %>",
 	  base_url: "<%= base_url %>"
