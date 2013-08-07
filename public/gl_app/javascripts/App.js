@@ -21,7 +21,8 @@ define([
 	'fsm',
     'UILog',
 	'ViewPortOptimizer',
-	'jquery'
+	'jquery',
+    'game-shim'
 ],
 function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Scene, SearchController,
 		  ArchitectureGenerator, Manipulators, UndoStack, Toolbar, CameraControls, PubSub, SplitView, uimap, Behaviors, FSM, UILog, ViewPortOptimizer)
@@ -188,7 +189,6 @@ function App(canvas, mode)
 	App.prototype.AttachViewSelectionEventHandlers = function(){
 		var canvas = document.getElementById("canvas");
 		var elem = canvas;
-		var blocker = document.getElementById("blocker");
 		var app = this;
 		function pointerLockChange() {
 	  		if (document.mozPointerLockElement === elem ||
@@ -209,17 +209,14 @@ function App(canvas, mode)
 		}
 		function fullscreenChange() {
 			//console.log(canvas.clientWidth, canvas.clientHeight);
-	  		elem.requestPointerLock = elem.requestPointerLock    ||
-		                     elem.mozRequestPointerLock ||
-		                     elem.webkitRequestPointerLock;
 			app.camera.SaveStateForReset();
 			//console.log(app.camera.upVec);
 	  		elem.requestPointerLock();
 		}
-	
-		blocker.addEventListener( 'click', function( event ) {	
+        var blocker = document.getElementById("blocker");
+		blocker.addEventListener( 'click', function() {
 			//console.log(canvas.clientWidth, canvas.clientHeight);
-			elem.mozRequestFullScreen();
+			elem.requestFullScreen();
 		});
 		document.addEventListener('fullscreenchange', fullscreenChange, false);
 		document.addEventListener('mozfullscreenchange', fullscreenChange, false);
@@ -232,24 +229,15 @@ function App(canvas, mode)
 
 
 		document.addEventListener("mousemove", function(e) {
-		// FP view manipulation 
-	  	var movementX = e.movementX       ||
-		          e.mozMovementX    ||
-		          e.webkitMovementX ||
-		          0,
-	     	 movementY = e.movementY       ||
-		          e.mozMovementY    ||
-		          e.webkitMovementY ||
-		          0;
+            // FP view manipulation
+            var movementX = e.movementX;
+            var movementY = e.movementY;
+            //console.log("movementX=" + movementX, "movementY=" + movementY);
+            this.camera.PanLeft( -1 * movementX/(Math.PI * 100));
+            this.camera.PanUp(movementY/(Math.PI * 100));
+            this.UpdateView();
+		}.bind(this), false);
 
-	  	// Print the mouse movement delta values
-	  	//console.log("movementX=" + movementX, "movementY=" + movementY);
-	
-		this.camera.PanLeft( -1 * movementX/(Math.PI * 100));
-		this.camera.PanUp(movementY/(Math.PI * 100));
-		this.UpdateView();
-		}.bind(this)
-		, false);
 		// FP movement manipulation 
 		document.addEventListener("keydown", function(e){
 			var movespeed = 5; 
@@ -290,7 +278,7 @@ function App(canvas, mode)
 				}
 			}
 		}.bind(this));
-	}	
+	};
     
     App.prototype.LaunchSetup = function(){
       if(this.mode == "VIEWCOLLECTION"){
