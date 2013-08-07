@@ -19,11 +19,13 @@
 
   <div id="ui">
     <div id="graphicsArea">
+	<h3 id ="selectview"> Select best view of scene</h3>
       <canvas id="canvas"
               oncontextmenu="return false;"
               tabindex="-1"
               onclick="$('#canvas').focus();"></canvas>
     </div>
+	
     <div id="graphicsOverlay">
       <div id="toolbar"
            oncontextmenu="$('#canvas').focus(); return false;"
@@ -74,6 +76,7 @@
         id:   "<%= @scene.id %>",
       },
       on_close_url: "<%= @on_close_url %>",
+      mode:"SCENECOLLECTION"
     };
   </script>
 

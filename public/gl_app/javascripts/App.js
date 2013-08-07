@@ -80,6 +80,8 @@ function App(canvas, mode)
 		this.uistate = new UIState(this.renderer.gl_);
 
 	if(mode == "VIEWCOLLECTION"){
+
+		
 		document.getElementById("graphicsOverlay").style.visibility='hidden';
 		document.getElementById("searchArea").style.visibility='hidden';
 		this.bestCollected = false;
@@ -163,7 +165,7 @@ function App(canvas, mode)
 	
 	App.prototype.AttachViewSelectionEventHandlers = function(){
 		var canvas = document.getElementById("canvas");
-		var elem = canvas;
+		var elem = document.getElementById("graphicsArea");
 		var blocker = document.getElementById("blocker");
 		var app = this;
 		function pointerLockChange() {

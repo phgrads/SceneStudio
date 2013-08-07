@@ -23,7 +23,7 @@ requirejs.config({
 var app;
 // Application entry point
 require(['App'], function(App) {
-	app = new App(id('canvas'), "VIEWCOLLECTION");
+	app = new App(id('canvas'), window.globalViewData.mode);
 	app.Launch();
 	app.UpdateView();
 });
