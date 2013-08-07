@@ -14,18 +14,9 @@ define([
 
     FPCamera.prototype = Object.create(Camera.prototype);
 
-
-    FPCamera.prototype.Serialize = function() {
-        return {eye:this.eyePos, lookAt:this.lookAtPoint};
-    };
-
-    FPCamera.prototype.Load = function(state) {
-        this.Reset(state.eye, state.lookAt);
-    };
-
     // Make sure the new eye position is inside of the room's bounding box
     FPCamera.prototype.checkRoomBounds = function(newEye) {
-        return this.scene.Bounds().ContainsPoint(newEye);
+        return this.sceneBounds.ContainsPoint(newEye);
     };
 
     // Check to see whether the new eyeposition is inside of any model's bounding box
