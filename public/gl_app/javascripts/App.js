@@ -86,6 +86,7 @@ function App(canvas, mode)
 	   
         this.assman = new AssetManager(this.renderer.gl_);
 		this.uistate = new UIState(this.renderer.gl_);
+        this.uilog = new UILog.UILog();
 
 	if(mode == "VIEWCOLLECTION"){
 		document.getElementById("graphicsOverlay").style.visibility='hidden';
@@ -113,7 +114,6 @@ function App(canvas, mode)
 	this.cameraControls = new CameraControls(this);
         this.searchController = new SearchController(this);
         this.architectureGenerator = new ArchitectureGenerator(this);
-        this.uilog = new UILog.UILog();
 		
 		SplitView.MakeSplitView({
 			leftElem: $('#graphicsOverlay'),
@@ -139,8 +139,10 @@ function App(canvas, mode)
 		return pos;
 	}
 	App.prototype.isValidCameraPosition = function(pos){
+		//TODO: Unhack this
+		return true;
 		for( var j = 1; j < this.scene.modelList.length; j++){
-			if( this.scene.modelList[i].bbox.ContainsPoint(pos) ){
+			if( this.scene.modelList[j].bbox.ContainsPoint(pos) ){
 				return false;
 			}
 		}
