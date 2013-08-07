@@ -86,7 +86,7 @@ FSMTemplate.isConflict = function(name)
         throw new Error('cannot use the name ' + name +
                         ' in an FSM, since that name is already reserved.');
     }
-}
+};
 
 FSMTemplate.output = function()
 {
@@ -101,10 +101,10 @@ FSMTemplate.output = function()
     args.forEach(function(out_name) {
         if((typeof out_name) == 'string')
             outputs[out_name] = null; // add name to set
-    })
+    });
     
     return this;
-}
+};
 
 FSMTemplate.state = function(state_name)
 {
@@ -116,7 +116,7 @@ FSMTemplate.state = function(state_name)
         this.states[state_name] = {}; // stub if first time spec-ing state
     
     return this;
-}
+};
 
 FSMTemplate.step = function(input_name, state_name, output_name)
 {
@@ -134,7 +134,7 @@ FSMTemplate.step = function(input_name, state_name, output_name)
     this.states[this.curr_state][input_name] = handler;
     
     return this;
-}
+};
 
 FSMTemplate.spoof = function(input_name, reroute)
 {
@@ -144,7 +144,7 @@ FSMTemplate.spoof = function(input_name, reroute)
     }
     
     return this;
-}
+};
 
 // handler should have the form: func(fsm, params, next)
 FSMTemplate.shim = function(input_names, handler)
@@ -164,7 +164,7 @@ FSMTemplate.shim = function(input_names, handler)
     }.bind(this));
     
     return this;
-}
+};
 
 FSMTemplate.repeat = function()
 {
@@ -179,7 +179,7 @@ FSMTemplate.repeat = function()
     }.bind(this));
     
     return this;
-}
+};
 
 
 
@@ -241,7 +241,7 @@ FSMTemplate.compile = function()
     }
     
     return fsm;
-}
+};
 
 
 
@@ -253,7 +253,7 @@ CompiledFSM.dispatch = function(input, params)
     if(state_table[input])
         state_table[input](params);
     return this;
-}
+};
 
 CompiledFSM.jump = function(next_state, output, params)
 {
@@ -264,7 +264,7 @@ CompiledFSM.jump = function(next_state, output, params)
     if(output) // only emit if parameters are provided
         this.emit(output, params);
     return this;
-}
+};
 
 CompiledFSM.emit = function(output, params)
 {
@@ -275,7 +275,7 @@ CompiledFSM.emit = function(output, params)
             callbacks[i](params);
     }
     return this;
-}
+};
 
 CompiledFSM.on = function(output, callback)
 {
@@ -283,7 +283,7 @@ CompiledFSM.on = function(output, callback)
         this.outputs[output].push(callback);
     }
     return this;
-}
+};
 
 CompiledFSM.listen = function(src_fsm, signals)
 {
@@ -302,7 +302,7 @@ CompiledFSM.listen = function(src_fsm, signals)
     }.bind(this));
     
     return this;
-}
+};
 
 CompiledFSM.detach = function(signals)
 {
@@ -318,13 +318,136 @@ CompiledFSM.detach = function(signals)
         if(this.outputs[signal])
             this.outputs[signal] = [];
     }.bind(this));
+};
+
+// HOW TO MAKE AN OBJECT FOCUSABLE:
+//  (1) The object must be pickable
+//  (2) The object must supply a 'focus_listener' member object
+//  (3) This object must have an FSM-like listen/dispatch interface
+//          to which events will be routed during focus
+//  (4) Events which will be dispatched:
+//          mousedown, mouseup, mousemove,
+//          keydown, keyup
+//          focus, defocus
+// The focus machine built here is responsible for centralizing
+// and managing the concept of application focus.
+function focusmachine(app) {
+    var uimap = app.uimap;
+
+    // hidden state: which object is currently focused on
+    var focusedObject = null;
+    // hidden state: keep track of mouse position so we can spoof...
+    var prevX = null, prevY = null;
+    function xyShim(fsm, params, next) {
+        prevX = params.x;
+        prevY = params.y;
+        next(fsm, params);
+    }
+
+    // "semaphore" for keeping track of how many extra
+    // interruptions are occuring right now.
+    var extra_interruptions = 0;
+
+    function augmentShim(fsm, params, next) {
+        params.lockFocus = fsm.lock.bind(fsm);
+        params.unlockFocus = fsm.unlock.bind(fsm);
+        params.app = app;
+        next(fsm, params);
+    }
+
+    function focusable(obj) {
+        return obj && obj.focus_listener;
+    }
+    function focusOn(fsm, target) {
+        if(focusable(target)) {
+            focusedObject = target;
+            // hook up the new object
+            target.focus_listener.listen(fsm);
+            // and inform it that it's been focused on
+            fsm.emit('focus', {app: app});
+        }
+    }
+    function defocusShim(fsm, params, next) {
+        if(focusedObject) {
+            fsm.emit('defocus', {app: app});
+            fsm.detach();
+            focusedObject = null;
+        }
+        if(next) next(fsm, params); // guard to allow non-shim use
+    }
+    function updateFocus(fsm, x, y) {
+        var oldobj = focusedObject;
+        var newobj = app.renderer.picker.PickObject(x, y, app.renderer);
+        if (newobj !== oldobj) {
+            defocusShim(fsm);
+            focusOn(fsm, newobj);
+        }
+    }
+    function reset(fsm, params) {
+        fsm.jump('free');
+        updateFocus(fsm, prevX, prevY);
+    }
+    var uimap_signals = ['mousedown', 'mousemove', 'mouseup',
+        'keydown', 'keyup'];
+    var focus_template = template()
+            .output(uimap_signals) // spoof uimap to the object...
+            .output('focus', 'defocus') // extra signals
+            .state('free')
+            .step('mousemove', function(fsm, params) {
+                updateFocus(fsm, params.x, params.y);
+                fsm.emit('mousemove', params);
+            })
+            .repeat('mousedown', 'mouseup', 'keydown', 'keyup')
+            .shim('mousemove', xyShim)
+            .shim(uimap_signals, augmentShim)
+            .step('lock', 'locked')
+            .step('start_interruption', 'interrupted')
+            .shim('start_interruption', defocusShim)
+            .state('interrupted')
+            // ERROR: need semaphore counter for this state...
+            // ALSO: should have some kind of global UI monitor/reset
+            //          for safety...
+            .step('start_interruption', function(fsm, params) {
+                extra_interruptions += 1;
+            })
+            .step('finish_interruption', function(fsm, params) {
+                if(extra_interruptions > 0)
+                    extra_interruptions -= 1;
+                else
+                    reset(fsm, params);
+            })
+            .step('mousemove', 'interrupted') // jump nowhere
+            .shim('mousemove', xyShim) // but update xy data
+            .state('locked')
+            .step('start_interruption', 'interrupted')
+            .shim('start_interruption', defocusShim)
+            .repeat(uimap_signals)
+            .shim('mousemove', xyShim)
+            .shim(uimap_signals, augmentShim)
+            // call from focused object to release lock
+            .step('unlock', reset)
+        ;
+
+    var fsm = focus_template.compile().listen(uimap);
+
+    // non-writable interface
+    fsm.isFocused = function() { // not whether it's locked...
+        return !!(focusedObject);
+    };
+    fsm.isLocked = function() {
+        return fsm.curr_state == 'locked';
+    };
+    fsm.instance = function() {
+        return focusedObject;
+    };
+
+    return fsm;
 }
 
 
-
-
 return {
-    template: template
+    template: template,
+    focusmachine: focusmachine
 };
 
 

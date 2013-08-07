@@ -38,20 +38,15 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
         this.isBusy = false;
     }
 
-function App(canvas, mode)
+    function App(canvas, mode)
     {
 		// Extend PubSub
 		PubSub.call(this);
-	
-	
 
-		
-	this.bestCollected = false;
-	this.worstCollected = false;
- 	this.mode = mode; 
+	    this.bestCollected = false;
+	    this.worstCollected = false;
+ 	    this.mode = mode;
         this.canvas = canvas;
-
-
 
         // ensure that AJAX requests to Rails will properly
         // include the CSRF authenticity token in their headers
@@ -71,12 +66,8 @@ function App(canvas, mode)
         this.base_url   = window.globalViewData.base_url;
         
         this.uimap = uimap.create(canvas);
-
-       
-        
         this.scene = new Scene();
-	this.renderer = new Renderer(canvas, this.scene);
-	   
+	    this.renderer = new Renderer(canvas, this.scene);
         this.assman = new AssetManager(this.renderer.gl_);
 		this.uistate = new UIState(this.renderer.gl_);
         this.uilog = new UILog.UILog();
@@ -330,7 +321,7 @@ function App(canvas, mode)
         
         // no need to install handlers, as events are
         // dynamically routed by the machine
-        var focus = this.focusMachine = this.CreateFocusMachine();
+        var focus = FSM.focusmachine(this);
         // inhibit focusing during view manipulations
         orbiting_behavior
             .onstart(focus.start_interruption.bind(focus))
@@ -541,133 +532,7 @@ function App(canvas, mode)
 			console.log(this.scene.SerializeBare());
 		}.bind(this))
     };
-    
-    // HOW TO MAKE AN OBJECT FOCUSABLE:
-    //  (1) The object must be pickable
-    //  (2) The object must supply a 'focus_listener' member object
-    //  (3) This object must have an FSM-like listen/dispatch interface
-    //          to which events will be routed during focus
-    //  (4) Events which will be dispatched:
-    //          mousedown, mouseup, mousemove,
-    //          keydown, keyup
-    //          focus, defocus
-    // The focus machine built here is responsible for centralizing
-    // and managing the concept of application focus.
-    App.prototype.CreateFocusMachine = function()
-    {
-        var app = this;
-        var uimap = app.uimap;
-        
-        // hidden state: which object is currently focused on
-        var focusedObject = null;
-        // hidden state: keep track of mouse position so we can spoof...
-        var prevX = null, prevY = null;
-        function xyShim(fsm, params, next) {
-            prevX = params.x;
-            prevY = params.y;
-            next(fsm, params);
-        }
-        
-        // "semaphore" for keeping track of how many extra
-        // interruptions are occuring right now.
-        var extra_interruptions = 0;
-        
-        function augmentShim(fsm, params, next) {
-            params.lockFocus = fsm.lock.bind(fsm);
-            params.unlockFocus = fsm.unlock.bind(fsm);
-            params.app = app;
-            next(fsm, params);
-        }
-        
-        function focusable(obj) {
-            return obj && obj.focus_listener;
-        }
-        function focusOn(fsm, target) {
-            if(focusable(target)) {
-                focusedObject = target;
-                // hook up the new object
-                target.focus_listener.listen(fsm);
-                // and inform it that it's been focused on
-                fsm.emit('focus', {app: app});
-            }
-        }
-        function defocusShim(fsm, params, next) {
-            if(focusedObject) {
-                fsm.emit('defocus', {app: app});
-                fsm.detach();
-                focusedObject = null;
-            }
-            if(next) next(fsm, params); // guard to allow non-shim use
-        }
-        function updateFocus(fsm, x, y) {
-            var oldobj = focusedObject;
-            var newobj = app.renderer.picker.PickObject(x, y, app.renderer);
-            if (newobj !== oldobj) {
-                defocusShim(fsm);
-                focusOn(fsm, newobj);
-            }
-        }
-        function reset(fsm, params) {
-            fsm.jump('free');
-            updateFocus(fsm, prevX, prevY);
-        }
-        var uimap_signals = ['mousedown', 'mousemove', 'mouseup',
-                             'keydown', 'keyup'];
-        var focus_template = FSM.template()
-            .output(uimap_signals) // spoof uimap to the object...
-            .output('focus', 'defocus') // extra signals
-            .state('free')
-                .step('mousemove', function(fsm, params) {
-                    updateFocus(fsm, params.x, params.y);
-                    fsm.emit('mousemove', params);
-                })
-                .repeat('mousedown', 'mouseup', 'keydown', 'keyup')
-                    .shim('mousemove', xyShim)
-                    .shim(uimap_signals, augmentShim)
-                .step('lock', 'locked')
-                .step('start_interruption', 'interrupted')
-                    .shim('start_interruption', defocusShim)
-            .state('interrupted')
-                // ERROR: need semaphore counter for this state...
-                // ALSO: should have some kind of global UI monitor/reset
-                //          for safety...
-                .step('start_interruption', function(fsm, params) {
-                    extra_interruptions += 1;
-                })
-                .step('finish_interruption', function(fsm, params) {
-                    if(extra_interruptions > 0)
-                        extra_interruptions -= 1;
-                    else
-                        reset(fsm, params);
-                })
-                .step('mousemove', 'interrupted') // jump nowhere
-                    .shim('mousemove', xyShim) // but update xy data
-            .state('locked')
-                .step('start_interruption', 'interrupted')
-                    .shim('start_interruption', defocusShim)
-                .repeat(uimap_signals)
-                    .shim('mousemove', xyShim)
-                    .shim(uimap_signals, augmentShim)
-                // call from focused object to release lock
-                .step('unlock', reset)
-            ;
-        
-        var fsm = focus_template.compile().listen(uimap);
-        
-        // non-writable interface
-        fsm.isFocused = function() { // not whether it's locked...
-            return !!(focusedObject);
-        }
-        fsm.isLocked = function() {
-            return fsm.curr_state == 'locked';
-        }
-        fsm.instance = function() {
-            return focusedObject;
-        }
-        
-        return fsm;
-    };
-    
+
     // This encapsulates access to the current state/progress
     // of an insertion, as well as access to the instance being inserted.
     // one consequence is to ensure that the instance
@@ -724,7 +589,7 @@ function App(canvas, mode)
         };
         
         return fsm;
-    }
+    };
     
     App.prototype.ToggleBusy = function (isBusy)
     {
@@ -745,13 +610,13 @@ function App(canvas, mode)
 	{
 		this.undoStack.undo();
 		this.renderer.postRedisplay();
-	}
+	};
 	
 	App.prototype.Redo = function()
 	{
 		this.undoStack.redo();
 		this.renderer.postRedisplay();
-	}
+	};
     
 	App.prototype.Copy = function()
 	{
@@ -765,7 +630,7 @@ function App(canvas, mode)
 			
 			this.Publish('CopyCompleted');
 		}
-	}
+	};
 	
 	App.prototype.Paste = function(opts)
 	{
@@ -791,7 +656,7 @@ function App(canvas, mode)
             if(opts)
                 this.ContinueModelInsertion(opts.x, opts.y);
         }
-	}
+	};
     
 	App.prototype.Delete = function()
 	{
@@ -801,14 +666,14 @@ function App(canvas, mode)
 			this.RemoveModelInstance(selectedMinst);
 			this.undoStack.pushCurrentState(UndoStack.CMDTYPE.DELETE, null);
 		}
-	}
+	};
 	
 	App.prototype.Tumble = function(mInst, doRecordUndoEvent)
 	{
 		mInst.Tumble();
 		doRecordUndoEvent && this.undoStack.pushCurrentState(UndoStack.CMDTYPE.SWITCHFACE, mInst);
 		this.renderer.postRedisplay();	
-	}
+	};
 	
 	App.prototype.LoadScene = function(on_success, on_error)
 	{
@@ -820,7 +685,7 @@ function App(canvas, mode)
                                                  this.assman,
                                                  on_success);
         }.bind(this));
-	}
+	};
 	
 	App.prototype.SaveScene = function(on_success, on_error)
 	{
@@ -843,49 +708,18 @@ function App(canvas, mode)
             dataType: 'json',
             timeout: 10000
         }).error(on_error).success(on_success);
-	}
+	};
 
 
-	App.prototype.SaveCamera = function(on_success, on_error)
+	App.prototype.SaveCamera = function()
 	{
-        on_success = on_success || function() {
-            alert('saved!  Please develop a better UI alert');
-        };
-        on_error = on_error || function() {
-            alert('did not save!  Please develop a better UI alert');
-        };
-        var serialized = this.camera.Serialize();
-        $.ajax({
-            type: 'POST',
-            url: this.base_url + '/scenes/' +
-                 this.scene_record.id,
-            data: {
-                _method: 'PUT', // PUT verb for Rails
-                ui_log: JSON.stringify(serialized),
-            },
-            dataType: 'json',
-            timeout: 10000,
-        }).error(on_error).success(on_success);
-	}
+        //TODO: Save camera to backend
+        console.log(this.camera);
+	};
 
-
-	//Save the camera state to the ui_log field
-	App.prototype.LoadCamera = function(on_success, on_error)
-	{	
-		on_error = on_error || function() {
-            	alert('did not work!');
-        	};
-
-		on_success = on_success || function() {
-           	 alert('saved!  Please develop a better UI alert');
-      		 };
-		
-
-        	$.get(this.base_url + '/scenes/' + this.scene_record.id + '/loadcamera')
-        	.error(on_error).success(function(scene_json) {
-            		var camera = JSON.parse(scene_json);
-            		console.log(camera);
-        		});
+	App.prototype.LoadCamera = function()
+	{
+        //TODO: Load camera from backend
 	};
 
     App.prototype.ExitTo = function(destination)
@@ -895,7 +729,7 @@ function App(canvas, mode)
             window.location.href = this.on_close_url;
         }.bind(this)); // should add dialog to ask if the user wants to leave
         // even though nothing was saved in event of error
-    }
+    };
     
     // This exists to permit us to drag objects around
     // and intersect the surface underneath them (instead of the object itself)
