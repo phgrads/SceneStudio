@@ -115,47 +115,6 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
 	// Extend PubSub
 	App.prototype = Object.create(PubSub.prototype);
 	
-	App.prototype.RandomFloorPosition = function(){ 
-		var roombox = this.scene.modelList[0].model.bbox;
-		var xpos = roombox.mins[0] + Math.random() * (roombox.maxs[0] - roombox.mins[0]);
-		var ypos = roombox.mins[1] + Math.random() * (roombox.maxs[1] - roombox.mins[1]);
-		var pos = vec3.create([xpos, ypos, 0]);
-		return pos;
-	}
-	App.prototype.isValidCameraPosition = function(pos){
-		//TODO: Unhack this
-		return true;
-		for( var j = 1; j < this.scene.modelList.length; j++){
-			if( this.scene.modelList[j].bbox.ContainsPoint(pos) ){
-				return false;
-			}
-		}
-		return true;
-	}
-					
-	App.prototype.SetCamera = function(){
-		
-		var maxiter = 20;
-		try{ 
-			for(var i = 0; i < maxiter; i++){
-				var pos = this.RandomFloorPosition();
-				if(this.isValidCameraPosition(pos)){
-					//var upVec = vec3.create([0,0,1]);
-					var eyePos = vec3.create([pos[0], pos[1] ,50]);
-					//console.log(eyePos);
-					//var lookAt = vec3.create([1,1,1]); 
-					this.camera.Reset(eyePos);
-					return; 
-				}
-			}
-			throw "random initialization failed"
-		}
-		catch(err){
-			alert(err);
-		}
-		
-	}
-	
 	App.prototype.AttachViewSelectionEventHandlers = function(){
 		var canvas = document.getElementById("canvas");
 		var elem = canvas;
@@ -251,16 +210,18 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
 	};
     
     App.prototype.LaunchSetup = function(){
-      if(this.mode == "VIEWCOLLECTION"){
-			  this.SetCamera();
-			  this.camera.SaveStateForReset();
-			  this.AttachViewSelectionEventHandlers();
-		  }
-		  else if(this.mode == "SCENECOLLECTION"){
-			  this.undoStack.clear();
-      }
-      this.UpdateView();
-    }	
+        if(this.mode == "VIEWCOLLECTION"){
+            var pos = this.scene.Bounds().RandomPointInside();
+            var eyePos = vec3.create([pos[0], pos[1] ,50]);
+            this.camera.Reset(eyePos);
+			this.camera.SaveStateForReset();
+			this.AttachViewSelectionEventHandlers();
+	    }
+		else if(this.mode == "SCENECOLLECTION"){
+		    this.undoStack.clear();
+        }
+        this.UpdateView();
+    };
     App.prototype.Launch = function ()
     {
         this.LoadScene(
