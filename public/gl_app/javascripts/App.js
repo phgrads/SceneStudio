@@ -82,20 +82,11 @@ function App(canvas, mode)
        
         
         this.scene = new Scene();
-	this.camera = new FPCamera(this.scene);
-	
-	//this.UpdateView();
-/*
-	        var cameraData = JSON.parse("{\"eyePos\":{\"0\":3.776055335998535,\"1\":-187.77793884277344,\"2\":164.77069091796875,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"lookAtPoint\":{\"0\":0,\"1\":1,\"2\":0,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"upVec\":{\"0\":-0.01314918976277113,\"1\":0.6573730707168579,\"2\":0.7534525990486145,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"lookVec\":{\"0\":-0.015068011358380318,\"1\":0.7533015012741089,\"2\":-0.6575027108192444,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"leftVec\":{\"0\":-0.9998010993003845,\"1\":-0.019998691976070404,\"2\":0,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12}}");
-        $.extend(this.camera, cameraData);
-*/	
-
-        this.renderer = new Renderer(canvas, this.scene);
-        this.viewportoptimizer = new ViewPortOptimizer(this.renderer, this.scene, this.camera, this);
+	this.renderer = new Renderer(canvas, this.scene);
+	   
         this.assman = new AssetManager(this.renderer.gl_);
 		this.uistate = new UIState(this.renderer.gl_);
 
-        preventSelection(this.canvas);
 	if(mode == "VIEWCOLLECTION"){
 		document.getElementById("graphicsOverlay").style.visibility='hidden';
 		document.getElementById("searchArea").style.visibility='hidden';
@@ -116,9 +107,6 @@ function App(canvas, mode)
 		this.scene.AddManipulator(new Manipulators.ScaleManipulator(this.renderer.gl_));
 			
         	this.AttachEventHandlers();
-
-		
-        //this.AttachEventHandlers();
 
 	this.undoStack = new UndoStack.UndoStack(this, Constants.undoStackMaxSize);
 	this.toolbar = new Toolbar(this);
@@ -303,22 +291,14 @@ function App(canvas, mode)
     App.prototype.Launch = function ()
     {
         this.LoadScene(
-        function() { // on success finish up some setup
-			//this.camera = new FPCamera(this.scene);
-			this.camera.UpdateSceneBounds(this.scene.Bounds());
-			this.SetCamera();
-			this.camera.SaveStateForReset();
-			this.AttachViewSelectionEventHandlers();
-      this.undoStack.clear();
-      this.uilog.log(UILog.EVENT.SCENE_LOAD, null);
-			this.UpdateView();
-
+        function() { // on success finish up some setup0
+          this.LaunchSetup();			 
+		      this.camera.UpdateSceneBounds(this.scene.Bounds());
         }.bind(this),
         function() { // on failure create an empty room
             this.assman.GetModel('room', function (model)
             {
                 this.scene.Reset(new ModelInstance(model, null));
-		//this.camera = new FPCamera(this.scene);
                 this.camera.UpdateSceneBounds(this.scene.Bounds());
                  this.LaunchSetup();
 	          }.bind(this));
