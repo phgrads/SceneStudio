@@ -27,14 +27,6 @@ define([
 function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Scene, SearchController,
 		  ArchitectureGenerator, Manipulators, UndoStack, Toolbar, CameraControls, PubSub, SplitView, uimap, Behaviors, FSM, UILog, ViewPortOptimizer)
 {
-    // support function should be factored out...?
-    function mapTable(table, perField) {
-        var result = {};
-        for(var key in table)
-            result[key] = perField(key, table[key]);
-        return result;
-    }
-
     function UIState(gl)
     {
         // Model selection
