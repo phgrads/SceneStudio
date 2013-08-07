@@ -19,11 +19,13 @@
 
   <div id="ui">
     <div id="graphicsArea">
+	<h3 id ="selectview"> Select best view of scene</h3>
       <canvas id="canvas"
               oncontextmenu="return false;"
               tabindex="-1"
               onclick="$('#canvas').focus();"></canvas>
     </div>
+	
     <div id="graphicsOverlay">
       <div id="toolbar"
            oncontextmenu="$('#canvas').focus(); return false;"
@@ -45,13 +47,15 @@
     </div>
 
   </div>
-  <div id="blocker" style="display: none;">
-    <div id="instructions">
-      <p> Press enter to capture best and worst views in this scene </p>
-      <p> Click to enter fullscreen mode </p>
-      <p> Use AWSD to move </p>
-    </div>
-  </div>
+	<div id="blocker">
+	
+		<div id = "instructions">		
+			<p> Press enter to capture best and worst views in this scene </p>
+			<p> Click to enter fullscreen mode </p>
+			<p> Use AWSD to move </p>
+		</div>
+		 
+	</div>
   <%= render 'glsl_shaders/constant.frag' %>
   <%= render 'glsl_shaders/constant.vert' %>
   <%= render 'glsl_shaders/model.frag' %>

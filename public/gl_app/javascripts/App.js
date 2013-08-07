@@ -25,6 +25,14 @@ define([
 function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, SearchController,
 		  Manipulators, UndoStack, Toolbar, CameraControls, PubSub, SplitView, uimap, Behaviors, FSM, UILog)
 {
+    // support function should be factored out...?
+    function mapTable(table, perField) {
+        var result = {};
+        for(var key in table)
+            result[key] = perField(key, table[key]);
+        return result;
+    }
+
     function UIState(gl)
     {
         // Model selection
@@ -36,15 +44,14 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
         this.isBusy = false;
     }
 
-    function App(canvas)
+function App(canvas, mode)
     {
 		// Extend PubSub
 		PubSub.call(this);
-
-	    this.bestCollected = false;
-	    this.worstCollected = false;
- 	    this.mode = mode;
+	this.mode = mode; 
         this.canvas = canvas;
+
+
 
         // ensure that AJAX requests to Rails will properly
         // include the CSRF authenticity token in their headers
@@ -65,16 +72,30 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
         
         this.uimap = uimap.create(canvas);
 
-        this.camera = new Camera();
-        var cameraData = JSON.parse("{\"eyePos\":{\"0\":3.776055335998535,\"1\":-187.77793884277344,\"2\":164.77069091796875,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"lookAtPoint\":{\"0\":0,\"1\":1,\"2\":0,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"upVec\":{\"0\":-0.01314918976277113,\"1\":0.6573730707168579,\"2\":0.7534525990486145,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"lookVec\":{\"0\":-0.015068011358380318,\"1\":0.7533015012741089,\"2\":-0.6575027108192444,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"leftVec\":{\"0\":-0.9998010993003845,\"1\":-0.019998691976070404,\"2\":0,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12}}");
-        $.extend(this.camera, cameraData);
-
+       
+        
         this.scene = new Scene();
-	    this.renderer = new Renderer(canvas, this.scene);
+	this.renderer = new Renderer(canvas, this.scene);
+	   
         this.assman = new AssetManager(this.renderer.gl_);
 		this.uistate = new UIState(this.renderer.gl_);
-        this.uilog = new UILog.UILog();
 
+	if(mode == "VIEWCOLLECTION"){
+		document.getElementById("graphicsOverlay").style.visibility='hidden';
+		document.getElementById("searchArea").style.visibility='hidden';
+		this.bestCollected = false;
+		this.worstCollected = false;
+		this.camera = new FPCamera(this.scene);
+		
+	}
+	else if(mode == "SCENECOLLECTION"){
+		
+		document.getElementById("blocker").style.visibility='hidden';
+		this.camera = new Camera();
+		$.extend(this.camera, cameraData);
+
+	        var cameraData = JSON.parse("{\"eyePos\":{\"0\":3.776055335998535,\"1\":-187.77793884277344,\"2\":164.77069091796875,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"lookAtPoint\":{\"0\":0,\"1\":1,\"2\":0,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"upVec\":{\"0\":-0.01314918976277113,\"1\":0.6573730707168579,\"2\":0.7534525990486145,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"lookVec\":{\"0\":-0.015068011358380318,\"1\":0.7533015012741089,\"2\":-0.6575027108192444,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"leftVec\":{\"0\":-0.9998010993003845,\"1\":-0.019998691976070404,\"2\":0,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12}}");
+		$.extend(this.camera, cameraData);
 		this.scene.AddManipulator(new Manipulators.RotationManipulator(this.renderer.gl_));
 		this.scene.AddManipulator(new Manipulators.ScaleManipulator(this.renderer.gl_));
 
@@ -94,15 +115,56 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
 		});
     	}
 
+     	this.viewportoptimizer = new ViewPortOptimizer(this.renderer, this.scene, this.camera, this);
         preventSelection(this.canvas);
     }
 
 	// Extend PubSub
 	App.prototype = Object.create(PubSub.prototype);
 	
+	App.prototype.RandomFloorPosition = function(){ 
+		var roombox = this.scene.modelList[0].model.bbox;
+		var xpos = roombox.mins[0] + Math.random() * (roombox.maxs[0] - roombox.mins[0]);
+		var ypos = roombox.mins[1] + Math.random() * (roombox.maxs[1] - roombox.mins[1]);
+		var pos = vec3.create([xpos, ypos, 0]);
+		return pos;
+	}
+	App.prototype.isValidCameraPosition = function(pos){
+		for( var j = 1; j < this.scene.modelList.length; j++){
+			if( this.scene.modelList[i].bbox.ContainsPoint(pos) ){
+				return false;
+			}
+		}
+		return true;
+	}
+					
+	App.prototype.SetCamera = function(){
+		
+		var maxiter = 20;
+		try{ 
+			for(var i = 0; i < maxiter; i++){
+				var pos = this.RandomFloorPosition();
+				if(this.isValidCameraPosition(pos)){
+					//var upVec = vec3.create([0,0,1]);
+					var eyePos = vec3.create([pos[0], pos[1] ,50]);
+					//console.log(eyePos);
+					//var lookAt = vec3.create([1,1,1]); 
+					this.camera.Reset(eyePos);
+					return; 
+				}
+			}
+			throw "random initialization failed"
+		}
+		catch(err){
+			alert(err);
+		}
+		
+	}
+	
 	App.prototype.AttachViewSelectionEventHandlers = function(){
 		var canvas = document.getElementById("canvas");
 		var elem = canvas;
+		var blocker = document.getElementById("blocker");
 		var app = this;
 		function pointerLockChange() {
 	  		if (document.mozPointerLockElement === elem ||
@@ -123,6 +185,9 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
 		}
 		function fullscreenChange() {
 			//console.log(canvas.clientWidth, canvas.clientHeight);
+	  		elem.requestPointerLock = elem.requestPointerLock    ||
+		                     elem.mozRequestPointerLock ||
+		                     elem.webkitRequestPointerLock;
 			app.camera.SaveStateForReset();
 			//console.log(app.camera.upVec);
 	  		elem.requestPointerLock();
@@ -152,6 +217,14 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
             this.UpdateView();
 		}.bind(this), false);
 
+	  	// Print the mouse movement delta values
+	  	//console.log("movementX=" + movementX, "movementY=" + movementY);
+	
+		this.camera.PanLeft( -1 * movementX/(Math.PI * 100));
+		this.camera.PanUp(movementY/(Math.PI * 100));
+		this.UpdateView();
+		}.bind(this)
+		, false);
 		// FP movement manipulation 
 		document.addEventListener("keydown", function(e){
 			var movespeed = 5; 
@@ -267,7 +340,7 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
         
         // no need to install handlers, as events are
         // dynamically routed by the machine
-        var focus = FSM.focusmachine(this);
+        var focus = this.focusMachine = this.CreateFocusMachine();
         // inhibit focusing during view manipulations
         orbiting_behavior
             .onstart(focus.start_interruption.bind(focus))
@@ -478,7 +551,133 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
 			console.log(this.scene.SerializeBare());
 		}.bind(this))
     };
-
+    
+    // HOW TO MAKE AN OBJECT FOCUSABLE:
+    //  (1) The object must be pickable
+    //  (2) The object must supply a 'focus_listener' member object
+    //  (3) This object must have an FSM-like listen/dispatch interface
+    //          to which events will be routed during focus
+    //  (4) Events which will be dispatched:
+    //          mousedown, mouseup, mousemove,
+    //          keydown, keyup
+    //          focus, defocus
+    // The focus machine built here is responsible for centralizing
+    // and managing the concept of application focus.
+    App.prototype.CreateFocusMachine = function()
+    {
+        var app = this;
+        var uimap = app.uimap;
+        
+        // hidden state: which object is currently focused on
+        var focusedObject = null;
+        // hidden state: keep track of mouse position so we can spoof...
+        var prevX = null, prevY = null;
+        function xyShim(fsm, params, next) {
+            prevX = params.x;
+            prevY = params.y;
+            next(fsm, params);
+        }
+        
+        // "semaphore" for keeping track of how many extra
+        // interruptions are occuring right now.
+        var extra_interruptions = 0;
+        
+        function augmentShim(fsm, params, next) {
+            params.lockFocus = fsm.lock.bind(fsm);
+            params.unlockFocus = fsm.unlock.bind(fsm);
+            params.app = app;
+            next(fsm, params);
+        }
+        
+        function focusable(obj) {
+            return obj && obj.focus_listener;
+        }
+        function focusOn(fsm, target) {
+            if(focusable(target)) {
+                focusedObject = target;
+                // hook up the new object
+                target.focus_listener.listen(fsm);
+                // and inform it that it's been focused on
+                fsm.emit('focus', {app: app});
+            }
+        }
+        function defocusShim(fsm, params, next) {
+            if(focusedObject) {
+                fsm.emit('defocus', {app: app});
+                fsm.detach();
+                focusedObject = null;
+            }
+            if(next) next(fsm, params); // guard to allow non-shim use
+        }
+        function updateFocus(fsm, x, y) {
+            var oldobj = focusedObject;
+            var newobj = app.renderer.picker.PickObject(x, y, app.renderer);
+            if (newobj !== oldobj) {
+                defocusShim(fsm);
+                focusOn(fsm, newobj);
+            }
+        }
+        function reset(fsm, params) {
+            fsm.jump('free');
+            updateFocus(fsm, prevX, prevY);
+        }
+        var uimap_signals = ['mousedown', 'mousemove', 'mouseup',
+                             'keydown', 'keyup'];
+        var focus_template = FSM.template()
+            .output(uimap_signals) // spoof uimap to the object...
+            .output('focus', 'defocus') // extra signals
+            .state('free')
+                .step('mousemove', function(fsm, params) {
+                    updateFocus(fsm, params.x, params.y);
+                    fsm.emit('mousemove', params);
+                })
+                .repeat('mousedown', 'mouseup', 'keydown', 'keyup')
+                    .shim('mousemove', xyShim)
+                    .shim(uimap_signals, augmentShim)
+                .step('lock', 'locked')
+                .step('start_interruption', 'interrupted')
+                    .shim('start_interruption', defocusShim)
+            .state('interrupted')
+                // ERROR: need semaphore counter for this state...
+                // ALSO: should have some kind of global UI monitor/reset
+                //          for safety...
+                .step('start_interruption', function(fsm, params) {
+                    extra_interruptions += 1;
+                })
+                .step('finish_interruption', function(fsm, params) {
+                    if(extra_interruptions > 0)
+                        extra_interruptions -= 1;
+                    else
+                        reset(fsm, params);
+                })
+                .step('mousemove', 'interrupted') // jump nowhere
+                    .shim('mousemove', xyShim) // but update xy data
+            .state('locked')
+                .step('start_interruption', 'interrupted')
+                    .shim('start_interruption', defocusShim)
+                .repeat(uimap_signals)
+                    .shim('mousemove', xyShim)
+                    .shim(uimap_signals, augmentShim)
+                // call from focused object to release lock
+                .step('unlock', reset)
+            ;
+        
+        var fsm = focus_template.compile().listen(uimap);
+        
+        // non-writable interface
+        fsm.isFocused = function() { // not whether it's locked...
+            return !!(focusedObject);
+        }
+        fsm.isLocked = function() {
+            return fsm.curr_state == 'locked';
+        }
+        fsm.instance = function() {
+            return focusedObject;
+        }
+        
+        return fsm;
+    };
+    
     // This encapsulates access to the current state/progress
     // of an insertion, as well as access to the instance being inserted.
     // one consequence is to ensure that the instance
@@ -576,7 +775,7 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
 			
 			this.Publish('CopyCompleted');
 		}
-	};
+	}
 	
 	App.prototype.Paste = function(opts)
 	{
@@ -602,7 +801,7 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
             if(opts)
                 this.ContinueModelInsertion(opts.x, opts.y);
         }
-	};
+	}
     
 	App.prototype.Delete = function()
 	{
@@ -612,26 +811,16 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
 			this.RemoveModelInstance(selectedMinst);
 			this.undoStack.pushCurrentState(UndoStack.CMDTYPE.DELETE, null);
 		}
-	};
+	}
 	
 	App.prototype.Tumble = function(mInst, doRecordUndoEvent)
 	{
 		mInst.Tumble();
 		doRecordUndoEvent && this.undoStack.pushCurrentState(UndoStack.CMDTYPE.SWITCHFACE, mInst);
 		this.renderer.postRedisplay();	
-	};
+	}
 	
-	App.prototype.LoadScene = function(on_success, on_error)
-	{
-        $.get(this.base_url + '/scenes/' + this.scene_record.id + '/load')
-        .error(on_error).success(function(json) {
-            var scene_json = JSON.parse(json.scene);
-            this.uilog.fromJSONString(json.ui_log);
-            this.scene.LoadFromNetworkSerialized(scene_json,
-                                                 this.assman,
-                                                 on_success);
-        }.bind(this));
-	};
+	
 	
 	App.prototype.SaveScene = function(on_success, on_error)
 	{
@@ -644,29 +833,76 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
         var serialized = this.scene.SerializeForNetwork();
         $.ajax({
             type: 'POST',
-            url: this.base_url + '/scenes/' +
+            url: '/scenes/' +
                  this.scene_record.id,
             data: {
                 _method: 'PUT', // PUT verb for Rails
                 scene_file: JSON.stringify(serialized),
-                ui_log: this.uilog.stringify()
+                ui_log: '',
             },
             dataType: 'json',
-            timeout: 10000
+            timeout: 10000,
         }).error(on_error).success(on_success);
-	};
+	}
 
 
-	App.prototype.SaveCamera = function()
+	App.prototype.SaveCamera = function(on_success, on_error)
 	{
-        //TODO: Save camera to backend
-        console.log(this.camera);
-	};
+        on_success = on_success || function() {
+            alert('saved!  Please develop a better UI alert');
+        };
+        on_error = on_error || function() {
+            alert('did not save!  Please develop a better UI alert');
+        };
+        var serialized = this.camera.Serialize();
+        $.ajax({
+            type: 'POST',
+            url: '/scenes/' +
+                 this.scene_record.id,
+            data: {
+                _method: 'PUT', // PUT verb for Rails
+                ui_log: JSON.stringify(serialized),
+            },
+            dataType: 'json',
+            timeout: 10000,
+        }).error(on_error).success(on_success);
+	}
 
-	App.prototype.LoadCamera = function()
-	{
-        //TODO: Load camera from backend
+
+	//Save the camera state to the ui_log field
+	App.prototype.LoadCamera = function(on_success, on_error)
+	{	
+		on_error = on_error || function() {
+            	alert('did not work!');
+        	};
+
+		on_success = on_success || function() {
+           	 alert('saved!  Please develop a better UI alert');
+      		 };
+		
+
+        	$.get('/scenes/' + this.scene_record.id + '/loadcamera')
+        	.error(on_error).success(function(scene_json) {
+            		var camera = JSON.parse(scene_json);
+            		console.log(camera);
+        		});
 	};
+   		
+	//Load the camera state from the ui_log field 
+	App.prototype.LoadScene = function(on_success, on_error)
+	{
+	on_error = on_error || function() {
+            	alert('did not work!');
+        	};
+
+        $.get('/scenes/' + this.scene_record.id + '/load')
+        .error(on_error).success(function(scene_json) {
+            scene_json = JSON.parse(scene_json);
+            this.scene.LoadFromNetworkSerialized(scene_json,
+                                                 this.assman,
+                                                 on_success);
+        }.bind(this));
+	} 
 
     App.prototype.ExitTo = function(destination)
     {
@@ -675,7 +911,7 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
             window.location.href = this.on_close_url;
         }.bind(this)); // should add dialog to ask if the user wants to leave
         // even though nothing was saved in event of error
-    };
+    }
     
     // This exists to permit us to drag objects around
     // and intersect the surface underneath them (instead of the object itself)
