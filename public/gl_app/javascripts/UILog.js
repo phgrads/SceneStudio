@@ -51,6 +51,7 @@ define([], function() {
 
     UILog.prototype.log = function(type, data) {
         var time = new Date().getTime();
+        data = data || "";
         var evt = new UIEvent(type, data, time);
         this.log_buffer.push(evt);
     };
