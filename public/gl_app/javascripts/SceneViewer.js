@@ -218,13 +218,14 @@ define([
 
         SceneViewer.prototype.SaveCamera = function()
         {
-            //TODO: Save camera to backend
-            console.log(this.camera);
+            this.savedCam = this.camera.toJSONString();
+            console.log(this.savedCam);
         };
 
         SceneViewer.prototype.LoadCamera = function()
         {
-            //TODO: Load camera from backend
+            this.camera.ResetFromJSONString(this.savedCam);
+            this.renderer.UpdateView();
         };
 
         SceneViewer.prototype.ExitTo = function(destination)

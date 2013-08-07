@@ -36,7 +36,9 @@ define([], function() {
         SEARCH_DESELECT : "SEARCH_DESELECT",
 
         UNDOSTACK_UNDO  : "UNDOSTACK_UNDO",
-        UNDOSTACK_REDO  : "UNDOSTACK_REDO"
+        UNDOSTACK_REDO  : "UNDOSTACK_REDO",
+
+        MISC            : "MISC"
     });
 
     function UIEvent(type, data, time) {

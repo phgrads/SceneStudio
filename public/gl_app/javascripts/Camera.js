@@ -25,7 +25,7 @@ function Camera(eye, lookAt, up)
 Camera.prototype.UpdateSceneBounds = function(bbox)
 {
 	this.sceneBounds = bbox;
-}
+};
 
 Camera.prototype.CalculatePitchYaw = function()
 {
@@ -45,7 +45,7 @@ Camera.prototype.CalculatePitchYaw = function()
 	var yaw = vec3.signedAngleBetween([0, 1, 0], rotLookVec, worldZ);
 	
 	return [pitch, yaw];
-}
+};
 
 Camera.prototype.State = function()
 {
@@ -56,12 +56,12 @@ Camera.prototype.State = function()
 	state.pitch = py[0];
 	state.yaw = py[1];
 	return state;
-}
+};
 
 Camera.prototype.SaveStateForReset = function()
 {
 	this.savedState = this.State();
-}
+};
 
 Camera.prototype.ResetSavedState = function()
 {
@@ -69,7 +69,7 @@ Camera.prototype.ResetSavedState = function()
 	{
 		this.ResetFromPitchYaw(this.savedState.eyePos, this.savedState.lookAtPoint, this.savedState.pitch, this.savedState.yaw);
 	}
-}
+};
 
 Camera.prototype.Reset = function(eye, lookAt, up)
 {
@@ -97,7 +97,7 @@ Camera.prototype.Reset = function(eye, lookAt, up)
 	vec3.cross(this.upVec, this.lookVec, this.leftVec);
 	
 	vec3.cross(this.lookVec, this.leftVec, this.upVec);
-}
+};
 
 // In this version, the arguments are *NOT* optional
 Camera.prototype.ResetFromPitchYaw = function(eye, lookAt, pitch, yaw)
@@ -107,12 +107,12 @@ Camera.prototype.ResetFromPitchYaw = function(eye, lookAt, pitch, yaw)
 	this.PanLeft(yaw);
 	vec3.set(eye, this.eyePos);
 	vec3.set(lookAt, this.lookAtPoint);
-}
+};
 
 Camera.prototype.LookAtMatrix = function()
 {
 	return mat4.lookAt(this.eyePos, this.lookAtPoint, this.upVec);
-}
+};
 
 Camera.prototype.DollyLeft = function(dist)
 {
@@ -120,7 +120,7 @@ Camera.prototype.DollyLeft = function(dist)
 	vec3.scale(this.leftVec, dist, offset);
 	vec3.add(this.eyePos, offset);
 	vec3.add(this.lookAtPoint, offset);
-}
+};
 
 Camera.prototype.DollyUp = function(dist)
 {
@@ -128,7 +128,7 @@ Camera.prototype.DollyUp = function(dist)
 	vec3.scale(this.upVec, dist, offset);
 	vec3.add(this.eyePos, offset);
 	vec3.add(this.lookAtPoint, offset);
-}
+};
 
 Camera.prototype.DollyForward = function(dist)
 {
@@ -136,7 +136,7 @@ Camera.prototype.DollyForward = function(dist)
 	vec3.scale(this.lookVec, dist, offset);
 	vec3.add(this.eyePos, offset);
 	vec3.add(this.lookAtPoint, offset);
-}
+};
 
 Camera.prototype.PanLeft = function(theta)
 {	
@@ -147,7 +147,7 @@ Camera.prototype.PanLeft = function(theta)
 	vec3.normalize(lookdir, this.lookVec);
 	mat4.multiplyVec3(rotmat, this.upVec);
 	mat4.multiplyVec3(rotmat, this.leftVec);
-}
+};
 
 Camera.prototype.PanUp = function(theta)
 {	
@@ -167,7 +167,7 @@ Camera.prototype.PanUp = function(theta)
 	vec3.add(this.eyePos, lookdir, this.lookAtPoint);
 	vec3.normalize(lookdir, this.lookVec);
 	mat4.multiplyVec3(rotmat, this.upVec);
-}
+};
 
 Camera.prototype.OrbitLeft = function(theta)
 {	
@@ -179,7 +179,7 @@ Camera.prototype.OrbitLeft = function(theta)
 	vec3.normalize(this.lookVec);
 	mat4.multiplyVec3(rotmat, this.upVec);
 	mat4.multiplyVec3(rotmat, this.leftVec);
-}
+};
 
 Camera.prototype.OrbitUp = function(theta)
 {
@@ -200,7 +200,7 @@ Camera.prototype.OrbitUp = function(theta)
 	vec3.negate(invlookdir, this.lookVec);
 	vec3.normalize(this.lookVec);
 	mat4.multiplyVec3(rotmat, this.upVec);
-}
+};
 
 Camera.prototype.Zoom = function(dist)
 {
@@ -228,12 +228,12 @@ Camera.prototype.Zoom = function(dist)
 		vec3.scale(look2eye, newLookDist/lookDist);
 		vec3.add(this.lookAtPoint, look2eye, this.eyePos);
 	}
-}
+};
 
 Camera.prototype.TrackTo = function(newPos)
 {
 	this.Reset(newPos, this.lookAtPoint, this.upVec);
-}
+};
 
 Camera.prototype.MakePickRay = function(x, y, renderer)
 {
@@ -244,10 +244,20 @@ Camera.prototype.MakePickRay = function(x, y, renderer)
 	var d = vec3.create();
 	vec3.subtract(unprojV, o, d);
 	vec3.normalize(d);
-	var ray = new Ray(o, d);
-	
-	return ray;
-}
+
+	return new Ray(o, d);
+};
+
+Camera.prototype.toJSONString = function()
+{
+    return JSON.stringify(this.State());
+};
+
+Camera.prototype.ResetFromJSONString = function(str)
+{
+    this.savedState = JSON.parse(str);
+    this.ResetSavedState();
+};
 
 // Exports
 return Camera;
