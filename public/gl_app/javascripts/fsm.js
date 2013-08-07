@@ -81,7 +81,7 @@ FSMTemplate.isConflict = function(name)
         'emit',
         'jump',
         'on',
-        'listen',
+        'listen'
     ].indexOf(name) >= 0) {
         throw new Error('cannot use the name ' + name +
                         ' in an FSM, since that name is already reserved.');

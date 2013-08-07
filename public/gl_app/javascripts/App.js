@@ -20,12 +20,10 @@ define([
 	'uibehaviors',
 	'fsm',
     'UILog',
-	'ViewPortOptimizer',
-	'jquery',
-    'game-shim'
+	'jquery'
 ],
-function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Scene, SearchController,
-		  ArchitectureGenerator, Manipulators, UndoStack, Toolbar, CameraControls, PubSub, SplitView, uimap, Behaviors, FSM, UILog, ViewPortOptimizer)
+function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, SearchController,
+		  Manipulators, UndoStack, Toolbar, CameraControls, PubSub, SplitView, uimap, Behaviors, FSM, UILog)
 {
     function UIState(gl)
     {
@@ -38,7 +36,7 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
         this.isBusy = false;
     }
 
-    function App(canvas, mode)
+    function App(canvas)
     {
 		// Extend PubSub
 		PubSub.call(this);
@@ -47,8 +45,6 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
 	    this.worstCollected = false;
  	    this.mode = mode;
         this.canvas = canvas;
-
-
 
         // ensure that AJAX requests to Rails will properly
         // include the CSRF authenticity token in their headers
@@ -69,40 +65,25 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
         
         this.uimap = uimap.create(canvas);
 
-       
-        
+        this.camera = new Camera();
+        var cameraData = JSON.parse("{\"eyePos\":{\"0\":3.776055335998535,\"1\":-187.77793884277344,\"2\":164.77069091796875,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"lookAtPoint\":{\"0\":0,\"1\":1,\"2\":0,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"upVec\":{\"0\":-0.01314918976277113,\"1\":0.6573730707168579,\"2\":0.7534525990486145,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"lookVec\":{\"0\":-0.015068011358380318,\"1\":0.7533015012741089,\"2\":-0.6575027108192444,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"leftVec\":{\"0\":-0.9998010993003845,\"1\":-0.019998691976070404,\"2\":0,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12}}");
+        $.extend(this.camera, cameraData);
+
         this.scene = new Scene();
 	    this.renderer = new Renderer(canvas, this.scene);
         this.assman = new AssetManager(this.renderer.gl_);
 		this.uistate = new UIState(this.renderer.gl_);
         this.uilog = new UILog.UILog();
 
-	if(mode == "VIEWCOLLECTION"){
-		document.getElementById("graphicsOverlay").style.visibility='hidden';
-		document.getElementById("searchArea").style.visibility='hidden';
-		this.bestCollected = false;
-		this.worstCollected = false;
-		this.camera = new FPCamera(this.scene);
-		
-	}
-	else if(mode == "SCENECOLLECTION"){
-		
-		document.getElementById("blocker").style.visibility='hidden';
-		this.camera = new Camera();
-		$.extend(this.camera, cameraData);
-
-	        var cameraData = JSON.parse("{\"eyePos\":{\"0\":3.776055335998535,\"1\":-187.77793884277344,\"2\":164.77069091796875,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"lookAtPoint\":{\"0\":0,\"1\":1,\"2\":0,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"upVec\":{\"0\":-0.01314918976277113,\"1\":0.6573730707168579,\"2\":0.7534525990486145,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"lookVec\":{\"0\":-0.015068011358380318,\"1\":0.7533015012741089,\"2\":-0.6575027108192444,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"leftVec\":{\"0\":-0.9998010993003845,\"1\":-0.019998691976070404,\"2\":0,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12}}");
-		$.extend(this.camera, cameraData);
 		this.scene.AddManipulator(new Manipulators.RotationManipulator(this.renderer.gl_));
 		this.scene.AddManipulator(new Manipulators.ScaleManipulator(this.renderer.gl_));
-			
-        	this.AttachEventHandlers();
 
-	this.undoStack = new UndoStack.UndoStack(this, Constants.undoStackMaxSize);
-	this.toolbar = new Toolbar(this);
-	this.cameraControls = new CameraControls(this);
+        this.AttachEventHandlers();
+
+	    this.undoStack = new UndoStack.UndoStack(this, Constants.undoStackMaxSize);
+	    this.toolbar = new Toolbar(this);
+	    this.cameraControls = new CameraControls(this);
         this.searchController = new SearchController(this);
-        this.architectureGenerator = new ArchitectureGenerator(this);
 		
 		SplitView.MakeSplitView({
 			leftElem: $('#graphicsOverlay'),
@@ -113,10 +94,9 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
 		});
     	}
 
-     	this.viewportoptimizer = new ViewPortOptimizer(this.renderer, this.scene, this.camera, this);
         preventSelection(this.canvas);
-}	
-        	
+    }
+
 	// Extend PubSub
 	App.prototype = Object.create(PubSub.prototype);
 	
@@ -555,7 +535,7 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
         };
         
         return fsm;
-    }
+    };
     
     App.prototype.ToggleBusy = function (isBusy)
     {
@@ -576,13 +556,13 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
 	{
 		this.undoStack.undo();
 		this.renderer.postRedisplay();
-	}
+	};
 	
 	App.prototype.Redo = function()
 	{
 		this.undoStack.redo();
 		this.renderer.postRedisplay();
-	}
+	};
     
 	App.prototype.Copy = function()
 	{
@@ -596,7 +576,7 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
 			
 			this.Publish('CopyCompleted');
 		}
-	}
+	};
 	
 	App.prototype.Paste = function(opts)
 	{
@@ -622,7 +602,7 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
             if(opts)
                 this.ContinueModelInsertion(opts.x, opts.y);
         }
-	}
+	};
     
 	App.prototype.Delete = function()
 	{
@@ -632,14 +612,14 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
 			this.RemoveModelInstance(selectedMinst);
 			this.undoStack.pushCurrentState(UndoStack.CMDTYPE.DELETE, null);
 		}
-	}
+	};
 	
 	App.prototype.Tumble = function(mInst, doRecordUndoEvent)
 	{
 		mInst.Tumble();
 		doRecordUndoEvent && this.undoStack.pushCurrentState(UndoStack.CMDTYPE.SWITCHFACE, mInst);
 		this.renderer.postRedisplay();	
-	}
+	};
 	
 	App.prototype.LoadScene = function(on_success, on_error)
 	{
@@ -651,7 +631,7 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
                                                  this.assman,
                                                  on_success);
         }.bind(this));
-	}
+	};
 	
 	App.prototype.SaveScene = function(on_success, on_error)
 	{
@@ -674,49 +654,18 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
             dataType: 'json',
             timeout: 10000
         }).error(on_error).success(on_success);
-	}
+	};
 
 
-	App.prototype.SaveCamera = function(on_success, on_error)
+	App.prototype.SaveCamera = function()
 	{
-        on_success = on_success || function() {
-            alert('saved!  Please develop a better UI alert');
-        };
-        on_error = on_error || function() {
-            alert('did not save!  Please develop a better UI alert');
-        };
-        var serialized = this.camera.Serialize();
-        $.ajax({
-            type: 'POST',
-            url: this.base_url + '/scenes/' +
-                 this.scene_record.id,
-            data: {
-                _method: 'PUT', // PUT verb for Rails
-                ui_log: JSON.stringify(serialized),
-            },
-            dataType: 'json',
-            timeout: 10000,
-        }).error(on_error).success(on_success);
-	}
+        //TODO: Save camera to backend
+        console.log(this.camera);
+	};
 
-
-	//Save the camera state to the ui_log field
-	App.prototype.LoadCamera = function(on_success, on_error)
-	{	
-		on_error = on_error || function() {
-            	alert('did not work!');
-        	};
-
-		on_success = on_success || function() {
-           	 alert('saved!  Please develop a better UI alert');
-      		 };
-		
-
-        	$.get(this.base_url + '/scenes/' + this.scene_record.id + '/loadcamera')
-        	.error(on_error).success(function(scene_json) {
-            		var camera = JSON.parse(scene_json);
-            		console.log(camera);
-        		});
+	App.prototype.LoadCamera = function()
+	{
+        //TODO: Load camera from backend
 	};
 
     App.prototype.ExitTo = function(destination)
@@ -726,7 +675,7 @@ function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Sc
             window.location.href = this.on_close_url;
         }.bind(this)); // should add dialog to ask if the user wants to leave
         // even though nothing was saved in event of error
-    }
+    };
     
     // This exists to permit us to drag objects around
     // and intersect the surface underneath them (instead of the object itself)

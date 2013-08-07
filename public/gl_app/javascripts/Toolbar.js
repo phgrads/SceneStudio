@@ -48,7 +48,7 @@ function Toolbar(app)
     });
 	this.AddButton('Close', 'Close the editor',
 	               'close', function() {
-	   app.ExitTo(window.globalViewData.on_close_url);
+	   app.ExitTo('scenes/');
     });
 	
 	// Disable buttons in the intial state
