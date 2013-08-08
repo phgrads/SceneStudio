@@ -43,7 +43,7 @@ function(Framebuffer, Picker, Constants, Renderer, Distribution){
   	}
 	ViewPortOptimizer.prototype.getStateValue = function(state){
 		this.camera.Reset(state.eyePos, state.lookAtPoint, null);
- 		this.app.UpdateView();
+ 		this.app.renderer.UpdateView();
 	  	return this.areaGoodnessFunction(); 
 }
 

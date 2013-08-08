@@ -214,3 +214,10 @@ function nextHighestPowerOfTwo(x)
     }
     return x + 1;
 }
+
+function mapTable(table, perField) {
+    var result = {};
+    for(var key in table)
+        result[key] = perField(key, table[key]);
+    return result;
+}

@@ -20,8 +20,9 @@
 # Ignore these annoying directory metadata files on Mac
 .DS_Store
 
-# Ignore app data
+# Ignore app data and precompiled assets
 /public/data
+/public/assets
 
 # Solr Ignores
 /vendor/solr/modelsearch/solr/data
@@ -30,3 +31,7 @@
 
 #Ignore vim backups
 *.*~
+
+# Ignore IntelliJ project metafiles
+.idea
+*.iml

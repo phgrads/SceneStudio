@@ -146,7 +146,7 @@ SearchController.prototype.DoSearch = function(querytext)
 	$.ajax
 	({
 		type: 'GET',
-		url: 'http://' + window.location.host + '/solr/select/',
+		url: 'http://' + window.location.host + window.globalViewData.base_url + '/solr/select/',
 		data:
 		{
 			'q': SearchController.encodeQueryText(querytext),

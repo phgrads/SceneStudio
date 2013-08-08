@@ -179,7 +179,7 @@ Scene.prototype.LoadFromLocalSerialized =
 {
     top_level_callback = top_level_callback || function(){};
     this.Reset();
-    
+
     var getModelFromJSON = function(packedModel, callback) {
         ModelInstance.fromJSONString(
             packedModel,
@@ -204,15 +204,18 @@ Scene.prototype.LoadFromLocalSerialized =
         this.modelList.forEach(function(model){
             if (model.parentIndex >= 0)
                 model.SetParent(this.modelList[model.parentIndex]);
-            
-            model.UpdateTransform();
+
+            // If transform is pre-loaded and baked in, compute here
+            if (!model.bakedTransform) {
+                model.UpdateTransform();
+            }
             
             delete model.parentIndex;
         }.bind(this));
         
         this.root = this.modelList[0];
         this.root.renderState.isSelectable = false;
-        
+
         top_level_callback(err); // pass the error along I guess?
     }.bind(this));
 };

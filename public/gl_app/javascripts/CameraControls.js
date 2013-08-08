@@ -94,7 +94,7 @@ function makeOrbitControl(app)
 									animate(0, -Constants.cameraWidgetOrbitLeftAmt, Constants.cameraWidgetOrbitDuration, quadraticEaseInOutScalarInterpolator,
 											function(prevVal, currVal) {
 												app.camera.OrbitLeft(currVal-prevVal);
-												app.UpdateView();
+												app.renderer.UpdateView();
 											})
 								},
 								'right' : function(event)
@@ -102,7 +102,7 @@ function makeOrbitControl(app)
 									animate(0, Constants.cameraWidgetOrbitLeftAmt, Constants.cameraWidgetOrbitDuration, quadraticEaseInOutScalarInterpolator,
 											function(prevVal, currVal) {
 												app.camera.OrbitLeft(currVal-prevVal);
-												app.UpdateView();
+												app.renderer.UpdateView();
 											})
 								},
 								'up' : function(event)
@@ -110,7 +110,7 @@ function makeOrbitControl(app)
 									animate(0, Constants.cameraWidgetOrbitUpAmt, Constants.cameraWidgetOrbitDuration, quadraticEaseInOutScalarInterpolator,
 											function(prevVal, currVal) {
 												app.camera.OrbitUp(currVal-prevVal);
-												app.UpdateView();
+												app.renderer.UpdateView();
 											})
 								},
 								'down' : function(event)
@@ -118,7 +118,7 @@ function makeOrbitControl(app)
 									animate(0, -Constants.cameraWidgetOrbitUpAmt, Constants.cameraWidgetOrbitDuration, quadraticEaseInOutScalarInterpolator,
 											function(prevVal, currVal) {
 												app.camera.OrbitUp(currVal-prevVal);
-												app.UpdateView();
+												app.renderer.UpdateView();
 											})
 								}
 						   });
@@ -133,7 +133,7 @@ function makeMoveControl(app)
 									animate(0, Constants.cameraWidgetDollyAmt, Constants.cameraWidgetDollyDuration, quadraticEaseInOutScalarInterpolator,
 											function(prevVal, currVal) {
 												app.camera.DollyLeft(currVal-prevVal);
-												app.UpdateView();
+												app.renderer.UpdateView();
 											})
 								},
 								'right' : function(event)
@@ -141,7 +141,7 @@ function makeMoveControl(app)
 									animate(0, -Constants.cameraWidgetDollyAmt, Constants.cameraWidgetDollyDuration, quadraticEaseInOutScalarInterpolator,
 											function(prevVal, currVal) {
 												app.camera.DollyLeft(currVal-prevVal);
-												app.UpdateView();
+												app.renderer.UpdateView();
 											})
 								},
 								'up' : function(event)
@@ -149,7 +149,7 @@ function makeMoveControl(app)
 									animate(0, Constants.cameraWidgetDollyAmt, Constants.cameraWidgetDollyDuration, quadraticEaseInOutScalarInterpolator,
 											function(prevVal, currVal) {
 												app.camera.DollyUp(currVal-prevVal);
-												app.UpdateView();
+												app.renderer.UpdateView();
 											})
 								},
 								'down' : function(event)
@@ -157,7 +157,7 @@ function makeMoveControl(app)
 									animate(0, -Constants.cameraWidgetDollyAmt, Constants.cameraWidgetDollyDuration, quadraticEaseInOutScalarInterpolator,
 											function(prevVal, currVal) {
 												app.camera.DollyUp(currVal-prevVal);
-												app.UpdateView();
+												app.renderer.UpdateView();
 											})
 								}
 						   });
@@ -253,7 +253,7 @@ function makeZoomControl(app)
 			animate(0, -Constants.cameraWidgetZoomAmt, Constants.cameraWidgetZoomDuration, quadraticEaseInOutScalarInterpolator,
 					function(prevVal, currVal) {
 						app.camera.Zoom(currVal-prevVal);
-						app.UpdateView();
+						app.renderer.UpdateView();
 					})
 		})
 	);
@@ -268,7 +268,7 @@ function makeZoomControl(app)
 			animate(0, Constants.cameraWidgetZoomAmt, Constants.cameraWidgetZoomDuration, quadraticEaseInOutScalarInterpolator,
 					function(prevVal, currVal) {
 						app.camera.Zoom(currVal-prevVal);
-						app.UpdateView();
+						app.renderer.UpdateView();
 					})
 		})
 	);
@@ -287,11 +287,11 @@ function makeHomeButton(app)
 				.bind('dragstart', NoDrag)
 				.click(function(event) {
 					//app.camera.ResetSavedState();
-					//app.UpdateView();
+					//app.renderer.UpdateView();
 					animate(app.camera.State(), app.camera.savedState, Constants.cameraWidgetResetDuration, quadraticEaseInOutCameraStateInterpolator,
 						function(prevVal, currVal) {
 							app.camera.ResetFromPitchYaw(currVal.eyePos, currVal.lookAtPoint, currVal.pitch, currVal.yaw);
-							app.UpdateView();
+							app.renderer.UpdateView();
 						})
 				});
 	makeImageButtonHighlightCorrectly(button, iconURL);

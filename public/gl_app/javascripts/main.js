@@ -2,12 +2,13 @@
 
 // Set up names and dependencies for non-module scripts
 requirejs.config({
-    baseUrl: '/gl_app/javascripts',
+    baseUrl: window.globalViewData.base_url + '/gl_app/javascripts',
 	paths: {
 		'async' : 'async.min',
 		'jquery' : 'jquery-ui/js/jquery-1.7.2.min',
 		'jquery-ui': 'jquery-ui/js/jquery-ui-1.8.21.custom.min',
-		'gl-matrix': 'gl-matrix-min'
+		'gl-matrix': 'gl-matrix-min',
+        'game-shim': 'game-shim'
 	},
 	shim: {
 		'jquery.debouncedresize' : ['jquery'],
@@ -22,9 +23,9 @@ requirejs.config({
 // TODO: Global scope for runtime debugging, pull declaration into scope below
 var app;
 // Application entry point
-require(['App'], function(App) {
-	app = new App(id('canvas'), window.globalViewData.mode);
+require(['App','SceneViewer'], function(App,SceneViewer) {
+	app = new SceneViewer(id('canvas'));
+    //app = new App(id('canvas'));
 	app.Launch();
-	app.UpdateView();
 });
 

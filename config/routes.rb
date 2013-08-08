@@ -1,21 +1,18 @@
 SceneStudio::Application.routes.draw do
   
-  
-  root to: "static_pages#home"
-  match "/help", to: "static_pages#help"
+  root                              to: 'static_pages#home'
+  match '/help',                    to: 'static_pages#help'
 
   # login / logout etc.
-  match "/signin",                  to: "sessions#new"
-  match "/signup",                  to: "identities#new"
-  match "/auth/:provider/callback", to: "sessions#create"
-  match "/auth/failure", to: "sessions#failure"
-  match "/signout",                 to: "sessions#destroy", :as => :signout
+  match '/signin',                  to: 'sessions#new'
+  match '/signup',                  to: 'identities#new'
+  match '/auth/:provider/callback', to: 'sessions#create'
+  match '/auth/failure',            to: 'sessions#failure'
+  match '/signout',                 to: 'sessions#destroy', :as => :signout
 
-  resources :scenes, only: [:index, :create, :edit, :update, :destroy, :view]
-  match "/scenes/:id/load",         to: "scenes#load"
-  match "/scenes/:id/loadcamera", to: "scenes#loadcamera"
+  resources :scenes, only: [:index, :create, :edit, :update, :destroy]
+  match '/scenes/:id/load',         to: 'scenes#load'
   match "/scenes/:id/view",         to: "scenes#view"
-
 
   #resources :identities
 

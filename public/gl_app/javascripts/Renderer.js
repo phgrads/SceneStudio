@@ -24,13 +24,12 @@ function createContextFromCanvas(canvas) {
 
     // Automatically use debug wrapper context, if available.
     return typeof WebGLDebugUtils !== 'undefined' ?
-    WebGLDebugUtils.makeDebugContext(context, function(err, funcName, args) {
+    WebGLDebugUtils.makeDebugContext(context, function(err, funcName) {
       throw WebGLDebugUtils.glEnumToString(err) + " by " + funcName;
     }) : context;
 }
 
-function Renderer(canvas, scene, viewportsize) {
-  var self = this;
+function Renderer(canvas, scene, viewportsize, camera) {
   this.canvas_ = canvas;
 
   var gl = createContextFromCanvas(canvas);
@@ -69,8 +68,9 @@ function Renderer(canvas, scene, viewportsize) {
   this.programPick_ = new Program(gl, [Shader.vertexShader(gl, Constants.pickVertShaderSource),
 										 Shader.fragmentShader(gl, Constants.pickFragShaderSource)]);
   
-  // Scene
+  // Scene and Camera
   this.scene = scene;
+  this.camera = camera;
   
   // Picker
   this.picker = new Picker(gl);
@@ -83,19 +83,19 @@ function Renderer(canvas, scene, viewportsize) {
 Renderer.prototype.Options = function()
 {
 	return this.optStack[this.optStack.length-1];
-}
+};
 
 Renderer.prototype.PushOptions = function()
 {
 	var newopts = {};
 	$.extend(newopts, this.Options());
 	this.optStack.push(newopts);
-}
+};
 
 Renderer.prototype.PopOptions = function()
 {
 	this.optStack.pop();
-}
+};
 
 Renderer.prototype.UnprojectVector = function(vector)
 {
@@ -103,7 +103,7 @@ Renderer.prototype.UnprojectVector = function(vector)
   var result = vec3.create();
   vec3.unproject(vector, this.view_, this.proj_, viewport, result);
   return result;
-}
+};
 
 Renderer.prototype.ProjectVector = function(vector)
 {
@@ -127,22 +127,17 @@ Renderer.prototype.ProjectVector = function(vector)
 	v[1] = this.canvas_.clientHeight - v[1] + ystart;
 	
 	return vec2.create([v[0], v[1]]);
-}
+};
 
 Renderer.prototype.setViewport_ = function (viewportsize)
 {
-
   /*
   modified function to allow switching between optimization and canvas viewports
-
   */
-  if(viewportsize){
-   // console.log('setting optimization viewport');
+  if(viewportsize) {
     this.gl_.viewport(0, 0, viewportsize.width, viewportsize.height);
-
   }
-  else{
-    //console.log('setting canvas viewport');
+  else {
     var canvas = this.canvas_;
     var newWidth = Math.round(this.scaleX * canvas.clientWidth);
     var newHeight = Math.round(this.scaleY * canvas.clientHeight);
@@ -150,16 +145,14 @@ Renderer.prototype.setViewport_ = function (viewportsize)
     newHeight = clamp(newHeight, 1, this.maxHeight);
     this.gl_.viewport(0, 0, newWidth, newHeight);
 
-    
     if (canvas.width !== newWidth || canvas.height !== newHeight) {
       canvas.width = newWidth;
       canvas.height = newHeight;
 
      // this.gl_.viewport(0, 0, newWidth, newHeight);
     }
-    
   }
-}
+};
 
 Renderer.prototype.commonDrawSetup = function() {
   var gl = this.gl_;
@@ -177,27 +170,27 @@ Renderer.prototype.bindModelProgram = function()
 	this.programModel_.use();
 	this.programModel_.enableVertexAttribArrays(Mesh.DEFAULT_VERTEX_FORMAT);
 	this.activeProgram_ = this.programModel_;
-}
+};
 
 Renderer.prototype.bindConstantProgram = function()
 {
 	this.programConstant_.use();
 	this.programConstant_.enableVertexAttribArrays(Mesh.POSITION_ONLY_VERTEX_FORMAT);
 	this.activeProgram_ = this.programConstant_;
-}
+};
 
 Renderer.prototype.bindPickingProgram = function()
 {
 	this.programPick_.use();
 	this.programPick_.enableVertexAttribArrays(Mesh.POSITION_ONLY_VERTEX_FORMAT);
 	this.activeProgram_ = this.programPick_;
-}
+};
 
 Renderer.prototype.normalDrawPass = function()
 {
 	this.commonDrawSetup();
 	this.scene.Draw(this);
-}
+};
 
 Renderer.prototype.pickingDrawPass = function()
 {  
@@ -211,7 +204,7 @@ Renderer.prototype.areaPickingDrawPass = function()
 {
   this.commonDrawSetup();
   this.scene.Pick(this);
-}
+};
 
 Renderer.prototype.resize = function(event)
 {
@@ -219,7 +212,7 @@ Renderer.prototype.resize = function(event)
 	
 	this.setViewport_();
 	this.postRedisplay();
-}
+};
 
 Renderer.prototype.resizeEnd = function(event)
 {
@@ -228,7 +221,7 @@ Renderer.prototype.resizeEnd = function(event)
 	this.resize();
 	var canvas = this.canvas_;
 	this.picker.HandleResize(canvas.clientWidth, canvas.clientHeight);
-}
+};
 
 Renderer.prototype.postRedisplay = function() {
   var self = this;
@@ -242,6 +235,11 @@ Renderer.prototype.postRedisplay = function() {
   }
 };
 
+Renderer.prototype.UpdateView = function() {
+    this.view_ = this.camera.LookAtMatrix();
+    mat4.multiply(this.proj_, this.view_, this.viewProj_);
+    this.postRedisplay();
+};
 
 // Exports
 return Renderer;

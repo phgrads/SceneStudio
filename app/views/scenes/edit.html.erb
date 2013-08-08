@@ -2,10 +2,10 @@
 <html>
 <head>
   <title><%= full_title(@scene.name) %></title>
-  <link href="/gl_app/gl_app.css" type="text/css" rel="stylesheet"></link>
+  <link href="<%= base_url %>/gl_app/gl_app.css" type="text/css" rel="stylesheet"/>
   <link type="text/css" rel="stylesheet"
     href=
-    "/gl_app/javascripts/jquery-ui/css/redmond/jquery-ui-1.8.21.custom.css">
+    "<%= base_url %>/gl_app/javascripts/jquery-ui/css/redmond/jquery-ui-1.8.21.custom.css">
   </link>
   <%= csrf_meta_tags %>
   <!--[if lt IE 9]>
@@ -14,8 +14,6 @@
 </head>
 <body>
 	
-  
-  </div>
 
   <div id="ui">
     <div id="graphicsArea">
@@ -38,30 +36,15 @@
     <div id="searchArea">
       <h3 id="searchInputHeader"> Model Search </h3>
       <div id="searchBoxWrapper">
-        <input type="text" id="searchInputBox"></input>
+        <input type="text" id="searchInputBox"/>
       </div>
       <button id="searchButton"> Search </button>
       <div id="searchResults" class="panel">
         <div id="searchResultsContents"></div>
       </div>
     </div>
-
   </div>
-	<div id="blocker">
-	
-		<div id = "instructions">		
-			<p> Press enter to capture best and worst views in this scene </p>
-			<p> Click to enter fullscreen mode </p>
-			<p> Use AWSD to move </p>
-		</div>
-		 
-	</div>
-  <%= render 'glsl_shaders/constant.frag' %>
-  <%= render 'glsl_shaders/constant.vert' %>
-  <%= render 'glsl_shaders/model.frag' %>
-  <%= render 'glsl_shaders/model.vert' %>
-  <%= render 'glsl_shaders/picking.frag' %>
-  <%= render 'glsl_shaders/picking.vert' %>
+  <%= render 'glsl_shaders/shaders' %>
   
   <script type='text/javascript'>
     // We use the following structure to send data from the
@@ -69,22 +52,22 @@
     window.globalViewData = {
       user: {
         name: "<%= current_user.name %>",
-        id:   "<%= current_user.id %>",
+        id:   "<%= current_user.id %>"
       },
       scene: {
         name: "<%= @scene.name %>",
-        id:   "<%= @scene.id %>",
+        id:   "<%= @scene.id %>"
       },
       on_close_url: "<%= @on_close_url %>",
-      mode:"SCENECOLLECTION"
+	    base_url: "<%= base_url %>"
     };
   </script>
 
   <script type="text/javascript"
-          src="/gl_app/javascripts/shared/custom_shims.js"></script>
+          src="<%= base_url %>/gl_app/javascripts/shared/custom_shims.js"></script>
   <script type="text/javascript"
-          data-main="/gl_app/javascripts/main"
-          src="/gl_app/javascripts/require.js"></script>
+          data-main="<%= base_url %>/gl_app/javascripts/main"
+          src="<%= base_url %>/gl_app/javascripts/require.js"></script>
   
 </body>
 </html>

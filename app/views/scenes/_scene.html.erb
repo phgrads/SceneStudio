@@ -1,7 +1,7 @@
 <%= click_verb ||= "edit" %>
 <li class='scene-item'>
   <div class="btn-group">
-    <!--<%= link_to scene.name, 'scenes/' + scene.id.to_s + '/edit',
+    <!--<%= link_to scene.name, scenes_path + scene.id.to_s + '/edit',
           class: 'btn scene-name' %>-->
     <%= link_to scene.name, { action: click_verb, id: scene.id },
           class: 'btn scene-name' %>

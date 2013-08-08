@@ -37,6 +37,7 @@ function ModelInstance(model, parentInst)
 	this.rotation = 0.0;
 	this.transform = mat4.identity(mat4.create());
 	this.normalTransform = mat4.identity(mat4.create());
+    this.bakedTransform = false; // Indicates that transform was loaded in and shouldn't be recomputed
 	
 	// UI status
 	this.renderState = {
@@ -60,7 +61,9 @@ ModelInstance.prototype.toJSONString = function()
     this.cu = this.coordFrame.u;
     this.cv = this.coordFrame.v;
     this.cw = this.coordFrame.w;
-    return JSON.stringify(this, ["index","modelID", "parentIndex", "renderStateArr", "cu", "cv", "cw", "parentMeshI", "parentTriI", "parentUV", "cubeFace", "scale", "rotation"]);
+    var fieldsToSave = ["index","modelID", "parentIndex", "renderStateArr", "cu", "cv", "cw", "parentMeshI", "parentTriI", "parentUV", "cubeFace", "scale", "rotation"];
+    if (this.bakedTransform) fieldsToSave.push("transform");
+    return JSON.stringify(this, fieldsToSave);
 };
 
 ModelInstance.fromJSONString = function(string, assman, modelMap, callback)
@@ -92,12 +95,20 @@ ModelInstance.fromJSONString = function(string, assman, modelMap, callback)
             isSelectable: json.renderStateArr[3]
         };
         newMinst.coordFrame = new CoordinateFrame(json.cu, json.cv, json.cw);
+
+        // If transform was stored in json, re-instate it here
+        if (json.transform) {
+            newMinst.parentMeshI = -1;
+            newMinst.transform = mat4.create(json.transform);
+            mat4.toRotationMat(newMinst.transform, newMinst.normalTransform);
+            newMinst.bakedTransform = true;
+        }
     
         // Copy over parent index.
         // Actual model will need to be re-instated at a later time
         // by the logic that has requested deserialization
         newMinst.parentIndex = json.parentIndex;
-        
+
         callback(newMinst);
     });
 };

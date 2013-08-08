@@ -6,16 +6,16 @@
 
   <ul class="unstyled">
     <li><%= link_to image_tag('twitter_32.png', alt: 'Twitter') +
-                ' Twitter', '/auth/twitter' %></li>
+                ' Twitter', base_url + '/auth/twitter' %></li>
     <li><%= link_to image_tag('google_32.png', alt: 'Google') +
-                ' Google', '/auth/google_oauth2' %></li>
+                ' Google', base_url + '/auth/google_oauth2' %></li>
   </ul>
 
   <div style="margin:10px 0px">
     <strong>or</strong> if you have a local account:
   </div>
 
-  <%= form_tag("/auth/identity/callback", class: 'form-horizontal') do %>
+  <%= form_tag(base_url + "/auth/identity/callback", class: 'form-horizontal') do %>
     <div class="field control-group">
       <%= label_tag :auth_key, "Email", class: 'control-label' %>
       <div class='controls'>

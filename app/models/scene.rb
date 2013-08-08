@@ -1,5 +1,20 @@
+# == Schema Information
+#
+# Table name: scenes
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  user_id    :integer
+#  data       :text
+#  ui_log     :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Scene < ActiveRecord::Base
   attr_accessible :data, :name, :ui_log
+
+  has_paper_trail
 
   belongs_to :user
 

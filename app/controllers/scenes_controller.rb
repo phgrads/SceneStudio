@@ -1,18 +1,18 @@
 class ScenesController < ApplicationController
   before_filter :signed_in_user_filter
-  before_filter :access_by_owner, only: [:edit, :load, :update, :destroy, :loadcamera, :view]
   before_filter :special_access, only: [:index]
+  before_filter :access_by_owner, only: [:edit, :load, :update, :destroy]
 
   def index
-    @scene_list = current_user.scenes;
+    @scene_list = current_user.scenes
   end
 
   def create
     @scene = current_user.scenes.build({
       name: params[:name],
     })
-    if @scene.save then
-      flash[:success] = "Scene created!"
+    if @scene.save
+      flash[:success] = 'Scene created!'
       redirect_to scenes_url
     else
       flash[:error] = @scene.errors.full_messages.to_sentence
@@ -22,7 +22,7 @@ class ScenesController < ApplicationController
 
   # view for working on the scene available at scenes/#id/edit
   def edit
-    @on_close_url = '/scenes'
+    @on_close_url = scenes_path
     render 'edit', layout: false
   end
   def view
@@ -31,20 +31,11 @@ class ScenesController < ApplicationController
   end
   def load
     if @scene.data
-      render text: @scene.data
-
+      render :json => { :scene => @scene.data, :ui_log => @scene.ui_log }
     else
-      raise ActionController::RoutingError.new('Not Found')
+      raise ActionController::RoutingError.new('Scene Not Found')
     end
   end
-
-	def loadcamera
-		if @scene.ui_log
-			render text: @scene.ui_log
-		else
-			raise ActionController::RoutingError.new('Not Found')
-		end		
-	end
 
   # view for observing the scene available at scenes/#id
   #def show
@@ -56,8 +47,6 @@ class ScenesController < ApplicationController
       :data => params[:scene_file],
       :ui_log => params[:ui_log]
     })
-	puts 'printing camera' 	
-	puts @scene.ui_log
     # if that failed, an error is raised, otherwise...
 
     # send 200 response
@@ -67,7 +56,7 @@ class ScenesController < ApplicationController
   # send DELETE to scenes/#id to destroy
   def destroy
     @scene.destroy
-    flash[:success] = "Scene deleted."
+    flash[:success] = 'Scene deleted.'
     redirect_to scenes_url
   end
 
