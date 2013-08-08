@@ -15,6 +15,11 @@ body
     left: 0;
 }
 
+#selectview{
+	margin-top:0;
+	margin-bottom:0;
+	
+}
 #blocker {
 	display:table;
 	position: absolute;
@@ -34,6 +39,7 @@ body
 	vertical-align:middle;
 	top:0;
 }
+
 
 #ui.busy *
 {

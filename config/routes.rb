@@ -1,5 +1,6 @@
 SceneStudio::Application.routes.draw do
   
+  
   root to: "static_pages#home"
   match "/help", to: "static_pages#help"
 
@@ -10,9 +11,11 @@ SceneStudio::Application.routes.draw do
   match "/auth/failure", to: "sessions#failure"
   match "/signout",                 to: "sessions#destroy", :as => :signout
 
-  resources :scenes, only: [:index, :create, :edit, :update, :destroy]
+  resources :scenes, only: [:index, :create, :edit, :update, :destroy, :view]
   match "/scenes/:id/load",         to: "scenes#load"
-match "/scenes/:id/loadcamera", to: "scenes#loadcamera"
+  match "/scenes/:id/loadcamera", to: "scenes#loadcamera"
+  match "/scenes/:id/view",         to: "scenes#view"
+
 
   #resources :identities
 

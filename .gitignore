@@ -27,3 +27,6 @@
 /vendor/solr/modelsearch/solr/data
 /vendor/solr/modelsearch/solr/data/*
 /vendor/solr/tmp_agg.json
+
+#Ignore vim backups
+*.*~

@@ -1,6 +1,7 @@
 class ScenesController < ApplicationController
   before_filter :signed_in_user_filter
-  before_filter :access_by_owner, only: [:edit, :load, :update, :destroy, :loadcamera]
+  before_filter :access_by_owner, only: [:edit, :load, :update, :destroy, :loadcamera, :view]
+  before_filter :special_access, only: [:index]
 
   def index
     @scene_list = current_user.scenes;
@@ -24,7 +25,10 @@ class ScenesController < ApplicationController
     @on_close_url = '/scenes'
     render 'edit', layout: false
   end
-
+  def view
+    @on_close_url = '/scenes'
+    render 'view', layout:false
+  end
   def load
     if @scene.data
       render text: @scene.data
@@ -72,5 +76,11 @@ class ScenesController < ApplicationController
       @scene = current_user.scenes.find(params[:id])
       # this should probably be a 404 error or such...
       redirect_to(root_path) unless @scene
+    end
+    
+    def special_access 
+      if current_user.name=="viewer"
+        @mode = "view"
+      end
     end
 end
