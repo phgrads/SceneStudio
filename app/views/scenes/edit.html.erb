@@ -41,21 +41,8 @@
         <div id="searchResultsContents"></div>
       </div>
     </div>
-
   </div>
-  <div id="blocker" style="display: none;">
-    <div id="instructions">
-      <p> Press enter to capture best and worst views in this scene </p>
-      <p> Click to enter fullscreen mode </p>
-      <p> Use AWSD to move </p>
-    </div>
-  </div>
-  <%= render 'glsl_shaders/constant.frag' %>
-  <%= render 'glsl_shaders/constant.vert' %>
-  <%= render 'glsl_shaders/model.frag' %>
-  <%= render 'glsl_shaders/model.vert' %>
-  <%= render 'glsl_shaders/picking.frag' %>
-  <%= render 'glsl_shaders/picking.vert' %>
+  <%= render 'glsl_shaders/shaders' %>
   
   <script type='text/javascript'>
     // We use the following structure to send data from the
