@@ -24,7 +24,12 @@ function Camera(eye, lookAt, up)
 
 Camera.prototype.UpdateSceneBounds = function(bbox)
 {
-	this.sceneBounds = bbox;
+    // Reduce scene bbox by a bit as a heuristic to avoid poking through walls
+    var eps = 0.05 * (bbox.maxs[2] - bbox.mins[2]);
+    var d = vec3.create([eps, eps, eps]);
+    vec3.subtract(bbox.maxs, d, bbox.maxs);
+    vec3.add(bbox.mins, d, bbox.mins);
+    this.sceneBounds = bbox;
 };
 
 Camera.prototype.CalculatePitchYaw = function()
