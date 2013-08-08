@@ -25,10 +25,7 @@ class ScenesController < ApplicationController
     @on_close_url = scenes_path
     render 'edit', layout: false
   end
-  def view
-    @on_close_url = '/scenes'
-    render 'view', layout:false
-  end
+
   def load
     if @scene.data
       render :json => { :scene => @scene.data, :ui_log => @scene.ui_log }
@@ -37,9 +34,12 @@ class ScenesController < ApplicationController
     end
   end
 
-  # view for observing the scene available at scenes/#id
-  #def show
-  #end
+  # view for observing the scene available at scenes/#id/view
+  def view
+    @scene = Scene.find(params[:id])
+    @on_close_url = scenes_path
+    render 'view', layout: false
+  end
 
   # send PUT to scenes/#id to update
   def update
@@ -68,8 +68,8 @@ class ScenesController < ApplicationController
     end
     
     def special_access 
-      if current_user.name=="viewer"
-        @mode = "view"
+      if current_user.name == 'viewer'
+        @mode = 'view'
       end
     end
 end
