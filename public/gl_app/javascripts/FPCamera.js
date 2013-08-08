@@ -35,12 +35,14 @@ define([
         return (inScene && this.noCollisions(newEye));
     };
 
-    //
+    // Changes camera only if new position is valid and returns whether we set or not
     FPCamera.prototype.SetIfValidPosition = function(newEye, newLookAtPoint) {
-        if (this.isValidPosition(newEye)) {
+        var valid = this.isValidPosition(newEye);
+        if (valid) {
             this.eyePos = newEye;
             this.lookAtPoint = newLookAtPoint;
         }
+        return valid;
     };
 
     // Adds room bounds and object collision checks to Camera implementation
@@ -68,9 +70,14 @@ define([
 
     FPCamera.prototype.SetRandomPositionInSceneBounds = function() {
         this.UpdateSceneBounds(this.scene.Bounds());
-        var pos = this.sceneBounds.RandomPointInside();
         var h = this.sceneBounds.maxs[2] - this.sceneBounds.mins[2];
-        var eyePos = vec3.create([pos[0], pos[1] ,0.6*h]);
+        var N = 100;
+        var i = 0;
+        do {
+            i += 1;
+            var pos = this.sceneBounds.RandomPointInside();
+            var eyePos = vec3.create([pos[0], pos[1] ,0.5*h]);
+        } while (!this.isValidPosition(eyePos) && i < N);
         this.Reset(eyePos);
     };
 
