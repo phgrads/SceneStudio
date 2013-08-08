@@ -18,9 +18,13 @@ define([
     // Check to see whether the new eyeposition is inside of any model's bounding box
     FPCamera.prototype.noCollisions = function(newEye) {
         for( var i = 1; i < this.scene.modelList.length; i++) {
-            if (this.scene.modelList[i].Bounds().ContainsPoint(newEye)) {
-                return false;
-            }
+            // Hack: use bounding sphere since transformed axis aligned bbox (AABB) can be grossly wrong
+            // TODO: Recompute AABB from transformed model
+            var bbox = this.scene.modelList[i].Bounds();
+            var r = bbox.Radius();
+            var c = bbox.Centroid();
+            var d = vec3.dist(newEye, c);
+            if (d < 0.7 * r) return false;
         }
         return true;
     };
@@ -65,7 +69,8 @@ define([
     FPCamera.prototype.SetRandomPositionInSceneBounds = function() {
         this.UpdateSceneBounds(this.scene.Bounds());
         var pos = this.sceneBounds.RandomPointInside();
-        var eyePos = vec3.create([pos[0], pos[1] ,50]);
+        var h = this.sceneBounds.maxs[2] - this.sceneBounds.mins[2];
+        var eyePos = vec3.create([pos[0], pos[1] ,0.6*h]);
         this.Reset(eyePos);
     };
 
