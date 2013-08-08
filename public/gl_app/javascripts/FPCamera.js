@@ -3,9 +3,10 @@
 define([
     'Constants',
     'Camera',
+    'uibehaviors',
     'gl-matrix',
     'gl-matrix-ext'
-], function(Constants, Camera) {
+], function(Constants, Camera, Behaviors) {
 
     function FPCamera(scene) {
         Camera.call(this);
@@ -14,13 +15,8 @@ define([
 
     FPCamera.prototype = Object.create(Camera.prototype);
 
-    // Make sure the new eye position is inside of the room's bounding box
-    FPCamera.prototype.checkRoomBounds = function(newEye) {
-        return this.sceneBounds.ContainsPoint(newEye);
-    };
-
     // Check to see whether the new eyeposition is inside of any model's bounding box
-    FPCamera.prototype.checkObjectCollision = function(newEye) {
+    FPCamera.prototype.noCollisions = function(newEye) {
         for( var i = 1; i < this.scene.modelList.length; i++) {
             if (this.scene.modelList[i].Bounds().ContainsPoint(newEye)) {
                 return false;
@@ -29,20 +25,30 @@ define([
         return true;
     };
 
+    // Returns whether newEye is inside scene AND not inside any model's bounding box
+    FPCamera.prototype.isValidPosition = function(newEye) {
+        var inScene = this.sceneBounds.ContainsPoint(newEye);
+        return (inScene && this.noCollisions(newEye));
+    };
+
+    //
+    FPCamera.prototype.SetIfValidPosition = function(newEye, newLookAtPoint) {
+        if (this.isValidPosition(newEye)) {
+            this.eyePos = newEye;
+            this.lookAtPoint = newLookAtPoint;
+        }
+    };
+
     // Adds room bounds and object collision checks to Camera implementation
     FPCamera.prototype.DollyLeft = function(dist) {
-        //console.log(this.eyePos, this.upVec);
         var offset = vec3.create();
         offset[2] = 0;
         vec3.scale(this.leftVec, dist, offset);
         var newEye = vec3.create();
         vec3.add(this.eyePos, offset, newEye);
-        var newLookAt = vec3.create();
-        vec3.add(this.lookAtPoint, offset, newLookAt);
-        if(this.checkRoomBounds(newEye) && this.checkObjectCollision(newEye)) {
-            this.eyePos = newEye;
-            this.lookAtPoint = newLookAt;
-        }
+        var newLookAtPoint = vec3.create();
+        vec3.add(this.lookAtPoint, offset, newLookAtPoint);
+        this.SetIfValidPosition(newEye, newLookAtPoint);
     };
 
     FPCamera.prototype.DollyForward = function(dist) {
@@ -51,12 +57,41 @@ define([
         offset[2] = 0;
         var newEye = vec3.create();
         vec3.add(this.eyePos, offset, newEye);
-        var newLookAt = vec3.create();
-        vec3.add(this.lookAtPoint, offset, newLookAt);
-        if(this.checkRoomBounds(newEye) && this.checkObjectCollision(newEye)) {
-            this.eyePos = newEye;
-            this.lookAtPoint = newLookAt;
-        }
+        var newLookAtPoint = vec3.create();
+        vec3.add(this.lookAtPoint, offset, newLookAtPoint);
+        this.SetIfValidPosition(newEye, newLookAtPoint);
+    };
+
+    FPCamera.prototype.SetRandomPositionInSceneBounds = function() {
+        this.UpdateSceneBounds(this.scene.Bounds());
+        var pos = this.sceneBounds.RandomPointInside();
+        var eyePos = vec3.create([pos[0], pos[1] ,50]);
+        this.Reset(eyePos);
+    };
+
+    FPCamera.prototype.AttachControls = function(app) {
+        // Fullscreeen on canvas click
+        app.canvas.addEventListener('click', function() { app.canvas.requestFullScreen(); } );
+
+        // Pointerlock on fullscreen, seems to require direct attachment to document otherwise fails
+        document.addEventListener('fullscreenchange', function() { app.canvas.requestPointerLock(); } );
+
+        // WASD style movement controls
+        var movespeed = 5;
+        var up = function() { app.renderer.UpdateView(); };
+        var cam = this;
+        Behaviors.keyhold(app.uimap, 'W').onhold( function() { cam.DollyForward(movespeed);  up(); } );
+        Behaviors.keyhold(app.uimap, 'A').onhold( function() { cam.DollyLeft(movespeed);     up(); } );
+        Behaviors.keyhold(app.uimap, 'S').onhold( function() { cam.DollyForward(-movespeed); up(); } );
+        Behaviors.keyhold(app.uimap, 'D').onhold( function() { cam.DollyLeft(-movespeed);    up(); } );
+
+        // FPCamera looking
+        var rotspeed = 1 / (Math.PI * 100);
+        app.canvas.addEventListener('mousemove', function(e) {
+            cam.PanLeft(-rotspeed * e.movementX);
+            cam.PanUp(rotspeed * e.movementY);
+            up();
+        });
     };
 
     // Exports
