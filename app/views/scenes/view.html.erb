@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= full_title(@scene.name) %></title>
+    <link href="<%= base_url %>/gl_app/gl_app.css" type="text/css" rel="stylesheet"/>
+    <link type="text/css" rel="stylesheet"
+          href=
+                  "<%= base_url %>/gl_app/javascripts/jquery-ui/css/redmond/jquery-ui-1.8.21.custom.css">
+    </link>
+    <%= csrf_meta_tags %>
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+
+<div id="ui">
+    <div id="graphicsArea">
+        <canvas id="canvas"
+                oncontextmenu="return false;"
+                tabindex="-1"
+                onclick="$('#canvas').focus();"></canvas>
+    </div>
+</div>
+<div id="blocker" style="display: none;">
+    <div id="instructions">
+        <p> Press enter to capture best and worst views in this scene </p>
+        <p> Click to enter fullscreen mode </p>
+        <p> Use AWSD to move </p>
+    </div>
+</div>
+<%= render 'glsl_shaders/shaders' %>
+
+<script type='text/javascript'>
+    // We use the following structure to send data from the
+    // controller to the client about what it is that they're editing
+    window.globalViewData = {
+        user: {
+            name: "<%= current_user.name %>",
+            id:   "<%= current_user.id %>"
+        },
+        scene: {
+            name: "<%= @scene.name %>",
+            id:   "<%= @scene.id %>"
+        },
+        on_close_url: "<%= @on_close_url %>",
+        base_url: "<%= base_url %>"
+    };
+</script>
+
+<script type="text/javascript"
+        src="<%= base_url %>/gl_app/javascripts/shared/custom_shims.js"></script>
+<script type="text/javascript"
+        data-main="<%= base_url %>/gl_app/javascripts/main"
+        src="<%= base_url %>/gl_app/javascripts/require.js"></script>
+
+</body>
+</html>
