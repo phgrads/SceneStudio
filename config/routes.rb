@@ -1,7 +1,13 @@
 SceneStudio::Application.routes.draw do
   
+<<<<<<< HEAD
   root                              to: 'static_pages#home'
   match '/help',                    to: 'static_pages#help'
+=======
+  
+  root to: "static_pages#home"
+  match "/help", to: "static_pages#help"
+>>>>>>> Back-end view user privileges with seeding. Mode logic for index page. View action routing.
 
   # login / logout etc.
   match '/signin',                  to: 'sessions#new'
@@ -10,8 +16,16 @@ SceneStudio::Application.routes.draw do
   match '/auth/failure',            to: 'sessions#failure'
   match '/signout',                 to: 'sessions#destroy', :as => :signout
 
+<<<<<<< HEAD
   resources :scenes, only: [:index, :create, :edit, :update, :destroy]
   match '/scenes/:id/load',         to: 'scenes#load'
+=======
+  resources :scenes, only: [:index, :create, :edit, :update, :destroy, :view]
+  match "/scenes/:id/load",         to: "scenes#load"
+  match "/scenes/:id/loadcamera", to: "scenes#loadcamera"
+  match "/scenes/:id/view",         to: "scenes#view"
+
+>>>>>>> Back-end view user privileges with seeding. Mode logic for index page. View action routing.
 
   # mTurk
   get "/mturk/task",                to: "mturk#task"

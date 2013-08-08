@@ -15,6 +15,35 @@ body
     left: 0;
 }
 
+<<<<<<< HEAD
+=======
+#selectview{
+	margin-top:0;
+	margin-bottom:0;
+	
+}
+#blocker {
+	display:table;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255,255,255,.7);
+	z-index: 1000;
+
+	}
+#instructions{
+	display:table-cell; 
+	vertical-align:middle;	
+	margin-left:auto;
+	margin-right:auto;
+	font-size:20px;
+	text-align:center;
+	vertical-align:middle;
+	top:0;
+}
+
+
+>>>>>>> Back-end view user privileges with seeding. Mode logic for index page. View action routing.
 #ui.busy *
 {
     cursor: wait;
