@@ -24,8 +24,8 @@ requirejs.config({
 var app;
 // Application entry point
 require(['App','SceneViewer'], function(App,SceneViewer) {
-	app = new SceneViewer(id('canvas'));
-    //app = new App(id('canvas'));
+	//app = new SceneViewer(id('canvas'));
+    app = new App(id('canvas'));
 	app.Launch();
 });
 

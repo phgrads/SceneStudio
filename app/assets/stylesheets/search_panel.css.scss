@@ -1,0 +1,139 @@
+@import "common.scss";
+
+$bg1: rgba(207,231,250,0.75);
+$bg2: rgba(99,147,193,0.75);
+
+#searchArea
+{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+
+  border-left: thin solid #A5A5A5;
+
+  @include background-linear-gradient($bg1, $bg2);
+  h3 {
+    margin-bottom: 4px;
+    margin-top: 4px;
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+}
+
+#searchInputHeader
+{
+  position: absolute;
+  top: 8px;
+}
+
+#searchBoxWrapper
+{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 34px;
+  margin: 10px;
+  margin-right: 26px;
+}
+
+#searchInputBox
+{
+  font-size: 12pt;
+  position: absolute;
+  /*    top: 34px;*/
+  /*    left: 0;
+      right: 0;*/
+  width: 100%;
+  /*    margin: 10px;*/
+  padding: 6px;
+  border: thin solid #A5A5A5;
+  @include border-radius(8px);
+  background: white;
+  &:focus {
+    outline: none;
+    border: medium solid #EF9F56;
+  }
+}
+
+#searchButton
+{
+  position: absolute;
+  top: 90px;
+  right: 0px;
+  margin-right: 12px;
+}
+
+#searchResults
+{
+  position: absolute;
+  top: 130px;
+  bottom: 0;
+}
+
+#searchResultsContents
+{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /*
+  margin-left: 6px;
+  margin-right: 6px;
+  */
+  margin: 10px;
+  overflow-y: scroll;
+  &.busyWaitIcon {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+  }
+}
+
+.panel
+{
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 10px;
+  border: thin solid #A5A5A5;
+  @include border-radius(8px);
+  background: #E3EBF1;
+}
+
+.searchResultContainer
+{
+  float: left;
+  width: 200px;
+  padding: 8px;
+  margin-bottom: 8px;
+  margin-right: 8px;
+  border: medium solid #3F6993;
+  @include border-radius(8px);
+  background: rgb(79,133,187);
+  &.selected {
+    background: #EF9F56;
+    border-color: #e17009;
+  }
+  img {
+    display: block;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4px;
+    border: thin solid black;
+  }
+  span {
+    color: white;
+    font-weight: bold;
+    font-size: 11pt;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+  }
+}
