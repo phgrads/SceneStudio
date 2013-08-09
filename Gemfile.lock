@@ -143,8 +143,6 @@ GEM
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
-    rest-client (1.6.7)
-      mime-types (>= 1.16)
     rspec (2.11.0)
       rspec-core (~> 2.11.0)
       rspec-expectations (~> 2.11.0)
@@ -214,7 +212,6 @@ DEPENDENCIES
   rack-reverse-proxy
   rails (= 3.2.13)
   rspec-rails (= 2.11.0)
-  rturk (= 2.10.2)
   sass-rails (~> 3.2.3)
   sqlite3 (= 1.3.5)
   uglifier (= 1.2.3)

@@ -1,7 +1,7 @@
-// We use the following structure to send data from the
-// controller to the client about what it is that they're editing
 <script type="text/javascript">
-window.globalViewData = {
+    // We use the following structure to send data from the
+    // controller to the client about what it is that they're editing
+    window.globalViewData = {
     user: {
         name: "<%= current_user.name %>",
         id:   "<%= current_user.id %>"
@@ -12,5 +12,5 @@ window.globalViewData = {
     },
     on_close_url: "<%= @on_close_url %>",
     base_url: "<%= base_url %>"
-};
+    };
 </script>

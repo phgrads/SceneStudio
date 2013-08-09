@@ -3,6 +3,7 @@ class ScenesController < ApplicationController
   before_filter :special_access, only: [:index]
   before_filter :access_by_owner, only: [:edit, :update, :destroy]
   before_filter :retrieve, only: [:edit, :load, :view, :update]
+  layout 'webgl_viewport', only: [:edit, :view]
 
   def index
     @scene_list = current_user.scenes
@@ -23,7 +24,7 @@ class ScenesController < ApplicationController
 
   # view for working on the scene available at scenes/#id/edit
   def edit
-    render 'edit', layout: false
+    render 'edit'
   end
 
   def load
@@ -36,7 +37,7 @@ class ScenesController < ApplicationController
 
   # view for observing the scene available at scenes/#id/view
   def view
-    render 'view', layout: false
+    render 'view'
   end
 
   # send PUT to scenes/#id to update
