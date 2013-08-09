@@ -1,0 +1,16 @@
+// We use the following structure to send data from the
+// controller to the client about what it is that they're editing
+<script type="text/javascript">
+window.globalViewData = {
+    user: {
+        name: "<%= current_user.name %>",
+        id:   "<%= current_user.id %>"
+    },
+    scene: {
+        name: "<%= @scene.name %>",
+        id:   "<%= @scene.id %>"
+    },
+    on_close_url: "<%= @on_close_url %>",
+    base_url: "<%= base_url %>"
+};
+</script>
