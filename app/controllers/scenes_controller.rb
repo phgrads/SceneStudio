@@ -1,7 +1,8 @@
 class ScenesController < ApplicationController
   before_filter :signed_in_user_filter
   before_filter :special_access, only: [:index]
-  before_filter :access_by_owner, only: [:edit, :load, :update, :destroy]
+  before_filter :access_by_owner, only: [:edit, :update, :destroy]
+  before_filter :retrieve, only: [:edit, :load, :view, :update]
 
   def index
     @scene_list = current_user.scenes
@@ -22,7 +23,6 @@ class ScenesController < ApplicationController
 
   # view for working on the scene available at scenes/#id/edit
   def edit
-    @on_close_url = scenes_path
     render 'edit', layout: false
   end
 
@@ -36,8 +36,6 @@ class ScenesController < ApplicationController
 
   # view for observing the scene available at scenes/#id/view
   def view
-    @scene = Scene.find(params[:id])
-    @on_close_url = scenes_path
     render 'view', layout: false
   end
 
@@ -62,12 +60,19 @@ class ScenesController < ApplicationController
 
   private
     def access_by_owner
-      @scene = current_user.scenes.find(params[:id])
-      # this should probably be a 404 error or such...
-      redirect_to(root_path) unless @scene
+      userscenes = current_user.scenes
+      if userscenes.empty? || !userscenes.where(id: params[:id]).exists?
+        flash[:error] = "Cannot access scene with id=#{params[:id]}."
+        redirect_to(scenes_path)
+      end
+    end
+
+    def retrieve
+      @scene = Scene.find(params[:id])
+      @on_close_url = scenes_path
     end
     
-    def special_access 
+    def special_access
       if current_user.name == 'viewer'
         @mode = 'view'
       end
