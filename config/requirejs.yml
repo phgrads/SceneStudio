@@ -3,6 +3,7 @@ paths:
   'jquery': 'jquery-1.7.2.min'
   'jquery-ui': 'jquery-ui-1.8.21.custom.min'
   'gl-matrix': 'gl-matrix-min'
+  'gl-matrix-ext': 'gl_app/gl-matrix-ext'
 
 shim:
   'jquery.debouncedresize': ['jquery']
