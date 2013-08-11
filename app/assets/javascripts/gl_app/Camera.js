@@ -1,10 +1,10 @@
 'use strict';
 
 define([
-	'Constants',
-	'Ray',
+	'./Constants',
+	'./Ray',
 	'gl-matrix',
-	'gl-matrix-ext',
+	'./gl-matrix-ext',
 	'jquery'
 ],
 function(Constants, Ray){

@@ -1,9 +1,9 @@
 'use strict'
 
 define([
-    'fsm',
-    'uifilter',
-    'BrowserDetect',
+    './fsm',
+    './uifilter',
+    './BrowserDetect',
 ],
 function(FSM, UIFilter, BrowserDetect) {
 

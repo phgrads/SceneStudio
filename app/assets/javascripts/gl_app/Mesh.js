@@ -1,7 +1,7 @@
 'use strict';
 
 define([
-	'BBox',
+	'./BBox',
 	'gl-matrix'
 ],
 function(BBox){

@@ -1,3 +1,0 @@
-
-This file is here to force the images directory to be added to git
-

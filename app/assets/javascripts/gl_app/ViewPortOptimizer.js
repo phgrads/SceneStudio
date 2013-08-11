@@ -1,13 +1,13 @@
 'use strict';
 
 define([
-	'Framebuffer', 
-	'Picker', 
-	'Constants',
-	'Renderer',
-  'Distribution',
+	'./Framebuffer',
+	'./Picker',
+	'./Constants',
+	'./Renderer',
+    './Distribution',
 	'gl-matrix',
-	'gl-matrix-ext',
+	'./gl-matrix-ext',
 	'jquery'
 ],
 function(Framebuffer, Picker, Constants, Renderer, Distribution){
@@ -30,22 +30,22 @@ function(Framebuffer, Picker, Constants, Renderer, Distribution){
   
   	ViewPortOptimizer.prototype.inclinationGoodnessFunction = function(state, sigma, mu){
     		return 1/(sigma * Math.sqrt(2 * Math.PI)) * Math.exp(-1 *Math.pow(state.phi - mu,2)/( 2 * Math.pow(sigma, 2)));
-  	}
+  	};
   	ViewPortOptimizer.prototype.heightGoodnessFunction = function(state, sigma, mu){
     		return Math.exp( -1 *(state.eyePos.z - mu)/sigma ^ 2);
-  	}
+  	};
   	ViewPortOptimizer.prototype.areaGoodnessFunction = function(){
     		var val = 1; 
 		for(var i = 1; i < this.scene.modelList.length; i++){
 			val *= this.calculateModelArea(this.scene.modelList[i]);
 		}
 		return val;
-  	}
+  	};
 	ViewPortOptimizer.prototype.getStateValue = function(state){
 		this.camera.Reset(state.eyePos, state.lookAtPoint, null);
  		this.app.renderer.UpdateView();
 	  	return this.areaGoodnessFunction(); 
-}
+    };
 
 	ViewPortOptimizer.prototype.calculateModelArea = function(targetModel){
 		
@@ -69,18 +69,18 @@ function(Framebuffer, Picker, Constants, Renderer, Distribution){
 
 		}
 		return pixels/area;
-	}
+	};
 	
 	ViewPortOptimizer.sortDecreasing = function(liveSet){
 		liveSet.sort(function(a, b){
 				return b.value - a.value;
 		});
-	}
+	};
 
 	ViewPortOptimizer.popMin = function(liveSet){
 		ViewPortOptimizer.sortDecreasing(liveSet);
 		liveSet.pop();
-	}
+	};
 
 	ViewPortOptimizer.prototype.randomPosition = function(center, maxdist){
 		var theta = 2 * Math.PI * Math.random();  //http://mathworld.wolfram.com/SpherePointPicking.html 
@@ -93,34 +93,34 @@ function(Framebuffer, Picker, Constants, Renderer, Distribution){
 		var newposition = vec3.create();
 		vec3.add(center, translation, newposition);
 		return newposition; 
-	}
+	};
 	ViewPortOptimizer.prototype.getRandomArbitrary = function(minimum, maximum) {
     		return Math.random() * (maximum - minimum) + minimum;
-	}
+	};
 	ViewPortOptimizer.prototype.randomBBoxPosition = function(bbox){
 		var x = this.getRandomArbitrary(bbox.mins[0], bbox.maxs[0]);
 		var y = this.getRandomArbitrary(bbox.mins[1], bbox.maxs[1]);
 		var z = this.getRandomArbitrary(0, bbox.maxs[2]);
 		return vec3.create([x,y,z]);
-	}
+	};
   	ViewPortOptimizer.prototype.randomViewPerturbation = function(phi, theta){
     		var thetagauss = new NormalDistribution(1, theta);
     		var phigauss = new NormalDistribution(1, phi);
     		var newtheta = (thetagauss.sample()) % (2 * Math.PI); 
     		var newphi = (phigauss.sample()) % (Math.PI); 
     		return {phi:newphi, theta:newtheta}; 
-  	}
+  	};
   	ViewPortOptimizer.prototype.randomView = function(){
     		var phi = Math.acos( 2 * Math.random() - 1); 
     		var theta = 2 * Math.PI * Math.random(); 
     		return {phi:phi, theta:theta};
-  	}
+  	};
   	ViewPortOptimizer.sphericalToCartesian = function(phi, theta){
     		var x = Math.sin(phi) * Math.cos(theta);
 		var y = Math.sin(phi) * Math.sin(theta);
 	  	var z = Math.cos(phi);
       		return vec3.create([x,y,z]);
-  	}
+  	};
 
   	ViewPortOptimizer.prototype.generateSeedState = function(){
     		var pos = this.randomPosition(this.camera.sceneBounds.Centroid(), this.camera.sceneBounds.Radius());
@@ -130,7 +130,7 @@ function(Framebuffer, Picker, Constants, Renderer, Distribution){
     		var lookAt = vec3.create();
     		vec3.add(pos, ViewPortOptimizer.sphericalToCartesian(view.phi, view.theta), lookAt);
     		return {eyePos:pos, lookAtPoint:lookAt, phi:view.phi, theta:view.theta};
-  	}
+  	};
 
     
 
@@ -140,7 +140,7 @@ function(Framebuffer, Picker, Constants, Renderer, Distribution){
     		var lookAt = vec3.create();
     		vec3.add(pos, ViewPortOptimizer.sphericalToCartesian(view.phi, view.theta), lookAt);
     		return {eyePos:pos, lookAtPoint:lookAt, phi:view.phi, theta:view.theta};
-	}	
+	};
 	
 	ViewPortOptimizer.prototype.randomSeedInitialization = function(numSeeds){
 		var liveSet = [];
@@ -150,10 +150,10 @@ function(Framebuffer, Picker, Constants, Renderer, Distribution){
 			liveSet.push({state:state, value:value })
 		}
 		return liveSet;	
-	}
+	};
 	ViewPortOptimizer.prototype.gridSeedInitialization = function(){
 		
-	}
+	};
 	ViewPortOptimizer.prototype.optimizeCameraState = function(){
 		this.camera.SaveStateForReset();
 		var maxIter = 10;
@@ -183,7 +183,7 @@ function(Framebuffer, Picker, Constants, Renderer, Distribution){
 		console.log(liveSet[0].value);
 		return liveSet[0].state;
 
-	}
+	};
 
 	ViewPortOptimizer.prototype.testSeeding = function(){
 		var numtests = 15;
@@ -197,7 +197,7 @@ function(Framebuffer, Picker, Constants, Renderer, Distribution){
 		}
 		console.log('bbox avg: ', bboxtotal/numtests);
 		console.log('sphere avg: ', spheretotal/numtests);
-	}
+	};
 	return ViewPortOptimizer;
 	
 

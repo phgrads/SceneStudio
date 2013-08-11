@@ -1,13 +1,13 @@
 'use strict';
 
 define([
-	'Constants',
-	'Mesh',
-	'Texture',
-	'Model',
-	'AssetCache',
-	'Material',
-	'loader',
+	'./Constants',
+	'./Mesh',
+	'./Texture',
+	'./Model',
+	'./AssetCache',
+	'./Material',
+	'./loader',
     'base'
 ],
 function(Constants, Mesh, Texture, Model, AssetCache, Material){

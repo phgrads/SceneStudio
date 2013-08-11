@@ -1,8 +1,8 @@
 'use strict'
 
 define([
-	'Constants',
-	'jquery-ui',
+	'./Constants',
+	'jquery-ui'
 ],
 function(Constants){
 	
