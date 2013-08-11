@@ -1,13 +1,13 @@
 'use strict';
 
 define([
-	'Constants',
-	'Shader',
-	'Program',
-	'Mesh',
-	'Picker',
+	'./Constants',
+	'./Shader',
+	'./Program',
+	'./Mesh',
+	'./Picker',
 	'gl-matrix',
-	'gl-matrix-ext',
+	'./gl-matrix-ext',
 	'jquery',
 	'jquery.debouncedresize'
 ],

@@ -1,10 +1,10 @@
 'use strict';
 
 define([
-	'BrowserDetect',
-	'jquery',
-	'base',
-	'fsm',
+	'./BrowserDetect',
+    './fsm',
+    'jquery',
+	'base'
 ],
 function(BrowserDetect, FSM){
 
@@ -44,7 +44,7 @@ var MOD_MAP = {
     '⇧': 16, shift: 16,
     '⌥': 18, alt: 18, option: 18, opt: 18,
     '⌃': 17, ctrl: 17, control: 17,
-    '⌘': 91, command: 91, cmd: 91,
+    '⌘': 91, command: 91, cmd: 91
 };
 
 var KEY_MAP = {
@@ -59,13 +59,13 @@ var KEY_MAP = {
     ',': 188, '.': 190, '/': 191,
     '`': 192, '-': 189, '=': 187,
     ';': 186, '\'': 222,
-    '[': 219, ']': 221, '\\': 220,
+    '[': 219, ']': 221, '\\': 220
 };
 
 var BUTTON_MAP = {
     left: 0,
     middle: 1,
-    right: 2,
+    right: 2
 };
 
 var button_status = { 0: false, 1: false, 2: false };
@@ -218,7 +218,7 @@ var outputs = {
     mousemove:  [],
     mouseup:    [],
     keydown:    [],
-    keyup:      [],
+    keyup:      []
 };
 
 function on(output, callback)
@@ -235,7 +235,7 @@ var fsm_spoof_methods =
     onmouseup:      on.partial('mouseup'),
     onmousemove:    on.partial('mousemove'),
     onkeydown:      on.partial('keydown'),
-    onkeyup:        on.partial('keyup'),
+    onkeyup:        on.partial('keyup')
 };
 
 // install handlers to drive the fsm-like uimap interface
@@ -250,7 +250,7 @@ function eventToParams(event, extension) {
         y:          event.clientY,
         preventDefault: function() {
                 event.preventDefault();
-            },
+        }
     };
     for(var field in extension)
         params[field] = extension[field];
@@ -265,28 +265,28 @@ mousedown_handlers.push(function(event) {
 mouseup_handlers.push(function(event) {
     outputs.mouseup.forEach(function(callback) {
         var params = eventToParams(event, {
-            x: prevX, y: prevY,
+            x: prevX, y: prevY
         });
         callback(params);
 })});
 mousemove_handlers.push(function(event) {
     outputs.mousemove.forEach(function(callback) {
         var params = eventToParams(event, {
-            dx: diffX, dy: diffY,
+            dx: diffX, dy: diffY
         });
         callback(params);
 })});
 keydown_handlers.push(function(event) {
     outputs.keydown.forEach(function(callback) {
         var params = eventToParams(event, {
-            x: prevX, y: prevY,
+            x: prevX, y: prevY
         });
         callback(params);
 })});
 keyup_handlers.push(function(event) {
     outputs.keyup.forEach(function(callback) {
         var params = eventToParams(event, {
-            x: prevX, y: prevY,
+            x: prevX, y: prevY
         });
         callback(params);
 })});
@@ -310,7 +310,7 @@ return fsm_spoof_methods;
 
 // Exports
 return {
-    create: create,
+    create: create
 };
 
 });

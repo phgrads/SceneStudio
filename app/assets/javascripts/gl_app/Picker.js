@@ -1,7 +1,7 @@
 'use strict';
 
 define([
-	'Framebuffer'
+	'./Framebuffer'
 ],
 function(Framebuffer){
 

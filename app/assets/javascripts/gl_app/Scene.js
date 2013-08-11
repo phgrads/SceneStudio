@@ -1,8 +1,8 @@
 'use strict';
 
 define([
-	'ModelInstance',
-	'BBox',
+	'./ModelInstance',
+	'./BBox',
 	'jquery',
 	'async'
 ],

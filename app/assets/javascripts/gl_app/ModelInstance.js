@@ -1,14 +1,14 @@
 'use strict';
 
 define([
-	'Constants',
-	'PubSub',
-	'UndoStack',
-	'CoordinateFrame',
-	'fsm',
-	'uibehaviors',
+	'./Constants',
+	'./PubSub',
+	'./UndoStack',
+	'./CoordinateFrame',
+	'./fsm',
+	'./uibehaviors',
 	'gl-matrix',
-	'gl-matrix-ext'
+	'./gl-matrix-ext'
 ],
 function(Constants, PubSub, UndoStack, CoordinateFrame, FSM, Behaviors){
 

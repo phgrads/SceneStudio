@@ -1,7 +1,7 @@
 'use strict';
 
 define([
-	'Constants',
+	'./Constants',
 	'jquery',
 	'jquery-ui'
 ],

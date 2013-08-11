@@ -1,15 +1,15 @@
 'use strict';
 
 define([
-	'Constants',
-	'Mesh',
-	'Material',
-	'Model',
-	'UndoStack',
-	'fsm',
-	'uibehaviors',
+	'./Constants',
+	'./Mesh',
+	'./Material',
+	'./Model',
+	'./UndoStack',
+	'./fsm',
+	'./uibehaviors',
 	'gl-matrix',
-	'gl-matrix-ext',
+	'./gl-matrix-ext',
 	'jquery'
 ],
 function(Constants, Mesh, Material, Model, UndoStack, FSM, Behaviors){

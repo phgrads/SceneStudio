@@ -1,7 +1,7 @@
 'use strict';
 
 define([
-	'PubSub',
+	'./PubSub',
 ],
 function(PubSub){
 

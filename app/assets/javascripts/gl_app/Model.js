@@ -1,8 +1,8 @@
 'use strict';
 
 define([
-	'BBox',
-	'Picker'
+	'./BBox',
+	'./Picker'
 ],
 function(BBox, Picker){
 

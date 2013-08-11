@@ -1,9 +1,9 @@
 'use strict';
 
 define([
-	'Constants',
-	'ModelInstance',
-	'Scene',
+	'./Constants',
+	'./ModelInstance',
+	'./Scene',
 	'jquery'
 ],
 function (Constants, ModelInstance, Scene)
