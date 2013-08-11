@@ -5,7 +5,7 @@ define([
     './Camera',
     './uibehaviors',
     'gl-matrix',
-    './gl-matrix-ext'
+    'gl-matrix-ext'
 ], function(Constants, Camera, Behaviors) {
 
     function FPCamera(scene) {

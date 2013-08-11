@@ -2,7 +2,7 @@
 
 define([
 	'gl-matrix',
-	'./gl-matrix-ext'
+	'gl-matrix-ext'
 ],
 function(){
 	

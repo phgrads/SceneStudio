@@ -7,7 +7,7 @@ define([
 	'./Mesh',
 	'./Picker',
 	'gl-matrix',
-	'./gl-matrix-ext',
+	'gl-matrix-ext',
 	'jquery',
 	'jquery.debouncedresize'
 ],

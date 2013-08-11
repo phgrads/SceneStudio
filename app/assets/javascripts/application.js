@@ -13,4 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require_tree .
+//= require require
+// DO NOT use "require_tree .", just "require require" here when require.js-rails is active

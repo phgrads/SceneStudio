@@ -8,7 +8,7 @@ define([
 	'./fsm',
 	'./uibehaviors',
 	'gl-matrix',
-	'./gl-matrix-ext'
+	'gl-matrix-ext'
 ],
 function(Constants, PubSub, UndoStack, CoordinateFrame, FSM, Behaviors){
 
