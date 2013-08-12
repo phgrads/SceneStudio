@@ -1,0 +1,19 @@
+@import "common.scss";
+
+$c1: rgba(249,249,249,1);
+$c2: rgba(221,238,255,1);
+
+#archGenDialog
+{
+  @include background-linear-gradient($c1, $c2);
+}
+
+#archGenCanvas
+{
+  height: 99%;
+  width: 99%;
+}
+#archGenCanvas:focus
+{
+  outline: none;
+}
