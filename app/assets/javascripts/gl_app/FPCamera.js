@@ -11,6 +11,7 @@ define([
     function FPCamera(scene) {
         Camera.call(this);
         this.scene = scene;
+        this.defaultEyeHeight = 72;
     }
 
     FPCamera.prototype = Object.create(Camera.prototype);
@@ -68,6 +69,16 @@ define([
         this.SetIfValidPosition(newEye, newLookAtPoint);
     };
 
+    FPCamera.prototype.DollyUp = function(dist) {
+        var offset = vec3.create();
+        offset[2] = dist;
+        var newEye = vec3.create();
+        vec3.add(this.eyePos, offset, newEye);
+        var newLookAtPoint = vec3.create();
+        vec3.add(this.lookAtPoint, offset, newLookAtPoint);
+        this.SetIfValidPosition(newEye, newLookAtPoint);
+    };
+
     FPCamera.prototype.SetRandomPositionInSceneBounds = function() {
         this.UpdateSceneBounds(this.scene.Bounds());
         var h = this.sceneBounds.maxs[2] - this.sceneBounds.mins[2];
@@ -76,7 +87,7 @@ define([
         do {
             i += 1;
             var pos = this.sceneBounds.RandomPointInside();
-            var eyePos = vec3.create([pos[0], pos[1] ,0.5*h]);
+            var eyePos = vec3.create([pos[0], pos[1] , this.defaultEyeHeight]);
         } while (!this.isValidPosition(eyePos) && i < N);
         this.Reset(eyePos);
     };
@@ -90,6 +101,8 @@ define([
         Behaviors.keyhold(app.uimap, 'A').onhold( function() { cam.DollyLeft(movespeed);     up(); } );
         Behaviors.keyhold(app.uimap, 'S').onhold( function() { cam.DollyForward(-movespeed); up(); } );
         Behaviors.keyhold(app.uimap, 'D').onhold( function() { cam.DollyLeft(-movespeed);    up(); } );
+        Behaviors.keyhold(app.uimap, 'R').onhold( function() { cam.DollyUp(movespeed);       up(); } );
+        Behaviors.keyhold(app.uimap, 'F').onhold( function() { cam.DollyUp(-movespeed);      up(); } );
 
         // FPCamera looking
         var rotspeed = 1 / (Math.PI * 100);
