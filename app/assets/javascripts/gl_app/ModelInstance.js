@@ -16,7 +16,8 @@ function ModelInstance(model, parentInst)
 {
 	// EXTEND PUBSUB: Call PubSub constructor
 	PubSub.call(this);
-	
+	this.type = "ModelInstance";
+
 	this.index = -1;
 
 	// Model
@@ -212,7 +213,6 @@ ModelInstance.prototype.SetParent = function(parInst)
 	{
 		throw new Error('ModelInstance.SetParent: an instance cannot be its own parent.');
 	}
-	
 	// Remove from current parent
 	var p = this.parent;
 	if (this.parent)
@@ -279,7 +279,11 @@ ModelInstance.prototype.UpdateStateFromRayIntersection = function(isect)
 	var newParent = isect.inst;
 
     // Ignore intersection if picked parent is not a ModelInstance
-    if (!(newParent instanceof ModelInstance)) return; //TODO: Would be cleaner to modify pickability of Manipulators instead
+    // TODO: This uses a custom type check hack for now. BEWARE OF instaceOf, it is INCONSISTENT
+    if (!(newParent.type && newParent.type === "ModelInstance")) {
+        //TODO: Would be cleaner to modify pickability of Manipulators instead
+        return;
+    }
 
 	this.SetParent(newParent);
 	this.parentMeshI = isect.geoID;
