@@ -162,8 +162,10 @@ class MtTask < ActiveRecord::Base
         hit.keywords      = task.keywords       if task.keywords
       
         hit.question(task_url)
+        # non exposed hit parameters
         hit.qualifications.approval_rate gte: 95
         hit.qualifications.hits_approved gte: 100
+        hit.auto_approval = 259200 # 3 days
       end
 
       return rturk_hit.id
