@@ -41,7 +41,7 @@ define([
             this.assman = new AssetManager(this.renderer.gl_);
             this.uilog = new UILog.UILog();
 
-            this.AttachEventHandlers();
+            this.ViewSelectionTaskLogic();
         }
 
         // Extend PubSub
@@ -66,12 +66,64 @@ define([
             this.renderer.UpdateView();
         };
 
-        SceneViewer.prototype.AttachEventHandlers = function () {
-            // TODO: Best, worst view logic and hooking to prompts
-            Behaviors.keypress(this.uimap, 'enter')
-                .onpress(function() {
-                    this.SaveCamera('BESTVIEW');
-                }.bind(this));
+        SceneViewer.prototype.ViewSelectionTaskLogic = function () {
+            // Get message box and text
+            var msgBox = $('#message');
+            var msgTxt = msgBox.children('span');
+            var instructions = id('instructions');
+
+            // Fullscreeen on canvas click and fade message in
+            instructions.addEventListener('click', function() {
+                id("ui").requestFullScreen();
+                msgBox.fadeIn('slow');
+                $(instructions).text("Left click to go back to task");
+            });
+
+            // Pointerlock on fullscreen (seems to require direct attachment to document otherwise fails)
+            document.addEventListener('fullscreenchange', function() {
+                app.canvas.requestPointerLock();
+                app.canvas.focus();
+            });
+
+            // Initialize task stage counter and messages
+            var taskStage = 0;
+            var taskMessages = [
+                "Please find and take a picture of a view most people would agree shows the scene best.",//taskStage = 0
+                "Are you sure this is a good view? Press ENTER again to confirm or DELETE to cancel.",   //taskStage = 1
+                "Please find and take a picture of a bad view.",                                         //taskStage = 2
+                "Are you sure this is a bad view? Press ENTER again to confirm or DELETE to cancel.",    //taskStage = 3
+                "Worst view saved. Press ENTER again to save results and exit."                          //taskStage = 4
+            ];
+            msgTxt.text(taskMessages[0]);
+
+            // Canceling with delete decrements task counter and updates message
+            Behaviors.keypress(this.uimap, 'delete').onpress(function() {
+                if (taskStage == 1 || taskStage == 3) {
+                    taskStage--;
+                    msgTxt.text(taskMessages[taskStage]);
+                    msgBox.hide().fadeIn('slow');
+                }
+            });
+
+            // Confirming with enter takes action, increments task counter and updates message
+            Behaviors.keypress(this.uimap, 'enter').onpress(function() {
+                if (taskStage == 1) {
+                    this.SaveCamera('CAMBEST');
+                }
+                else if (taskStage == 3) {
+                    this.SaveCamera('CAMWORST');
+                }
+                else if (taskStage == 4) {
+                    // TODO: Replace this with saving of UI log through special route
+                    this.SaveScene(
+                        function() { this.ExitTo(window.globalViewData.on_close_url); }.bind(this) ,
+                        function() { alert("Error saving results. Please close tab and do task again."); }
+                    );
+                }
+                taskStage++;
+                msgTxt.text(taskMessages[taskStage]);
+                msgBox.hide().fadeIn('slow');
+            }.bind(this));
 
             preventSelection(this.canvas);
         };
@@ -121,6 +173,7 @@ define([
             };
             this.uilog.log(UILog.EVENT.MISC, record);
             console.log(record);
+            $("#ui").fadeOut('fast').fadeIn('fast');
         };
 
         SceneViewer.prototype.LoadCamera = function(cam)

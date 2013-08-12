@@ -1,12 +1,16 @@
 <%= stylesheet_link_tag('viewer') %>
 <div id="ui">
     <%= render 'graphicsArea' %>
+    <div id='message' style="display: none;">
+        <span>I AM MESSAGE BOX</span>
+    </div>
 </div>
-<div id="blocker" style="display: none;">
+<div id="blocker">
     <div id="instructions">
-        <p> Press enter to capture best and worst views in this scene </p>
-        <p> Click to enter fullscreen mode </p>
-        <p> Use AWSD to move </p>
+        <p> You will see a 3D scene. Look around using the mouse and move using the AWSD keys. Use the enter key to take pictures.</p>
+        <p> Your task is to first take a picture of the view you think most people would agree shows the scene best.</p>
+        <p> Then, you should take a picture of a bad view.</p>
+        <p> Once you're ready, left click on these instructions to enter fullscreen mode.</p>
     </div>
 </div>
 <%= requirejs_include_tag('gl_app/viewer-main') %>

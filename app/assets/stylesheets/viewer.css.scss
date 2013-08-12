@@ -1,11 +1,6 @@
 @import "common.scss";
 @import "graphicsArea";
 
-#selectview {
-  margin-top:0;
-  margin-bottom:0;
-}
-
 #blocker {
   display:table;
   position: absolute;
@@ -23,4 +18,24 @@
   font-size:20px;
   text-align:center;
   top:0;
+}
+
+#message {
+  font-family:sans-serif;
+  position:fixed;
+  top:0px;
+  left:0px;
+  width:100%;
+  z-index:1000;
+  text-align:center;
+  font-weight:bold;
+  font-size:100%;
+  color:white;
+  padding:10px 0px 10px 0px;
+  background-color:darkred;
+  span {
+    text-align: center;
+    width: 95%;
+    float:left;
+  }
 }

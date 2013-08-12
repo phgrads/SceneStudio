@@ -82,12 +82,6 @@ define([
     };
 
     FPCamera.prototype.AttachControls = function(app) {
-        // Fullscreeen on canvas click
-        app.canvas.addEventListener('click', function() { app.canvas.requestFullScreen(); } );
-
-        // Pointerlock on fullscreen, seems to require direct attachment to document otherwise fails
-        document.addEventListener('fullscreenchange', function() { app.canvas.requestPointerLock(); } );
-
         // WASD style movement controls
         var movespeed = 5;
         var up = function() { app.renderer.UpdateView(); };
