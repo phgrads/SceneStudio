@@ -9,4 +9,4 @@
         <p> Use AWSD to move </p>
     </div>
 </div>
-<%= javascript_include_tag ('/gl_app/javascripts/require.js'), :'data-main' => "/gl_app/javascripts/main", :recursive => true %>
+<%= requirejs_include_tag('gl_app/viewer-main') %>
