@@ -4,10 +4,9 @@
 #
 #  id         :integer          not null, primary key
 #  mtId       :string(255)
-#  name       :string(255)
-#  mtParams   :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  mt_task_id :integer
 #
 
 require 'spec_helper'

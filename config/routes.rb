@@ -13,6 +13,9 @@ SceneStudio::Application.routes.draw do
   resources :scenes, only: [:index, :create, :edit, :update, :destroy]
   match "/scenes/:id/load",         to: "scenes#load"
 
+  # mTurk
+  match "/mturk/task",              to: "mturk#task"
+
   #resources :identities
 
   #match "/home", to: "static_pages/home"

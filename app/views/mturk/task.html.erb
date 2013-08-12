@@ -1,0 +1,20 @@
+
+
+
+<h1>TESTING TASK</h1>
+<div id="turkey-dump"></div>
+<script type="text/javascript" src="<%= base_url %>/mmturkey.js"></script>
+
+<script type="text/javascript">
+  var dump = document.getElementById("turkey-dump");
+
+  var msg = "";
+  msg += "  HIT ID:          " + turk.hitId + "<br />";
+  msg += "  ASSIGNMENT ID:   " + turk.assignmentId + "<br />";
+  msg += "  WORKER ID:       " + turk.workerId + "<br />";
+  msg += "  PREVIEW MODE:    " + (turk.previewMode? "ON" : "OFF") + "<br />";
+  msg += "  SUBMIT TO:       " + turk.turkSubmitTo + "<br />";
+  dump.innerHTML = msg;
+</script>
+
+<a onclick="turk.submit({data: 'dummy'});">Submit this</a>

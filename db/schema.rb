@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130731221022) do
+ActiveRecord::Schema.define(:version => 20130810033813) do
 
   create_table "identities", :force => true do |t|
     t.string   "name"
@@ -36,13 +36,31 @@ ActiveRecord::Schema.define(:version => 20130731221022) do
 
   create_table "mt_hits", :force => true do |t|
     t.string   "mtId"
-    t.string   "name"
-    t.text     "mtParams"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "mt_task_id"
   end
 
-  add_index "mt_hits", ["mtId", "name"], :name => "index_mt_hits_on_mtId_and_name"
+  add_index "mt_hits", ["mtId"], :name => "index_mt_hits_on_mtId_and_name"
+
+  create_table "mt_tasks", :force => true do |t|
+    t.string   "name"
+    t.datetime "submitted_at"
+    t.datetime "completed_at"
+    t.string   "title"
+    t.text     "description"
+    t.integer  "reward"
+    t.integer  "num_assignments"
+    t.integer  "max_workers"
+    t.integer  "max_hits_per_worker"
+    t.string   "keywords"
+    t.integer  "shelf_life"
+    t.integer  "max_task_time"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  add_index "mt_tasks", ["created_at"], :name => "index_mt_tasks_on_created_at"
 
   create_table "mt_workers", :force => true do |t|
     t.string   "mtId"

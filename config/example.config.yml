@@ -14,6 +14,10 @@ development:
     # You can generate a new secret from scratch by running the rake task
     #   rake secret
     APP_SECRET_TOKEN:         'xxxxxxxxxxxxxx'
+    # The following access keys are used to enable connection to
+    # Amazon Mechanical Turk.  You can get copies from Amazon
+    AWS_ACCESS_KEY_ID:        'xxxxx'
+    AWS_SECRET_ACCESS_KEY:    'xxxxx'
 
 test:
     # copy development verbatim

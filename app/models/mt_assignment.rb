@@ -19,8 +19,9 @@ class MtAssignment < ActiveRecord::Base
 
   belongs_to :mt_hit
   belongs_to :mt_worker
+  has_one    :mt_task, through: :mt_hit
 
-  before_create :set_uncompleted
+  before_validation :set_defaults
 
   validates :mtId,          presence: true
   validates :mt_hit_id,     presence: true
@@ -30,8 +31,8 @@ class MtAssignment < ActiveRecord::Base
   validates :completed,     presence: true
 
   private
-    def set_uncompleted
-      self.completed = false
+    def set_defaults
+      self.completed ||= false
     end
 
 end
