@@ -11,7 +11,11 @@ define([
     function FPCamera(scene) {
         Camera.call(this);
         this.scene = scene;
-        this.defaultEyeHeight = 72;
+        this.defaultRoomHeight = 100;
+        this.defaultEyeHeight = 72; 
+        
+        this.minRealHeight = 60; 
+        this.maxRealHeight = 75;
     }
 
     FPCamera.prototype = Object.create(Camera.prototype);
@@ -32,8 +36,12 @@ define([
 
     // Returns whether newEye is inside scene AND not inside any model's bounding box
     FPCamera.prototype.isValidPosition = function(newEye) {
+        this.virtualRoomHeight = this.scene.modelList[0].Bounds().maxs[2];
         var inScene = this.sceneBounds.ContainsPoint(newEye);
-        return (inScene && this.noCollisions(newEye));
+        var virtualHeight = newEye[2]
+        var realHeight = virtualHeight/this.virtualRoomHeight * this.defaultRoomHeight;
+        var inBuffer = realHeight > this.minRealHeight && realHeight < this.maxRealHeight; 
+        return (inScene && this.noCollisions(newEye) && inBuffer);
     };
 
     // Changes camera only if new position is valid and returns whether we set or not
@@ -87,7 +95,8 @@ define([
         do {
             i += 1;
             var pos = this.sceneBounds.RandomPointInside();
-            var eyePos = vec3.create([pos[0], pos[1] , this.defaultEyeHeight]);
+            var defaultHeight = this.defaultEyeHeight/this.defaultRoomHeight * this.scene.modelList[0].Bounds().maxs[2];
+            var eyePos = vec3.create([pos[0], pos[1] , defaultHeight]);
         } while (!this.isValidPosition(eyePos) && i < N);
         this.Reset(eyePos);
     };
