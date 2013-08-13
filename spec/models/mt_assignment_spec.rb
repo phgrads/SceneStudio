@@ -6,11 +6,11 @@
 #  mtId         :string(255)
 #  mt_hit_id    :integer
 #  mt_worker_id :integer
-#  input_data   :text
-#  output_data  :text
-#  completed    :boolean
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  completed_at :datetime
+#  data         :text
+#  coupon_code  :string(255)
 #
 
 require 'spec_helper'

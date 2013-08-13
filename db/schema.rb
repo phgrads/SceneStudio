@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130810033813) do
+ActiveRecord::Schema.define(:version => 20130813072119) do
 
   create_table "identities", :force => true do |t|
     t.string   "name"
@@ -25,11 +25,11 @@ ActiveRecord::Schema.define(:version => 20130810033813) do
     t.string   "mtId"
     t.integer  "mt_hit_id"
     t.integer  "mt_worker_id"
-    t.text     "input_data"
-    t.text     "output_data"
-    t.boolean  "completed"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.datetime "completed_at"
+    t.text     "data"
+    t.string   "coupon_code"
   end
 
   add_index "mt_assignments", ["mtId", "mt_hit_id", "mt_worker_id"], :name => "index_mt_assignments_on_mtId_and_mt_hit_id_and_mt_worker_id"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20130810033813) do
   end
 
   add_index "mt_tasks", ["created_at"], :name => "index_mt_tasks_on_created_at"
+  add_index "mt_tasks", ["name"], :name => "index_mt_tasks_on_name"
 
   create_table "mt_workers", :force => true do |t|
     t.string   "mtId"

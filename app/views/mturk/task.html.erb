@@ -1,20 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
 
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <% if @via_turk and not @preview then %>
+    <script type="text/javascript">
+    function signal_turk() {
+      var form = document.createElement('form');
+      var id_input = document.createElement('input');
+      var data_input = document.createElement('input');
+      id_input.type = 'hidden';
+      id_input.name = 'assignmentId';
+      id_input.value = "<%= @assignment.mtId %>";
+      data_input.type = 'hidden';
+      data_input.name = 'data';
+      data_input.value = "{something: 'dummy'}";
+      form.appendChild(id_input);
+      form.appendChild(data_input);
+      document.body.appendChild(form);
 
+      form.action = "<%= @turk_submit_to %>/mturk/externalSubmit";
+      form.method = "POST";
+      form.submit();
+    }
+    function submit_coupon() {
+      var coupon_data = document.getElementById('coupon_box').value;
+      
+      $.ajax({
+        type: 'POST',
+        url: "<%= mturk_coupon_url %>",
+        data: {
+          assignmentId: "<%= @assignment.mtId %>",
+          coupon_code: coupon_data,
+        },
+        dataType: 'json',
+        timeout: 10000
+      }).error(function() {
+        alert('The coupon code could not be validated');
+      }).success(signal_turk);
+    }
+    </script>
+  <% end %>
+  <%= csrf_meta_tags %>
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+<div class='container'>
+  <div class="row">
+    <div class="span6 offset3">
+      <h1>External HIT</h1>
 
-<h1>TESTING TASK</h1>
-<div id="turkey-dump"></div>
-<script type="text/javascript" src="<%= base_url %>/mmturkey.js"></script>
+      <% if @via_turk and not @preview then %>
+      <div class="well">
+        <a href="<%= @new_tab_href %>"
+         target="_blank" style="target-new: tab;">
+          Please click here to visit the task page. <br />
+          On completion you will be given a code, <br />
+          which can be entered below to receive credit. <br />
+        </a>
+      </div>
+      <div class="well">
+        <form>
+          Coupon code:
+          <input id='coupon_box' type="text" name="coupon_code"><br />
+        </form>
+        <a class='btn' onclick="submit_coupon();">Submit Coupon</a><br />
+      </div>
+      <% else %>
+      <p>
+        This HIT is externally hosted.  Instructions will appear
+        once you have accepted the HIT.
+      </p>
+      <% end %>
 
-<script type="text/javascript">
-  var dump = document.getElementById("turkey-dump");
+      <!-- We should insert some test here so the worker
+          can determine whether their browser meets the minimum
+          technical requirements for our task -->
 
-  var msg = "";
-  msg += "  HIT ID:          " + turk.hitId + "<br />";
-  msg += "  ASSIGNMENT ID:   " + turk.assignmentId + "<br />";
-  msg += "  WORKER ID:       " + turk.workerId + "<br />";
-  msg += "  PREVIEW MODE:    " + (turk.previewMode? "ON" : "OFF") + "<br />";
-  msg += "  SUBMIT TO:       " + turk.turkSubmitTo + "<br />";
-  dump.innerHTML = msg;
-</script>
-
-<a onclick="turk.submit({data: 'dummy'});">Submit this</a>
+      <% if @sandbox %>
+      <!-- show extra debug information when we're on the sandbox -->
+      <div class="well">
+        VIA TURK:       <%= @via_turk %> </br>
+        <% if @via_turk then %>
+          PREVIEW MODE:   <%= @preview %> </br>
+          HIT ID:         <%= @hit.mtId %> </br>
+          <% if not @preview then %>
+            ASSIGNMENT ID:  <%= @assignment.mtId %> </br>
+            WORKER ID:      <%= @worker.mtId %> </br>
+            SUBMIT TO:      <%= @turk_submit_to %> </br>
+          <% end %>
+        <% end %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+  <%= debug(params) if Rails.env.development? %>
+</div>
+</body>
+</html>

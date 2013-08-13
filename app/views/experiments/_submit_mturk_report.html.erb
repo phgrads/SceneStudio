@@ -1,0 +1,31 @@
+<% if @via_turk %>
+<script type="text/javascript">
+  function submit_mturk_report(submission_data) {
+    return $.ajax({
+      type: 'POST',
+      url: "<%= mturk_report_url %>",
+      data: {
+        assignmentId: "<%= @assignment.mtId %>",
+        data: JSON.stringify(submission_data),
+      },
+      dataType: 'json',
+      timeout: 10000
+    });
+  }
+</script>
+<% else %>
+<script type="text/javascript">
+  function submit_mturk_report(submission_data) {
+    var obj = {
+      error: function() {
+        return obj;
+      },
+      success: function(fn) {
+        fn({coupon_code: 'N/A'});
+        return obj;
+      }
+    };
+    return obj;
+  }
+</script>
+<% end %>

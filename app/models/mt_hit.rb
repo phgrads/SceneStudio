@@ -10,7 +10,8 @@
 #
 
 class MtHit < ActiveRecord::Base
-  attr_accessible :mtId, :mt_task_id
+  attr_accessible :mt_task_id
+  attr_readonly :mtId
 
   has_many   :mt_assignments, dependent: :destroy
   belongs_to :mt_task

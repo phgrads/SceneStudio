@@ -22,7 +22,9 @@
 class MtTask < ActiveRecord::Base
   # Internal Parameters
     attr_readonly   :name
-    validates       :name,            presence: true, length: { maximum: 80 }
+    validates       :name, presence: true,
+                           uniqueness: true,
+                           length: { maximum: 80 }
 
   # Payment / Worker Parameters
     # note reward is an integer # of cents
@@ -103,24 +105,36 @@ class MtTask < ActiveRecord::Base
 
 
   def self.create_and_submit(params)
+    name = params['name']
+    url  = params['url']
 
-    # first check to see if all the stubs required are present
-    raise "no url provided for new task" unless params[:url]
-
-    task = create! do |task|
-      task.name                 = params[:name]
-      task.title                = params[:title]
-      task.description          = params[:description]
-      task.reward               = params[:reward]
-      task.num_assignments      = params[:num_assignments]
-      task.max_workers          = params[:max_workers]
-      task.max_hits_per_worker  = params[:max_hits_per_worker]
-      task.keywords             = params[:keywords]
-      task.shelf_life           = params[:shelf_life]
-      task.max_task_time        = params[:max_task_time]
+    # sanity check this request
+    # some of these checks go beyond the record validation...
+    raise "no url provided for new task" unless url
+    raise "no name provided for new task" unless name
+    name = name.underscore
+    controller_path = Rails.root.join(
+      'app', 'controllers', 'experiments',
+      name + '_controller.rb')
+    if not controller_path.exist?
+      raise ("Cannot create database entry for an experiment without " +
+             "a controller.  Could not find " + controller_path.to_s)
     end
 
-    task.submit!(params[:url])
+    task = create! do |task|
+      task.name                 = name
+      task.title                = params['title']
+      task.description          = params['description']
+      task.reward               = params['reward']
+      task.num_assignments      = params['num_assignments']
+      task.max_workers          = params['max_workers']
+      task.max_hits_per_worker  = params['max_hits_per_worker']
+      task.keywords             = params['keywords']
+      task.shelf_life           = params['shelf_life']
+      task.max_task_time        = params['max_task_time']
+    end
+
+    task.submit!(url)
 
     return task
   end
@@ -128,9 +142,9 @@ class MtTask < ActiveRecord::Base
   def submit!(task_url)
     # for now, launch a single hit here
     hit_id = launch_hit(task_url)
-    mt_hit = self.mt_hits.create!({ mtId: hit_id })
-
-    puts mt_hit.mtId
+    mt_hit = self.mt_hits.create! do |hit|
+      hit.mtId = hit_id
+    end
 
     # mark the task as submitted and save
     self.submitted_at = DateTime.now
@@ -162,10 +176,12 @@ class MtTask < ActiveRecord::Base
         hit.keywords      = task.keywords       if task.keywords
       
         hit.question(task_url)
-        # non exposed hit parameters
-        hit.qualifications.approval_rate gte: 95
-        hit.qualifications.hits_approved gte: 100
-        hit.auto_approval = 259200 # 3 days
+        # non exposed hit parameters -- don't use on the sandbox
+        if not RTurk.sandbox? then
+          hit.qualifications.approval_rate gte: 95
+          hit.qualifications.hits_approved gte: 100
+          hit.auto_approval = 259200 # 3 days
+        end
       end
 
       return rturk_hit.id

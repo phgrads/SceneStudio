@@ -9,7 +9,7 @@
 #
 
 class MtWorker < ActiveRecord::Base
-  attr_accessible :mtId
+  attr_readonly :mtId
 
   has_many  :mt_assignments, dependent: :destroy
 
