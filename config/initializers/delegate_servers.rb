@@ -3,9 +3,6 @@
 # This initializer is used to launch child process servers
 # and reverse-proxy requests to these servers.
 
-# NOTE: In production, it would probably be a better idea to
-# use Apache or nginx to reverse proxy the requests
-
 if Rails.env.development? || Rails.env.test?
   # configure reverse proxy on dev machines
   require 'rack/reverse_proxy'
