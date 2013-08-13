@@ -43,3 +43,36 @@ Deployment (Apache + Passenger)
     RAILS_RELATIVE_URL_ROOT="/scenestudio" bundle exec rake assets:precompile
     ```
 7. Restart apache server using `sudo service apache2 restart`
+
+
+How to create a new Mechanical Turk Experiment/Task and Manage It
+--------------
+
+The following assumes that we are running in development mode on a local machine.
+
+1. run `rails generate experiment sampleName` to generate some skeleton files.
+   The skeleton files will be usable out of the box, so try that first.
+
+2. run `rake mturk:run[sampleName]` in order to launch the experiment
+   you just created on the MTurk sandbox.
+
+3. go to the worker sandbox and try doing your new task.
+
+4. Take a look at the generated skeleton and get a feel for what everything
+   does.
+
+5. You can only run a particular task once!  However, that's not so great
+   for development.  So, you can just `rake mturk:recall[sampleName]` to
+   completely destroy all evidence of having run the experiment.  WARNING:
+   If you do this in production you will lose all your experiment data.
+   This is a bad idea, and will make it hard/impossible
+   to audit yourself later.
+
+6. When you're done playing around, make sure to get rid of all these junky
+   template files for the `sampleName` task by running
+   `rails destroy experiment sampleName`
+
+7. Now go ahead and create an experiment with an actual name!
+
+8. For more experiment management commands run `rake --tasks` or
+   look at the `lib/tasks/mturk.rake` file
