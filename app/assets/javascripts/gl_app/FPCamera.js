@@ -38,7 +38,7 @@ define([
     FPCamera.prototype.isValidPosition = function(newEye) {
         this.virtualRoomHeight = this.scene.modelList[0].Bounds().maxs[2];
         var inScene = this.sceneBounds.ContainsPoint(newEye);
-        var virtualHeight = newEye[2]
+        var virtualHeight = newEye[2];
         var realHeight = virtualHeight/this.virtualRoomHeight * this.defaultRoomHeight;
         var inBuffer = realHeight > this.minRealHeight && realHeight < this.maxRealHeight; 
         return (inScene && this.noCollisions(newEye) && inBuffer);
@@ -89,14 +89,13 @@ define([
 
     FPCamera.prototype.SetRandomPositionInSceneBounds = function() {
         this.UpdateSceneBounds(this.scene.Bounds());
-        var h = this.sceneBounds.maxs[2] - this.sceneBounds.mins[2];
+        var h = this.defaultEyeHeight/this.defaultRoomHeight * this.scene.modelList[0].Bounds().maxs[2];
         var N = 100;
         var i = 0;
         do {
             i += 1;
             var pos = this.sceneBounds.RandomPointInside();
-            var defaultHeight = this.defaultEyeHeight/this.defaultRoomHeight * this.scene.modelList[0].Bounds().maxs[2];
-            var eyePos = vec3.create([pos[0], pos[1] , defaultHeight]);
+            var eyePos = vec3.create([pos[0], pos[1] , h]);
         } while (!this.isValidPosition(eyePos) && i < N);
         this.Reset(eyePos);
     };
