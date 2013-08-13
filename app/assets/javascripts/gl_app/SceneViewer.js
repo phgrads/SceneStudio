@@ -50,12 +50,14 @@ define([
         SceneViewer.prototype.Launch = function () {
             this.LoadScene(
                 function() { // on success finish up some setup
-                    this.camera.SetRandomPositionInSceneBounds();
+                    this.camera.SetRandomPositionAndLookAtPointInSceneBounds();
+                    this.renderer.UpdateView();
                 }.bind(this),
                 function() { // on failure create an empty room
                     this.assman.GetModel('room', function (model) {
                         this.scene.Reset(new ModelInstance(model, null));
-                        this.camera.SetRandomPositionInSceneBounds();
+                        this.camera.SetRandomPositionAndLookAtPointInSceneBounds();
+                        this.renderer.UpdateView();
                     }.bind(this));
                 }.bind(this)
             );
@@ -63,7 +65,6 @@ define([
             this.camera.AttachControls(this);
 
             this.renderer.resizeEnd();
-            this.renderer.UpdateView();
         };
 
         SceneViewer.prototype.ViewSelectionTaskLogic = function () {
@@ -76,14 +77,15 @@ define([
             instructions.addEventListener('click', function() {
                 id("ui").requestFullScreen();
                 msgBox.fadeIn('slow');
-                $(instructions).text("Left click to go back to task");
+                $(instructions).html("<p>Left click to go back to task.</p>" +
+                    "<p>Controls: mouse for looking, AWSD for horizontal motion, R and F for vertical height.</p>");
             });
 
             // Pointerlock on fullscreen (seems to require direct attachment to document otherwise fails)
             document.addEventListener('fullscreenchange', function() {
-                app.canvas.requestPointerLock();
-                app.canvas.focus();
-            });
+                this.canvas.requestPointerLock();
+                this.canvas.focus();
+            }.bind(this));
 
             // Initialize task stage counter and messages
             var taskStage = 0;
