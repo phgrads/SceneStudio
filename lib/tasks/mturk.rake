@@ -2,6 +2,7 @@ namespace :mturk do
   desc "launch the experiment on mturk"
   task :run, [:name]  => :environment do |t, args|
     name = args.name.underscore
+    url  = 'http://localhost:3000/mturk/task' # NEED TO SET THIS SOMEHOW
 
     # give user friendly error when we get a name collision
     if MtTask.where(name: name).exists? then
@@ -14,36 +15,26 @@ namespace :mturk do
 
     # extend the parameters object with other useful parameters
     config_params['name'] = name
-    config_params['url'] =
-      'http://localhost:3000/mturk/task' # NEED TO SET THIS SOMEHOW
-
+    config_params['url']  = url
+    
     MtTask.create_and_submit(config_params)
   end
 
   desc "end the experiment on mturk"
   task :expire, [:name]  => :environment do |t, args|
-    name = args.name.underscore
-    task = MtTask.find_by_name(name)
-    raise "Could not find launched task #{name}" unless task
-
+    task = get_task(args.name)
     task.expire! if task.live?
   end
 
   desc "delete the experiment (from mturk) and pay all the workers"
   task :delete, [:name]  => :environment do |t, args|
-    name = args.name.underscore
-    task = MtTask.find_by_name(name)
-    raise "Could not find launched task #{name}" unless task
-
+    task = get_task(args.name)
     task.complete! if task.live?
   end
 
   desc "delete all evidence/data of the experiment having been run"
   task :recall, [:name]  => :environment do |t, args|
-    name = args.name.underscore
-    task = MtTask.find_by_name(name)
-    raise "Could not find launched task #{name}" unless task
-
+    task = get_task(args.name)
     task.complete! if task.live?
     task.destroy
   end
@@ -67,5 +58,13 @@ namespace :mturk do
       task.complete! if task.live?
     end
   end
+
+  private
+    def get_task(name)
+      name = name.underscore
+      task = MtTask.find_by_name(name)
+      raise "Could not find launched task #{name}" unless task
+      return task
+    end
 
 end
