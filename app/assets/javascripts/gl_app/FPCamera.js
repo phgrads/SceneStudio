@@ -87,7 +87,7 @@ define([
         this.SetIfValidPosition(newEye, newLookAtPoint);
     };
 
-    FPCamera.prototype.SetRandomPositionInSceneBounds = function() {
+    FPCamera.prototype.SetRandomPositionAndLookAtPointInSceneBounds = function() {
         this.UpdateSceneBounds(this.scene.Bounds());
         var h = this.defaultEyeHeight/this.defaultRoomHeight * this.scene.modelList[0].Bounds().maxs[2];
         var N = 100;
@@ -96,8 +96,10 @@ define([
             i += 1;
             var pos = this.sceneBounds.RandomPointInside();
             var eyePos = vec3.create([pos[0], pos[1] , h]);
+            var pos2 = this.sceneBounds.RandomPointInside();
+            var lookAtPos = vec3.create([pos2[0], pos2[1], h]);
         } while (!this.isValidPosition(eyePos) && i < N);
-        this.Reset(eyePos);
+        this.Reset(eyePos, lookAtPos);
     };
 
     FPCamera.prototype.AttachControls = function(app) {
