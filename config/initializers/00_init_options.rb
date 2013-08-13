@@ -6,3 +6,4 @@
 # The purpose of this file is to load configuration data for other initializers
 
 INIT_CONFIG = YAML.load_file("config/config.yml")[Rails.env]
+raise "Failure: this deployment cannot be run under #{Rails.env} (no config.yml section)" unless INIT_CONFIG

@@ -18,6 +18,8 @@ development:
     # Amazon Mechanical Turk.  You can get copies from Amazon
     AWS_ACCESS_KEY_ID:        'xxxxx'
     AWS_SECRET_ACCESS_KEY:    'xxxxx'
+    # The base url for this deployment (needed for rake tasks)
+    HOST_BASE_URL:            'http://xxxx.xxxx.xxx/xxxxxx/'
 
 test:
     # copy development verbatim
@@ -27,3 +29,6 @@ production:
 
 # If you want to configure differently in dev and production, you can
 # control that here
+
+# If you want to ensure that code (i.e. rake tasks) only run under a given
+# environment then only include that environment section in this file.
