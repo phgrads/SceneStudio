@@ -1,8 +1,12 @@
 Description:
-    Explain the generator
+    This generator creates example files
+    for a Mechanical Turk experiment/task.
 
 Example:
-    rails generate experiment Thing
+    rails generate experiment DoubleSlit
 
     This will create:
-        what/will/it/create
+        app/controllers/experiments/double_slit_controller.rb
+        app/views/experiments/double_slit/index.html.erb
+        config/experiments/double_slit.yml
+        route 'experiments/double_slit' => 'experiments/double_slit#index'

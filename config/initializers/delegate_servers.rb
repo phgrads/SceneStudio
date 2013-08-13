@@ -32,7 +32,11 @@ at_exit do
   if RUBY_PLATFORM == 'i386-mingw32'
     Process.kill('INT', solrpid)
   else
-    Process.kill('INT', -Process.getpgrp)
+    begin
+      Process.kill('INT', -Process.getpgrp)
+    rescue Interrupt
+      # do nothing, but suppress senseless message by doing this
+    end
   end
 end
 
