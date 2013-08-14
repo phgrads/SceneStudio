@@ -2,9 +2,9 @@
 <html>
 <head>
 
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <% if @via_turk and not @preview then %>
+  <%= stylesheet_link_tag    'application', :media => 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <% if @via_turk and not @preview %>
     <script type="text/javascript">
     function signal_turk() {
       var form = document.createElement('form');
@@ -32,7 +32,7 @@
         url: "<%= mturk_coupon_url %>",
         data: {
           assignmentId: "<%= @assignment.mtId %>",
-          coupon_code: coupon_data,
+          coupon_code: coupon_data
         },
         dataType: 'json',
         timeout: 10000
@@ -43,9 +43,7 @@
     </script>
   <% end %>
   <%= csrf_meta_tags %>
-  <!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
+  <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
 <body>
 <div class='container'>
@@ -64,7 +62,7 @@
       </div>
       <div class="well">
         <form>
-          Coupon code:
+          <label for="coupon_box">Coupon code:</label>
           <input id='coupon_box' type="text" name="coupon_code"><br />
         </form>
         <a class='btn' onclick="submit_coupon();">Submit Coupon</a><br />
@@ -76,21 +74,19 @@
       </p>
       <% end %>
 
-      <!-- We should insert some test here so the worker
-          can determine whether their browser meets the minimum
-          technical requirements for our task -->
+      <%= render partial: 'webgl-test' %>
 
       <% if @sandbox %>
       <!-- show extra debug information when we're on the sandbox -->
       <div class="well">
-        VIA TURK:       <%= @via_turk %> </br>
-        <% if @via_turk then %>
-          PREVIEW MODE:   <%= @preview %> </br>
-          HIT ID:         <%= @hit.mtId %> </br>
-          <% if not @preview then %>
-            ASSIGNMENT ID:  <%= @assignment.mtId %> </br>
-            WORKER ID:      <%= @worker.mtId %> </br>
-            SUBMIT TO:      <%= @turk_submit_to %> </br>
+        VIA TURK:       <%= @via_turk %> <br>
+        <% if @via_turk %>
+          PREVIEW MODE:   <%= @preview %> <br>
+          HIT ID:         <%= @hit.mtId %> <br>
+          <% unless @preview %>
+            ASSIGNMENT ID:  <%= @assignment.mtId %> <br>
+            WORKER ID:      <%= @worker.mtId %> <br>
+            SUBMIT TO:      <%= @turk_submit_to %> <br>
           <% end %>
         <% end %>
       </div>

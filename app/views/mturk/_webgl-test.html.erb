@@ -1,0 +1,22 @@
+<p>
+This HIT requires WebGL.  <span id="msg">Your browser supports WebGL!</span>
+</p>
+<canvas id="test-canvas"></canvas>
+
+<script type="text/javascript">
+  var msg = document.getElementById("msg");
+  var canvas = document.getElementById("test-canvas");
+  // http://stackoverflow.com/questions/11871077/proper-way-to-detect-webgl-support
+  if (!window.WebGLRenderingContext) { // Browser has no idea what WebGL is
+    msg.innerHTML = 'Your browser does not support WebGL.  ' +
+        'Visit <a href="http://get.webgl.org">http://get.webgl.org</a>' +
+        ' to get a newer browser.';
+  }
+
+  if (!canvas.getContext("webgl")) { // Browser could not initialize WebGL
+    msg.innerHTML = 'Your browser could not initialize WebGL.  ' +
+        'Visit <a href="http://get.webgl.org/troubleshooting">' +
+        'http://get.webgl.org/troubleshooting</a>' +
+        ' to solve the problem.';
+  }
+</script>
