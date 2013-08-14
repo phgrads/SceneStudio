@@ -29,11 +29,9 @@
 /vendor/solr/modelsearch/solr/data/*
 /vendor/solr/tmp_agg.json
 
-<<<<<<< HEAD
 # Ignore IntelliJ project metafiles
 .idea
 *.iml
-=======
+
 #Ignore vim backups
 *.*~
->>>>>>> Back-end view user privileges with seeding. Mode logic for index page. View action routing.

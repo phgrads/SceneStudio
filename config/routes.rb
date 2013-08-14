@@ -1,5 +1,5 @@
 SceneStudio::Application.routes.draw do
-  
+
   root                              to: 'static_pages#home'
   match '/help',                    to: 'static_pages#help'
 
@@ -18,7 +18,6 @@ SceneStudio::Application.routes.draw do
   get "/mturk/task",                to: "mturk#task"
   post "/mturk/report",             to: "mturk#report"
   post "/mturk/coupon",             to: "mturk#coupon"
-
 
 
   #resources :identities
