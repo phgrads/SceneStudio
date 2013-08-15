@@ -2,7 +2,8 @@
 <html>
 <head>
     <title><%= full_title(@scene.name) %></title>
-    <%= stylesheet_link_tag('jquery-ui-1.8.21.custom') %>
+    <%= stylesheet_link_tag 'application', :media => 'all' %>
+    <%= favicon_link_tag %>
     <%= csrf_meta_tags %>
     <meta charset="utf-8">
     <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"/><![endif]-->
@@ -10,7 +11,6 @@
 <body>
 <%= render 'glsl_shaders/shaders' %>
 <%= render 'scenes/globalViewData'%>
-<%= javascript_include_tag('custom_shims.js') %>
 <%= yield %>
 </body>
 </html>
