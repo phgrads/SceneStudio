@@ -1,0 +1,20 @@
+@import "common";
+@import "graphicsArea";
+
+#splitView
+{
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  bottom: 0;
+  left: 0;
+}
+
+#graphicsOverlay
+{
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+}

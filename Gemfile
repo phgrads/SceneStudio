@@ -45,6 +45,8 @@ group :assets do
 end
 
 gem 'jquery-rails', '2.0.2'
+gem 'requirejs-rails'
+gem 'font-awesome-sass-rails'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'

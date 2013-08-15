@@ -32,3 +32,6 @@
 # Ignore IntelliJ project metafiles
 .idea
 *.iml
+
+#Ignore vim backups
+*.*~
