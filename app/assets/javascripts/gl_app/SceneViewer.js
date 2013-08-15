@@ -110,14 +110,19 @@ define([
             // Confirming with enter takes action, increments task counter and updates message
             Behaviors.keypress(this.uimap, 'enter').onpress(function() {
                 if (taskStage == 1) {
-                    this.SaveCamera('CAMBEST');
+                    this.LogCamera('CAMBEST');
                 }
                 else if (taskStage == 3) {
-                    this.SaveCamera('CAMWORST');
+                    this.LogCamera('CAMWORST');
                 }
                 else if (taskStage == 4) {
                     // TODO: Replace this with saving of UI log through special route
-                    this.SaveScene(!this.user_record.id);
+                    if(this.user_record.id){
+                        this.SaveLog();
+                    }
+                    else{
+                        this.SaveMTurkResults();
+                    }
                 }
                 taskStage++;
                 msgTxt.text(taskMessages[taskStage]);
@@ -139,14 +144,18 @@ define([
                 }.bind(this));
         };
 
-        SceneViewer.prototype.SaveScene = function(via_mturk)
+        SceneViewer.prototype.SaveMTurkResults = function(on_success, on_error){
+            console.log("saving to mturk")
+            var on_success = on_success || function(response) { alert("Thanks for participating! Your coupon code is: " + response.coupon_code )};
+            var on_error = on_error || function() { alert("Error saving results. Please close tab and do task again.");}
+            submit_mturk_report({ui_log:this.uilog.stringify()}).error(on_error).success(on_success);
+        }
+
+        SceneViewer.prototype.SaveLog = function(on_success, on_error)
         {
-            
             var serialized = this.scene.SerializeForNetwork();
-            if(!via_mturk){
-                var on_success =function() { this.ExitTo(window.globalViewData.on_close_url);
-                             }.bind(this)
-                var on_error = function() { alert("Error saving results. Please close tab and do task again."); }
+            var on_success = on_success ||function() { this.ExitTo(window.globalViewData.on_close_url);}.bind(this)
+            var on_error = on_error || function() { alert("Error saving results. Please close tab and do task again."); }
                 console.log('submitting to scenes')
                 $.ajax({
                     type: 'POST',
@@ -160,16 +169,9 @@ define([
                     dataType: 'json',
                     timeout: 10000
                 }).error(on_error).success(on_success);
-            }
-            else{
-                var on_success = function(response) { alert("coupon is" + response.coupon_code)};
-                var on_error = function() { alert("Error saving results. Please close tab and do task again.");}
-                console.log('submitting to mturk');
-                submit_mturk_report({ui_log:this.uilog.stringify()}).error(on_error).success(on_success);
-            }
         };
 
-        SceneViewer.prototype.SaveCamera = function(tag)
+        SceneViewer.prototype.LogCamera = function(tag)
         {
             var record = {
                 user: this.user_record,
@@ -190,10 +192,8 @@ define([
 
         SceneViewer.prototype.ExitTo = function(destination)
         {
-            this.SaveScene(function() {
-                window.onbeforeunload = null;
-                window.location.href = destination;
-            }.bind(this));
+            window.onbeforeunload = null;
+            window.location.href = destination;
         };
 
         // Exports
