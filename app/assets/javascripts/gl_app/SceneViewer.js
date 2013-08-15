@@ -117,10 +117,7 @@ define([
                 }
                 else if (taskStage == 4) {
                     // TODO: Replace this with saving of UI log through special route
-                    this.SaveScene(
-                        function() { this.ExitTo(window.globalViewData.on_close_url); }.bind(this) ,
-                        function() { alert("Error saving results. Please close tab and do task again."); }
-                    );
+                    this.SaveScene(!this.user_record.id);
                 }
                 taskStage++;
                 msgTxt.text(taskMessages[taskStage]);
@@ -142,27 +139,34 @@ define([
                 }.bind(this));
         };
 
-        SceneViewer.prototype.SaveScene = function(on_success, on_error)
+        SceneViewer.prototype.SaveScene = function(via_mturk)
         {
-            on_success = on_success || function() {
-                alert('saved!  Please develop a better UI alert');
-            };
-            on_error = on_error || function() {
-                alert('did not save!  Please develop a better UI alert');
-            };
+            
             var serialized = this.scene.SerializeForNetwork();
-            $.ajax({
-                type: 'POST',
-                url: this.base_url + '/scenes/' +
-                    this.scene_record.id,
-                data: {
-                    _method: 'PUT', // PUT verb for Rails
-                    scene_file: JSON.stringify(serialized),
-                    ui_log: this.uilog.stringify()
-                },
-                dataType: 'json',
-                timeout: 10000
-            }).error(on_error).success(on_success);
+            if(!via_mturk){
+                var on_success =function() { this.ExitTo(window.globalViewData.on_close_url);
+                             }.bind(this)
+                var on_error = function() { alert("Error saving results. Please close tab and do task again."); }
+                console.log('submitting to scenes')
+                $.ajax({
+                    type: 'POST',
+                    url: this.base_url + '/scenes/' +
+                        this.scene_record.id,
+                    data: {
+                        _method: 'PUT', // PUT verb for Rails
+                        scene_file: JSON.stringify(serialized),
+                        ui_log: this.uilog.stringify()
+                    },
+                    dataType: 'json',
+                    timeout: 10000
+                }).error(on_error).success(on_success);
+            }
+            else{
+                var on_success = function(response) { alert("coupon is" + response.coupon_code)};
+                var on_error = function() { alert("Error saving results. Please close tab and do task again.");}
+                console.log('submitting to mturk');
+                submit_mturk_report({ui_log:this.uilog.stringify()}).error(on_error).success(on_success);
+            }
         };
 
         SceneViewer.prototype.SaveCamera = function(tag)
