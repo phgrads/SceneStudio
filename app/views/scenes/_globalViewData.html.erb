@@ -3,8 +3,8 @@
     // controller to the client about what it is that they're editing
     window.globalViewData = {
     user: {
-        name: "<%= current_user.name %>",
-        id:   "<%= current_user.id %>"
+        name: "<%= current_user.name unless !current_user %>",
+        id:   "<%= current_user.id unless !current_user %>"
     },
     scene: {
         name: "<%= @scene.name %>",
@@ -13,4 +13,5 @@
     on_close_url: "<%= @on_close_url %>",
     base_url: "<%= base_url %>"
     };
+
 </script>
