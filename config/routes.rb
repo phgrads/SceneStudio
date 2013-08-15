@@ -15,9 +15,9 @@ SceneStudio::Application.routes.draw do
   match '/scenes/:id/view',         to: 'scenes#view'
 
   # mTurk
-  get "/mturk/task",                to: "mturk#task"
-  post "/mturk/report",             to: "mturk#report"
-  post "/mturk/coupon",             to: "mturk#coupon"
+  get '/mturk/task',                to: 'mturk#task'
+  post '/mturk/report',             to: 'mturk#report'
+  post '/mturk/coupon',             to: 'mturk#coupon'
 
 
   #resources :identities

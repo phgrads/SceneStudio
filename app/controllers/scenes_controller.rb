@@ -1,6 +1,5 @@
 class ScenesController < ApplicationController
   before_filter :signed_in_user_filter
-  before_filter :special_access, only: [:index]
   before_filter :access_by_owner, only: [:edit, :update, :destroy]
   before_filter :retrieve, only: [:edit, :load, :view, :update]
   layout 'webgl_viewport', only: [:edit, :view]
@@ -71,11 +70,5 @@ class ScenesController < ApplicationController
     def retrieve
       @scene = Scene.find(params[:id])
       @on_close_url = scenes_path
-    end
-    
-    def special_access
-      if current_user.name == 'viewer'
-        @mode = 'view'
-      end
     end
 end

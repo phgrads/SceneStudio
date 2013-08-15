@@ -6,7 +6,7 @@
       url: "<%= mturk_report_url %>",
       data: {
         assignmentId: "<%= @assignment.mtId %>",
-        data: JSON.stringify(submission_data),
+        data: JSON.stringify(submission_data)
       },
       dataType: 'json',
       timeout: 10000
