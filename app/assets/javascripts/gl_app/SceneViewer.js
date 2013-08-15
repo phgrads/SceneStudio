@@ -119,6 +119,7 @@ define([
                     // TODO: Replace this with saving of UI log through special route
                     if(this.user_record.id){
                         this.SaveLog();
+                        this.ExitTo(window.globalViewData.on_close_url)
                     }
                     else{
                         this.SaveMTurkResults();
@@ -145,7 +146,6 @@ define([
         };
 
         SceneViewer.prototype.SaveMTurkResults = function(on_success, on_error){
-            console.log("saving to mturk")
             var on_success = on_success || function(response) { alert("Thanks for participating! Your coupon code is: " + response.coupon_code )};
             var on_error = on_error || function() { alert("Error saving results. Please close tab and do task again.");}
             submit_mturk_report({ui_log:this.uilog.stringify()}).error(on_error).success(on_success);
@@ -154,21 +154,20 @@ define([
         SceneViewer.prototype.SaveLog = function(on_success, on_error)
         {
             var serialized = this.scene.SerializeForNetwork();
-            var on_success = on_success ||function() { this.ExitTo(window.globalViewData.on_close_url);}.bind(this)
+            var on_success = on_success ||function() { alert("Log Saved!")};
             var on_error = on_error || function() { alert("Error saving results. Please close tab and do task again."); }
-                console.log('submitting to scenes')
-                $.ajax({
-                    type: 'POST',
-                    url: this.base_url + '/scenes/' +
-                        this.scene_record.id,
-                    data: {
-                        _method: 'PUT', // PUT verb for Rails
-                        scene_file: JSON.stringify(serialized),
-                        ui_log: this.uilog.stringify()
-                    },
-                    dataType: 'json',
-                    timeout: 10000
-                }).error(on_error).success(on_success);
+            $.ajax({
+                type: 'POST',
+                url: this.base_url + '/scenes/' +
+                this.scene_record.id,
+                data: {
+                    method: 'PUT', // PUT verb for Rails
+                    scene_file: JSON.stringify(serialized),
+                    ui_log: this.uilog.stringify()
+                },
+                dataType: 'json',
+                timeout: 10000
+            }).error(on_error).success(on_success);
         };
 
         SceneViewer.prototype.LogCamera = function(tag)
@@ -192,8 +191,10 @@ define([
 
         SceneViewer.prototype.ExitTo = function(destination)
         {
-            window.onbeforeunload = null;
-            window.location.href = destination;
+            this.SaveScene(function() {
+                window.onbeforeunload = null;
+                window.location.href = destination;
+            }.bind(this));
         };
 
         // Exports
