@@ -40,6 +40,7 @@ define([
             this.renderer = new Renderer(canvas, this.scene, undefined, this.camera);
             this.assman = new AssetManager(this.renderer.gl_);
             this.uilog = new UILog.UILog();
+            this.uilog.clear();
             this.mturk = !this.user_record.id
             this.cameraViews = []; 
 
@@ -120,7 +121,7 @@ define([
                 else if (taskStage == 4) {
                     // TODO: Replace this with saving of UI log through special route
                     if(!this.mturk){
-                        this.SaveLog();
+                        console.log("saving and exiting");
                         this.ExitTo(window.globalViewData.on_close_url)
                     }
                     else{
