@@ -118,7 +118,7 @@ define([
                 else if (taskStage == 4) {
                     // TODO: Replace this with saving of UI log through special route
                     if(this.user_record.id){
-                        this.SaveLog();
+                        //this.SaveLog();
                         this.ExitTo(window.globalViewData.on_close_url)
                     }
                     else{
@@ -191,7 +191,7 @@ define([
 
         SceneViewer.prototype.ExitTo = function(destination)
         {
-            this.SaveScene(function() {
+            this.SaveLog(function() {
                 window.onbeforeunload = null;
                 window.location.href = destination;
             }.bind(this));
