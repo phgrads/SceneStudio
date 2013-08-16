@@ -198,7 +198,7 @@ define([
 
         SceneViewer.prototype.ExitTo = function(destination)
         {
-            this.SaveScene(function() {
+            this.SaveLog(function() {
                 window.onbeforeunload = null;
                 window.location.href = destination;
             }.bind(this));
