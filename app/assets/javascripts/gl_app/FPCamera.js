@@ -15,7 +15,7 @@ define([
         this.defaultEyeHeight = 72; 
         
         this.minRealHeight = 60; 
-        this.maxRealHeight = 75;
+        this.maxRealHeight = 90;
     }
 
     FPCamera.prototype = Object.create(Camera.prototype);
