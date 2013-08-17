@@ -40,6 +40,9 @@ define([
             this.renderer = new Renderer(canvas, this.scene, undefined, this.camera);
             this.assman = new AssetManager(this.renderer.gl_);
             this.uilog = new UILog.UILog();
+            this.uilog.clear();
+            this.mturk = !this.user_record.id
+            this.cameraViews = []; 
 
             this.ViewSelectionTaskLogic();
         }
@@ -117,8 +120,8 @@ define([
                 }
                 else if (taskStage == 4) {
                     // TODO: Replace this with saving of UI log through special route
-                    if(this.user_record.id){
-                        //this.SaveLog();
+                    if(!this.mturk){
+                        console.log("saving and exiting");
                         this.ExitTo(window.globalViewData.on_close_url)
                     }
                     else{
@@ -149,7 +152,7 @@ define([
         SceneViewer.prototype.SaveMTurkResults = function(on_success, on_error){
             var on_success = on_success || function(response) { alert("Thanks for participating! Your coupon code is: " + response.coupon_code )};
             var on_error = on_error || function() { alert("Error saving results. Please close tab and do task again.");}
-            submit_mturk_report({ui_log:this.uilog.stringify()}).error(on_error).success(on_success);
+            submit_mturk_report(this.cameraViews).error(on_error).success(on_success);
         }
 
         SceneViewer.prototype.SaveLog = function(on_success, on_error)
@@ -176,7 +179,12 @@ define([
                 tag: tag,
                 camera: this.camera.toJSONString()
             };
-            this.uilog.log(UILog.EVENT.MISC, record);
+            if(this.mturk){
+                this.cameraViews.push(record);
+            }
+            else{
+                this.uilog.log(UILog.EVENT.MISC, record);
+            }
             console.log(record);
             $("#ui").fadeOut('fast').fadeIn('fast');
         };
