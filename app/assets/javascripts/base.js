@@ -154,6 +154,7 @@ function add_data(data) {
       task_id: window.globalViewData.task_id
     });
   }
+  return data;
 }
 
 function getViaJquery(url)
@@ -164,12 +165,9 @@ function getViaJquery(url)
 
 function putViaJQuery(url, data)
 {
-  data = $.extend(data, {
-    _method: 'PUT'
-  });
   data = add_data(data);
   return $.ajax({
-    type: 'POST',
+    type: 'PUT',
     url: url,
     data: data,
     dataType: 'json',
