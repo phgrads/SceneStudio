@@ -8,14 +8,23 @@ module SessionsHelper
     !!(params['assignmentId'] || params['task_id'])
   end
 
-  def mturk_user
-    if params['assignmentId'] then
+  def mturk_task
+    if params['task_id']  # Manually specified task_id when debugging
+      @task = MtTask.find(params['task_id'])
+    elsif params['hitId'] # Retrieve task from hitId provided by Mturk (e.g. when previewing)
+      mt_hit = MtHit.find_by_mtId(params['hitId'])
+      @task = MtTask.find(mt_hit)
+    elsif params['assignmentId'] # Retrieve task from specific assignmentId (when worker is doing task)
       @assignment = MtAssignment.find_by_mtId!(params['assignmentId'])
       @task = @assignment.mt_task
-    else
-      @task = MtTask.find(params['task_id'])
+    else # Couldn't find task so throw error
+      raise ActionController::RoutingError.new('Task Not Found')
     end
-    @task.user
+    @task
+  end
+
+  def mturk_user
+    mturk_task.user
   end
 
   def current_user
