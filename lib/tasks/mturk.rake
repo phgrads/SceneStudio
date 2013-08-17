@@ -26,7 +26,9 @@ namespace :mturk do
         raise "FAIL: could not mturk:run #{name} because " +
               "apparently it's already been submitted."
       else
-        task.destroy!
+        puts "Found task #{name} in db (probably mturk:develop). " +
+             'Destroying first and recreating before submission.'
+        task.destroy
       end
     end
 
