@@ -11,6 +11,12 @@
         id:   "<%= @scene.id %>"
     },
     on_close_url: "<%= @on_close_url %>",
-    base_url: "<%= base_url %>"
+    base_url: "<%= base_url %>",
+    <% if @assignment %>
+        assignmentId: "<%= @assignment.id %>",
+    <% end %>
+    <% if !@via_turk && Rails.env.development? && @task %>
+        task_id: <%= @task.id %>,
+    <% end %>
     };
 </script>

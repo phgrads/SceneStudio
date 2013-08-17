@@ -40,14 +40,6 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
 		PubSub.call(this);
 
         this.canvas = canvas;
-
-        // ensure that AJAX requests to Rails will properly
-        // include the CSRF authenticity token in their headers
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
         
         // the following variables from globalViewData
         // should be rendered by the jade template
@@ -471,7 +463,8 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
 	
 	App.prototype.LoadScene = function(on_success, on_error)
 	{
-        $.get(this.base_url + '/scenes/' + this.scene_record.id + '/load')
+        getViaJquery(this.base_url + '/scenes/' +
+                     this.scene_record.id + '/load')
         .error(on_error).success(function(json) {
             var scene_json = JSON.parse(json.scene);
             this.uilog.fromJSONString(json.ui_log);
@@ -490,17 +483,10 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
             alert('did not save!  Please develop a better UI alert');
         };
         var serialized = this.scene.SerializeForNetwork();
-        $.ajax({
-            type: 'POST',
-            url: this.base_url + '/scenes/' +
-                 this.scene_record.id,
-            data: {
-                _method: 'PUT', // PUT verb for Rails
-                scene_file: JSON.stringify(serialized),
-                ui_log: this.uilog.stringify()
-            },
-            dataType: 'json',
-            timeout: 10000
+        putViaJQuery(this.base_url + '/scenes/' + this.scene_record.id,
+        {
+            scene_file: JSON.stringify(serialized),
+            ui_log: this.uilog.stringify()
         }).error(on_error).success(on_success);
 	};
 

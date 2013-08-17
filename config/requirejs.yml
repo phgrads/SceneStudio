@@ -14,3 +14,4 @@ shim:
   'jquery-ui': ['jquery']
   'gl-matrix-ext': ['gl-matrix']
   'loader': ['base']
+  'base': ['jquery']

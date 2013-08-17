@@ -5,7 +5,7 @@ OmniAuth.config.on_failure = Proc.new {
   |env| OmniAuth::FailureEndpoint.new(env).redirect_to_failure
 }
 
-Rails.application.config.middleware.use OmniAuth::Builder do
+SceneStudio::Application.config.middleware.use OmniAuth::Builder do
   provider :twitter,
            INIT_CONFIG['TWITTER_CONSUMER_KEY'],
            INIT_CONFIG['TWITTER_CONSUMER_SECRET']

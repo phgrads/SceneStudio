@@ -11,6 +11,11 @@ class ExperimentGenerator < Rails::Generators::NamedBase
              "app/controllers/experiments/#{file_name}_controller.rb"
   end
 
+  def create_helper_file
+    template "helper.rb",
+             "app/helpers/experiments/#{file_name}_helper.rb"
+  end
+
   def create_view_file
     copy_file "index.html.erb",
               "app/views/experiments/#{file_name}/index.html.erb"
@@ -19,6 +24,11 @@ class ExperimentGenerator < Rails::Generators::NamedBase
   def create_config_file
     copy_file "config.yml",
               "config/experiments/#{file_name}.yml"
+  end
+
+  def create_setup_file
+    template "setup.rb",
+             "config/experiments/#{file_name}_setup.rb"
   end
 
 end
