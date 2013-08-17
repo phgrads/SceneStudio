@@ -134,6 +134,47 @@ function getHttpRequest(url, onload, opt_onprogress) {
   return req;
 };
 
+
+// CSRF authenticity token for AJAX requests to Rails
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+  }
+});
+
+function add_data(data) {
+  data = data || {};
+  if(window.globalViewData.assignmentId) {
+    data = $.extend(data, {
+      assignmentId: window.globalViewData.assignmentId
+    });
+  }
+  if(window.globalViewData.task_id) {
+    data = $.extend(data, {
+      task_id: window.globalViewData.task_id
+    });
+  }
+  return data;
+}
+
+function getViaJquery(url)
+{
+  var params = add_data();
+  return $.get(url, params);
+}
+
+function putViaJQuery(url, data)
+{
+  data = add_data(data);
+  return $.ajax({
+    type: 'PUT',
+    url: url,
+    data: data,
+    dataType: 'json',
+    timeout: 10000
+  });
+}
+
 // Concatenating object properties
 function AppendObject(src, dst)
 {

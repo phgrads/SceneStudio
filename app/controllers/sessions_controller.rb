@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_filter :non_mturk_filter
+
   def new
   end
 

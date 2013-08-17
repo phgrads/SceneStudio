@@ -135,7 +135,8 @@ define([
 
         SceneViewer.prototype.LoadScene = function(on_success, on_error)
         {
-            $.get(this.base_url + '/scenes/' + this.scene_record.id + '/load')
+            getViaJquery(this.base_url + '/scenes/' +
+                         this.scene_record.id + '/load')
                 .error(on_error).success(function(json) {
                     var scene_json = JSON.parse(json.scene);
                     this.uilog.fromJSONString(json.ui_log);
@@ -153,20 +154,17 @@ define([
 
         SceneViewer.prototype.SaveLog = function(on_success, on_error)
         {
+            on_success = on_success || function() {
+                alert('saved!  Please develop a better UI alert');
+            };
+            on_error = on_error || function() {
+                alert('did not save!  Please develop a better UI alert');
+            };
             var serialized = this.scene.SerializeForNetwork();
-            var on_success = on_success ||function() { alert("Log Saved!")};
-            var on_error = on_error || function() { alert("Error saving results. Please close tab and do task again."); }
-            $.ajax({
-                type: 'POST',
-                url: this.base_url + '/scenes/' +
-                this.scene_record.id,
-                data: {
-                    method: 'PUT', // PUT verb for Rails
-                    scene_file: JSON.stringify(serialized),
-                    ui_log: this.uilog.stringify()
-                },
-                dataType: 'json',
-                timeout: 10000
+            putViaJQuery(this.base_url + '/scenes/' + this.scene_record.id,
+            {
+                scene_file: JSON.stringify(serialized),
+                ui_log: this.uilog.stringify()
             }).error(on_error).success(on_success);
         };
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130813072119) do
+ActiveRecord::Schema.define(:version => 20130816215623) do
 
   create_table "identities", :force => true do |t|
     t.string   "name"
@@ -58,10 +58,12 @@ ActiveRecord::Schema.define(:version => 20130813072119) do
     t.integer  "max_task_time"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.integer  "user_id"
   end
 
   add_index "mt_tasks", ["created_at"], :name => "index_mt_tasks_on_created_at"
   add_index "mt_tasks", ["name"], :name => "index_mt_tasks_on_name"
+  add_index "mt_tasks", ["user_id"], :name => "index_mt_tasks_on_user_id"
 
   create_table "mt_workers", :force => true do |t|
     t.string   "mtId"

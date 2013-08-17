@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
 
   has_many :scenes, dependent: :destroy
 
+  # non mt users have a null pointer on this association
+  has_one :mt_task
+
   def self.create_with_omniauth(auth)
     create! do |user|
       user.provider = auth["provider"]

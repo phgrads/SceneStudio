@@ -17,6 +17,7 @@
 #  max_task_time       :integer
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  user_id             :integer
 #
 
 class MtTask < ActiveRecord::Base
@@ -56,6 +57,12 @@ class MtTask < ActiveRecord::Base
 
   # MAKE SURE WE HAVE DEFAULTS
   before_validation :set_defaults
+
+
+  validates :user_id, presence: true
+  # belongs to sounds weird here, but that's the right
+  # kind of association to form anyway.
+  belongs_to :user, dependent: :destroy
 
   has_many :mt_hits, dependent: :destroy
   has_many :mt_assignments, through: :mt_hits
@@ -103,14 +110,11 @@ class MtTask < ActiveRecord::Base
     save!
   end
 
-
-  def self.create_and_submit(params)
+  def self.create_task_and_user(params)
     name = params['name']
-    url  = params['url']
 
     # sanity check this request
     # some of these checks go beyond the record validation...
-    raise "no url provided for new task" unless url
     raise "no name provided for new task" unless name
     name = name.underscore
     controller_path = Rails.root.join(
@@ -121,7 +125,13 @@ class MtTask < ActiveRecord::Base
              "a controller.  Could not find " + controller_path.to_s)
     end
 
-    task = create! do |task|
+    # create a user for this task
+    user = User.create! do |new_user|
+      new_user.name = 'experiment_user_' + name
+      new_user.provider = 'mturk'
+    end
+
+    task = user.create_mt_task! do |task|
       task.name                 = name
       task.title                = params['title']
       task.description          = params['description']
@@ -133,6 +143,28 @@ class MtTask < ActiveRecord::Base
       task.shelf_life           = params['shelf_life']
       task.max_task_time        = params['max_task_time']
     end
+    
+    # run a setup script
+    setup_script_name = Rails.root.join('config', 'experiments',
+                                        name + '_setup.rb')
+    require setup_script_name
+
+    return [task, user]
+  end
+
+
+  def self.create_without_submitting(params)
+    task, user = create_task_and_user(params)
+    return task
+  end
+
+  def self.create_and_submit(params)
+    name = params['name']
+    url  = params['url']
+
+    raise "no url provided for new task" unless url
+
+    task, user = create_task_and_user(params)
 
     task.submit!(url)
 

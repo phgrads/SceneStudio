@@ -1,12 +1,35 @@
 namespace :mturk do
-  desc 'launch the experiment on mturk'
-  task :run, [:name]  => :environment do |_, args|
+  desc 'setup database for development'
+  task :develop, [:name] => :environment do |_, args|
     name = args.name.underscore
 
     # give user friendly error when we get a name collision
     if MtTask.where(name: name).exists? then
-      raise "FAIL: could not mturk:run #{name} because " +
-            "apparently it's already been run."
+      raise "FAIL: could not mturk:develop #{name} because " +
+            "apparently the task's db entries have been created."
+    end
+
+    config_params = YAML.load_file("config/experiments/#{name}.yml")
+    config_params['name'] = name
+
+    MtTask.create_without_submitting(config_params)
+  end
+
+  desc 'launch the experiment on mturk'
+  task :run, [:name]  => :environment do |_, args|
+    name = args.name.underscore
+
+    # give user friendly error when we can't run
+    task = MtTask.find_by_name(name)
+    if task
+      if task.submitted? then
+        raise "FAIL: could not mturk:run #{name} because " +
+              "apparently it's already been submitted."
+      else
+        puts "Found task #{name} in db (probably mturk:develop). " +
+             'Destroying first and recreating before submission.'
+        task.destroy
+      end
     end
 
     # load in the parameters for this task
