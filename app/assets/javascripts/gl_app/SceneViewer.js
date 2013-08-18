@@ -23,9 +23,6 @@ define([
             // Extend PubSub
             PubSub.call(this);
 
-            // CSRF authenticity token for AJAX requests to Rails
-            $.ajaxSetup({ headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') } });
-
             // the following variables from globalViewData
             // should be rendered by the jade template
             this.user_record    = window.globalViewData.user;
@@ -41,8 +38,8 @@ define([
             this.assman = new AssetManager(this.renderer.gl_);
             this.uilog = new UILog.UILog();
             this.uilog.clear();
-            this.mturk = !this.user_record.id
-            this.cameraViews = []; 
+            this.mturk = !!window.globalViewData.assignmentId;
+            this.cameraViews = [];
 
             this.ViewSelectionTaskLogic();
         }
@@ -150,10 +147,10 @@ define([
         };
 
         SceneViewer.prototype.SaveMTurkResults = function(on_success, on_error){
-            var on_success = on_success || function(response) { alert("Thanks for participating! Your coupon code is: " + response.coupon_code )};
-            var on_error = on_error || function() { alert("Error saving results. Please close tab and do task again.");}
+            on_success = on_success || function(response) { alert("Thanks for participating! Your coupon code is: " + response.coupon_code )};
+            on_error = on_error || function() { alert("Error saving results. Please close tab and do task again.");};
             submit_mturk_report(this.cameraViews).error(on_error).success(on_success);
-        }
+        };
 
         SceneViewer.prototype.SaveLog = function(on_success, on_error)
         {
