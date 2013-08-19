@@ -13,7 +13,7 @@ module SessionsHelper
       @task = MtTask.find(params['task_id'])
     elsif params['hitId'] # Retrieve task from hitId provided by Mturk (e.g. when previewing)
       mt_hit = MtHit.find_by_mtId(params['hitId'])
-      @task = MtTask.find(mt_hit)
+      @task = MtHit.find(mt_hit).mt_task
     elsif params['assignmentId'] # Retrieve task from specific assignmentId (when worker is doing task)
       @assignment = MtAssignment.find_by_mtId!(params['assignmentId'])
       @task = @assignment.mt_task
