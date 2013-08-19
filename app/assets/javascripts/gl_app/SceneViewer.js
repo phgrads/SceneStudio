@@ -90,11 +90,16 @@ define([
             // Initialize task stage counter and messages
             var taskStage = 0;
             var taskMessages = [
-                "Please find and take a picture of a view most people would agree shows the scene best.",//taskStage = 0
-                "Are you sure this is a good view? Press ENTER again to confirm or DELETE to cancel.",   //taskStage = 1
-                "Please find and take a picture of a bad view.",                                         //taskStage = 2
-                "Are you sure this is a bad view? Press ENTER again to confirm or DELETE to cancel.",    //taskStage = 3
-                "Worst view saved. Press ENTER again to save results and exit."                          //taskStage = 4
+                //taskStage = 0
+                "Please find and take a picture of a view most people would agree shows the scene best. Use AWSD and RF to move, ENTER to save.",
+                //taskStage = 1
+                "Are you sure this is a good view? Press ENTER again to confirm or DELETE to cancel.",
+                //taskStage = 2
+                "Please find and take a picture of a bad view. Use AWSD and RF to move, ENTER to save.",
+                //taskStage = 3
+                "Are you sure this is a bad view? Press ENTER again to confirm or DELETE to cancel.",
+                //taskStage = 4
+                "Worst view saved. Press ENTER again to save results and exit."
             ];
             msgTxt.text(taskMessages[0]);
 
@@ -147,8 +152,15 @@ define([
         };
 
         SceneViewer.prototype.SaveMTurkResults = function(on_success, on_error){
-            on_success = on_success || function(response) { alert("Thanks for participating! Your coupon code is: " + response.coupon_code )};
+            on_success = on_success || function(response) {
+                document.cancelFullScreen();
+                document.body.innerHTML = "<p>Thanks for participating!</p>" +
+                "<p>Your coupon code is: " + response.coupon_code + "</p>" +
+                "Copy your code back to the first tab and close this tab when done.";
+            };
+
             on_error = on_error || function() { alert("Error saving results. Please close tab and do task again.");};
+
             submit_mturk_report(this.cameraViews).error(on_error).success(on_success);
         };
 
