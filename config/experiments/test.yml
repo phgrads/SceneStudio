@@ -10,9 +10,9 @@
 title: 3D Scene View Finding
 description: You will be asked to choose good and bad views inside a 3D scene
 # pay per HIT in US cents
-reward: 1
+reward: 5
 # number of assignments to be issued in this task/experiment
-num_assignments: 10
+num_assignments: 20
 
 
 # OPTIONAL FIELDS
@@ -26,4 +26,4 @@ keywords: 3D scenes, view finding, camera # defaults to nothing
 # time in seconds before the HITs are automatically removed from MTurk
 #lifetime:  # defaults to 3 days
 # maximum time in seconds for a worker to complete a HIT after accepting
-#max_task_time:  # defaults to 1 hour
+max_task_time: 90 # defaults to 1 hour
