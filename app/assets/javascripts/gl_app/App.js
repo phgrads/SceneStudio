@@ -40,6 +40,7 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
 		PubSub.call(this);
 
         this.canvas = canvas;
+
         
         // the following variables from globalViewData
         // should be rendered by the jade template
@@ -49,6 +50,7 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
         this.user_name  = window.globalViewData.user_name;
         this.scene_name = window.globalViewData.scene_name;
         this.base_url   = window.globalViewData.base_url;
+        this.mturk = !!window.globalViewData.assignmentId;
         
         this.uimap = uimap.create(canvas);
 
@@ -489,6 +491,21 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
             ui_log: this.uilog.stringify()
         }).error(on_error).success(on_success);
 	};
+
+    App.prototype.SaveMTurkResults = function(on_success, on_error){
+            on_success = on_success || function(response) {
+                document.body.innerHTML = "<p>Thanks for participating!</p>" +
+                "<p>Your coupon code is: " + response.coupon_code + "</p>" +
+                "Copy your code back to the first tab and close this tab when done.";
+            };
+
+            on_error = on_error || function() { alert("Error saving results. Please close tab and do task again.");};
+            var serialized = this.scene.SerializeForNetwork();
+            submit_mturk_report({
+                 scene_file: JSON.stringify(serialized),
+                    ui_log: this.uilog.stringify()
+            }).error(on_error).success(on_success);
+        };
 
     App.prototype.ExitTo = function(destination)
     {
