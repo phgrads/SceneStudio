@@ -24,8 +24,8 @@ $bg2: rgba(221,238,255,1);
 #graphicsArea
 {
   @include background-linear-gradient($bg1, $bg2);
-  height: 100%;
-
+ 
+  height:100%;
   position: absolute;
   top: 0;
   left: 0;

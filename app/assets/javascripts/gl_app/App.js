@@ -82,6 +82,9 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
 			snapToGrid: Constants.searchAreaResizeGrid
 		});
 
+        if(this.mturk){
+            $('#mturkoverlay').css("display","inline");
+        }
         preventSelection(this.canvas);
     }
 
