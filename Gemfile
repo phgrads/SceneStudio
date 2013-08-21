@@ -14,6 +14,7 @@ gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.6'
 
 gem 'rturk', '2.10.2'
+gem 'yaml_db'
 
 group :development, :test, :production do
   gem 'sqlite3', '1.3.5'
