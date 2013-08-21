@@ -30,10 +30,33 @@
     margin-right: 30px;
     background-color: rgba(255, 255, 255, .5);
 }
+#wrap{
+    margin-bottom:0;
+    position:absolute;
+    bottom:0;
+    display: table-cell;
+    text-align: left;
+    vertical-align: bottom;
+    width: 200px;
+    height: 200px;
+}
+#wrap img {
+    position:absolute;
+    max-width:200%;
+    width: 100%;
+    height: 100%;
+    bottom:0;
+}
+#wrap img:hover {
+    width: 200%;
+    height: 200%;
+}
+
+
 #editinstructions{
     position:absolute;
-    top:40%;
+    top:10%;
     left:250px;
     font-color:rgb(0,0,0);
-    font-size:large
+    font-size:medium;
 }
