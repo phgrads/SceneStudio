@@ -44,7 +44,12 @@ function Toolbar(app)
 	
 	this.AddButton('Save', 'Save scene (S)',
 	               'save', function() {
-	   app.SaveScene();
+	        if(app.mturk){
+	        	app.SaveMTurkResults();
+	        }
+	        else{
+	        	app.SaveScene();
+	        }
     });
 	this.AddButton('Close', 'Close the editor',
 	               'close', function() {

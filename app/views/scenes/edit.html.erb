@@ -1,6 +1,9 @@
 <div id="ui">
-    <%= render 'graphicsArea' %>
-    <%= render 'graphicsOverlay' %>
-    <%= render 'searchPanel' %>
+    <%= render '/scenes/graphicsArea' %>
+    <%= render '/scenes/graphicsOverlay' %>
+    <%= render '/scenes/searchPanel' %>
+  	<%= render '/experiments/submit_mturk_report' %>
+
+
 </div>
 <%= requirejs_include_tag('gl_app/editor-main') %>
