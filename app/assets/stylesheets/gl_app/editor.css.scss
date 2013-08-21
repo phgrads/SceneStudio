@@ -1,6 +1,9 @@
 @import "common";
 @import "graphicsArea";
 
+$bg1: rgba(207,231,250,0.75);
+$bg2: rgba(99,147,193,0.75);
+
 #splitView
 {
   width: 100%;
@@ -28,7 +31,7 @@
     left: 0px;
     bottom: 0px;
     margin-right: 30px;
-    background-color: rgba(255, 255, 255, .5);
+    @include background-linear-gradient($bg1, $bg2);
 }
 #wrap{
     margin-bottom:0;
@@ -48,6 +51,7 @@
     bottom:0;
 }
 #wrap img:hover {
+    z-index:3;
     width: 200%;
     height: 200%;
 }
@@ -55,8 +59,11 @@
 
 #editinstructions{
     position:absolute;
-    top:10%;
+    bottom:0;
     left:250px;
     font-color:rgb(0,0,0);
-    font-size:medium;
+    font-size:15px;
+    border: thin solid #A5A5A5;
+    @include border-radius(8px);
+    background: #E3EBF1;
 }
