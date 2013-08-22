@@ -52,10 +52,10 @@ function(Mesh, Model, ModelInstance, Material, Constants) {
     var m = new ModelInstance(widget, attribs.parent);
 
     // Set camera transform
-    var xform = mat4.identity();
-    var eyePos = cam.eyePos;
-    mat4.translate(xform, eyePos);
-    m.transform = xform;
+    var T = mat4.create();
+    mat4.lookAt(cam.eyePos, cam.lookAtPoint, cam.upVec, T);
+    mat4.inverse(T);
+    m.transform = T;
 
     return m;
   };

@@ -138,3 +138,37 @@ vec3.toJSON = function(v)
 {
     return [v[0],v[1],v[2]];
 };
+
+mat4.axisPairToOrthoMatrix = function(v1, v2) {
+  vec3.normalize(v1);
+  vec3.normalize(v2);
+  var v3 = vec3.create();
+  vec3.cross(v1, v2, v3);
+
+  var m = mat4.create([
+      v1[0], v2[0], v3[0], 0,
+      v1[1], v2[1], v3[1], 0,
+      v1[2], v2[2], v3[2], 0,
+      0,     0,     0,     1
+  ]);
+
+  return m;
+};
+
+/**
+ * Takes two source coordinate frame basis vectors s0 and s1 and two target basis vector t0 and t1 as input
+ * and computes the transform from source to target. Assumes basis vectors are orthogonal.
+ */
+mat4.coordFrameTransformMatrix = function(s0, s1, t0, t1) {
+  //TODO: Debug corner cases
+  var S = mat4.axisPairToOrthoMatrix(s0, s1);
+  var T = mat4.axisPairToOrthoMatrix(t0, t1);
+
+  var Sinv = mat4.create();
+  mat4.inverse(S, Sinv);
+
+  var xform = mat4.create();
+  mat4.multiply(T, Sinv, xform);
+
+  return xform;
+};
