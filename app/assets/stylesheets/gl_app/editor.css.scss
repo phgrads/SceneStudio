@@ -51,7 +51,7 @@ $bg2: rgba(99,147,193,0.75);
     bottom:0;
 }
 #wrap img:hover {
-    z-index:3;
+    z-index:3; 
     width: 200%;
     height: 200%;
 }
@@ -63,7 +63,5 @@ $bg2: rgba(99,147,193,0.75);
     left:250px;
     font-color:rgb(0,0,0);
     font-size:15px;
-    border: thin solid #A5A5A5;
-    @include border-radius(8px);
-    background: #E3EBF1;
+   
 }
