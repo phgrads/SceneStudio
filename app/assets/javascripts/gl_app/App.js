@@ -501,7 +501,8 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
                 "<p>Your coupon code is: " + response.coupon_code + "</p>" +
                 "Copy your code back to the first tab and close this tab when done.";
             };
-
+            var finalcamera=this.camera.toJSONString();
+            this.uilog.log('STATE_SCENE',finalcamera);
             on_error = on_error || function() { alert("Error saving results. Please close tab and do task again.");};
             var serialized = this.scene.SerializeForNetwork();
             submit_mturk_report({
