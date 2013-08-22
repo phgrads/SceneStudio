@@ -7,11 +7,15 @@ class Experiments::EditController < ApplicationController
   def index
     if not @via_turk then
       @task = MtTask.find_by_name!("edit")
-    end
-    @scene = @task.user.scenes.build({
+      @scene = @task.user.scenes.build({
+      name: Time.now.to_s,
+      })
+    else
+      @scene = @task.user.scenes.build({
       name: params[:assignmentId],
-    })
-    puts @scene
+      })
+    end
+    
     if @scene.save
       flash[:success] = 'Scene created!'
       render 'scenes/edit'

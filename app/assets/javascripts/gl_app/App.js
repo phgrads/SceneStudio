@@ -50,7 +50,7 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
         this.user_name  = window.globalViewData.user_name;
         this.scene_name = window.globalViewData.scene_name;
         this.base_url   = window.globalViewData.base_url;
-        this.mturk = !!window.globalViewData.assignmentId;
+        this.mturk = !!(window.globalViewData.assignmentId || window.globalViewData.task_id);
         
         this.uimap = uimap.create(canvas);
 

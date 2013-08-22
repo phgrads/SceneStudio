@@ -2,9 +2,13 @@
  		oncontextmenu="$('#canvas').focus(); return false;"
         onclick="$('#canvas').focus();"
         >
-        <%= image_tag "/data/image/stimuli/room1.png" ,height:"200", width:"200" %>
+        <div id = "wrap">
+        	<%= image_tag "/data/image/stimuli/room1.png"%>
+        </div>
         <div id="editinstructions">
-        	<p> Place models in the room to create a scene that best replicates the picture </p>
-        	<p> Click the "save" button when you complete the task to recieve a coupon </p>
+        	<p> Place models in the room to create a scene that best resembles the picture </p>
+        	<p> Find models using the model search bar </p>
+        	<p> Placing about 8 models should be sufficient for resemblance. </p>  
+        	<p> Click the "Save" button when you complete the task to finish the task and receive a coupon </p>
         </div>
 </div>
