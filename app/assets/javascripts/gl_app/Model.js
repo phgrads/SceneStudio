@@ -104,8 +104,6 @@ Model.prototype.EvaluateSurface = function(meshI, triI, uv)
 	return this.components[meshI].mesh.EvaluateSurface(triI, uv);
 }
 
-
-
 // Exports
 return Model;
 

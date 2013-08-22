@@ -14,10 +14,11 @@ define([
     './uibehaviors',
     './fsm',
     './UILog',
+    './ModelUtils',
     'jquery',
     'game-shim'
 ], function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Scene, CameraControls, PubSub, uimap,
-             Behaviors, FSM, UILog) {
+             Behaviors, FSM, UILog, ModelUtils) {
 
         function SceneViewer(canvas) {
             // Extend PubSub
@@ -38,6 +39,7 @@ define([
             this.assman = new AssetManager(this.renderer.gl_);
             this.uilog = new UILog.UILog();
             this.uilog.clear();
+            this.modelUtils = new ModelUtils(this.renderer.gl_);
             this.mturk = !!window.globalViewData.assignmentId;
             this.cameraViews = [];
 

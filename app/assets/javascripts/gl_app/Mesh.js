@@ -308,7 +308,76 @@ Mesh.GenerateCircularSquareSlice = function(gl, r, slices, startAng, endAng)
 	return new Mesh(gl, vertexArray, indexArray, Mesh.DEFAULT_VERTEX_FORMAT);
 }
 
+Mesh.GenerateSphere = function(gl, radius, rings, sectors) {
+	  // TODO: Compute base indices and store directly into final arrays to improve performance
 
+    // Defaults
+    radius = radius || 1.0;
+    rings = rings || 10;
+    sectors = sectors || 10;
+
+    // Constants
+    var R = 1.0 / (rings-1);
+    var S = 1.0 / (sectors-1);
+    var nV = rings * sectors * 8;
+    var nI = (rings-1) * sectors * 6;
+
+    // Triangle index function
+    function push_indices(is, r, s) {
+        var curRow = r * sectors;
+        var nextRow = (r+1) * sectors;
+		    var nextSec = (s+1) % sectors;
+
+        is.push(curRow + s);
+        is.push(nextRow + s);
+        is.push(nextRow + nextSec);
+
+        is.push(curRow + s);
+        is.push(nextRow + nextSec);
+        is.push(curRow + nextSec);
+    }
+
+    // Compute positions, uvs and normals
+    var vs = [];
+    var is = [];
+    for (var r = 0; r < rings; r++) {
+        var theta = r * Math.PI * R;
+        var sinTheta = Math.sin(theta);
+        for (var s = 0; s < sectors; s++) {
+            var phi = s * 2 * Math.PI * S;
+            var sinPhi = Math.sin(phi);
+            var cosPhi = Math.cos(phi);
+
+            //var base = latNumber*(8*longBands) + 8*longNumber;
+            var nx = cosPhi * sinTheta;
+            var ny = Math.sin(-Math.PI*0.5 + theta);
+            var nz = sinPhi * sinTheta;
+            var u = s * S;
+            var v = r * R;
+            var x = radius * nx;
+            var y = radius * ny;
+            var z = radius * nz;
+
+            vs.push(x);
+            vs.push(y);
+            vs.push(z);
+            vs.push(u);
+            vs.push(v);
+            vs.push(nx);
+            vs.push(ny);
+            vs.push(nz);
+
+            if (r < (rings-1)) push_indices(is, r, s);
+        }
+    }
+
+    var vertexArray = new Float32Array(nV);
+    var indexArray = new Uint16Array(nI);
+    for (var k=0; k < vs.length; k++) vertexArray[k] = vs[k];
+    for (k=0; k < is.length; k++) indexArray[k] = is[k];
+
+    return new Mesh(gl, vertexArray, indexArray, Mesh.DEFAULT_VERTEX_FORMAT);
+};
 
 // Exports
 return Mesh;
