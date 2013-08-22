@@ -16,6 +16,8 @@ define([
         
         this.minRealHeight = 60; 
         this.maxRealHeight = 90;
+
+        this.godMode = false; // No collision detection when true
     }
 
     FPCamera.prototype = Object.create(Camera.prototype);
@@ -46,7 +48,7 @@ define([
 
     // Changes camera only if new position is valid and returns whether we set or not
     FPCamera.prototype.SetIfValidPosition = function(newEye, newLookAtPoint) {
-        var valid = this.isValidPosition(newEye);
+        var valid = this.godMode || this.isValidPosition(newEye);
         if (valid) {
             this.eyePos = newEye;
             this.lookAtPoint = newLookAtPoint;
@@ -113,6 +115,8 @@ define([
         Behaviors.keyhold(app.uimap, 'D').onhold( function() { cam.DollyLeft(-movespeed);    up(); } );
         Behaviors.keyhold(app.uimap, 'R').onhold( function() { cam.DollyUp(movespeed);       up(); } );
         Behaviors.keyhold(app.uimap, 'F').onhold( function() { cam.DollyUp(-movespeed);      up(); } );
+
+        Behaviors.keyhold(app.uimap, 'shift+G').onhold( function() { cam.godMode = !cam.godMode } );
 
         // FPCamera looking
         var rotspeed = 1 / (Math.PI * 100);
