@@ -308,7 +308,7 @@ Mesh.GenerateCircularSquareSlice = function(gl, r, slices, startAng, endAng)
 	return new Mesh(gl, vertexArray, indexArray, Mesh.DEFAULT_VERTEX_FORMAT);
 }
 
-Mesh.GenerateSphere = function(gl, radius, rings, sectors) {
+Mesh.GenerateSphere = function(gl, radius, rings, sectors, xform) {
 	  // TODO: Compute base indices and store directly into final arrays to improve performance
 
     // Defaults
@@ -376,7 +376,55 @@ Mesh.GenerateSphere = function(gl, radius, rings, sectors) {
     for (var k=0; k < vs.length; k++) vertexArray[k] = vs[k];
     for (k=0; k < is.length; k++) indexArray[k] = is[k];
 
+    if (xform) {
+      Mesh.TransformAttribArray(vertexArray, xform, Mesh.DEFAULT_VERTEX_FORMAT);
+    }
+
     return new Mesh(gl, vertexArray, indexArray, Mesh.DEFAULT_VERTEX_FORMAT);
+};
+
+Mesh.GenerateTetrahedron = function(gl, xform) {
+  var vertexArray = new Float32Array([
+    0.000, 0.000, 1.000, 0, 0, 0, 0, 0,
+    0.943, 0.000,-0.333, 0, 0, 0, 0, 0,
+   -0.471, 0.816,-0.333, 0, 0, 0, 0, 0,
+   -0.471,-0.816,-0.333, 0, 0, 0, 0, 0
+  ]);
+  var indexArray = new Uint16Array([
+    0,1,2,
+    0,2,3,
+    0,3,1,
+    1,3,2
+  ]);
+
+  if (xform) {
+    Mesh.TransformAttribArray(vertexArray, xform, Mesh.DEFAULT_VERTEX_FORMAT);
+  }
+
+  return new Mesh(gl, vertexArray, indexArray, Mesh.DEFAULT_VERTEX_FORMAT);
+};
+
+// NOTE: Transforms vertices in place within the attribute array passed in
+Mesh.TransformAttribArray = function(attribArray, xform, vertexFormat) {
+  vertexFormat = vertexFormat || Mesh.DEFAULT_VERTEX_FORMAT;
+  var stride = vertexFormat[0].stride;
+  var numVerts = attribArray.length / stride;
+  var v = vec3.create();
+  for (var i = 0; i < numVerts; i++) {
+    var base = stride*i;
+
+    v[0] = attribArray[base  ];
+    v[1] = attribArray[base+1];
+    v[2] = attribArray[base+2];
+
+    mat4.multiplyVec3(xform, v);
+
+    attribArray[base  ] = v[0];
+    attribArray[base+1] = v[1];
+    attribArray[base+2] = v[2];
+
+    // TODO: Also transform normals if non-zero
+  }
 };
 
 // Exports

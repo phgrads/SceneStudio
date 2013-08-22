@@ -81,7 +81,8 @@ Constants.scaleMagnitudeMultiplier = 1;
 
 // Camera visualization
 Constants.cameraMarkerDefaultSize = 1.0;
-Constants.cameraMarkerDefaultColor = new Float32Array([79/255, 133/255, 187/255, 1]);
+Constants.cameraMarkerDefaultColor1 = new Float32Array([1, 0, 0, 0.9]);
+Constants.cameraMarkerDefaultColor2 = new Float32Array([0, 0, 1, 0.9]);
 
 // Tooltips
 Constants.toolTipDelay = 450;

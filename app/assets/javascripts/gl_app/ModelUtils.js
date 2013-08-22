@@ -16,16 +16,35 @@ function(Mesh, Model, ModelInstance, Material, Constants) {
     return new Model("Sphere", components);
   };
 
+  ModelUtils.prototype.TetrahedronModel = function(color) {
+    var mat = new Material.ManipulatorMaterial(this.gl_, { color: color });
+    var components = [ { mesh: Mesh.GenerateTetrahedron(this.gl_), material: mat } ];
+    return new Model("Tet", components);
+  };
+
   ModelUtils.prototype.CameraWidgetModel = function(attribs) {
-    // TODO: Update this so view direction is indicated as well
-    return this.SphereModel(attribs.size, 10, 10, attribs.color);
+    var sphere = Mesh.GenerateSphere(this.gl_, 0.5);
+
+    // Elongated tetrahedron
+    var xform = mat4.identity();
+    mat4.translate(xform, [0,0,-2]);
+    mat4.scale(xform, [1.5,1.5,2]);
+    var tet = Mesh.GenerateTetrahedron(this.gl_, xform);
+
+    var mat1 = new Material.ManipulatorMaterial(this.gl_, { color: attribs.color1 });
+    var mat2 = new Material.ManipulatorMaterial(this.gl_, { color: attribs.color2 });
+
+    var components = [ { mesh: sphere, material: mat1}, { mesh: tet, material: mat2 } ];
+
+    return new Model("CameraWidget", components);
   };
 
   ModelUtils.prototype.CreateCameraMarker = function(cam, attribs) {
     // Defaults
     attribs         = attribs         || {};
     attribs.parent  = attribs.parent  || null;
-    attribs.color   = attribs.color   || Constants.cameraMarkerDefaultColor;
+    attribs.color1  = attribs.color1  || Constants.cameraMarkerDefaultColor1;
+    attribs.color2  = attribs.color2  || Constants.cameraMarkerDefaultColor2;
     attribs.size    = attribs.size    || Constants.cameraMarkerDefaultSize;
 
     // Generate marker model instance
