@@ -104,19 +104,6 @@ Model.prototype.EvaluateSurface = function(meshI, triI, uv)
 	return this.components[meshI].mesh.EvaluateSurface(triI, uv);
 }
 
-Model.CreateSphere = function(renderer, r, latBands, longBands)
-{
-    // Defaults
-    r = r || 1.0;
-    latBands = latBands || 10;
-    longBands = longBands|| 10;
-
-    var gl = renderer.gl_;
-    var mat = {}; //new Material.ManipulatorMaterial(gl, {color: Constants.rotateNormalColor});
-    var components = [ { mesh: Mesh.GenerateSphere(gl, r, latBands, longBands), material: mat, attribs: {bothFaces: true} } ];
-    return new Model("Sphere", components);
-};
-
 // Exports
 return Model;
 

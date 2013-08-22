@@ -79,6 +79,10 @@ Constants.scaleMinRadiusBoost = 5.0;
 Constants.scaleRelativeRadiusBoost = 0.25;
 Constants.scaleMagnitudeMultiplier = 1;
 
+// Camera visualization
+Constants.cameraMarkerDefaultSize = 1.0;
+Constants.cameraMarkerDefaultColor = new Float32Array([79/255, 133/255, 187/255, 1]);
+
 // Tooltips
 Constants.toolTipDelay = 450;
 Constants.toolTipYOffset = 25;

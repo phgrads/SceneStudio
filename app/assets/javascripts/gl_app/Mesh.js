@@ -308,8 +308,13 @@ Mesh.GenerateCircularSquareSlice = function(gl, r, slices, startAng, endAng)
 	return new Mesh(gl, vertexArray, indexArray, Mesh.DEFAULT_VERTEX_FORMAT);
 }
 
-Mesh.prototype.GenerateSphere = function(gl, radius, rings, sectors) {
-	// TODO: Compute base indices and store directly into final arrays to improve performance
+Mesh.GenerateSphere = function(gl, radius, rings, sectors) {
+	  // TODO: Compute base indices and store directly into final arrays to improve performance
+
+    // Defaults
+    radius = radius || 1.0;
+    rings = rings || 10;
+    sectors = sectors || 10;
 
     // Constants
     var R = 1.0 / (rings-1);
@@ -321,7 +326,7 @@ Mesh.prototype.GenerateSphere = function(gl, radius, rings, sectors) {
     function push_indices(is, r, s) {
         var curRow = r * sectors;
         var nextRow = (r+1) * sectors;
-		var nextSec = (s+1) % sectors
+		    var nextSec = (s+1) % sectors;
 
         is.push(curRow + s);
         is.push(nextRow + s);
