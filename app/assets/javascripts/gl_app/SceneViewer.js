@@ -137,6 +137,13 @@ define([
                 msgBox.hide().fadeIn('slow');
             }.bind(this));
 
+
+            //TODO: Load in saved camera json, not current cam
+            Behaviors.keypress(this.uimap, 'C').onpress(function() {
+              var camJson = this.camera.toJSONString();
+              this.LoadCamera(camJson);
+            }.bind(this));
+
             preventSelection(this.canvas);
         };
 
@@ -200,9 +207,12 @@ define([
             $("#ui").fadeOut('fast').fadeIn('fast');
         };
 
-        SceneViewer.prototype.LoadCamera = function(cam)
+        SceneViewer.prototype.LoadCamera = function(camJson)
         {
-            this.camera.ResetFromJSONString(cam);
+            var cam = new Camera();
+            cam.ResetFromJSONString(camJson);
+            var marker = this.modelUtils.CreateCameraMarker(cam, {parent: app.scene.root});
+            console.log(marker);
             this.renderer.UpdateView();
         };
 

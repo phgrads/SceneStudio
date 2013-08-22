@@ -16,6 +16,11 @@ function(Mesh, Model, ModelInstance, Material, Constants) {
     return new Model("Sphere", components);
   };
 
+  ModelUtils.prototype.CameraWidgetModel = function(attribs) {
+    // TODO: Update this so view direction is indicated as well
+    return this.SphereModel(attribs.size, 10, 10, attribs.color);
+  };
+
   ModelUtils.prototype.CreateCameraMarker = function(cam, attribs) {
     // Defaults
     attribs         = attribs         || {};
@@ -24,8 +29,8 @@ function(Mesh, Model, ModelInstance, Material, Constants) {
     attribs.size    = attribs.size    || Constants.cameraMarkerDefaultSize;
 
     // Generate marker model instance
-    var sphere = this.SphereModel(attribs.size, 10, 10, attribs.color);
-    var m = new ModelInstance(sphere, attribs.parent);
+    var widget = this.CameraWidgetModel(attribs);
+    var m = new ModelInstance(widget, attribs.parent);
 
     // Set camera transform
     var xform = mat4.identity();
