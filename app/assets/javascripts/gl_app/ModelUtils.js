@@ -10,31 +10,40 @@ function(Mesh, Model, ModelInstance, Material, Constants) {
     this.gl_ = gl;
   }
 
-  ModelUtils.prototype.SphereModel = function(r, latBands, longBands, color) {
+  ModelUtils.prototype.CubeModel = function(color, xform) {
     var mat = new Material.ManipulatorMaterial(this.gl_, { color: color });
-    var components = [ { mesh: Mesh.GenerateSphere(this.gl_, r, latBands, longBands), material: mat } ];
+    var components = [ { mesh: Mesh.GenerateCube(this.gl_, xform), material: mat } ];
+    return new Model("Cube", components);
+  };
+
+  ModelUtils.prototype.SphereModel = function(r, latBands, longBands, color, xform) {
+    var mat = new Material.ManipulatorMaterial(this.gl_, { color: color });
+    var components = [ { mesh: Mesh.GenerateSphere(this.gl_, r, latBands, longBands, xform), material: mat } ];
     return new Model("Sphere", components);
   };
 
-  ModelUtils.prototype.TetrahedronModel = function(color) {
+  ModelUtils.prototype.TetrahedronModel = function(color, xform) {
     var mat = new Material.ManipulatorMaterial(this.gl_, { color: color });
-    var components = [ { mesh: Mesh.GenerateTetrahedron(this.gl_), material: mat } ];
+    var components = [ { mesh: Mesh.GenerateTetrahedron(this.gl_, xform), material: mat } ];
     return new Model("Tet", components);
   };
 
   ModelUtils.prototype.CameraWidgetModel = function(attribs) {
-    var sphere = Mesh.GenerateSphere(this.gl_, 0.5);
-
-    // Elongated tetrahedron
+    // Cube centered at eye point
     var xform = mat4.identity();
-    mat4.translate(xform, [0,0,-2]);
-    mat4.scale(xform, [1.5,1.5,2]);
-    var tet = Mesh.GenerateTetrahedron(this.gl_, xform);
+    mat4.scale(xform, [0.5, 0.5, 0.5]);
+    var cube = Mesh.GenerateCube(this.gl_, xform);
+
+    // Elongated tetrahedron in look direction
+    var xform2 = mat4.identity();
+    mat4.translate(xform2, [0,0,-2]);
+    mat4.scale(xform2, [1.5,1.5,2]);
+    var tet = Mesh.GenerateTetrahedron(this.gl_, xform2);
 
     var mat1 = new Material.ManipulatorMaterial(this.gl_, { color: attribs.color1 });
     var mat2 = new Material.ManipulatorMaterial(this.gl_, { color: attribs.color2 });
 
-    var components = [ { mesh: sphere, material: mat1}, { mesh: tet, material: mat2 } ];
+    var components = [ { mesh: cube, material: mat1}, { mesh: tet, material: mat2 } ];
 
     return new Model("CameraWidget", components);
   };
