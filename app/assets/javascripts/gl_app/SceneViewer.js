@@ -15,10 +15,11 @@ define([
     './fsm',
     './UILog',
     './ModelUtils',
+    './FileParse',
     'jquery',
     'game-shim'
 ], function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Scene, CameraControls, PubSub, uimap,
-             Behaviors, FSM, UILog, ModelUtils) {
+             Behaviors, FSM, UILog, ModelUtils,FileParse) {
 
         function SceneViewer(canvas) {
             // Extend PubSub
@@ -140,8 +141,11 @@ define([
 
             //TODO: Load in saved camera json, not current cam
             Behaviors.keypress(this.uimap, 'C').onpress(function() {
-              var camJson = this.camera.toJSONString();
-              this.LoadCamera(camJson);
+                console.log("key pressed");
+                this.LoadCameras("/data/analytics/cameralog.json")
+                //this.LoadEMData("/data/analytics/cameralog.json");
+              //var camJson = this.camera.toJSONString();
+              //this.LoadCamera(camJson);
             }.bind(this));
 
             preventSelection(this.canvas);
@@ -206,6 +210,18 @@ define([
             console.log(record);
             $("#ui").fadeOut('fast').fadeIn('fast');
         };
+        SceneViewer.prototype.GetSceneData = function(scene_id){
+            return getViaJquery(this.base_url + '/analytics/getdata?id=' + scene_id);
+        }
+
+        SceneViewer.prototype.LoadCameras = function(){
+           this.GetSceneData("139").success(function(data){
+                    for(var i = 0; i < data.length; i++){
+                        this.LoadCamera(data[i].camera);
+                    }
+                }.bind(this));         
+        }
+        
 
         SceneViewer.prototype.LoadCamera = function(camJson)
         {
@@ -215,6 +231,12 @@ define([
             console.log(marker);
             this.renderer.UpdateView();
         };
+
+        SceneViewer.prototype.LoadEMData = function(filename){
+            $.getJSON(filename, function(json){
+                console.log(json);
+            });
+        }
 
         SceneViewer.prototype.ExitTo = function(destination)
         {
