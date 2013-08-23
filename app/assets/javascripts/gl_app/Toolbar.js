@@ -45,7 +45,12 @@ function Toolbar(app)
 	this.AddButton('Save', 'Save scene (S)',
 	               'save', function() {
 	        if(app.mturk){
-	        	app.SaveMTurkResults();
+	        	if(app.scene.modelList.length > 1){
+	        		app.SaveMTurkResults();
+	        	}	
+	        	else{
+	        		alert("You haven't added anything to the scene yet");
+	        	}
 	        }
 	        else{
 	        	app.SaveScene();
