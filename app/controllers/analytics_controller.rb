@@ -4,10 +4,14 @@ class AnalyticsController < ApplicationController
 		require 'json'
 		data = Array.new()
 		@assignments.each do |assignment|
-			d=JSON.parse assignment.data
-			d.each do |datum|
-				if datum.is_a?(Hash) and datum["scene"]["id"] == params[:id]
-					data.push(datum)
+			logger.info assignment.data
+			logger.info
+			if assignment.data
+				d=JSON.parse assignment.data  
+				d.each do |datum|
+					if datum.is_a?(Hash) and datum["scene"]["id"] == params[:id]
+						data.push(datum)
+					end
 				end
 			end
 		end

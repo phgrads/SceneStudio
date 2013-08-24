@@ -43,6 +43,8 @@ define([
             this.modelUtils = new ModelUtils(this.renderer.gl_);
             this.mturk = !!window.globalViewData.assignmentId;
             this.cameraViews = [];
+            this.mturkCamerasGood = []; 
+            this.mturkCamerasBad = []; 
 
             this.ViewSelectionTaskLogic();
         }
@@ -148,6 +150,13 @@ define([
               //this.LoadCamera(camJson);
             }.bind(this));
 
+             Behaviors.keypress(this.uimap, 'N').onpress(function() {
+               this.CycleCameras();
+                //this.LoadEMData("/data/analytics/cameralog.json");
+              //var camJson = this.camera.toJSONString();
+              //this.LoadCamera(camJson);
+            }.bind(this));
+
             preventSelection(this.canvas);
         };
 
@@ -215,20 +224,38 @@ define([
         }
 
         SceneViewer.prototype.LoadCameras = function(){
-           this.GetSceneData("139").success(function(data){
+           this.GetSceneData("104").success(function(data){
                     for(var i = 0; i < data.length; i++){
-                        this.LoadCamera(data[i].camera);
+                        var color;
+                        this.LoadCamera(data[i].camera, data[i].tag);
                     }
                 }.bind(this));         
         }
         
-
-        SceneViewer.prototype.LoadCamera = function(camJson)
+        SceneViewer.prototype.CycleCameras = function(){
+            if(this.mturkCamerasGood.length > 0){
+                var camJson = this.mturkCamerasGood.shift();
+                var cam = new FPCamera(this.scene);
+                this.camera.ResetFromJSONString(camJson);
+                console.log('cycling');
+                this.renderer.UpdateView();
+                this.mturkCamerasGood.push(camJson);
+            }
+        }
+        SceneViewer.prototype.LoadCamera = function(camJson, tag)
         {
-            var cam = new Camera();
+            var color;
+            var cam = new FPCamera(this.scene);
             cam.ResetFromJSONString(camJson);
-            var marker = this.modelUtils.CreateCameraMarker(cam, {parent: app.scene.root});
-            console.log(marker);
+            if(tag == 'CAMBEST'){
+                color = new Float32Array([1, 0, 0, 0.9])
+                this.mturkCamerasGood.push(camJson)
+            }
+            else{
+                color = new Float32Array([0, 0, 1, 0.0])
+                this.mturkCamerasBad.push(camJson)
+            }
+            var marker = this.modelUtils.CreateCameraMarker(cam, {parent: app.scene.root, size:10.0, color1:color, color2:color });
             this.renderer.UpdateView();
         };
 
