@@ -69,6 +69,7 @@ ModelInstance.prototype.toJSONString = function()
 
 ModelInstance.fromJSONString = function(string, assman, modelMap, callback)
 {
+	console.log(string);
     var json = JSON.parse(string);
     
     (function(remaining) {

@@ -22,6 +22,10 @@ SceneStudio::Application.routes.draw do
   get '/experiments/test',          to: 'experiments/test#index'
   get '/experiments/edit',          to: 'experiments/edit#index'
 
+  get '/analytics/getdata',          to: 'analytics#getdata'
+  match '/analytics/:id/viewscene',  to: 'analytics#viewscene'
+  match '/analytics/:id/loadscene',  to: 'analytics#loadscene'
+
   #resources :identities
 
   #match "/home", to: "static_pages/home"

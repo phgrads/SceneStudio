@@ -15,12 +15,13 @@ define([
     './fsm',
     './UILog',
     './ModelUtils',
+    './FileParse',
     'jquery',
     'game-shim'
 ], function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Scene, CameraControls, PubSub, uimap,
-             Behaviors, FSM, UILog, ModelUtils) {
+             Behaviors, FSM, UILog, ModelUtils,FileParse) {
 
-        function SceneViewer(canvas) {
+        function AnalyticsViewer(canvas) {
             // Extend PubSub
             PubSub.call(this);
 
@@ -30,6 +31,7 @@ define([
             this.scene_record   = window.globalViewData.scene;
             this.on_close_url   = window.globalViewData.on_close_url;
             this.base_url   = window.globalViewData.base_url;
+            this.assignment = window.globalViewData.assignment;
 
             this.canvas = canvas;
             this.uimap = uimap.create(canvas);
@@ -40,18 +42,18 @@ define([
             this.uilog = new UILog.UILog();
             this.uilog.clear();
             this.modelUtils = new ModelUtils(this.renderer.gl_);
-            this.mturk = !!window.globalViewData.assignment;
+            this.mturk = !!window.globalViewData.assignmentId;
             this.cameraViews = [];
             this.mturkCamerasGood = []; 
             this.mturkCamerasBad = []; 
 
-            this.ViewSelectionTaskLogic();
+            //this.ViewSelectionTaskLogic();
         }
 
         // Extend PubSub
-        SceneViewer.prototype = Object.create(PubSub.prototype);
+        AnalyticsViewer.prototype = Object.create(PubSub.prototype);
 
-        SceneViewer.prototype.Launch = function () {
+        AnalyticsViewer.prototype.Launch = function () {
             this.LoadScene(
                 function() { // on success finish up some setup
                     this.camera.SetRandomPositionAndLookAtPointInSceneBounds();
@@ -59,6 +61,7 @@ define([
                 }.bind(this),
                 function() { // on failure create an empty room
                     this.assman.GetModel('room', function (model) {
+                        console.log('error loading')
                         this.scene.Reset(new ModelInstance(model, null));
                         this.camera.SetRandomPositionAndLookAtPointInSceneBounds();
                         this.renderer.UpdateView();
@@ -71,7 +74,7 @@ define([
             this.renderer.resizeEnd();
         };
 
-        SceneViewer.prototype.ViewSelectionTaskLogic = function () {
+        AnalyticsViewer.prototype.ViewSelectionTaskLogic = function () {
             // Get message box and text
             var msgBox = $('#message');
             var msgTxt = msgBox.children('span');
@@ -159,21 +162,21 @@ define([
             preventSelection(this.canvas);
         };
 
-        SceneViewer.prototype.LoadScene = function(on_success, on_error)
+        AnalyticsViewer.prototype.LoadScene = function(on_success, on_error)
         {
-            getViaJquery(this.base_url + '/scenes/' +
-                         this.scene_record.id + '/load')
+            getViaJquery(this.base_url + '/analytics/' +
+                         this.assignment.id + '/loadscene')
                 .error(on_error).success(function(json) {
-                    var scene_json = JSON.parse(json.scene);
-                    console.log(scene_json);
-                    this.uilog.fromJSONString(json.ui_log);
-                    this.scene.LoadFromNetworkSerialized(scene_json,
+                    var scene_json = JSON.parse(json);
+                    var scene_file = JSON.parse(scene_json.scene_file);
+                    console.log(scene_file);
+                    this.scene.LoadFromNetworkSerialized(scene_file,
                         this.assman,
                         on_success);
                 }.bind(this));
         };
 
-        SceneViewer.prototype.SaveMTurkResults = function(on_success, on_error){
+        AnalyticsViewer.prototype.SaveMTurkResults = function(on_success, on_error){
             on_success = on_success || function(response) {
                 document.cancelFullScreen();
                 document.body.innerHTML = "<p>Thanks for participating!</p>" +
@@ -186,7 +189,7 @@ define([
             submit_mturk_report(this.cameraViews).error(on_error).success(on_success);
         };
 
-        SceneViewer.prototype.SaveLog = function(on_success, on_error)
+        AnalyticsViewer.prototype.SaveLog = function(on_success, on_error)
         {
             on_success = on_success || function() {
                 alert('saved!  Please develop a better UI alert');
@@ -202,7 +205,7 @@ define([
             }).error(on_error).success(on_success);
         };
 
-        SceneViewer.prototype.LogCamera = function(tag)
+        AnalyticsViewer.prototype.LogCamera = function(tag)
         {
             var record = {
                 user: this.user_record,
@@ -219,11 +222,11 @@ define([
             console.log(record);
             $("#ui").fadeOut('fast').fadeIn('fast');
         };
-        SceneViewer.prototype.GetSceneData = function(scene_id){
+        AnalyticsViewer.prototype.GetSceneData = function(scene_id){
             return getViaJquery(this.base_url + '/analytics/getdata?id=' + scene_id);
         }
 
-        SceneViewer.prototype.LoadCameras = function(){
+        AnalyticsViewer.prototype.LoadCameras = function(){
            this.GetSceneData("104").success(function(data){
                     for(var i = 0; i < data.length; i++){
                         var color;
@@ -232,7 +235,7 @@ define([
                 }.bind(this));         
         }
         
-        SceneViewer.prototype.CycleCameras = function(){
+        AnalyticsViewer.prototype.CycleCameras = function(){
             if(this.mturkCamerasGood.length > 0){
                 var camJson = this.mturkCamerasGood.shift();
                 var cam = new FPCamera(this.scene);
@@ -242,7 +245,7 @@ define([
                 this.mturkCamerasGood.push(camJson);
             }
         }
-        SceneViewer.prototype.LoadCamera = function(camJson, tag)
+        AnalyticsViewer.prototype.LoadCamera = function(camJson, tag)
         {
             var color;
             var cam = new FPCamera(this.scene);
@@ -259,13 +262,13 @@ define([
             this.renderer.UpdateView();
         };
 
-        SceneViewer.prototype.LoadEMData = function(filename){
+        AnalyticsViewer.prototype.LoadEMData = function(filename){
             $.getJSON(filename, function(json){
                 console.log(json);
             });
         }
 
-        SceneViewer.prototype.ExitTo = function(destination)
+        AnalyticsViewer.prototype.ExitTo = function(destination)
         {
             this.SaveLog(function() {
                 window.onbeforeunload = null;
@@ -274,6 +277,6 @@ define([
         };
 
         // Exports
-        return SceneViewer;
+        return AnalyticsViewer;
 
     });

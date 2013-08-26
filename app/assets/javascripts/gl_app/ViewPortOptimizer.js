@@ -12,22 +12,20 @@ define([
 ],
 function(Framebuffer, Picker, Constants, Renderer, Distribution){
 
-	
+
 	function ViewPortOptimizer(renderer, scene, camera, app){
+		//Resizes the framebuffer for faster picking
 		this.width = 20;
 		this.height = 20;
-		//this.canvas = document.createElement('canvas');
 		this.renderer = renderer;//new Renderer(this.canvas, app.scene,{width:this.width, height:this.height});
 		this.gl_ = this.renderer.gl_;
 		this.scene = scene;
 		this.framebuffer = new Framebuffer(this.gl_, {width:this.width, height:this.height});
-		//this.modellist = this.scene.modellist;
 		this.camera = camera;	
 		this.app = app;	
 		this.positionfunction = null; 
-    //this.distribution = new Distribution.NormalDistribution(1, 0)
 	}
-  
+  	//Function that reward higher or lower inclination of the view direction
   	ViewPortOptimizer.prototype.inclinationGoodnessFunction = function(state, sigma, mu){
     		return 1/(sigma * Math.sqrt(2 * Math.PI)) * Math.exp(-1 *Math.pow(state.phi - mu,2)/( 2 * Math.pow(sigma, 2)));
   	};

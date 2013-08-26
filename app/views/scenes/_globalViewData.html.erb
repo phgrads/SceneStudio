@@ -7,13 +7,16 @@
         id:   "<%= current_user.id unless !current_user %>"
     },
     scene: {
-        name: "<%= @scene.name %>",
-        id:   "<%= @scene.id %>"
+        name: "<%= @scene.name unless !@scene %>",
+        id:   "<%= @scene.id unless !@scene %>"
     },
     on_close_url: "<%= @on_close_url %>",
     base_url: "<%= base_url %>",
     <% if @assignment %>
-        assignmentId: "<%= @assignment.mtId %>",
+        assignment: {
+            mtId: "<%= @assignment.mtId %>",
+            id: "<%= @assignment.id %>",
+        },
     <% end %>
     <% if !@via_turk && Rails.env.development? && @task %>
         task_id: <%= @task.id %>,
