@@ -23,6 +23,8 @@ SceneStudio::Application.routes.draw do
   get '/experiments/edit',          to: 'experiments/edit#index'
 
   get '/analytics/getdata',          to: 'analytics#getdata'
+  match '/analytics/:id/viewscene',  to: 'analytics#viewscene'
+  match '/analytics/:id/loadscene',  to: 'analytics#loadscene'
 
   #resources :identities
 

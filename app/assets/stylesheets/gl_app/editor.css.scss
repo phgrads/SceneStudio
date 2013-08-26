@@ -31,7 +31,7 @@ $bg2: rgba(99,147,193,0.75);
     left: 0px;
     bottom: 0px;
     margin-right: 30px;
-    @include background-linear-gradient($bg1, $bg2);
+   
 }
 #wrap{
     margin-bottom:0;
@@ -44,6 +44,7 @@ $bg2: rgba(99,147,193,0.75);
     height: 200px;
 }
 #wrap img {
+    z-index:3;
     position:absolute;
     width:100%;
     max-width:200%;
@@ -53,13 +54,39 @@ $bg2: rgba(99,147,193,0.75);
     z-index:3; 
     width: 200%;
 }
+#editinstructions {
+  z-index:2;
+  position:absolute;
+  left:200px;
+  height:20%;
+  bottom:0;  
+  background-color:red;
+  right:300px;
+}
+#editinstructions:hover{
+  z-index:4;
+  position:absolute;
+  height:250%;
+  bottom:0;  
+  background-color:red;
+}
 
+#editinstructions #prompt{
+  font-weight:bold;
+  font-family:sans-serif;
+  text-align:center;
+  color:white;
+}
+#editinstructions:hover #prompt{
+  display:none;
+}
 
-#editinstructions{
-    position:absolute;
-    bottom:0;
-    left:250px;
-    font-color:rgb(0,0,0);
-    font-size:15px;
-    
+#editinstructions:hover #instructions p{
+    color:white;
+    font-align:center;
+    display:block;
+}
+
+#editinstructions #instructions p{
+  display:none;
 }
