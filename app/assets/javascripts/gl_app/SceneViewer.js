@@ -211,7 +211,7 @@ define([
         {
             var cam = new Camera();
             cam.ResetFromJSONString(camJson);
-            var marker = this.modelUtils.CreateCameraMarker(cam, {parent: app.scene.root});
+            var marker = this.modelUtils.CreateCameraMarker(cam, {parent: app.scene.root, size: 10});
             console.log(marker);
             this.renderer.UpdateView();
         };

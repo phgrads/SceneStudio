@@ -31,13 +31,14 @@ function(Mesh, Model, ModelInstance, Material, Constants) {
   ModelUtils.prototype.CameraWidgetModel = function(attribs) {
     // Cube centered at eye point
     var xform = mat4.identity();
-    mat4.scale(xform, [0.5, 0.5, 0.5]);
+    var s = attribs.size;
+    mat4.scale(xform, [0.5*s, 0.5*s, 0.5*s]);
     var cube = Mesh.GenerateCube(this.gl_, xform);
 
     // Elongated tetrahedron in look direction
     var xform2 = mat4.identity();
-    mat4.translate(xform2, [0,0,-2]);
-    mat4.scale(xform2, [1.5,1.5,2]);
+    mat4.translate(xform2, [0,0,-2*s]);
+    mat4.scale(xform2, [1.5*s,1.5*s,2*s]);
     var tet = Mesh.GenerateTetrahedron(this.gl_, xform2);
 
     var mat1 = new Material.ManipulatorMaterial(this.gl_, { color: attribs.color1 });
