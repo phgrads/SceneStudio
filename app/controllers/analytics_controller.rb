@@ -4,7 +4,7 @@ class AnalyticsController < ApplicationController
 
 	#Find all of the mturk collected view data for a particular scene
 	def getdata
-		@assignments = MtAssignment.find(:all)
+		@assignments = MtAssignment.where("mt_hit_id=6")
 		require 'json'
 		data = Array.new()
 		@assignments.each do |assignment|
@@ -13,7 +13,7 @@ class AnalyticsController < ApplicationController
 			if assignment.data
 				d=JSON.parse assignment.data  
 				d.each do |datum|
-					if datum.is_a?(Hash) and datum["scene"]["id"] == params[:id]
+					if datum["scene"]["id"] == params[:id]
 						data.push(datum)
 					end
 				end

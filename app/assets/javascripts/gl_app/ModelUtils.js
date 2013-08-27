@@ -28,6 +28,29 @@ function(Mesh, Model, ModelInstance, Material, Constants) {
     return new Model("Tet", components);
   };
 
+  ModelUtils.prototype.CreateGaussianModel = function(mu, attribs){
+    attribs         = attribs         || {};
+    attribs.parent  = attribs.parent  || null;
+    attribs.color   = attribs.color   || Constants.cameraMarkerDefaultColor1;
+    attribs.size    = attribs.size    || Constants.cameraMarkerDefaultSize;
+
+    // Generate marker model instance
+    var sphere = this.SphereModel(attribs.size, 10, 10, attribs.color);
+    console.log(sphere);
+    var m = new ModelInstance(sphere, attribs.parent);
+
+    // Set camera transform
+    var xform = mat4.identity();
+    var eyePos = mu;
+    mat4.translate(xform, eyePos);
+    m.transform = xform;
+
+    return m;
+  }; 
+
+
+  
+
   ModelUtils.prototype.CameraWidgetModel = function(attribs) {
     // Cube centered at eye point
     var xform = mat4.identity();
@@ -48,6 +71,8 @@ function(Mesh, Model, ModelInstance, Material, Constants) {
 
     return new Model("CameraWidget", components);
   };
+
+
 
   ModelUtils.prototype.CreateCameraMarker = function(cam, attribs) {
     // Defaults

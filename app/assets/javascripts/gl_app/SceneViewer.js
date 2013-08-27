@@ -143,7 +143,8 @@ define([
             //TODO: Load in saved camera json, not current cam
             Behaviors.keypress(this.uimap, 'C').onpress(function() {
                 console.log("key pressed");
-                this.LoadCameras("/data/analytics/cameralog.json")
+                this.LoadEMData(this.base_url + '/data/analytics/gaussiandata.json')
+                this.LoadCameras()
                 //this.LoadEMData("/data/analytics/cameralog.json");
               //var camJson = this.camera.toJSONString();
               //this.LoadCamera(camJson);
@@ -165,7 +166,6 @@ define([
                          this.scene_record.id + '/load')
                 .error(on_error).success(function(json) {
                     var scene_json = JSON.parse(json.scene);
-                    console.log(scene_json);
                     this.uilog.fromJSONString(json.ui_log);
                     this.scene.LoadFromNetworkSerialized(scene_json,
                         this.assman,
@@ -226,7 +226,6 @@ define([
         SceneViewer.prototype.LoadCameras = function(){
            this.GetSceneData("104").success(function(data){
                     for(var i = 0; i < data.length; i++){
-                        var color;
                         this.LoadCamera(data[i].camera, data[i].tag);
                     }
                 }.bind(this));         
@@ -248,21 +247,29 @@ define([
             var cam = new FPCamera(this.scene);
             cam.ResetFromJSONString(camJson);
             if(tag == 'CAMBEST'){
-                color = new Float32Array([1, 0, 0, 0.9])
+                color = new Float32Array([0, 1, 0, .8])
                 this.mturkCamerasGood.push(camJson)
             }
             else{
-                color = new Float32Array([0, 0, 1, 0.0])
+                color = new Float32Array([1, 0, 0, 0])
                 this.mturkCamerasBad.push(camJson)
             }
-            var marker = this.modelUtils.CreateCameraMarker(cam, {parent: app.scene.root, size:10.0, color1:color, color2:color });
+            var marker = this.modelUtils.CreateCameraMarker(cam, {parent: app.scene.root, size:5, color1:color, color2:color });
             this.renderer.UpdateView();
         };
 
         SceneViewer.prototype.LoadEMData = function(filename){
             $.getJSON(filename, function(json){
-                console.log(json);
-            });
+                var color = new Float32Array([0, 0, 1, .9]);
+                var size = 5;
+                for(var i= 0; i < json.NComponents; i++){
+                    var mu = vec3.create(json.mu[i]);
+                    console.log(mu);
+
+                    var g = this.modelUtils.CreateGaussianModel(mu, {parent: app.scene.root, size:size, color:color});
+                }
+                this.renderer.UpdateView();
+            }.bind(this));
         }
 
         SceneViewer.prototype.ExitTo = function(destination)
