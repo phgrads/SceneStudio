@@ -59,27 +59,13 @@ $bg2: rgba(99,147,193,0.75);
   position:absolute;
   left:200px;
   height:20%;
-  bottom:0;  
-  background-color:$bg1;
+  bottom:0;
   right:300px;
-  &:hover{
-    z-index:4;
-    position:absolute;
-    height:250%;
-    bottom:0;
-    background-color:$bg1;
-    #instructions p{
-      color:black;
-      margin-top: 20px;
-    }
-  }
-  #prompt{
-    font-weight:bold;
-    font-family:sans-serif;
-    text-align:center;
-    color:black;
-  }
-  &:hover #prompt{
-    display:none;
+  &:hover{ height:250%; }
+  #instructions p { margin-top: 20px; }
+  #prompt {
+    font: 18pt bold;
+    text-align: center;
+    &:hover { display:none; }
   }
 }
