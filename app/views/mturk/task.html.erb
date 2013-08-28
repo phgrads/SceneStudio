@@ -7,6 +7,7 @@
   <% if @via_turk and not @preview %>
     <script type="text/javascript">
     function signal_turk() {
+      var comments = document.getElementById('comments').value;
       var form = document.createElement('form');
       var id_input = document.createElement('input');
       var data_input = document.createElement('input');
@@ -15,7 +16,7 @@
       id_input.value = "<%= @assignment.mtId %>";
       data_input.type = 'hidden';
       data_input.name = 'data';
-      data_input.value = "{something: 'dummy'}";
+      data_input.value = comments;
       form.appendChild(id_input);
       form.appendChild(data_input);
       document.body.appendChild(form);
@@ -64,8 +65,10 @@
         <form>
           <label for="coupon_box">Coupon code:</label>
           <input id='coupon_box' type="text" name="coupon_code"><br />
+          <label for="comments">Comments about HIT (optional):</label>
+          <textarea id='comments' rows="2" cols="80" name="comments"></textarea>
         </form>
-        <a class='btn' onclick="submit_coupon();">Submit Coupon</a><br />
+        <button onclick="submit_coupon();">Submit Coupon</button>
       </div>
       <% else %>
       <p>
