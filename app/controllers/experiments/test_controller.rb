@@ -8,7 +8,7 @@ class Experiments::TestController < ApplicationController
     if not @via_turk then
       @task = MtTask.find_by_name!("test")
     end
-    @scene = Scene.find(104)
+    @scene = Scene.find(264)
 	render 'scenes/view'
   end
 end
