@@ -35,3 +35,6 @@
 
 #Ignore vim backups
 *.*~
+
+#Ignore db backup directory
+/db/backup
