@@ -26,4 +26,4 @@ keywords: 3D scenes, view finding, camera # defaults to nothing
 # time in seconds before the HITs are automatically removed from MTurk
 #lifetime:  # defaults to 3 days
 # maximum time in seconds for a worker to complete a HIT after accepting
-max_task_time: 90 # defaults to 1 hour
+max_task_time: 300 # defaults to 1 hour
