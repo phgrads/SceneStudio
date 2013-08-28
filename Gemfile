@@ -46,7 +46,10 @@ group :assets do
 end
 
 gem 'jquery-rails', '2.0.2'
-gem 'requirejs-rails', '0.9.0' # this version avoids relative_url bug (along with hacked in baseUrl in environments/*.rb)
+
+# requirejs-rails is broken! version 0.9.0 avoids relative_url bug (along with hacked in baseUrl in environments/*.rb)
+# but need to do rake asset:precompile with '0.9.1' and then run with '0.9.0'
+gem 'requirejs-rails', '0.9.0'
 gem 'font-awesome-sass-rails'
 
 # To use Jbuilder templates for JSON
