@@ -68,5 +68,11 @@ module SceneStudio
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # TODO: Get rid of these hacks
+    # Terrible hack to explicitly set relative url root for sprockets require statements
+    config.relative_url_root = '/scenestudio'
+    # Another terrible hack that fixes require.js-rails ignoring the above
+    config.requirejs.run_config['baseUrl'] = '/scenestudio/assets'
   end
 end

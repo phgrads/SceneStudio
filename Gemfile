@@ -46,7 +46,7 @@ group :assets do
 end
 
 gem 'jquery-rails', '2.0.2'
-gem 'requirejs-rails'
+gem 'requirejs-rails', '0.9.0' # this version avoids relative_url bug (along with hacked in baseUrl in environments/*.rb)
 gem 'font-awesome-sass-rails'
 
 # To use Jbuilder templates for JSON
