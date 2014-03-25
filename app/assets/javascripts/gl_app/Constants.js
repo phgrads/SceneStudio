@@ -94,6 +94,9 @@ Constants.textureCacheMaxSize = 20;
 // Undo stack settings
 Constants.undoStackMaxSize = 100;
 
+// Text to scene generation
+Constants.sceneGenerationUrl = Constants.base_url + "/scenes/generate";
+
 // Exports
 return Constants;
 
