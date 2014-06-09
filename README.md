@@ -3,9 +3,11 @@ WebSceneStudio
 
 Installation / Setup  (local development)
 --------------
+0. Get Ruby if not already installed (http://rubyinstaller.org/ for Windows, or follow https://www.digitalocean.com/community/articles/how-to-install-ruby-on-rails-on-ubuntu-12-04-lts-precise-pangolin-with-rvm for Ubuntu/Linux)
+
 1. clone this repository onto your machine
 
-2. get a copy of the `config/config.yml` file from your teammates or look at the `config/example.config.yml` file for some directions on how to create your own from scratch.  The values in this file are secrets, so you ABSOLUTELY don't want to put this file under version control or make it publicly available.
+2. get a copy of the `config/config.yml` file from your teammates or look at the `config/example.config.yml` file for some directions on how to create your own from scratch.  The values in this file are secrets, so you ABSOLUTELY don't want to put this file under version control or make it publicly available. For development purposes, set `HOST_BASE_URL` to localhost:3000
 
 3. download the model data directory and symlink it into `public/data`
 
