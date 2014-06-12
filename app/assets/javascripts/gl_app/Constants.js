@@ -8,12 +8,14 @@ function(){
 var Constants = {};
 
 // Asset directories
-Constants.base_url= window.globalViewData.base_url;
+Constants.base_url = window.globalViewData.base_url;
 Constants.modelDir= Constants.base_url + '/data/model/';
 Constants.geomDir= Constants.base_url + '/data/geometry/';
 Constants.textureDir = Constants.base_url + '/data/texture/';
 Constants.imageDir = Constants.base_url + '/data/image/';
 Constants.resourceDir = Constants.base_url + '/assets/';
+
+Constants.searchUrl = 'http://' + window.location.host + window.globalViewData.base_url + '/solr/select/';
 
 // Shader locations
 Constants.modelVertShaderSource = id('model.vert').text;

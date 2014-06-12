@@ -81,7 +81,7 @@ SearchController.prototype.CreateSearchResult = function(result)
 }.bind(this));
 	
 	return elem;
-}
+};
 
 SearchController.prototype.ResultSelected = function(mid)
 {
@@ -104,18 +104,18 @@ SearchController.prototype.ResultSelected = function(mid)
 	this.app.BeginModelInsertion(resultElem.attr('id'), function() {
 	   this.ModelRetrieved(resultElem.attr('id'));
     }.bind(this));
-}
+};
 
 SearchController.prototype.ModelRetrieved = function(mid)
 {
 	this.app.ToggleBusy(false);
-}
+};
 
 SearchController.prototype.ResultDeselected = function(mid)
 {
 	var resultElem = $('#'+mid);
 	resultElem.removeClass('selected');
-}
+};
 
 SearchController.encodeQueryText = function(text)
 {
@@ -125,7 +125,7 @@ SearchController.encodeQueryText = function(text)
 	text = encodeURIComponent(text);
 	text = text.replace(/%20/g, '+');
 	return text;
-}
+};
 
 SearchController.prototype.DoSearch = function(querytext)
 {
@@ -146,8 +146,8 @@ SearchController.prototype.DoSearch = function(querytext)
 	$.ajax
 	({
 		type: 'GET',
-		url: 'http://' + window.location.host + window.globalViewData.base_url + '/solr/select/',
-		data:
+		url: Constants.searchUrl,
+        data:
 		{
 			'q': SearchController.encodeQueryText(querytext),
 			'wt': 'json',
@@ -160,7 +160,7 @@ SearchController.prototype.DoSearch = function(querytext)
 		error: this.SearchFailed.bind(this),
 		timeout: 3000		// in milliseconds. With JSONP, this is the only way to get the error handler to fire.
 	});
-}
+};
 
 /**
  'data' is a Solr JSON response object
@@ -168,7 +168,7 @@ SearchController.prototype.DoSearch = function(querytext)
 SearchController.prototype.SearchSucceeded = function(data, textStatus, jqXHR)
 {
 	this.PopulateWithResults(data.response.docs);
-}
+};
 
 SearchController.prototype.SearchFailed = function(jqXHR, textStatus, errorThrown)
 {
@@ -179,7 +179,7 @@ SearchController.prototype.SearchFailed = function(jqXHR, textStatus, errorThrow
 		  '<br/>' +
 		  '<span>Error: ' + textStatus + ' ' + errorThrown + '</span>')
 	);
-}
+};
 
 /**
  'resultList' is a list of objects with 'name' and 'id' properties
@@ -205,7 +205,7 @@ SearchController.prototype.PopulateWithResults = function(resultList)
 	{
 		this.results.append(this.CreateSearchResult(resultList[i]));
 	}
-}
+};
 
 
 // Exports
