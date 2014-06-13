@@ -30,12 +30,12 @@
           <div class="field control-group">
             <%= label_tag :name, nil, class: 'control-label' %>
             <div class='controls'>
-              <%= text_field_tag :name %>
+              <%= text_field_tag :name, nil, autofocus: 'autofocus' %>
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button class="btn"
+          <button type="button" class="btn"
                   data-dismiss="modal" aria-hidden="true">
             Cancel
           </button>
