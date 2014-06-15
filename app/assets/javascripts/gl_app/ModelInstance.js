@@ -151,7 +151,7 @@ ModelInstance.prototype.Remove = function()
 ModelInstance.prototype.Bounds = function()
 {
 	return this.model.bbox.Transform(this.transform);
-}
+};
 
 ModelInstance.prototype.CascadingRotate = function (rotate)
 {
@@ -414,6 +414,7 @@ ModelInstance.prototype.FirstTransform = function(xform)
     mat4.translate(m, d);
     mat4.multiply(m, xform, xform);
 
+    // Rotate
     mat4.identity(m);
     mat4.face(axis, vec3.createFrom(0.0, 0.0, 1.0), m);
     mat4.multiply(m, xform, xform);
@@ -439,10 +440,12 @@ ModelInstance.prototype.SecondTransform = function(xform, opt_doLocalRotation)
 		mat4.rotateZ(m, this.rotation);
 		mat4.multiply(m, xform, xform);
 	}
-	
+
     // Coordinate frame transform
 	m = this.coordFrame.ToBasisMatrix();
 	mat4.multiply(m, xform, xform);
+    // Multiple parent rotation
+    mat4.multiply(this.parent.normalTransform, xform, xform);
 
     // Translate to anchor position (+ small z offset to avoid coplanarity)
 	mat4.identity(m);
