@@ -78,7 +78,7 @@ SearchController.prototype.CreateSearchResult = function(result)
 				
 	elem.click(function() {
 	   this.ResultSelected(elem.attr('id'));
-}.bind(this));
+    }.bind(this));
 	
 	return elem;
 };
