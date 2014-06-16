@@ -10,7 +10,7 @@ vec3.sphericalCoords = function(src, dst)
 	dst[1] = Math.acos(src[2] / dst[0]);
 	// phi
 	dst[2] = Math.atan2(src[1], src[0]);
-}
+};
 
 vec3.sphericalToRectangular = function(r, phi, theta, dst)
 {
@@ -18,7 +18,7 @@ vec3.sphericalToRectangular = function(r, phi, theta, dst)
 	dst[0] = rSinTheta*Math.cos(phi);
 	dst[1] = rSinTheta*Math.sin(phi);
 	dst[2] = r*Math.cos(theta);
-}
+};
 
 mat4.createFromRows = function(v0, v1, v2, v3)
 {
@@ -28,14 +28,14 @@ mat4.createFromRows = function(v0, v1, v2, v3)
 	args.concat(v2);
 	args.concat(v3);
 	return mat4.createFrom.apply(this, args);
-}
+};
 
 mat4.createFromColumns = function(v0, v1, v2, v3)
 {
 	var m = mat4.createFromRows(v0, v1, v2, v3);
 	mat4.transpose(m);
 	return m;
-}
+};
 
 /*
  * from and to must be normalized.
@@ -58,7 +58,49 @@ vec3.makeOrthonormalBasis = function (vec, dest0, dest1)
     }
     vec3.cross(dest0, vec, dest1);
     vec3.normalize(dest0);
-}
+};
+
+mat3.col = function (m, i)
+{
+    var v = vec3.createFrom(m[i], m[i+3], m[i+6]);
+    return v;
+};
+
+mat3.setCol = function (m, i, v)
+{
+    m[i] = v[0]; m[i+3] = v[1]; m[i+6] = v[2];
+};
+
+mat3.row = function (m, i)
+{
+    var v = vec3.createFrom(m[i*3], m[i*3+1], m[i*3+2]);
+    return v;
+};
+
+mat3.setRow = function (m, i, v)
+{
+    m[i*3] = v[0]; m[i*3+1] = v[1]; m[i*3+2] = v[2];
+};
+
+mat3.normalize = function (m, dest)
+{
+    if (!dest) { dest = m; }
+    for (var i = 0; i < 3; i++) {
+        var v = mat3.col(m, i);
+        vec3.normalize(v);
+        mat3.setCol(dest, i, v);
+    }
+    return dest;
+};
+
+mat4.toNormalizedRotationMat = function (m, dest)
+{
+    if (!dest) { dest = m; }
+    var m3 = mat4.toMat3(m);
+    mat3.normalize(m3);
+    mat3.toMat4(m3, dest);
+    return dest;
+};
 
 /*
  * from and to must be normalized.
@@ -95,7 +137,7 @@ mat4.face = function (from, to, dest)
     }
 
     return dest;
-}
+};
 
 vec3.unproject = function (vec, view, proj, viewport, dest) {
     if (!dest) { dest = vec; }
@@ -132,7 +174,7 @@ vec3.signedAngleBetween = function(vec1, vec2, planeNormal)
 	var ang = Math.atan2(sina, cosa);
 	var sign = vec3.dot(planeNormal, tmp);
 	return (sign < 0 ? -ang : ang);
-}
+};
 
 vec3.toJSON = function(v)
 {

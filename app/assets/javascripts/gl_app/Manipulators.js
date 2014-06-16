@@ -91,12 +91,12 @@ Manipulator.prototype.CreateFocusListener = function()
 Manipulator.prototype.Attach = function(mInst)
 {
 	this.ownerInstance = mInst;
-}
+};
 
 Manipulator.prototype.Detach = function()
 {
 	this.ownerInstance = null;
-}
+};
 
 Manipulator.prototype.UpdateTransform = function()
 {
@@ -117,8 +117,8 @@ Manipulator.prototype.UpdateTransform = function()
     mat4.multiply(m, this.transform, this.transform);
 	
 	// Update normal transform
-	mat4.toRotationMat(this.transform, this.normalTransform);
-}
+	mat4.toNormalizedRotationMat(this.transform, this.normalTransform);
+};
 
 Manipulator.prototype.CommonDrawSetup = function(renderer)
 {
@@ -126,7 +126,7 @@ Manipulator.prototype.CommonDrawSetup = function(renderer)
 	
 	mat4.multiply(renderer.viewProj_, this.transform, renderer.mvp_);
     gl.uniformMatrix4fv(renderer.activeProgram_.uniformLocs.u_mvp, false, renderer.mvp_);
-}
+};
 
 Manipulator.prototype.Draw = function(renderer)
 {
@@ -136,7 +136,7 @@ Manipulator.prototype.Draw = function(renderer)
 		this.CommonDrawSetup(renderer);
 		this.model.Draw(renderer);
 	}
-}
+};
 
 Manipulator.prototype.Pick = function(renderer, manipID)
 {
@@ -145,19 +145,19 @@ Manipulator.prototype.Pick = function(renderer, manipID)
 		this.CommonDrawSetup(renderer);
 		this.model.Pick(renderer, manipID);
 	}
-}
+};
 
 Manipulator.prototype.SpawnTooltip = function(data)
 {
 	this.tooltip = $('<span class="tooltip">' + this.tooltipText + '</span>');
 	$('#graphicsArea').append(this.tooltip);
 	this.MoveTooltip(data);
-}
+};
 
 Manipulator.prototype.MoveTooltip = function(data)
 {
 	this.tooltip.offset({left: data.x, top: data.y + Constants.toolTipYOffset});
-}
+};
 
 Manipulator.prototype.KillTooltip = function(data)
 {
@@ -168,7 +168,7 @@ Manipulator.prototype.KillTooltip = function(data)
 	}
 	$('.tooltip').remove();
 	this.tooltip = null;
-}
+};
 
 Manipulator.prototype.Hover = function(data)
 {
@@ -181,7 +181,7 @@ Manipulator.prototype.Hover = function(data)
             Constants.toolTipDelay
         );
 	}
-}
+};
 
 // This is useful for lots of manipulator interactions
 Manipulator.prototype.PickPlane = function(data)
@@ -190,7 +190,7 @@ Manipulator.prototype.PickPlane = function(data)
 	var pp = this.ownerInstance.parentPos;
 	var pn = cf.w;
 	return data.app.renderer.picker.PickPlane(data.x, data.y, pp, pn, data.app.camera, data.app.renderer);
-}
+};
 
 
 //// Rotation Manipulator ////
@@ -249,7 +249,7 @@ RotationManipulator.prototype.ConfigureFocusListener = function()
         .onfinish(this.EndMouseInteract.bind(this))
         .oncancel(this.EndMouseInteract.bind(this))
         ;
-}
+};
 
 
 RotationManipulator.prototype.RegenGeometry = function(newRi)
@@ -266,7 +266,7 @@ RotationManipulator.prototype.RegenGeometry = function(newRi)
 	var n0 = 0;
 	var n1 = 0.5 * Math.PI;
 	var n2 = Math.PI;
-	var n3 = 1.5 * Math.PI
+	var n3 = 1.5 * Math.PI;
 	var hw = 0.5 * Constants.rotateNotchWidth;
 	var slices = Constants.rotateNotchSlices;
 	var zoff = Constants.rotateNotchExtraOffset;
@@ -277,7 +277,7 @@ RotationManipulator.prototype.RegenGeometry = function(newRi)
 	
 	// Finalize the model
 	this.model = new Model("RotationManipulator", components);
-}
+};
 
 RotationManipulator.prototype.Attach = function(mInst)
 {
@@ -291,7 +291,7 @@ RotationManipulator.prototype.Attach = function(mInst)
 	};
 	mInst.Subscribe('Scaled', this, regenfunc);
 	mInst.Subscribe('Tumbled', this, regenfunc);
-}
+};
 
 RotationManipulator.prototype.Detach = function()
 {
@@ -300,7 +300,7 @@ RotationManipulator.prototype.Detach = function()
 	this.ownerInstance.Unsubscribe('Tumbled', this);
 	
 	Manipulator.prototype.Detach.call(this);
-}
+};
 
 RotationManipulator.prototype.BeginMouseInteract = function(data)
 {
@@ -309,7 +309,7 @@ RotationManipulator.prototype.BeginMouseInteract = function(data)
 	
 	this.actualAbsoluteAng = this.ownerInstance.rotation;
 	this.snappedAbsoluteAng = this.ownerInstance.rotation;
-}
+};
 
 RotationManipulator.prototype.ContinueMouseInteract = function(data)
 {
@@ -324,13 +324,13 @@ RotationManipulator.prototype.ContinueMouseInteract = function(data)
 	this.ownerInstance.CascadingRotate(ang);
 	
 	vec3.set(this.currVector, this.prevVector);
-}
+};
 
 RotationManipulator.prototype.EndMouseInteract = function(data)
 {
     data.app.undoStack.pushCurrentState(UndoStack.CMDTYPE.ROTATE,
                                         this.ownerInstance);
-}
+};
 
 RotationManipulator.prototype.SnapAbsoluteAng = function()
 {
@@ -347,12 +347,12 @@ RotationManipulator.prototype.SnapAbsoluteAng = function()
 		this.snappedAbsoluteAng = this.actualAbsoluteAng + -HALFPI-rotmod;
 	
 	else this.snappedAbsoluteAng = this.actualAbsoluteAng;
-}
+};
 
 RotationManipulator.prototype.AbsoluteAngToRelativeAng = function(absAng)
 {
 	return absAng - this.ownerInstance.rotation;
-}
+};
 
 
 
@@ -407,7 +407,7 @@ ScaleManipulator.prototype.ConfigureFocusListener = function()
         .onfinish(this.EndMouseInteract.bind(this))
         .oncancel(this.EndMouseInteract.bind(this))
         ;
-}
+};
 
 
 ScaleManipulator.prototype.RegenGeometry = function(newR)
@@ -431,7 +431,7 @@ ScaleManipulator.prototype.RegenGeometry = function(newR)
 	
 	// Finalize the model
 	this.model = new Model("ScaleManipulator", components);
-}
+};
 
 ScaleManipulator.prototype.Attach = function(mInst)
 {
@@ -445,7 +445,7 @@ ScaleManipulator.prototype.Attach = function(mInst)
 	};
 	mInst.Subscribe('Scaled', this, regenfunc);
 	mInst.Subscribe('Tumbled', this, regenfunc);
-}
+};
 
 ScaleManipulator.prototype.Detach = function()
 {
@@ -454,13 +454,13 @@ ScaleManipulator.prototype.Detach = function()
 	this.ownerInstance.Unsubscribe('Tumbled', this);
 	
 	Manipulator.prototype.Detach.call(this);
-}
+};
 
 ScaleManipulator.prototype.BeginMouseInteract = function(data)
 {
 	var isect = this.PickPlane(data);
 	vec3.subtract(isect.position, this.ownerInstance.parentPos, this.prevVector);
-}
+};
 
 ScaleManipulator.prototype.ContinueMouseInteract = function(data)
 {
@@ -471,13 +471,13 @@ ScaleManipulator.prototype.ContinueMouseInteract = function(data)
 	this.ownerInstance.CascadingScale(ldiff * Constants.scaleMagnitudeMultiplier);
 
 	vec3.set(this.currVector, this.prevVector);
-}
+};
 
 ScaleManipulator.prototype.EndMouseInteract = function(data)
 {
     data.app.undoStack.pushCurrentState(UndoStack.CMDTYPE.SCALE,
                                         this.ownerInstance);
-}
+};
 
 
 // Exports

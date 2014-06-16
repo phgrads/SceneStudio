@@ -384,8 +384,8 @@ ModelInstance.prototype.UpdateTransform = function ()
 	this.FirstTransform(this.transform);
 	this.SecondTransform(this.transform);
 
-    // Update inverse transpose
-    mat4.toRotationMat(this.transform, this.normalTransform);
+    // Update normalized rotation matrix
+    mat4.toNormalizedRotationMat(this.transform, this.normalTransform);
 };
 
 // Make the object upright and sitting at the origin at the correct size
@@ -432,19 +432,22 @@ ModelInstance.prototype.SecondTransform = function(xform, opt_doLocalRotation)
 	
 	var anchorInfo = this.parent.EvaluateSurface(this.parentMeshI, this.parentTriI, this.parentUV);
 	vec3.set(anchorInfo.position, this.parentPos);
-	
+    var m = mat4.identity(mat4.create());
+
 	if (doLocalRot)
 	{
 		// Rotation relative to coordinate frame
-		var m = mat4.identity(mat4.create());
 		mat4.rotateZ(m, this.rotation);
 		mat4.multiply(m, xform, xform);
 	}
 
+    // TODO: This coord frame transform enables self-orienting on parent surfaces but overcompensates for rotation
+    //       Disabled for now, but can add option for self-orienting in future
     // Coordinate frame transform
-	m = this.coordFrame.ToBasisMatrix();
-	mat4.multiply(m, xform, xform);
-    // Multiple parent rotation
+	//m = this.coordFrame.ToBasisMatrix();
+	//mat4.multiply(m, xform, xform);
+
+    // Multiply parent rotation
     mat4.multiply(this.parent.normalTransform, xform, xform);
 
     // Translate to anchor position (+ small z offset to avoid coplanarity)
