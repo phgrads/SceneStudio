@@ -68,9 +68,10 @@ SearchController.prototype.CreateSearchResult = function(result)
 {
 	var elem = $('<div></div>')
 				.attr('id', result.id)
+                .data('metadata', result)
 				.addClass('searchResultContainer')
 				.append($('<span>' + result.name + '</span>')
-                    .attr('title', result.name))
+                    .attr('title', result.name + ", unit: " + result.unit))
 				.append($('<img src="' +
 				          Constants.imageDir + result.id +
 				          '.jpg"></img>')
@@ -101,7 +102,7 @@ SearchController.prototype.ResultSelected = function(mid)
 	
 	resultElem.siblings().removeClass('selected');
 	resultElem.addClass('selected');
-	this.app.BeginModelInsertion(resultElem.attr('id'), function() {
+	this.app.BeginModelInsertion(resultElem.attr('id'), resultElem.data('metadata'), function() {
 	   this.ModelRetrieved(resultElem.attr('id'));
     }.bind(this));
 };
@@ -152,7 +153,9 @@ SearchController.prototype.DoSearch = function(querytext)
 			'q': SearchController.encodeQueryText(querytext),
 			'wt': 'json',
             'rows': '100',
-			'fl': 'name,id'
+            // Limit to web scene studio models for now
+            'fq': '+source:wss',
+			'fl': 'name,id,unit'
 		},
 		dataType: 'jsonp',	 	// At some point, we might want to switch to a PHP script that queries Solr locally, and then we could use regular JSON again.
 		jsonp: 'json.wrf',		// Solr requires the JSONP callback to have this name.

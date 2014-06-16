@@ -16,7 +16,7 @@ AssetCache.MakeCacheEntry = function(id, asset, aSize)
 		aSize: aSize,
 		timestamp: Date.now()
 	};
-}
+};
 
 AssetCache.prototype.GetAsset = function(id)
 {
@@ -24,7 +24,7 @@ AssetCache.prototype.GetAsset = function(id)
 		return this.cache[id].asset;
 	else
 		return null;
-}
+};
 
 // 'aSize' may be omitted, in which case it is assumed to be 1
 // (i.e. we aren't actually computing the sizes of assets and are
@@ -44,7 +44,7 @@ AssetCache.prototype.AddAsset = function(id, asset, aSize)
 	}
 	
 	this.cache[id] = AssetCache.MakeCacheEntry(id, asset, aSize);
-}
+};
 
 AssetCache.prototype.ComputeSize = function()
 {
@@ -57,7 +57,7 @@ AssetCache.prototype.ComputeSize = function()
 		}
 	}
 	return s;
-}
+};
 
 AssetCache.prototype.FindLRU = function()
 {
@@ -76,12 +76,12 @@ AssetCache.prototype.FindLRU = function()
 		}
 	}
 	return lru;
-}
+};
 
 AssetCache.prototype.Clear = function()
 {
 	this.cache = {};
-}
+};
 
 // Exports
 return AssetCache;

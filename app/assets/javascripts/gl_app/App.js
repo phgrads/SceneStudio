@@ -156,7 +156,7 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
                 this.ContinueModelInsertion(data.x, data.y);
             }.bind(this))
             .oncancel(function(data) {
-                this.CancelModelInsertion(data.instance)
+                this.CancelModelInsertion(data.instance);
                 focus.finish_interruption();
             }.bind(this));
         
@@ -561,7 +561,7 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
     
     // This call is only being used by the Search Controller.
     // It may be very poorly designed for anything else...
-    App.prototype.BeginModelInsertion = function (modelid, callback)
+    App.prototype.BeginModelInsertion = function (modelid, metadata, callback)
     {
         // If there is an existing insert instance (meaning, we were already in
         // model insertion mode), then clear this hoverinstance and release
@@ -577,6 +577,10 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
         // so that things can be updated appropriately there.
         this.assman.GetModel(modelid, function (model)
         {
+            model.metadata = metadata;
+            console.log("Got metadata: ");
+            console.log(model.metadata);
+
             if(this.insertion_behavior.isActive())  {
                 console.log("ERROR!!!  Race On Model Insertion!");
                 console.log("   Last One in wins!");

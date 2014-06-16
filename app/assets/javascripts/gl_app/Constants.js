@@ -15,7 +15,15 @@ Constants.textureDir = Constants.base_url + '/data/texture/';
 Constants.imageDir = Constants.base_url + '/data/image/';
 Constants.resourceDir = Constants.base_url + '/assets/';
 
-Constants.searchUrl = 'http://' + window.location.host + window.globalViewData.base_url + '/solr/select/';
+Constants.searchUrl = 'http://' + window.location.host + window.globalViewData.base_url + '/solr/select';
+
+// Smart scene editing options
+Constants.autoSize = true;
+Constants.autoOrient = false;
+
+// Default for scale
+Constants.defaultModelUnit = 0.0254; // Use inches as the default unit
+Constants.metersToVirtualUnit = 1.0/0.0254; // Use virtual unit of inches
 
 // Shader locations
 Constants.modelVertShaderSource = id('model.vert').text;

@@ -7,12 +7,13 @@ define([
 function(BBox, Picker){
 
 // 'components' is an array of { mesh, material, optional_attribs } tuples
-function Model(id, components)
+function Model(id, components, metadata)
 {
     var self = this;
 
 	this.id = id;
 	this.components = components;
+    this.metadata = metadata;
 
 	this.bbox = new BBox();
     this.bbox.FromBBox(components[0].mesh.bbox);
@@ -35,7 +36,7 @@ Model.prototype.ListTexturesUsed = function()
 		texlist.push(tex);
 	}
 	return texlist;
-}
+};
 
 Model.ComponentShouldBeDrawn = function(comp, options)
 {
@@ -50,7 +51,7 @@ Model.ComponentShouldBeDrawn = function(comp, options)
 	should |= (options.isInserting && options.renderTransparent); 
 	
 	return should;
-}
+};
 
 Model.prototype.Draw = function(renderer)
 {
@@ -68,7 +69,7 @@ Model.prototype.Draw = function(renderer)
 			comp.mesh.bindAndDraw(program);
 		}
 	}
-}
+};
 
 Model.prototype.Pick = function(renderer, instanceID)
 {
@@ -87,7 +88,7 @@ Model.prototype.Pick = function(renderer, instanceID)
 		Model.ProcessAttribs(comp.attribs, renderer);
 		comp.mesh.bindAndDraw(program);
 	}
-}
+};
 
 Model.ProcessAttribs = function(attribs, renderer)
 {
@@ -97,12 +98,12 @@ Model.ProcessAttribs = function(attribs, renderer)
 		gl.disable(gl.CULL_FACE);
 	else
 		gl.enable(gl.CULL_FACE);
-}
+};
 
 Model.prototype.EvaluateSurface = function(meshI, triI, uv)
 {
 	return this.components[meshI].mesh.EvaluateSurface(triI, uv);
-}
+};
 
 
 

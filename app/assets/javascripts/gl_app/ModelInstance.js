@@ -192,19 +192,25 @@ ModelInstance.prototype.Tumble = function()
 
 ModelInstance.prototype.SetReasonableScale = function (scene)
 {
-    var sceneSize = vec3.length(scene.root.model.bbox.Dimensions());
-    var mySize = vec3.length(this.model.bbox.Dimensions());
+    if (Constants.autoSize && this.model.metadata && this.model.metadata.unit) {
+        this.scale = this.model.metadata.unit*Constants.metersToVirtualUnit;
+    } else {
+        this.scale = Constants.defaultModelUnit*Constants.metersToVirtualUnit;
+        var sceneSize = vec3.length(scene.root.model.bbox.Dimensions());
+        var mySize = this.scale*vec3.length(this.model.bbox.Dimensions());
 
-    this.scale = 1.0;
-    if (mySize < 0.05 * sceneSize)
-    {
-        this.scale = 0.05 * sceneSize / mySize;
+        if (mySize < 0.05 * sceneSize)
+        {
+            this.scale = 0.05 * sceneSize / mySize;
+        }
+        if (mySize > 0.25 * sceneSize)
+        {
+            this.scale = 0.25 * sceneSize / mySize;
+        }
     }
-    if (mySize > 0.25 * sceneSize)
-    {
-        this.scale = 0.25 * sceneSize / mySize;
-    }
+    console.log("Set scale to: " + this.scale );
 };
+
 
 ModelInstance.prototype.SetParent = function(parInst)
 {
@@ -279,7 +285,7 @@ ModelInstance.prototype.UpdateStateFromRayIntersection = function(isect)
 	var newParent = isect.inst;
 
     // Ignore intersection if picked parent is not a ModelInstance
-    // TODO: This uses a custom type check hack for now. BEWARE OF instaceOf, it is INCONSISTENT
+    // TODO: This uses a custom type check hack for now. BEWARE OF instanceOf, it is INCONSISTENT
     if (!(newParent.type && newParent.type === "ModelInstance")) {
         //TODO: Would be cleaner to modify pickability of Manipulators instead
         return;
@@ -291,7 +297,7 @@ ModelInstance.prototype.UpdateStateFromRayIntersection = function(isect)
 	this.parentUV = isect.uv;
 	
 	/** Update coordinate frame **/
-	
+
 	// Save old coordinate frame information
 	var prevCoordFrame = new CoordinateFrame();
 	prevCoordFrame.FromCoordinateFrame(this.coordFrame);
@@ -304,14 +310,15 @@ ModelInstance.prototype.UpdateStateFromRayIntersection = function(isect)
 	// ending up unexpectedly rotated if it is quickly dragged across surfaces of
 	// different orientation.
 	this.moveState && vec3.normalize(isect.normal);
-	var equivalentToOrignal = this.moveState && vec3.dot(isect.normal, this.moveState.origFrame.w) > 0.999;
-	if (equivalentToOrignal)
+	var equivalentToOriginal = this.moveState && vec3.dot(isect.normal, this.moveState.origFrame.w) > 0.999;
+	if (equivalentToOriginal)
 	{
 		this.coordFrame.FromCoordinateFrame(this.moveState.origFrame);
 		this.rotation = this.moveState.origRot;
 	}
 	else
 	{
+//        console.log("Not equivalent to original surface normal!!!");
 		this.coordFrame.Face(isect.normal);
 	}	
 	
@@ -319,9 +326,10 @@ ModelInstance.prototype.UpdateStateFromRayIntersection = function(isect)
 	// coordinate frame accordingly
 	if (oldParent !== this.parent)
 	{
+//        console.log("Resetting Coordinate Frame!!!");
 		this.ResetCoordFrame();
 		// And, if we're in the middle of a move, we may need to update the origFrame
-		if (equivalentToOrignal)
+		if (equivalentToOriginal)
 		{
 			this.moveState.origFrame.FromCoordinateFrame(this.coordFrame);
 			this.moveState.origRot = this.rotation;
@@ -335,8 +343,7 @@ ModelInstance.prototype.UpdateStateFromRayIntersection = function(isect)
 	this.rotation = prevRot;
 	this.TransformCoordFrameCascading(xform);
 	this.CascadingRotate(rotdiff);
-	
-	
+
 	this.UpdateTransformCascading();
 	this.Publish('Moved');
 };
