@@ -36,7 +36,7 @@ Scene.prototype.Bounds = function()
 	for (var i = 1; i < this.modelList.length; i++)
 		bbox.ExpandBBox(this.modelList[i].Bounds());
 	return bbox;
-}
+};
 
 Scene.prototype.AddManipulator = function (manip)
 {
@@ -159,9 +159,9 @@ Scene.prototype.SerializeBare = function()
 	this.modelList.forEach(function(model) {
 		model.UpdateTransform();
 		mlist.push({ modelID: model.modelID, transform: model.transform});
-	})
+	});
 	return JSON.stringify(mlist);
-}
+};
 
 Scene.prototype.SerializeForLocal = function()
 {
