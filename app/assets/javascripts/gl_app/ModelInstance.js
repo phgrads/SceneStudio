@@ -89,12 +89,14 @@ ModelInstance.fromJSONString = function(string, assman, modelMap, callback)
         newMinst.cubeFace = json.cubeFace;
         newMinst.scale = json.scale;
         newMinst.rotation = json.rotation;
-        newMinst.renderState = {
-            isPickable: json.renderStateArr[0],
-            isInserting: json.renderStateArr[1],
-            isSelected: json.renderStateArr[2],
-            isSelectable: json.renderStateArr[3]
-        };
+        if (json.renderStateArr) {
+          newMinst.renderState = {
+              isPickable: json.renderStateArr[0],
+              isInserting: json.renderStateArr[1],
+              isSelected: json.renderStateArr[2],
+              isSelectable: json.renderStateArr[3]
+          };
+        }
         newMinst.coordFrame = new CoordinateFrame(json.cu, json.cv, json.cw);
 
         // If transform was stored in json, re-instate it here

@@ -38,10 +38,25 @@ define(['./TextToSceneGenerator',
     }
 
     TextToScene.prototype.LoadScene = function(json) {
-      var on_success = undefined;
+      var on_success = function() {
+        // on success finish up some setup
+        // TODO: Use camera from loaded scene state
+        this.camera.SaveStateForReset();
+        this.camera.UpdateSceneBounds(this.scene.Bounds());
+        this.undoStack.clear();
+        this.renderer.postRedisplay();
+      }.bind(this.app);
       var scene_json = JSON.parse(json[0].data);
       // Reserialize the models as an array of strings
       var reserialized = scene_json.map( function(x) {
+        // Strip "wss." from modelID
+        // TODO: Have AssetManager handle fullIds and models from other sources...
+        //console.log(x);
+        if (x.modelID.startsWith("wss.")) {
+          x.modelID = x.modelID.substring(4);
+        }
+        // TODO: Do something about the renderState...
+        // x.renderStateArr = ???
         return JSON.stringify(x)
       });
       //TODO: Update this.app.uilog
