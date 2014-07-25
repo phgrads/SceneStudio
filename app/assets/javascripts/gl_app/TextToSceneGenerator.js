@@ -4,7 +4,7 @@
 
 'use strict';
 
-define(['Constants'],
+define(['./Constants'],
     function(Constants)
 {
     function TextToSceneGenerator(params) {
@@ -20,14 +20,14 @@ define(['Constants'],
         }
     }
 
-    TextToSceneGenerator.prototype.generate = function(text, generateSucceededCallback, generateFailedCallback) {
+    TextToSceneGenerator.prototype.generate = function(text, currentSceneState, generateSucceededCallback, generateFailedCallback) {
         if (!generateSucceededCallback) {
             // Use default generate succeeded callback
-            generateSucceededCallback = this.generateSucceeded.bind(this)
+            generateSucceededCallback = this.generateSucceeded.bind(this);
         }
         if (!generateFailedCallback) {
             // Use default generate failed callback
-            generateFailedCallback = this.generateFailed.bind(this)
+            generateFailedCallback = this.generateFailed.bind(this);
         }
 
         var url = Constants.sceneGenerationUrl;
@@ -35,6 +35,17 @@ define(['Constants'],
             'text': text,
             'nscenes': 1
         };
+        if (currentSceneState && !text.startsWith("generate")) {
+          // Some kind of interaction, let's pass the current scene state
+          var ss = currentSceneState.toJsonString();
+          queryData['initialSceneState'] = ss;
+        } else {
+          queryData['options'] = {
+            sceneUp: Constants.defaultSceneUp,
+            sceneFront: Constants.defaultSceneFront,
+            sceneUnit: Constants.defaultSceneUnit
+          };
+        }
         var method = 'POST';
         $.ajax
         ({
@@ -54,8 +65,7 @@ define(['Constants'],
         if (this.generateSucceededCallback) {
             this.generateSucceededCallback(data.results.scenes);
         } else {
-            console.log( "got scene " + data )
-
+            console.log( "got scene " + data );
         }
     };
 
@@ -64,7 +74,7 @@ define(['Constants'],
         if (this.generateFailedCallback) {
             this.generateFailedCallback(jqXHR, textStatus, errorThrown);
         } else {
-            console.log( textStatus + ' ' + errorThrown )
+            console.log( textStatus + ' ' + errorThrown );
         }
     };
 

@@ -11,4 +11,5 @@ use Rack::ReverseProxy do
   reverse_proxy /^\/data\/?(.*)$/, 'http://dovahkiin.stanford.edu/scenestudio/data/$1'
 #  reverse_proxy /^\/solr\/?(.*)$/, 'http://dovahkiin.stanford.edu/scenestudio/solr/$1'
   reverse_proxy /^\/solr\/?(.*)$/, 'http://dovahkiin.stanford.edu/fuzzybox/models3d/solr/$1'
+  reverse_proxy /^\/text2scene\/?(.*)$/, 'http://dovahkiin.stanford.edu/fuzzybox/scenes/$1'
 end
