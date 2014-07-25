@@ -5,10 +5,10 @@
 <div class="span6 offset3">
 
   <ul class="unstyled">
-    <li><%= link_to image_tag('twitter_32.png', alt: 'Twitter') +
-                ' Twitter', base_url + '/auth/twitter' %></li>
-    <li><%= link_to image_tag('google_32.png', alt: 'Google') +
-                ' Google', base_url + '/auth/google_oauth2' %></li>
+    <li><%= link_to(image_tag('twitter_32.png') +
+                ' Twitter', base_url + '/auth/twitter') %></li>
+    <li><%= link_to(image_tag('google_32.png') +
+                ' Google', base_url + '/auth/google_oauth2') %></li>
   </ul>
 
   <div style="margin:10px 0px">

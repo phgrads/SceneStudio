@@ -1,14 +1,14 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
+gem 'rake', '10.1.0'
 gem 'bootstrap-sass', '2.1'
 gem 'bcrypt-ruby', '~> 3.0.1'
 gem 'faker', '1.0.1'
 
-
-gem 'omniauth-twitter'
-gem 'omniauth-google-oauth2'
-gem 'omniauth-identity'
+gem 'omniauth-twitter', '1.0.0'
+gem 'omniauth-google-oauth2', '0.2.0'
+gem 'omniauth-identity', '1.1.1'
 
 gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.6'
@@ -45,8 +45,8 @@ group :assets do
 end
 
 gem 'jquery-rails', '2.0.2'
-gem 'requirejs-rails'
-gem 'font-awesome-sass-rails'
+gem 'requirejs-rails', '0.9.1'
+gem 'font-awesome-sass-rails', '3.0.2.2'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
