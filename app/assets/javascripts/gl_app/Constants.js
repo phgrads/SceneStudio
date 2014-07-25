@@ -15,7 +15,9 @@ Constants.textureDir = Constants.base_url + '/data/texture/';
 Constants.imageDir = Constants.base_url + '/data/image/';
 Constants.resourceDir = Constants.base_url + '/assets/';
 
+// Model search url
 Constants.searchUrl = 'http://' + window.location.host + window.globalViewData.base_url + '/solr/select';
+// Text to scene generation
 Constants.sceneGenerationUrl = 'http://' + window.location.host + window.globalViewData.base_url + '/text2scene/generate';
 
 // Smart scene editing options
@@ -107,9 +109,6 @@ Constants.textureCacheMaxSize = 20;
 
 // Undo stack settings
 Constants.undoStackMaxSize = 100;
-
-// Text to scene generation
-Constants.sceneGenerationUrl = Constants.base_url + "/scenes/generate";
 
 // Exports
 return Constants;

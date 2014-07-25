@@ -12,7 +12,9 @@ define(['./TextToSceneGenerator',
   {
     function TextToScene(app) {
       this.app = app;
-      this.text2scene = new TextToSceneGenerator();
+      this.text2scene = new TextToSceneGenerator( {
+        generateSucceededCallback: this.LoadScene.bind(this)
+      });
       var textConsole = $("#console");
       if (textConsole) {
         var controller = textConsole.console({
@@ -34,6 +36,19 @@ define(['./TextToSceneGenerator',
       this.console = textConsole;
 
     }
+
+    TextToScene.prototype.LoadScene = function(json) {
+      var on_success = undefined;
+      var scene_json = JSON.parse(json[0].data);
+      // Reserialize the models as an array of strings
+      var reserialized = scene_json.map( function(x) {
+        return JSON.stringify(x)
+      });
+      //TODO: Update this.app.uilog
+      this.app.scene.LoadFromNetworkSerialized(reserialized,
+        this.app.assman,
+        on_success);
+    };
 
     TextToScene.prototype.ToggleConsole = function ()
     {
