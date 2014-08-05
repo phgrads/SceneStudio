@@ -94,7 +94,7 @@ Mesh.prototype.Delete = function()
 	var gl = this.gl_;
 	gl.deleteBuffer(this.ibo_);
 	gl.deleteBuffer(this.vbo_);
-}
+};
 
 Mesh.prototype.bind = function(program) {
   var gl = this.gl_;
@@ -126,7 +126,7 @@ Mesh.prototype.ComputeBoundingBox = function()
 		vec3.set([this.vertices[base], this.vertices[base+1], this.vertices[base+2]], tmp);
 		this.bbox.ExpandPoint(tmp);
 	}
-}
+};
 
 Mesh.prototype.EvaluateSurface = function(triI, uv)
 {
@@ -162,7 +162,7 @@ Mesh.prototype.EvaluateSurface = function(triI, uv)
 	vec3.normalize(result.normal);
 	
 	return result;
-}
+};
 
 Mesh.prototype.GetTriangle = function(index, dest)
 {
@@ -170,7 +170,7 @@ Mesh.prototype.GetTriangle = function(index, dest)
 	dest[0] = this.indices[base];
 	dest[1] = this.indices[base+1];
 	dest[2] = this.indices[base+2];
-}
+};
 
 Mesh.prototype.GetVertex = function(index, dest)
 {
@@ -178,7 +178,7 @@ Mesh.prototype.GetVertex = function(index, dest)
 	dest[0] = this.vertices[base];
 	dest[1] = this.vertices[base+1];
 	dest[2] = this.vertices[base+2];
-}
+};
 
 
 /// Utilities for generating various geometry //
@@ -249,7 +249,7 @@ Mesh.GenerateDisc = function(gl, ri, ro, slices, opt_z, opt_startAng, opt_endAng
 	}
 	
 	return new Mesh(gl, vertexArray, indexArray, Mesh.DEFAULT_VERTEX_FORMAT);
-}
+};
 
 /**
  * Generates a circular slice out of a square using radius r.
@@ -306,7 +306,7 @@ Mesh.GenerateCircularSquareSlice = function(gl, r, slices, startAng, endAng)
 	}
 	
 	return new Mesh(gl, vertexArray, indexArray, Mesh.DEFAULT_VERTEX_FORMAT);
-}
+};
 
 
 
