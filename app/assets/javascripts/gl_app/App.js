@@ -96,20 +96,22 @@ define([
         function() { // on success finish up some setup
           this.camera.SaveStateForReset();
           this.camera.UpdateSceneBounds(this.scene.Bounds());
+          this.camera.InitToSceneBounds();
           this.undoStack.clear();
-          this.renderer.postRedisplay();
+          this.renderer.resizeEnd();
+          this.renderer.UpdateView();
         }.bind(this),
         function() { // on failure create an empty room
           this.assman.GetModel('room', function (model)
           {
             this.scene.Reset(new ModelInstance(model, null));
             this.camera.UpdateSceneBounds(this.scene.Bounds());
+            this.camera.InitToSceneBounds();
             this.undoStack.clear();
-            this.renderer.postRedisplay();
+            this.renderer.resizeEnd();
+            this.renderer.UpdateView();
           }.bind(this));
         }.bind(this));
-      this.renderer.resizeEnd();
-      this.renderer.UpdateView();
     };
 
     App.prototype.AttachEventHandlers = function ()

@@ -43,8 +43,9 @@ define(['./TextToSceneGenerator',
         // TODO: Use camera from loaded scene state
         this.camera.SaveStateForReset();
         this.camera.UpdateSceneBounds(this.scene.Bounds());
+        this.camera.InitToSceneBounds();
         this.undoStack.clear();
-        this.renderer.postRedisplay();
+        this.renderer.UpdateView();
       }.bind(this.app);
       var scene_json = JSON.parse(json[0].data);
       // Reserialize the models as an array of strings

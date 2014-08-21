@@ -32,6 +32,50 @@ Camera.prototype.UpdateSceneBounds = function(bbox)
     this.sceneBounds = bbox;
 };
 
+Camera.prototype.InitToSceneBounds = function() {
+  // Find a good view point based on the scene bounds
+  var bbox = this.sceneBounds;
+  var centroid = bbox.Centroid();
+  var dims = bbox.Dimensions();
+  var bbMin = bbox.mins;
+  var bbMax = bbox.maxs;
+  var maxDim = Math.max( Math.max(dims[0], dims[1]), dims[2] );
+
+  var eye = vec3.create([centroid[0], bbMin[1] - dims[1]*0.25, bbMax[2] + maxDim] );
+  var lookAt = centroid;
+  var up = vec3.create([0,0,1]);
+  this.Reset(eye, lookAt, up);
+};
+
+Camera.prototype.GenerateViews = function() {
+  // Find a good view point based on the scene bounds
+  var bbox = this.sceneBounds;
+  var centroid = bbox.Centroid();
+  var dims = bbox.Dimensions();
+  var bbMin = bbox.mins;
+  var bbMax = bbox.mins;
+  var maxDim = Math.max( Math.max(dims[0], dims[1]), dims[2] );
+
+  var lookAt = centroid;
+  var up = vec3.create([0,0,1]);
+  var camPositions = [
+    vec3.create([bbMin[0] - maxDim*1.0, centroid[1], centroid[2]] ),
+    vec3.create([bbMax[0] + maxDim*1.0, centroid[1], centroid[2]] ),
+    vec3.create([centroid[0], bbMin[1] - maxDim*1.0, centroid[2]] ),
+    vec3.create([centroid[0], bbMax[1] + maxDim*1.0, centroid[2]] ),
+    vec3.create([centroid[0], centroid[1], bbMin[2] - maxDim*1.0] ),
+    vec3.create([centroid[0], centroid[1], bbMax[2] + maxDim*1.0] )
+  ];
+  var views = camPositions.map( function(x) {
+    return {
+      eye: x,
+      lookAt: lookAt,
+      up: up
+    }
+  });
+  return views;
+};
+
 Camera.prototype.CalculatePitchYaw = function()
 {
 	var worldZ = vec3.create([0, 0, 1]);
