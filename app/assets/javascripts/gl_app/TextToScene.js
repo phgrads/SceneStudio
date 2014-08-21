@@ -37,7 +37,19 @@ define(['./TextToSceneGenerator',
 
     }
 
-    TextToScene.prototype.LoadScene = function(json) {
+    TextToScene.prototype.getCameraJson = function(json, name) {
+      if (json && json.scene && json.scene.camera) {
+        var cameras = json.scene.camera;
+        for (var ci = 0; ci < cameras.length; ci++) {
+          var cf = cameras[ci];
+          if (cf.name == name) {
+            return cf;
+          }
+        }
+      }
+    };
+
+    TextToScene.prototype.LoadSceneState = function(json) {
       var on_success = function() {
         // on success finish up some setup
         // TODO: Use camera from loaded scene state
@@ -47,7 +59,39 @@ define(['./TextToSceneGenerator',
         this.undoStack.clear();
         this.renderer.UpdateView();
       }.bind(this.app);
-      var scene_json = JSON.parse(json[0].data);
+      var scene_json = JSON.parse(json.data);
+      // Reserialize the models as an array of strings
+      var reserialized = scene_json.object.map( function(x) {
+        // Strip "wss." from modelID
+        // TODO: Have AssetManager handle fullIds and models from other sources...
+        //console.log(x);
+        if (x.modelId) {
+          x.modelID = x.modelId;
+          delete x.modelId;
+        }
+        if (x.modelID.startsWith("wss.")) {
+          x.modelID = x.modelID.substring(4);
+        }
+        // TODO: Do something about the renderState...
+        // x.renderStateArr = ???
+        return JSON.stringify(x)
+      });
+      //TODO: Update this.app.uilog
+      this.app.scene.LoadFromNetworkSerialized(reserialized,
+        this.app.assman,
+        on_success);
+    };
+
+    TextToScene.prototype.LoadWssScene = function(json) {
+      var on_success = function() {
+        // on success finish up some setup
+        this.camera.SaveStateForReset();
+        this.camera.UpdateSceneBounds(this.scene.Bounds());
+        this.camera.InitToSceneBounds();
+        this.undoStack.clear();
+        this.renderer.UpdateView();
+      }.bind(this.app);
+      var scene_json = JSON.parse(json.data);
       // Reserialize the models as an array of strings
       var reserialized = scene_json.map( function(x) {
         // Strip "wss." from modelID
@@ -64,6 +108,17 @@ define(['./TextToSceneGenerator',
       this.app.scene.LoadFromNetworkSerialized(reserialized,
         this.app.assman,
         on_success);
+    };
+
+    TextToScene.prototype.LoadScene = function(scenesJson) {
+      var json = scenesJson[0];
+      if (json.format == "wss") {
+        this.LoadWssScene(json);
+      } else if (json.format == "sceneState") {
+        this.LoadSceneState(json);
+      } else {
+        console.error("Unsupported scene format: " + json.format);
+      }
     };
 
     TextToScene.prototype.ToggleConsole = function ()
