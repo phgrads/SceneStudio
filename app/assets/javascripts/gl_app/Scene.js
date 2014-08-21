@@ -166,7 +166,7 @@ Scene.prototype.SerializeBare = function()
 Scene.prototype.SerializeForLocal = function()
 {
 	var packedModels = [];
-    var modelMap = [];
+  var modelMap = [];
 	this.modelList.forEach(function(model){
 		packedModels.push(model.toJSONString());
         modelMap[model.model.id] = model.model;

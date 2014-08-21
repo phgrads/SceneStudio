@@ -25,7 +25,10 @@ define(['./TextToSceneGenerator',
           },
           commandHandle:function(line){
             try { this.GenerateScene(line); return true; }
-            catch (e) { return e.toString(); }
+            catch (e) {
+              console.error(e.stack);
+              return e.toString();
+            }
           }.bind(this),
           animateScroll:true,
           promptHistory:true,
@@ -59,8 +62,10 @@ define(['./TextToSceneGenerator',
         this.undoStack.clear();
         this.renderer.UpdateView();
       }.bind(this.app);
-      var scene_json = JSON.parse(json.data);
+      var scene_state_json = JSON.parse(json.data);
+      var scene_json = scene_state_json.scene;
       // Reserialize the models as an array of strings
+      console.log(scene_json.object);
       var reserialized = scene_json.object.map( function(x) {
         // Strip "wss." from modelID
         // TODO: Have AssetManager handle fullIds and models from other sources...
@@ -72,9 +77,10 @@ define(['./TextToSceneGenerator',
         if (x.modelID.startsWith("wss.")) {
           x.modelID = x.modelID.substring(4);
         }
+        x.transform = x.transform.data;
         // TODO: Do something about the renderState...
         // x.renderStateArr = ???
-        return JSON.stringify(x)
+        return JSON.stringify(x);
       });
       //TODO: Update this.app.uilog
       this.app.scene.LoadFromNetworkSerialized(reserialized,
@@ -102,7 +108,7 @@ define(['./TextToSceneGenerator',
         }
         // TODO: Do something about the renderState...
         // x.renderStateArr = ???
-        return JSON.stringify(x)
+        return JSON.stringify(x);
       });
       //TODO: Update this.app.uilog
       this.app.scene.LoadFromNetworkSerialized(reserialized,
@@ -126,9 +132,32 @@ define(['./TextToSceneGenerator',
       this.console.toggle();
     };
 
+    TextToScene.prototype.GetCurrentSceneState = function() {
+      var models = this.app.scene.modelList;
+      var objects = models.map( function(x) {
+        return {
+          modelId: x.modelID,
+          index:  x.index,
+          parentIndex: x.parentIndex,
+          transform: x.transform
+        };
+      });
+      var scene = {
+        up: { x: 0, y: 0, z: 1 },
+        object: objects
+      };
+      var sceneSelections = [];
+      var ss = {
+        scene: scene,
+        selected: sceneSelections
+      };
+      return ss;
+    };
+
     TextToScene.prototype.GenerateScene = function (text, on_success, on_error)
     {
-      this.text2scene.generate(text, on_success, on_error);
+      var currentSceneState = this.GetCurrentSceneState();
+      this.text2scene.generate(text, currentSceneState, on_success, on_error);
     };
 
     // Exports

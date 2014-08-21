@@ -37,7 +37,7 @@ define(['./Constants'],
         };
         if (currentSceneState && !text.startsWith("generate")) {
           // Some kind of interaction, let's pass the current scene state
-          var ss = currentSceneState.toJsonString();
+          var ss = JSON.stringify(currentSceneState);
           queryData['initialSceneState'] = ss;
         } else {
           queryData['options'] = {
