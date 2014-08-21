@@ -65,7 +65,6 @@ define(['./TextToSceneGenerator',
       var scene_state_json = JSON.parse(json.data);
       var scene_json = scene_state_json.scene;
       // Reserialize the models as an array of strings
-      console.log(scene_json.object);
       var reserialized = scene_json.object.map( function(x) {
         // Strip "wss." from modelID
         // TODO: Have AssetManager handle fullIds and models from other sources...
@@ -139,7 +138,11 @@ define(['./TextToSceneGenerator',
           modelId: x.modelID,
           index:  x.index,
           parentIndex: x.parentIndex,
-          transform: x.transform
+          transform: {
+            rows: 4,
+            cols: 4,
+            data: x.transform
+          }
         };
       });
       var scene = {
