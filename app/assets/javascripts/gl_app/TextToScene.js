@@ -5,6 +5,7 @@
 'use strict';
 
 define(['./TextToSceneGenerator',
+  'gl-matrix',
   'jquery',
   'jquery.console'
 ],
@@ -40,6 +41,18 @@ define(['./TextToSceneGenerator',
 
     }
 
+    TextToScene.prototype.vec3ToXyz = function(v) {
+      return {
+        x: v[0],
+        y: v[1],
+        z: v[2]
+      }
+    };
+
+    TextToScene.prototype.xyzToVec3 = function(v) {
+      return vec3.create([v.x, v.y, v.z])
+    };
+
     TextToScene.prototype.getCameraJson = function(json, name) {
       if (json && json.scene && json.scene.camera) {
         var cameras = json.scene.camera;
@@ -53,17 +66,30 @@ define(['./TextToSceneGenerator',
     };
 
     TextToScene.prototype.LoadSceneState = function(json) {
+      var scene_state_json = JSON.parse(json.data);
+      var scene_json = scene_state_json.scene;
+      var curCamera = this.getCameraJson(scene_state_json, "current");
+      var curCameraState = null;
+      if (curCamera) {
+        curCameraState = {
+          position: this.xyzToVec3(curCamera.position),
+          target: this.xyzToVec3(curCamera.target),
+          up: this.xyzToVec3(curCamera.up)
+        }
+      }
       var on_success = function() {
         // on success finish up some setup
-        // TODO: Use camera from loaded scene state
+        // Use camera from loaded scene state
         this.camera.SaveStateForReset();
         this.camera.UpdateSceneBounds(this.scene.Bounds());
-        this.camera.InitToSceneBounds();
+        if (curCameraState) {
+          this.camera.Reset(curCameraState.position, curCameraState.target, curCameraState.up);
+        } else {
+          this.camera.InitToSceneBounds();
+        }
         this.undoStack.clear();
         this.renderer.UpdateView();
       }.bind(this.app);
-      var scene_state_json = JSON.parse(json.data);
-      var scene_json = scene_state_json.scene;
       // Reserialize the models as an array of strings
       var reserialized = scene_json.object.map( function(x) {
         // Strip "wss." from modelID
@@ -145,8 +171,18 @@ define(['./TextToSceneGenerator',
           }
         };
       });
+      var cam = this.app.camera;
+      var currentCameraState = {
+        name: "current",
+        position: this.vec3ToXyz(cam.eyePos),
+        target: this.vec3ToXyz(cam.lookAtPoint),
+        direction: this.vec3ToXyz(cam.lookVec),
+        up:  this.vec3ToXyz(cam.upVec)
+      };
       var scene = {
         up: { x: 0, y: 0, z: 1 },
+        front: { x:0, y:-1, z:0 },
+        camera: [ currentCameraState ],
         object: objects
       };
       var sceneSelections = [];
