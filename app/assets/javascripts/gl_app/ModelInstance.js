@@ -96,6 +96,13 @@ ModelInstance.fromJSONString = function(string, assman, modelMap, callback)
               isSelected: json.renderStateArr[2],
               isSelectable: json.renderStateArr[3]
           };
+        } else {
+          newMinst.renderState = {
+            isPickable: false,
+            isInserting: false,
+            isSelected: false,
+            isSelectable: false
+          };
         }
         newMinst.coordFrame = new CoordinateFrame(json.cu, json.cv, json.cw);
 

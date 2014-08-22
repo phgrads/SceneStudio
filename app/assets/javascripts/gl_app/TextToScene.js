@@ -104,6 +104,7 @@ define(['./TextToSceneGenerator',
         }
         x.transform = x.transform.data;
         // TODO: Do something about the renderState...
+        // isPickable, isInserting, isSelected, isSelectable
         // x.renderStateArr = ???
         return JSON.stringify(x);
       });
