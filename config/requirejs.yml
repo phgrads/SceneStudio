@@ -12,6 +12,7 @@ paths:
 shim:
   'jquery.debouncedresize': ['jquery']
   'jquery-ui': ['jquery']
+  'jquery.console': ['jquery']
   'gl-matrix-ext': ['gl-matrix']
   'loader': ['base']
   'base': ['jquery']

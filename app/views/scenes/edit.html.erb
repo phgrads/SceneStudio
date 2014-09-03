@@ -1,7 +1,7 @@
 <div id="ui">
-    <%= render 'graphicsArea' %>
-    <%= render 'graphicsOverlay' %>
-    <%= render 'searchPanel' %>
-    <%= render 'console' %>
+    <%= render '/scenes/graphicsArea' %>
+    <%= render '/scenes/graphicsOverlay' %>
+    <%= render '/scenes/searchPanel' %>
+    <%= render '/scenes/console' %>
 </div>
 <%= requirejs_include_tag('gl_app/editor-main') %>
