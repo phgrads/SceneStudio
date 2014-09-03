@@ -6,7 +6,6 @@ class Experiments::Desc2sceneController < ApplicationController
 
   def index
     if not @via_turk then
-
       @task = MtTask.find_by_name!("desc2scene")
       @scene = @task.user.scenes.build({
                                            name: Time.now.to_s,

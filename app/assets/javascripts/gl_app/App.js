@@ -85,11 +85,48 @@ define([
         snapToGrid: Constants.searchAreaResizeGrid
       });
 
+      // TODO: Clean up MTurk stuff
+      this.mturk = (window.globalViewData.assignment || window.globalViewData.task_id);
+      if (this.mturk) {
+        $('#mturkoverlay').css("display","inline");
+      }
+
       preventSelection(this.canvas);
     }
 
     // Extend PubSub
     App.prototype = Object.create(PubSub.prototype);
+
+    // TODO: Clean up MTurk stuff
+    App.prototype.SaveScene = function() {
+      if(this.mturk){
+        if(this.scene.modelList.length > 1){
+          this.SaveMTurkResults();
+        }
+        else{
+          alert("You haven't added anything to the scene yet");
+        }
+      } else{
+        this.SaveScene_();
+      }
+    };
+
+    // TODO: Clean up MTurk stuff
+    App.prototype.SaveMTurkResults = function(on_success, on_error){
+      on_success = on_success || function(response) {
+        document.body.innerHTML = "<p>Thanks for participating!</p>" +
+          "<p>Your coupon code is: " + response.coupon_code + "</p>" +
+          "Copy your code back to the first tab and close this tab when done.";
+      };
+      var finalcamera=this.camera.toJSONString();
+      this.uilog.log('STATE_SCENE',finalcamera);
+      on_error = on_error || function() { alert("Error saving results. Please close tab and do task again.");};
+      var serialized = this.scene.SerializeForNetwork();
+      submit_mturk_report({
+        scene_file: JSON.stringify(serialized),
+        ui_log: this.uilog.stringify()
+      }).error(on_error).success(on_success);
+    };
 
     App.prototype.Launch = function () {
       this.LoadScene(
@@ -487,7 +524,7 @@ define([
         }.bind(this));
     };
 
-    App.prototype.SaveScene = function(on_success, on_error)
+    App.prototype.SaveScene_ = function(on_success, on_error)
     {
       on_success = on_success || function() {
         alert('saved!  Please develop a better UI alert');
