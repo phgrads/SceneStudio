@@ -1,0 +1,20 @@
+<script type='text/javascript'>
+    window.globals = {
+        sentences: <%= raw(@entries.to_json) %>,
+        conf: <%= raw(@conf.to_json) %>,
+        <% if @via_turk %>
+        assignmentId: "<%= @assignment.mtId %>",
+        <% end %>
+        baseUrl: "<%= base_url %>"
+    };
+    var store;
+    $(function() { store = new Persist.Store('desc2scene'); });
+
+    function showSentence(index) {
+        $('#sentence').text(window.globals.sentences[index]['description']);
+    }
+
+    function start() {
+        showSentence(0);
+    }
+</script>

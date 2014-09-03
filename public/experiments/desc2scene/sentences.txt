@@ -1,0 +1,51 @@
+id	description
+1	There is a desk and a chair.
+2	There is a desk and a computer.
+3	There is a desk and a laptop.
+4	There is a desk and a lamp.
+5	There is a desk and a poster.
+6	There is a desk and a notepad.
+7	There is a desk and a keyboard and a monitor.
+8	There is a desk and a monitor and a mouse.
+9	There is a desk and a monitor and a keyboard and a mouse.
+10	There is a desk and there is a notepad on the desk. There is a pen next to the notepad.
+11	There is a desk and there is a notepad on the desk. There is a pen on the notepad.
+12	There is a desk and there is a stapler on the desk. There is a notepad to the left of the stapler.
+13	There is a desk and there is a stapler on the desk. There is a keyboard to the right of the stapler.
+14	There is a table and a chair.
+15	There is a table and there is a plate on the table.
+16	There is a table and there are two plates on the table.
+17	There is a table and there is a plate. There is a sandwich on the plate.
+18	There is a table and there is a sandwich.
+19	There is a table and there is a lamp.
+20	There is a table and there is a chair to the left of the table.
+21	There is a table and there is a chair to the right of the table.
+22	There is a table and there is a lamp on the table.
+23	There is a table and there are two chairs.
+24	There is a table and there are four chairs.
+25	There is a table and there are four chairs.  There are four plates and there are four sandwiches.
+26	There is a table and there is a chair to the left of the table.  There is a chair to the right of the table.
+27	There is a table and there is a chair in front of the table. There is a chair behind the table.
+28	There is a table and there is a chair to the left of the table.  There is a chair to the right of the table. There is a chair in front of the table. There is a chair behind the table.
+29	There is a bed next to the wall.
+30	There is a bed and there is a laptop on the bed.
+31	There is a bed and there is a pillow on the bed.
+32	There is a bed and there is a nightstand next to the bed.
+33	There is a bed and there is a nightstand next to the bed. There is a floor lamp next to the nightstand.
+34	There is a bed and there is a nightstand next to the bed. There is a floor lamp next to the bed.
+35	There is a bed and there is a nightstand next to the bed. There is a lamp on the nightstand.
+36	There is a bed and there is a chair next to the bed.
+37	There is a coffee table.
+38	There is a coffee table and there is a vase on the coffee table.
+39	There is a coffee table and there is a couch behind the coffee table.
+40	There is a coffee table and there is a couch behind the coffee table. There is a vase.
+41	There is a coffee table and there is a couch behind the coffee table. There is a vase.
+42	There is a coffee table and there is a couch.  There is a chair next to the coffee table.
+43	There is a couch. There is a vase.
+44	There is a couch. There is a coffee table and there is a plant.
+45	There is a couch. There is a coffee table and there is a plant on the coffee table.
+46	There is a couch and there is a pillow on the couch.  There is a chair next to the couch.
+47	There is a lamp and there is a chair next to the lamp. There is a coffee table next to the chair.
+48	There is a coffee table and there is a lamp behind the coffee table. There is a chair in front of the coffee table.
+49	There is a desk and there is a lamp next to the desk.  There is a chair in front of the desk.
+50	There is a desk and there is a lamp next to the desk.  There is a chair in front of the desk.  There is a trash bin next to the desk.
