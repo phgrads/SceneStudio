@@ -16,6 +16,8 @@
 <% else %>
 <script type="text/javascript">
   function submit_mturk_report(submission_data) {
+    console.log('submitting mturk_report');
+    console.log(submission_data);
     var obj = {
       error: function() {
         return obj;
