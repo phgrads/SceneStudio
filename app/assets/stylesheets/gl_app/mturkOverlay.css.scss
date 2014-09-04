@@ -1,7 +1,6 @@
 @import "common";
 @import "graphicsArea";
 
-// TODO: Move to separate css?
 #mturkoverlay{
   display:none;
   height:20%;
@@ -52,6 +51,7 @@
   #instructions p {
     display: none;
     margin-top: 20px;
+    text-align: left;
   }
   #prompt {
     font: 18pt bold sans-serif;
