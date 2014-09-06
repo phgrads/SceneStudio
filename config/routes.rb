@@ -22,6 +22,7 @@ SceneStudio::Application.routes.draw do
   get '/mturk/task',                to: 'mturk#task'
   post '/mturk/report',             to: 'mturk#report'
   post '/mturk/coupon',             to: 'mturk#coupon'
+  post '/mturk/report_item',        to: 'mturk#report_item'
 
 
   #resources :identities

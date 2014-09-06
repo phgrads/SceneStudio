@@ -2,7 +2,7 @@ class MturkController < ApplicationController
   include MturkHelper
 
   before_filter :load_iframe_params, only: [:task]
-  before_filter :require_assignment, only: [:report, :coupon]
+  before_filter :require_assignment, only: [:report, :coupon, :report_item]
 
   def task
     # should improve on this and be less kludgy in the future...?
@@ -13,6 +13,19 @@ class MturkController < ApplicationController
                       '?assignmentId=' + @assignment.mtId
     end
     render 'mturk/task', layout: false
+  end
+
+  def report_item
+    @item = MtCompletedItem.create(mt_assignmentId: @assignment.mtId,
+                                   mt_hitId: @assignment.mt_hit_id,
+                                   mt_workerId: @assignment.mt_worker_id,
+                                   mt_item: params['item'],
+                                   mt_condition: params['condition'],
+                                   data: params['data'])
+    render json: {
+        success: "success",
+        status_code: "200"
+    }
   end
 
   def report

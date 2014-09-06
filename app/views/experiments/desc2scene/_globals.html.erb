@@ -5,18 +5,54 @@
         <% if @via_turk %>
         assignmentId: "<%= @assignment.mtId %>",
         <% end %>
-        baseUrl: "<%= base_url %>"
+        onSaveCallback: saveScene
     };
     //var store;
     //$(function() { store = new Persist.Store('desc2scene'); });
+    var sentIndex = 0;
+    var condition = window.globals.conf['condition'];
+
+    function saveScene(app) {
+      var on_success = function(response) {
+          next();
+      };
+      var on_error = function() { alert("Error saving results. Please close tab and do task again.");};
+      var results = app.GetSceneResults();
+      results['sentence'] = window.globals.sentences[sentIndex];
+      submit_mturk_report_item(condition, sentIndex, results).error(on_error).success(on_success);
+    }
+
+    function showCoupon() {
+        var on_success = function(response) {
+            document.body.innerHTML = "<p>Thanks for participating!</p>" +
+                    "<p>Your coupon code is: " + response.coupon_code + "</p>" +
+                    "Copy your code back to the first tab and close this tab when done.";
+        };
+        var on_error = function() { alert("Error saving results. Please close tab and do task again.");};
+        // TODO: Get item ids that we did...
+        var results = window.globals.sentences.length;
+        submit_mturk_report(results).error(on_error).success(on_success);
+    }
+
+    function next() {
+        sentIndex++;
+        console.log("Going to next: " + sentIndex);
+        if (sentIndex <= window.globals.sentences.length) {
+            // Clear scene
+            app.Launch();
+            //app.Clear();
+            showSentence(sentIndex);
+        } else {
+            showCoupon();
+        }
+    }
 
     function showSentence(index) {
+        $('#startButton').hide();
         $('#sentence').text(window.globals.sentences[index]['description']);
     }
 
     function start() {
-        $('#startButton').hide();
-        showSentence(0);
-
+        showSentence(sentIndex);
     }
 </script>

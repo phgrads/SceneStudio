@@ -90,6 +90,7 @@ define([
       if (this.mturk) {
         $('#mturkoverlay').css("display","inline");
       }
+      this.onSaveCallback = window.globals.onSaveCallback;
 
       preventSelection(this.canvas);
     }
@@ -99,7 +100,9 @@ define([
 
     // TODO: Clean up MTurk stuff
     App.prototype.SaveScene = function() {
-      if(this.mturk){
+      if (this.onSaveCallback) {
+        this.onSaveCallback(this);
+      } else if(this.mturk) {
         if(this.scene.modelList.length > 1){
           this.SaveMTurkResults();
         }
@@ -118,14 +121,20 @@ define([
           "<p>Your coupon code is: " + response.coupon_code + "</p>" +
           "Copy your code back to the first tab and close this tab when done.";
       };
+      on_error = on_error || function() { alert("Error saving results. Please close tab and do task again.");};
+      var results = this.GetSceneResults();
+      submit_mturk_report(results).error(on_error).success(on_success);
+    };
+
+    App.prototype.GetSceneResults = function() {
       var finalcamera=this.camera.toJSONString();
       this.uilog.log('STATE_SCENE',finalcamera);
-      on_error = on_error || function() { alert("Error saving results. Please close tab and do task again.");};
       var serialized = this.scene.SerializeForNetwork();
-      submit_mturk_report({
+      var results = {
         scene_file: JSON.stringify(serialized),
         ui_log: this.uilog.stringify()
-      }).error(on_error).success(on_success);
+      };
+      return results;
     };
 
     App.prototype.Launch = function () {
