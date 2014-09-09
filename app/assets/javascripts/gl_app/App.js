@@ -90,7 +90,9 @@ define([
       if (this.mturk) {
         $('#mturkoverlay').css("display","inline");
       }
-      this.onSaveCallback = window.globals.onSaveCallback;
+      if (window.globals) {
+        this.onSaveCallback = window.globals.onSaveCallback;
+      }
 
       preventSelection(this.canvas);
     }
