@@ -39,7 +39,7 @@ id	description
 38	There is a coffee table and there is a vase on the coffee table.
 39	There is a coffee table and there is a couch behind the coffee table.
 40	There is a coffee table and there is a couch behind the coffee table. There is a vase.
-41	There is a coffee table and there is a couch behind the coffee table. There is a vase.
+41	There is a coffee table and there is a couch behind the coffee table. There is a vase on the coffee table.
 42	There is a coffee table and there is a couch.  There is a chair next to the coffee table.
 43	There is a couch. There is a vase.
 44	There is a couch. There is a coffee table and there is a plant.
