@@ -142,21 +142,24 @@ SearchController.prototype.DoSearch = function(querytext)
 	
 	// Also put up a busy wait icon.
 	this.results.append($('<img src="' + Constants.resourceDir + 'busy_wait_big.gif">').addClass('busyWaitIcon'));
-	
+  // Seed for search randomization
+  var seed = Math.floor((Math.random() * 1000000000) + 1);
+
 	// This is where the search actually happens.
 	$.ajax
 	({
 		type: 'GET',
 		url: Constants.searchUrl,
-        data:
-		{
-			'q': SearchController.encodeQueryText(querytext),
-			'wt': 'json',
-            'rows': '100',
-            // Limit to web scene studio models for now
-            'fq': '+source:wss',
-			'fl': 'name,id,unit'
-		},
+    data:
+      {
+        'q': SearchController.encodeQueryText(querytext),
+        'wt': 'json',
+        'rows': '100',
+        // Limit to web scene studio models for now
+        'fq': '+source:wss',
+        'sort': 'score desc, random_' + seed + " desc",
+        'fl': 'name,id,unit'
+      },
 		dataType: 'jsonp',	 	// At some point, we might want to switch to a PHP script that queries Solr locally, and then we could use regular JSON again.
 		jsonp: 'json.wrf',		// Solr requires the JSONP callback to have this name.
 		success: this.SearchSucceeded.bind(this),
