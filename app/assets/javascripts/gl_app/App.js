@@ -95,6 +95,13 @@ define([
       }
 
       preventSelection(this.canvas);
+      // Prevent browser from capturing Ctrl+S, Ctrl+K
+      document.addEventListener("keydown", function(e) {
+        if ((e.keyCode == 83 /*s*/ || e.keyCode == 75 /*k*/)
+          && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+          e.preventDefault();
+        }
+      }, false);
     }
 
     // Extend PubSub
@@ -362,20 +369,22 @@ define([
         }.bind(this));
 
       // debug which instance is currently being manipulated
-      Behaviors.keypress(this.uimap, 'ctrl+D')
+      Behaviors.keypress(this.uimap, 'ctrl+B')
         .onpress(ensureInstance(function(opts) {
           console.log(opts.instance.model.id);
         }));
 
       // spit out bare JSON data for the scene
       Behaviors.keypress(this.uimap, 'ctrl+K')
-        .onpress(function() {
+        .onpress(function(data) {
+          data.preventDefault();
           console.log(this.scene.SerializeBare());
         }.bind(this));
 
       // toggle text2scene console
-      Behaviors.keypress(this.uimap, 'ctrl+T')
-        .onpress(function() {
+      Behaviors.keypress(this.uimap, 'ctrl+I')
+        .onpress(function(data) {
+          data.preventDefault();
           this.text2scene.ToggleConsole();
         }.bind(this));
     };
