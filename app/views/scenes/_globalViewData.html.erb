@@ -13,7 +13,10 @@
     on_close_url: "<%= @on_close_url %>",
     base_url: "<%= base_url %>",
     <% if @assignment %>
-        assignmentId: "<%= @assignment.mtId %>",
+      assignment: {
+        mtId: "<%= @assignment.mtId %>",
+        id: "<%= @assignment.id %>"
+      },
     <% end %>
     <% if !@via_turk && Rails.env.development? && @task %>
         task_id: <%= @task.id %>,
