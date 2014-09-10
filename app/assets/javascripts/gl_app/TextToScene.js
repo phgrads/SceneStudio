@@ -4,12 +4,12 @@
 
 'use strict';
 
-define(['./TextToSceneGenerator',
+define(['./TextToSceneGenerator', './UndoStack',
   'gl-matrix',
   'jquery',
   'jquery.console'
 ],
-  function(TextToSceneGenerator)
+  function(TextToSceneGenerator, UndoStack)
   {
     function TextToScene(app) {
       this.app = app;
@@ -87,7 +87,7 @@ define(['./TextToSceneGenerator',
         } else {
           this.camera.InitToSceneBounds();
         }
-        this.undoStack.clear();
+        this.undoStack.pushCurrentState(UndoStack.CMDTYPE.TEXT2SCENE);
         this.renderer.UpdateView();
       }.bind(this.app);
       // Reserialize the models as an array of strings
