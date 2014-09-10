@@ -33,3 +33,4 @@ keywords: 3D models, scenes, pictures, scene design
 conf:
   nScenes: 4
   inputFile: public/experiments/desc2scene/sentences.txt
+  condition: pilot

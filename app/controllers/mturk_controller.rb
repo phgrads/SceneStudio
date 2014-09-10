@@ -16,9 +16,9 @@ class MturkController < ApplicationController
   end
 
   def report_item
-    @item = MtCompletedItem.create(mt_assignmentId: @assignment.mtId,
-                                   mt_hitId: @assignment.mt_hit_id,
-                                   mt_workerId: @assignment.mt_worker_id,
+    @item = MtCompletedItem.create(mt_assignment_id: @assignment.mtId,
+                                   mt_hit_id: @assignment.mt_hit_id,
+                                   mt_worker_id: @assignment.mt_worker_id,
                                    mt_item: params['item'],
                                    mt_condition: params['condition'],
                                    data: params['data'])
