@@ -8,7 +8,7 @@
 
 # appearance on the Mechanical Turk interface
 title: Create a 3D scene from a text description
-description: Add 3D models to a scene in order to match a text description
+description: Add 3D models to a scene in order to match a text description. Approximate task time is 5 minutes.
 # pay per HIT in US cents
 reward: 50
 # number of assignments to be issued in this task/experiment
