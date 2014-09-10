@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140905175006) do
+ActiveRecord::Schema.define(:version => 20140910171933) do
 
   create_table "identities", :force => true do |t|
     t.string   "name"
@@ -35,9 +35,6 @@ ActiveRecord::Schema.define(:version => 20140905175006) do
   add_index "mt_assignments", ["mtId", "mt_hit_id", "mt_worker_id"], :name => "index_mt_assignments_on_mtId_and_mt_hit_id_and_mt_worker_id"
 
   create_table "mt_completed_items", :force => true do |t|
-    t.integer  "mt_task_id"
-    t.integer  "mt_worker_id"
-    t.integer  "mt_hit_id"
     t.integer  "mt_assignment_id"
     t.string   "mt_condition"
     t.string   "mt_item"
@@ -46,9 +43,6 @@ ActiveRecord::Schema.define(:version => 20140905175006) do
     t.datetime "updated_at",       :null => false
     t.string   "status"
   end
-
-  add_index "mt_completed_items", ["mt_task_id"], :name => "index_mt_completed_items_on_mt_task_id"
-  add_index "mt_completed_items", ["mt_worker_id"], :name => "index_mt_completed_items_on_mt_worker_id"
 
   create_table "mt_hits", :force => true do |t|
     t.string   "mtId"
