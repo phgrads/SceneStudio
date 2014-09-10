@@ -12,22 +12,22 @@ function Toolbar(app)
 	this.elem = $('#toolbar');
 	this.buttons = {};
 	
-	this.AddButton('Undo', 'Undo (Z)',
+	this.AddButton('Undo', 'Undo (Ctrl+Z)',
 	               'undo', function() {
 		app.Undo();
 	});
-	this.AddButton('Redo', 'Redo (Y)',
+	this.AddButton('Redo', 'Redo (Ctrl+Y)',
 	               'redo', function() {
 		app.Redo();
 	});
 	
 	this.AddSpacer();
 	
-	this.AddButton('Copy', 'Copy selected model (C)',
+	this.AddButton('Copy', 'Copy selected model (Ctrl+C)',
 	               'copy', function() {
 		app.Copy();
 	});
-	this.AddButton('Paste', 'Paste copied model (V)',
+	this.AddButton('Paste', 'Paste copied model (Ctrl+V)',
 	               'paste', function() {
 		app.Paste();
 	});
@@ -35,14 +35,14 @@ function Toolbar(app)
 	               'delete', function() {
 		app.Delete();
 	});
-	this.AddButton('Tumble', 'Tumble selected model (M)',
+	this.AddButton('Tumble', 'Tumble selected model (Ctrl+M)',
 	               'tumble', function() {
 		app.Tumble(this.app.uistate.selectedInstance, true);
 	}.bind(this));
 	
 	this.AddSpacer();
 	
-	this.AddButton('Save', 'Save scene (S)',
+	this.AddButton('Save', 'Save scene (Ctrl+S)',
 	               'save', function() {
 	   app.SaveScene();
     });

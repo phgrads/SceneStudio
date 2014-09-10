@@ -298,7 +298,7 @@ define([
           }.bind(this)));
 
       // Keyboard Tumble
-      Behaviors.keyhold(this.uimap, 'M')
+      Behaviors.keyhold(this.uimap, 'ctrl+M')
         .onhold(ensureInstance(function(opts) {
           this.Tumble(opts.instance, false);
           this.renderer.postRedisplay();
@@ -310,13 +310,13 @@ define([
         }.bind(this)));
 
       // Copy/Paste
-      Behaviors.keypress(this.uimap, 'C, ctrl+C')
+      Behaviors.keypress(this.uimap, 'ctrl+C')
         .onpress(function(data) {
           data.preventDefault();
           this.Copy();
           this.renderer.postRedisplay();
         }.bind(this));
-      Behaviors.keypress(this.uimap, 'V, ctrl+V')
+      Behaviors.keypress(this.uimap, 'ctrl+V')
         .onpress(function(data) {
           data.preventDefault();
           this.Paste(data);
@@ -324,14 +324,14 @@ define([
         }.bind(this));
 
       // Undo/Redo
-      Behaviors.keypress(this.uimap, 'Z, ctrl+Z')
+      Behaviors.keypress(this.uimap, 'ctrl+Z')
         .onpress(function(data) {
           data.preventDefault();
           this.insertion_behavior.cancel();
           this.Undo();
           this.renderer.postRedisplay();
         }.bind(this));
-      Behaviors.keypress(this.uimap, 'Y, ctrl+Y')
+      Behaviors.keypress(this.uimap, 'ctrl+Y')
         .onpress(function(data) {
           data.preventDefault();
           this.insertion_behavior.cancel();
@@ -340,7 +340,7 @@ define([
         }.bind(this));
 
       // Save
-      Behaviors.keypress(this.uimap, 'S, ctrl+S')
+      Behaviors.keypress(this.uimap, 'ctrl+S')
         .onpress(function(data) {
           data.preventDefault();
           this.SaveScene();
@@ -362,19 +362,19 @@ define([
         }.bind(this));
 
       // debug which instance is currently being manipulated
-      Behaviors.keypress(this.uimap, 'X')
+      Behaviors.keypress(this.uimap, 'ctrl+D')
         .onpress(ensureInstance(function(opts) {
           console.log(opts.instance.model.id);
         }));
 
       // spit out bare JSON data for the scene
-      Behaviors.keypress(this.uimap, 'K')
+      Behaviors.keypress(this.uimap, 'ctrl+K')
         .onpress(function() {
           console.log(this.scene.SerializeBare());
         }.bind(this));
 
       // toggle text2scene console
-      Behaviors.keypress(this.uimap, 'T')
+      Behaviors.keypress(this.uimap, 'ctrl+T')
         .onpress(function() {
           this.text2scene.ToggleConsole();
         }.bind(this));

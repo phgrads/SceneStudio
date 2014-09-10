@@ -53,14 +53,14 @@ namespace :mturk do
     task.expire! if task.live?
   end
 
-  desc 'delete the experiment (from mturk) and pay all the workers'
-  task :delete, [:name]  => :environment do |_, args|
+  desc 'recall the experiment (from mturk) and pay all the workers'
+  task :recall, [:name]  => :environment do |_, args|
     task = get_task(args.name)
     task.complete! if task.live?
   end
 
   desc 'delete all evidence/data of the experiment having been run'
-  task :recall, [:name]  => :environment do |_, args|
+  task :destroy, [:name]  => :environment do |_, args|
     task = get_task(args.name)
     task.complete! if task.live?
     task.destroy
