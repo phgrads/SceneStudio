@@ -100,7 +100,7 @@ function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, Searc
             this.renderer.postRedisplay();
         }.bind(this),
         function() { // on failure create an empty room
-            this.assman.GetModel('room', function (model)
+            this.assman.GetModel('room01', function (model)
             {
                 this.scene.Reset(new ModelInstance(model, null));
                 this.camera.UpdateSceneBounds(this.scene.Bounds());
