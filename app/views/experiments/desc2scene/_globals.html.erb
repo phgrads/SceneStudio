@@ -37,7 +37,7 @@
     function next() {
         sentIndex++;
         console.log("Going to next: " + sentIndex);
-        if (sentIndex <= window.globals.sentences.length) {
+        if (sentIndex < window.globals.sentences.length) {
             // Clear scene
             app.Launch();
             //app.Clear();

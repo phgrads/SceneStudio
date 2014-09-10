@@ -164,7 +164,7 @@ SearchController.prototype.DoSearch = function(querytext)
 		jsonp: 'json.wrf',		// Solr requires the JSONP callback to have this name.
 		success: this.SearchSucceeded.bind(this),
 		error: this.SearchFailed.bind(this),
-		timeout: 3000		// in milliseconds. With JSONP, this is the only way to get the error handler to fire.
+		timeout: 10000		// in milliseconds. With JSONP, this is the only way to get the error handler to fire.
 	});
 };
 
