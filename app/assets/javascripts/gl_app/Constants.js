@@ -16,9 +16,9 @@ Constants.imageDir = Constants.base_url + '/data/image/';
 Constants.resourceDir = Constants.base_url + '/assets/';
 
 // Model search url
-Constants.searchUrl = 'http://' + window.location.host + window.globalViewData.base_url + '/solr/select';
+Constants.searchUrl = Constants.base_url + '/solr/select';
 // Text to scene generation
-Constants.sceneGenerationUrl = 'http://' + window.location.host + window.globalViewData.base_url + '/text2scene/interact';
+Constants.sceneGenerationUrl = Constants.base_url + '/text2scene/interact';
 
 // Smart scene editing options
 Constants.autoSize = true;
