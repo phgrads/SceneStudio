@@ -101,18 +101,18 @@ define([
     App.prototype = Object.create(PubSub.prototype);
 
     // TODO: Clean up MTurk stuff
-    App.prototype.SaveScene = function() {
+    App.prototype.SaveScene = function(on_success, on_error) {
       if (this.onSaveCallback) {
         this.onSaveCallback(this);
       } else if(this.mturk) {
         if(this.scene.modelList.length > 1){
-          this.SaveMTurkResults();
+          this.SaveMTurkResults(on_success, on_error);
         }
         else{
           alert("You haven't added anything to the scene yet");
         }
       } else{
-        this.SaveScene_();
+        this.SaveScene_(on_success, on_error);
       }
     };
 
