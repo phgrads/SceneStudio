@@ -95,6 +95,8 @@ define([
       }
 
       preventSelection(this.canvas);
+
+      // TODO: Handle preventing of default browser action in a less hackish way
       // Prevent browser from capturing Ctrl+S, Ctrl+K
       document.addEventListener("keydown", function(e) {
         if ((e.keyCode == 83 /*s*/ || e.keyCode == 75 /*k*/)

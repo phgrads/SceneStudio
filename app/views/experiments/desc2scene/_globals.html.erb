@@ -22,16 +22,26 @@
       submit_mturk_report_item(condition, sentIndex, results).error(on_error).success(on_success);
     }
 
+    function showComments() {
+      $('#ui').hide();
+      $('#comment').show();
+      $('#comments').focus();
+    }
+
     function showCoupon() {
-        var on_success = function(response) {
-            document.body.innerHTML = "<p>Thanks for participating!</p>" +
-                    "<p>Your coupon code is: " + response.coupon_code + "</p>" +
-                    "Copy your code back to the first tab and close this tab when done.";
-        };
-        var on_error = function() { alert("Error saving results. Please close tab and do task again.");};
-        // TODO: Get item ids that we did...
-        var results = window.globals.sentences.length;
-        submit_mturk_report(results).error(on_error).success(on_success);
+      var on_success = function(response) {
+          document.body.innerHTML = "<p>Thanks for participating!</p>" +
+                  "<p>Your coupon code is: " + response.coupon_code + "</p>" +
+                  "Copy your code back to the first tab and close this tab when done.";
+      };
+      var on_error = function() { alert("Error saving results. Please close tab and do task again.");};
+
+      var comments = $('#comments').val();
+      var results = {
+        nSentences: window.globals.sentences.length,
+        comments: comments
+      };
+      submit_mturk_report(results).error(on_error).success(on_success);
     }
 
     function next() {
@@ -43,7 +53,7 @@
             //app.Clear();
             showSentence(sentIndex);
         } else {
-            showCoupon();
+            showComments();
         }
     }
 
