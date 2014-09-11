@@ -210,8 +210,8 @@ class MtTask < ActiveRecord::Base
         hit.question(task_url)
         # non exposed hit parameters -- don't use on the sandbox
         if not RTurk.sandbox? then
-          hit.qualifications.approval_rate gte: 95
-          hit.qualifications.hits_approved gte: 100
+          #hit.qualifications.approval_rate gte: 95
+          #hit.qualifications.hits_approved gte: 100
           hit.auto_approval = 259200 # 3 days
         end
       end
