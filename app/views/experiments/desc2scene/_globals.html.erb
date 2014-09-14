@@ -5,12 +5,22 @@
         <% if @via_turk %>
         assignmentId: "<%= @assignment.mtId %>",
         <% end %>
-        onSaveCallback: saveScene
+        onSaveCallback: saveSceneCallback
     };
     //var store;
     //$(function() { store = new Persist.Store('desc2scene'); });
     var sentIndex = 0;
     var condition = window.globals.conf['condition'];
+
+    function saveSceneCallback(app) {
+        // Check if the scene is acceptable...
+        if(app.scene.modelList.length > 1){
+            saveScene(app);
+        }
+        else{
+            alert("You haven't added anything to the scene yet");
+        }
+    }
 
     function saveScene(app) {
       var on_success = function(response) {
