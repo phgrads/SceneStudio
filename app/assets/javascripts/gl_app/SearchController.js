@@ -77,9 +77,9 @@ SearchController.prototype.CreateSearchResult = function(result)
 				          '.jpg"></img>')
 				.bind('dragstart', NoDrag));
 				
-	elem.click(function() {
+	elem.mousedown(function() {
 	   this.ResultSelected(elem.attr('id'));
-    }.bind(this));
+  }.bind(this));
 	
 	return elem;
 };
@@ -104,7 +104,7 @@ SearchController.prototype.ResultSelected = function(mid)
 	resultElem.addClass('selected');
 	this.app.BeginModelInsertion(resultElem.attr('id'), resultElem.data('metadata'), function() {
 	   this.ModelRetrieved(resultElem.attr('id'));
-    }.bind(this));
+  }.bind(this));
 };
 
 SearchController.prototype.ModelRetrieved = function(mid)
@@ -158,7 +158,7 @@ SearchController.prototype.DoSearch = function(querytext)
         // Limit to web scene studio models for now
         'fq': '+source:wss',
         'sort': 'score desc, random_' + seed + " desc",
-        'fl': 'name,id,unit'
+        'fl': 'name,id,unit,up,front'
       },
 		dataType: 'jsonp',	 	// At some point, we might want to switch to a PHP script that queries Solr locally, and then we could use regular JSON again.
 		jsonp: 'json.wrf',		// Solr requires the JSONP callback to have this name.
