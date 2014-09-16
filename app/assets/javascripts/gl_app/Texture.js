@@ -20,7 +20,7 @@ Texture.prototype.Bind = function(program)
 		if (texUnitLoc)
 			gl.uniform1i(texUnitLoc, 0);
 	}
-}
+};
 
 
 // Exports
