@@ -11,6 +11,7 @@
     //$(function() { store = new Persist.Store('desc2scene'); });
     var sentIndex = 0;
     var condition = window.globals.conf['condition'];
+    var sceneSummary = [];
 
     function saveSceneCallback(app) {
         // Check if the scene is acceptable...
@@ -28,7 +29,12 @@
       };
       var on_error = function() { alert("Error saving results. Please close tab and do task again.");};
       var results = app.GetSceneResults();
-      results['sentence'] = window.globals.sentences[sentIndex];
+      var currentSentence = window.globals.sentences[sentIndex];
+      results['sentence'] = currentSentence;
+      sceneSummary[sentIndex] = {
+          sentenceId: currentSentence.id,
+          nSceneObjects: app.scene.modelList.length
+      };
       submit_mturk_report_item(condition, sentIndex, results).error(on_error).success(on_success);
     }
 
@@ -48,7 +54,7 @@
 
       var comments = $('#comments').val();
       var results = {
-        nSentences: window.globals.sentences.length,
+        summary: sceneSummary,
         comments: comments
       };
       submit_mturk_report(results).error(on_error).success(on_success);

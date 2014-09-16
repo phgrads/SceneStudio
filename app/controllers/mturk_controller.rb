@@ -41,7 +41,12 @@ class MturkController < ApplicationController
     submitted_code  = params[:coupon_code]
     true_code       = @assignment.coupon_code
     if submitted_code == true_code then
-      ok_JSON_response
+#   TODO: only return data if assignment want to save data with amazon as well
+      render json: {
+          success: "success",
+          status_code: "200",
+          data: @assignment.data
+      }
     else
       fail_JSON_response
     end
