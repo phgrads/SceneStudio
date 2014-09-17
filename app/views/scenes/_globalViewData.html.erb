@@ -6,10 +6,12 @@
         name: "<%= current_user.name %>",
         id:   "<%= current_user.id %>"
     },
+    <% if @scene %>
     scene: {
         name: "<%= @scene.name %>",
         id:   "<%= @scene.id %>"
     },
+    <% end %>
     on_close_url: "<%= @on_close_url %>",
     base_url: "<%= base_url %>",
     <% if @assignment %>

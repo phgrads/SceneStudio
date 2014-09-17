@@ -42,7 +42,7 @@ class ScenesController < ApplicationController
   # send PUT to scenes/#id to update
   def update
     @scene.update_attributes!({
-      :data => params[:scene_file],
+      :data => params[:scene],
       :ui_log => params[:ui_log]
     })
     # if that failed, an error is raised, otherwise...
@@ -69,6 +69,7 @@ class ScenesController < ApplicationController
 
     def retrieve
       @scene = Scene.find(params[:id])
+      @title = @scene.name
       @on_close_url = scenes_path
     end
 end

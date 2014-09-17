@@ -1,6 +1,11 @@
 <li class='scene-item'>
   <div class="btn-group">
-    <%= link_to result.item, { controller: '/scenes', action: 'view', id: result.id },
+    <%= link_to JSON.parse(result.data)["sentence"]["description"], { action: 'view', id: result.id },
           class: 'btn scene-name' %>
+  </div>
+  <div>
+    <%= result.item %>
+    <%= result.condition %>
+    <%= result.workerId %>
   </div>
 </li>

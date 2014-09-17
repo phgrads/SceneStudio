@@ -5,6 +5,9 @@ SceneStudio::Application.routes.draw do
   get 'experiments/desc2scene', to: 'experiments/desc2scene#index'
   get 'experiments/desc2scene/results', to: 'experiments/desc2scene#results'
 
+  match 'experiments/desc2scene/:id/load',         to: 'experiments/desc2scene#load'
+  match 'experiments/desc2scene/:id/view',         to: 'experiments/desc2scene#view'
+
   root                              to: 'static_pages#home'
   match '/help',                    to: 'static_pages#help'
 

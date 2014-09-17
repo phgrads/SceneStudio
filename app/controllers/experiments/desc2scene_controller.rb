@@ -4,8 +4,9 @@ class Experiments::Desc2sceneController < ApplicationController
 
   before_filter :load_new_tab_params, only: [:index]
   before_filter :load_data, only: [:index]
-  before_filter :retrieve_scenes, only: [:results]
-  layout 'webgl_viewport', only: [:index]
+  before_filter :retrieve_list, only: [:results]
+  before_filter :retrieve, only: [:view, :load]
+  layout 'webgl_viewport', only: [:index, :view]
 
   def index
     if not @via_turk then
@@ -30,10 +31,28 @@ class Experiments::Desc2sceneController < ApplicationController
     render "experiments/desc2scene/results"
   end
 
+  def view
+    render "experiments/desc2scene/view", layout: true
+  end
+
+  def load
+    if @item.data
+      render :json => @data
+    else
+      raise ActionController::RoutingError.new('Item Not Found')
+    end
+  end
+
   private
-    def retrieve_scenes
+    def retrieve_list
       @task = MtTask.find_by_name!("desc2scene")
       @completed = CompletedItemsView.all #CompletedItemsView.find(taskId: @task.id)
+    end
+
+    def retrieve
+      @item = CompletedItemsView.find(params[:id])
+      @data = JSON.parse(@item.data)
+      @title = @data["sentence"]["description"]
     end
 
 end

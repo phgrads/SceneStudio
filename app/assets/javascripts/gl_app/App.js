@@ -92,6 +92,10 @@ define([
       }
       if (window.globals) {
         this.onSaveCallback = window.globals.onSaveCallback;
+        this.onLoadUrl = window.globals.onLoadUrl;
+      }
+      if (this.onLoadUrl === undefined) {
+        this.onLoadUrl = this.base_url + '/scenes/' + this.scene_record.id + '/load';
       }
 
       preventSelection(this.canvas);
@@ -112,7 +116,7 @@ define([
     // TODO: Clean up MTurk stuff
     App.prototype.SaveScene = function(on_success, on_error) {
       if (this.onSaveCallback) {
-        this.onSaveCallback(this);
+        this.onSaveCallback(this,on_success,on_error);
       } else if(this.mturk) {
         if(this.scene.modelList.length > 1){
           this.SaveMTurkResults(on_success, on_error);
@@ -142,7 +146,7 @@ define([
       this.uilog.log('STATE_SCENE',finalcamera);
       var serialized = this.scene.SerializeForNetwork();
       var results = {
-        scene_file: JSON.stringify(serialized),
+        scene: JSON.stringify(serialized),
         ui_log: this.uilog.stringify()
       };
       return results;
@@ -535,8 +539,7 @@ define([
 
     App.prototype.LoadScene = function(on_success, on_error)
     {
-      getViaJquery(this.base_url + '/scenes/' +
-        this.scene_record.id + '/load')
+      getViaJquery(this.onLoadUrl)
         .error(on_error).success(function(json) {
           var scene_json = JSON.parse(json.scene);
           this.uilog.fromJSONString(json.ui_log);
@@ -557,7 +560,7 @@ define([
       var serialized = this.scene.SerializeForNetwork();
       putViaJQuery(this.base_url + '/scenes/' + this.scene_record.id,
         {
-          scene_file: JSON.stringify(serialized),
+          scene: JSON.stringify(serialized),
           ui_log: this.uilog.stringify()
         }).error(on_error).success(on_success);
     };
