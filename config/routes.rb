@@ -3,6 +3,7 @@ SceneStudio::Application.routes.draw do
   get 'experiments/image2scene', to: 'experiments/image2scene#index'
 
   get 'experiments/desc2scene', to: 'experiments/desc2scene#index'
+  get 'experiments/desc2scene/results', to: 'experiments/desc2scene#results'
 
   root                              to: 'static_pages#home'
   match '/help',                    to: 'static_pages#help'

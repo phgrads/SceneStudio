@@ -12,7 +12,7 @@ namespace :mturk do
     config_params = YAML.load_file("config/experiments/#{name}.yml")
     config_params['name'] = name
 
-    MtTask.create_without_submitting(config_params)
+    MtTask.create_and_develop(config_params)
   end
 
   desc 'launch the experiment on mturk'

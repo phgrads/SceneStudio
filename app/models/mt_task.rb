@@ -158,6 +158,12 @@ class MtTask < ActiveRecord::Base
     return task
   end
 
+  def self.create_and_develop(params)
+    task, user = create_task_and_user(params)
+    task.develop!
+    return task
+  end
+
   def self.create_and_submit(params)
     name = params['name']
     url  = params['url']
@@ -180,6 +186,15 @@ class MtTask < ActiveRecord::Base
 
     # mark the task as submitted and save
     self.submitted_at = DateTime.now
+    save!
+  end
+
+  def develop!
+    # Setup the task for development
+    # by adding a fake hit
+    mt_hit = self.mt_hits.create! do |hit|
+      hit.mtId = name
+    end
     save!
   end
 
