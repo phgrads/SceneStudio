@@ -35,7 +35,7 @@
           sentenceId: currentSentence.id,
           nSceneObjects: app.scene.modelList.length
       };
-      submit_mturk_report_item(condition, sentIndex, results).error(on_error).success(on_success);
+      submit_mturk_report_item(condition, currentSentence.id, results).error(on_error).success(on_success);
     }
 
     function showComments() {
