@@ -1,11 +1,8 @@
-<li class='scene-item'>
-  <div class="btn-group">
-    <%= link_to JSON.parse(result.data)["sentence"]["description"], { action: 'view', id: result.id },
-          class: 'btn scene-name' %>
-  </div>
-  <div>
-    <%= result.item %>
-    <%= result.condition %>
-    <%= result.workerId %>
-  </div>
-</li>
+<tr>
+  <td><%= result.item %></td>
+  <td><%= result.condition %></td>
+  <td><%= result.workerId %></td>
+  <td>
+    <%= link_to JSON.parse(result.data)["sentence"]["description"], { action: 'view', id: result.id } %>
+  </td>
+</tr>

@@ -4,9 +4,15 @@
     <h3>Results (<%= @completed.count %>)</h3>
     <!-- completed -->
     <% if @completed.any? %>
-        <ol class="unstyled">
+        <table id="resultsTable" class="table">
+          <tr>
+            <th>Item</th>
+            <th>Condition</th>
+            <th>Worker</th>
+            <th>Sentence</th>            
+          </tr>
           <%= render :partial => 'result', :collection => @completed  %>
-        </ol>
+        </table>
     <% end %>
   </div>
 </div>
