@@ -19,6 +19,7 @@ class Experiments::Desc2sceneController < ApplicationController
                                            name: params[:assignmentId],
                                        })
     end
+    @title = @scene.name
     if @scene.save
       flash[:success] = 'Scene created!'
       render "experiments/desc2scene/index", layout: true

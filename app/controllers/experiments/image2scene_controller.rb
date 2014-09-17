@@ -15,6 +15,7 @@ class Experiments::Image2sceneController < ApplicationController
                                            name: params[:assignmentId],
                                        })
     end
+    @title = @scene.name
     if @scene.save
       flash[:success] = 'Scene created!'
       render "experiments/image2scene/index", layout: true
