@@ -68,6 +68,4 @@ SceneStudio::Application.configure do
   # TODO: Get rid of these hacks
   # Terrible hack to explicitly set relative url root for sprockets require statements
   config.relative_url_root = '/scenestudio'
-  # Another terrible hack that fixes require.js-rails ignoring the above
-  config.requirejs.run_config['baseUrl'] = '/scenestudio/assets'
 end
