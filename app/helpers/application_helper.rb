@@ -1,6 +1,6 @@
 module ApplicationHelper
-  def base_url
-	  ENV['RAILS_RELATIVE_URL_ROOT'] ||= ''
+  def get_base_url
+	  @base_url = ENV['RAILS_RELATIVE_URL_ROOT'] ||= ''
   end
 
   def full_title(page_title)

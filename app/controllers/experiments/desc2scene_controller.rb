@@ -29,7 +29,7 @@ class Experiments::Desc2sceneController < ApplicationController
   end
 
   def results
-    render "experiments/desc2scene/results"
+    render "experiments/desc2scene/results", layout: true
   end
 
   def view

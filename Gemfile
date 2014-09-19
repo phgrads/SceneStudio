@@ -44,8 +44,8 @@ group :assets do
   gem 'uglifier', '1.2.3'
 end
 
-gem 'jquery-rails', '2.0.2'
-gem 'requirejs-rails', '0.9.1'
+gem 'jquery-rails', '3.1.2'
+gem 'requirejs-rails', '0.9.5'
 gem 'font-awesome-sass-rails', '3.0.2.2'
 
 # To use Jbuilder templates for JSON
