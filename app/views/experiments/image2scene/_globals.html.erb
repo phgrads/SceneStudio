@@ -30,9 +30,9 @@
       var on_error = function() { alert("Error saving results. Please close tab and do task again.");};
       var results = app.GetSceneResults();
       var currentEntry = window.globals.entries[entryIndex];
-      results['sentence'] = currentEntry;
+      results['image'] = currentEntry;
       sceneSummary[entryIndex] = {
-          sentenceId: currentEntry.id,
+          imageId: currentEntry.id,
           nSceneObjects: app.scene.modelList.length
       };
       submit_mturk_report_item(condition, currentEntry.id, results).error(on_error).success(on_success);
@@ -75,10 +75,10 @@
 
     function showEntry(index) {
         $('#startButton').hide();
-        $('#sentence').text(window.globals.entries[index]['description']);
+        $('#targetImage').attr('src', window.globals.entries[index]['description']);
     }
 
     function start() {
-        showEntry(entryIndex);
+        showEntry(index);
     }
 </script>

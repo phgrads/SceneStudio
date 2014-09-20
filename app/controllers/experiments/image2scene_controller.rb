@@ -1,7 +1,10 @@
 class Experiments::Image2sceneController < ApplicationController
   include MturkHelper
+  include Experiments::ExperimentsHelper
+  include Experiments::Image2sceneHelper
 
   before_filter :load_new_tab_params, only: [:index]
+  before_filter :load_data, only: [:index]
   layout 'webgl_viewport'
 
   def index

@@ -1,5 +1,6 @@
 class Experiments::Desc2sceneController < ApplicationController
   include MturkHelper
+  include Experiments::ExperimentsHelper
   include Experiments::Desc2sceneHelper
 
   before_filter :load_new_tab_params, only: [:index]
