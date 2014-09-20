@@ -398,10 +398,16 @@ define([
         }.bind(this));
 
       // toggle text2scene console
-      Behaviors.keypress(this.uimap, 'ctrl+I')
+      Behaviors.keypress(this.uimap, 'alt+T')
         .onpress(function(data) {
           data.preventDefault();
           this.text2scene.ToggleConsole();
+        }.bind(this));
+      // Save image
+      Behaviors.keypress(this.uimap, 'ctrl+I')
+        .onpress(function(data) {
+          data.preventDefault();
+          this.SaveImage();
         }.bind(this));
     };
 
@@ -735,6 +741,10 @@ define([
         this.undoStack.pushCurrentState(UndoStack.CMDTYPE.INSERT, hi);
         this.renderer.postRedisplay();
       }
+    };
+
+    App.prototype.SaveImage = function() {
+      window.open(this.canvas.toDataURL());
     };
 
     // Exports
