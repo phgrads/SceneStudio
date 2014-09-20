@@ -14,6 +14,9 @@
 /log/*.log
 /tmp
 
+# Ignore uploaded images
+/public/system
+
 # Ignore config file with secret data
 /config/config.yml
 
