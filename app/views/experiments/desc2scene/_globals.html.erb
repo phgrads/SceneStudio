@@ -12,6 +12,7 @@
     var entryIndex = 0;
     var condition = window.globals.conf['condition'];
     var sceneSummary = [];
+    var savePreview = window.globals.conf['savePreview'];
 
     function saveSceneCallback(app) {
         // Check if the scene is acceptable...
@@ -29,13 +30,14 @@
       };
       var on_error = function() { alert("Error saving results. Please close tab and do task again.");};
       var results = app.GetSceneResults();
+      var preview = (savePreview)? app.GetImageData():undefined;
       var currentEntry = window.globals.entries[entryIndex];
       results['sentence'] = currentEntry;
       sceneSummary[entryIndex] = {
           sentenceId: currentEntry.id,
           nSceneObjects: app.scene.modelList.length
       };
-      submit_mturk_report_item(condition, currentEntry.id, results).error(on_error).success(on_success);
+      submit_mturk_report_item(condition, currentEntry.id, results, preview).error(on_error).success(on_success);
     }
 
     function showComments() {

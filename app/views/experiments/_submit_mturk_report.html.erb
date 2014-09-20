@@ -1,6 +1,7 @@
 <% if @via_turk %>
 <script type="text/javascript">
-  function submit_mturk_report_item(condition, item, submission_data) {
+  function submit_mturk_report_item(condition, item, submission_data, preview_image) {
+      console.log(preview_image);
       return $.ajax({
           type: 'POST',
           url: "<%= mturk_report_item_url %>",
@@ -8,7 +9,8 @@
               assignmentId: "<%= @assignment.mtId %>",
               item: item,
               condition: condition,
-              data: JSON.stringify(submission_data)
+              data: JSON.stringify(submission_data),
+              preview: preview_image
           },
           dataType: 'json',
           timeout: 10000
@@ -30,7 +32,7 @@
 </script>
 <% else %>
 <script type="text/javascript">
-  function submit_mturk_report_item(condition, item, submission_data) {
+  function submit_mturk_report_item(condition, item, submission_data, preview_image) {
     console.log('submitting mturk_report_item for condition=' + condition + ", item=" + item);
     console.log(submission_data);
     var obj = {

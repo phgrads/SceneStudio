@@ -747,6 +747,10 @@ define([
       window.open(this.canvas.toDataURL());
     };
 
+    App.prototype.GetImageData = function() {
+      return this.canvas.toDataURL();
+    };
+
     // Exports
     return App;
 

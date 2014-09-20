@@ -29,14 +29,30 @@ class MturkController < ApplicationController
   end
 
   def report_item
-    @item = MtCompletedItem.create(mt_assignment_id: @assignment.id,
-                                   mt_item: params['item'],
-                                   mt_condition: params['condition'],
-                                   data: params['data'])
-    render json: {
-        success: "success",
-        status_code: "200"
+    @item = MtCompletedItem.new(mt_assignment_id: @assignment.id,
+                                mt_item: params['item'],
+                                mt_condition: params['condition'],
+                                data: params['data'])
+    preview_data = params['preview']
+    image_data = Base64.decode64(preview_data['data:image/png;base64,'.length .. -1])
+    @task = @assignment.mt_task
+    @item.preview = image_data
+    @item.preview.name = params['condition'].to_s + '_' + params['item'].to_s + '_' + @assignment.id.to_s + '.png'
+    @item.preview.meta = {
+        "name" => @item.preview.name,
+        "time" => Time.now,
+        "task" => @task.name,
+        "condition" => params['condition'],
+        "item" => params['item'],
+        "worker" => @assignment.mt_worker.mtId
     }
+    #@item.preview.mime_type = "image/png"
+
+    if @item.save then
+      ok_JSON_response
+    else
+      fail_JSON_response
+    end
   end
 
   def report
