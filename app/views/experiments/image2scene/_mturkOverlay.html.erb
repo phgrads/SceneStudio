@@ -1,6 +1,9 @@
 <div id="mturkoverlay" oncontextmenu="$('#canvas').focus(); return false;" onclick="$('#canvas').focus();">
+  <div class="center">
+    <input type="button" id="startButton" value="Start" onclick="start();"/>
+  </div>
   <div id = "wrap">
-    <%= image_tag '/data/image/stimuli/room1.png'%>
+    <%= image_tag '', :id => 'targetImage' %>
   </div>
   <div id="editinstructions">
     <p id="prompt">Put mouse here for instructions</p>

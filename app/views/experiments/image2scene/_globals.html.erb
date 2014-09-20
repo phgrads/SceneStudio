@@ -75,10 +75,12 @@
 
     function showEntry(index) {
         $('#startButton').hide();
-        $('#targetImage').attr('src', window.globals.entries[index]['description']);
+        console.log(window.globals.entries[index]['url']);
+        $('#targetImage').attr('src', window.globals.entries[index]['url']);
     }
 
     function start() {
-        showEntry(index);
+        console.log("Show entry: " + entryIndex);
+        showEntry(entryIndex);
     }
 </script>

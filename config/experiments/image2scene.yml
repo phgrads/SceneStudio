@@ -28,3 +28,9 @@ keywords: 3D models, scenes, pictures, scene design # defaults to nothing
 #lifetime:  # defaults to 3 days
 # maximum time in seconds for a worker to complete a HIT after accepting
 #max_task_time:  # defaults to 1 hour
+
+# EXPERIMENT CONFIGURATION
+conf:
+  nScenes: 4
+  inputFile: public/experiments/image2scene/images.txt
+  condition: pilot

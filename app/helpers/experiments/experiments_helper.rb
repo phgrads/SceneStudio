@@ -35,7 +35,9 @@ module Experiments::ExperimentsHelper
     csv.map { |row|
       {
           id: row['id'],
-          description: row['description']
+          description: row['description'],
+          category: row['category'],
+          url: row['url']
       }
     }
   end
