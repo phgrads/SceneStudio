@@ -42,6 +42,7 @@ define([
       PubSub.call(this);
 
       this.canvas = canvas;
+      this.savePreview = true;
 
       // the following variables from globalViewData
       // should be rendered by the jade template
@@ -580,10 +581,12 @@ define([
           alert('did not save!  Please develop a better UI alert');
         };
         var serialized = this.scene.SerializeForNetwork();
+        var preview = (this.savePreview)? this.GetImageData():undefined;
         putViaJQuery(this.onSaveUrl,
           {
             scene: JSON.stringify(serialized),
-            ui_log: this.uilog.stringify()
+            ui_log: this.uilog.stringify(),
+            preview: preview
           }).error(on_error).success(on_success);
       } else {
         console.error("Cannot save scene: No save url");

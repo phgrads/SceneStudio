@@ -45,7 +45,17 @@ class ScenesController < ApplicationController
       :data => params[:scene],
       :ui_log => params[:ui_log]
     })
-    # if that failed, an error is raised, otherwise...
+    if params['preview'] then
+      preview_data = params['preview']
+      image_data = Base64.decode64(preview_data['data:image/png;base64,'.length .. -1])
+      @scene.preview = image_data
+      @scene.preview.name = 'scene' + @scene.id.to_s + '.png'
+      @scene.preview.meta = {
+          "name" => @scene.preview.name,
+          "time" => Time.now
+      }
+      @scene.save!
+    end
 
     # send 200 response
     ok_JSON_response
