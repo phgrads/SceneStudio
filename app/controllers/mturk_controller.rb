@@ -12,7 +12,20 @@ class MturkController < ApplicationController
       @new_tab_href = root_url + 'experiments/' + @task.name +
                       '?assignmentId=' + @assignment.mtId
     end
-    render 'mturk/task', layout: false
+    if @via_turk then
+      if (@hit.id != @assignment.mt_hit_id)
+        @error = 'Assignment ' + @assignment.mtId + ' belongs to hit ' + @assignment.mt_hit_id.to_s + ' not ' + @hit.id.to_s
+      else
+        if (@task.id != @hit.mt_task_id) then
+          @error = 'Assignment ' + @assignment.mtId + ' belongs to task ' + @hit.mt_task_id.to_s + ' not ' + @task.id.to_s
+        end
+      end
+    end
+    if @error then
+      render 'mturk/error', layout: false
+    else
+      render 'mturk/task', layout: false
+    end
   end
 
   def report_item
