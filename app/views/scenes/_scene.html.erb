@@ -7,4 +7,12 @@
     <%= link_to '×', scene, confirm: 'Are you sure?', method: :delete,
           class: 'btn btn-danger scene-delete' %>
   </div>
+  <% if scene.preview %>
+    <% preview_url = scene.preview.url %>
+    <% if preview_url %>
+      <div>
+        <%= image_tag preview_url, class: 'scene-preview' %>
+      </div>
+    <% end %>
+  <% end %>
 </li>

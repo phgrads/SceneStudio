@@ -4,6 +4,11 @@ require 'dragonfly'
 Dragonfly.app.configure do
   plugin :imagemagick
 
+# imagemagick (http://www.imagemagick.org/) path for Windows (use for thumbnails)
+#  plugin :imagemagick,
+#    convert_command: "C:/Program\\ Files/ImageMagick-6.8.9-Q16/convert.exe",
+#    identify_command: "C:/Program\\ Files/ImageMagick-6.8.9-Q16/identify.exe"
+
   secret "9d0c9c3dc750d3ee3e41b2faf299cf6d6ee8bbbbc6f87d1647d5e8bf79306281"
 
   url_format "/media/:job/:name"

@@ -20,6 +20,8 @@ gem 'rturk', '2.10.2'
 
 # For uploading images
 gem 'dragonfly', '~> 1.0.7'
+# Caching
+#gem 'rack-cache', :require  => 'rack/cache'
 
 # For integration with solr
 #gem 'sunspot_rails'
