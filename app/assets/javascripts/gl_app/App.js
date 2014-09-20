@@ -183,6 +183,7 @@ define([
         this.undoStack.clear();
         this.renderer.resizeEnd();
         this.renderer.UpdateView();
+        this.SelectInstance(null);
       }.bind(this));
     };
 
