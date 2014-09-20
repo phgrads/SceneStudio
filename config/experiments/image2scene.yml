@@ -34,3 +34,4 @@ conf:
   nScenes: 4
   inputFile: public/experiments/image2scene/images.txt
   condition: pilot
+  savePreview: true
