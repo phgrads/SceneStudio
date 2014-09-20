@@ -1,0 +1,16 @@
+<tr>
+  <td><%= result.item %></td>
+  <td><%= result.condition %></td>
+  <td><%= result.workerId %></td>
+  <td>
+    <% @parsed = JSON.parse(result.data) %>
+    <% if @parsed["image"] %>
+        <%= link_to @parsed["image"]["category"], { action: 'view', id: result.id } %>
+    <% else %>
+        <%= link_to result.item, { action: 'view', id: result.id } %>
+    <% end %>
+  </td>
+  <td>
+    <%= image_tag @parsed["image"]["url"] %>
+  </td>
+</tr>

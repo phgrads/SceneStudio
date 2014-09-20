@@ -1,6 +1,10 @@
 SceneStudio::Application.routes.draw do
 
   get 'experiments/image2scene', to: 'experiments/image2scene#index'
+  get 'experiments/image2scene/results', to: 'experiments/image2scene#results'
+
+  match 'experiments/image2scene/:id/load',         to: 'experiments/image2scene#load'
+  match 'experiments/image2scene/:id/view',         to: 'experiments/image2scene#view'
 
   get 'experiments/desc2scene', to: 'experiments/desc2scene#index'
   get 'experiments/desc2scene/results', to: 'experiments/desc2scene#results'
