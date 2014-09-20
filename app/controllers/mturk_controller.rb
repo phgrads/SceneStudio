@@ -22,7 +22,7 @@ class MturkController < ApplicationController
       end
     end
     if @error then
-      render 'mturk/error', layout: false
+      raise StandardError.new(@error)
     else
       render 'mturk/task', layout: false
     end

@@ -6,9 +6,7 @@
   <%= javascript_include_tag 'application' %>
   <% if @via_turk and not @preview %>
     <script type="text/javascript">
-    function signal_turk(data) {
-      console.log("signal_turk");
-      console.log(data);
+    function signal_turk(response) {
       var form = document.createElement('form');
       var id_input = document.createElement('input');
       var data_input = document.createElement('input');
@@ -17,7 +15,11 @@
       id_input.value = "<%= @assignment.mtId %>";
       data_input.type = 'hidden';
       data_input.name = 'data';
-      data_input.value = "{something: 'dummy'}";
+      if (response.data) {
+        data_input.value = response.data;
+      } else{
+        data_input.value = "{something: 'dummy'}";
+      }
       form.appendChild(id_input);
       form.appendChild(data_input);
       document.body.appendChild(form);
