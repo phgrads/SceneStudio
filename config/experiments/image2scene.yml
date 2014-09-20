@@ -35,3 +35,4 @@ conf:
   inputFile: public/experiments/image2scene/images.txt
   condition: pilot
   savePreview: true
+  uploadSummary: true

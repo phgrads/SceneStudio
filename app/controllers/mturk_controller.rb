@@ -3,6 +3,7 @@ class MturkController < ApplicationController
 
   before_filter :load_iframe_params, only: [:task]
   before_filter :require_assignment, only: [:report, :coupon, :report_item]
+  before_filter :load_task_conf, only: [:coupon]
 
   def task
     # should improve on this and be less kludgy in the future...?
@@ -33,7 +34,6 @@ class MturkController < ApplicationController
                                 mt_item: params['item'],
                                 mt_condition: params['condition'],
                                 data: params['data'])
-    @task = @assignment.mt_task
     if params['preview'] then
       preview_data = params['preview']
       image_data = Base64.decode64(preview_data['data:image/png;base64,'.length .. -1])
@@ -71,12 +71,16 @@ class MturkController < ApplicationController
     submitted_code  = params[:coupon_code]
     true_code       = @assignment.coupon_code
     if submitted_code == true_code then
-#   TODO: only return data if assignment want to save data with amazon as well
-      render json: {
-          success: "success",
-          status_code: "200",
-          data: @assignment.data
-      }
+      # Only return data if task wants to save data with amazon as well
+      if @conf['uploadSummary'] then
+        render json: {
+            success: "success",
+            status_code: "200",
+            data: @assignment.data
+        }
+      else
+        ok_JSON_response
+      end
     else
       fail_JSON_response
     end
@@ -85,5 +89,10 @@ class MturkController < ApplicationController
   private
     def require_assignment
       @assignment = MtAssignment.find_by_mtId!(params['assignmentId'])
+      @task = @assignment.mt_task
+    end
+
+    def load_task_conf
+      @conf = YAML.load_file("config/experiments/#{@task.name}.yml")['conf']
     end
 end
