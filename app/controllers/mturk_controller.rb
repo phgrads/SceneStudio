@@ -11,8 +11,7 @@ class MturkController < ApplicationController
     if @via_turk and not @preview then
       @new_tab_href = root_url + 'experiments/' + @task.name +
                       '?assignmentId=' + @assignment.mtId
-    end
-    if @via_turk then
+      # Some basic checks
       if (@hit.id != @assignment.mt_hit_id)
         @error = 'Assignment ' + @assignment.mtId + ' belongs to hit ' + @assignment.mt_hit_id.to_s + ' not ' + @hit.id.to_s
       else
@@ -21,6 +20,7 @@ class MturkController < ApplicationController
         end
       end
     end
+
     if @error then
       raise StandardError.new(@error)
     else
