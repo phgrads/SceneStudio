@@ -95,7 +95,12 @@ define([
         this.onLoadUrl = window.globals.onLoadUrl;
       }
       if (this.onLoadUrl === undefined) {
-        this.onLoadUrl = this.base_url + '/scenes/' + this.scene_record.id + '/load';
+        if (this.scene_record) {
+          this.onLoadUrl = this.base_url + '/scenes/' + this.scene_record.id + '/load';
+        }
+      }
+      if (this.scene_record) {
+        this.onSaveUrl = this.base_url + '/scenes/' + this.scene_record.id;
       }
 
       preventSelection(this.canvas);
@@ -163,16 +168,21 @@ define([
           this.renderer.UpdateView();
         }.bind(this),
         function() { // on failure create an empty room
-          this.assman.GetModel('room01', function (model)
-          {
-            this.scene.Reset(new ModelInstance(model, null));
-            this.camera.UpdateSceneBounds(this.scene.Bounds());
-            this.camera.InitToSceneBounds();
-            this.undoStack.clear();
-            this.renderer.resizeEnd();
-            this.renderer.UpdateView();
-          }.bind(this));
+          this.CreateEmpty();
         }.bind(this));
+    };
+
+    // Create a empty scene
+    App.prototype.CreateEmpty = function() {
+      this.assman.GetModel('room01', function (model)
+      {
+        this.scene.Reset(new ModelInstance(model, null));
+        this.camera.UpdateSceneBounds(this.scene.Bounds());
+        this.camera.InitToSceneBounds();
+        this.undoStack.clear();
+        this.renderer.resizeEnd();
+        this.renderer.UpdateView();
+      }.bind(this));
     };
 
     App.prototype.AttachEventHandlers = function ()
@@ -539,30 +549,39 @@ define([
 
     App.prototype.LoadScene = function(on_success, on_error)
     {
-      getViaJquery(this.onLoadUrl)
-        .error(on_error).success(function(json) {
-          var scene_json = JSON.parse(json.scene);
-          this.uilog.fromJSONString(json.ui_log);
-          this.scene.LoadFromNetworkSerialized(scene_json,
-            this.assman,
-            on_success);
-        }.bind(this));
+      if (this.onLoadUrl) {
+        getViaJquery(this.onLoadUrl)
+          .error(on_error).success(function(json) {
+            var scene_json = JSON.parse(json.scene);
+            this.uilog.fromJSONString(json.ui_log);
+            this.scene.LoadFromNetworkSerialized(scene_json,
+              this.assman,
+              on_success);
+          }.bind(this));
+      } else {
+        console.log("Cannot load scene: No load url");
+        this.CreateEmpty();
+      }
     };
 
     App.prototype.SaveScene_ = function(on_success, on_error)
     {
-      on_success = on_success || function() {
-        alert('saved!  Please develop a better UI alert');
-      };
-      on_error = on_error || function() {
-        alert('did not save!  Please develop a better UI alert');
-      };
-      var serialized = this.scene.SerializeForNetwork();
-      putViaJQuery(this.base_url + '/scenes/' + this.scene_record.id,
-        {
-          scene: JSON.stringify(serialized),
-          ui_log: this.uilog.stringify()
-        }).error(on_error).success(on_success);
+      if (this.onSaveUrl) {
+        on_success = on_success || function() {
+          alert('saved!  Please develop a better UI alert');
+        };
+        on_error = on_error || function() {
+          alert('did not save!  Please develop a better UI alert');
+        };
+        var serialized = this.scene.SerializeForNetwork();
+        putViaJQuery(this.onSaveUrl,
+          {
+            scene: JSON.stringify(serialized),
+            ui_log: this.uilog.stringify()
+          }).error(on_error).success(on_success);
+      } else {
+        console.error("Cannot save scene: No save url");
+      }
     };
 
     App.prototype.ExitTo = function(destination)
