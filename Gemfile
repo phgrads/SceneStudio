@@ -70,3 +70,6 @@ gem 'font-awesome-sass-rails', '3.0.2.2'
 
 # To use debugger
 # gem 'debugger'
+
+# For dumping database to YAML files
+gem 'yaml_db'
