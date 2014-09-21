@@ -30,7 +30,7 @@
       };
       var on_error = function() { alert("Error saving results. Please close tab and do task again.");};
       var results = app.GetSceneResults();
-      var preview = (savePreview)? app.GetImageData():undefined;
+      var preview = (savePreview)? app.GetPreviewImageData():undefined;
       var currentEntry = window.globals.entries[entryIndex];
       results['image'] = currentEntry;
       sceneSummary[entryIndex] = {

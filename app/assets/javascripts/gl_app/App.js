@@ -582,7 +582,7 @@ define([
           alert('did not save!  Please develop a better UI alert');
         };
         var serialized = this.scene.SerializeForNetwork();
-        var preview = (this.savePreview)? this.GetImageData():undefined;
+        var preview = (this.savePreview)? this.GetPreviewImageData():undefined;
         putViaJQuery(this.onSaveUrl,
           {
             scene: JSON.stringify(serialized),
@@ -747,12 +747,47 @@ define([
       }
     };
 
-    App.prototype.SaveImage = function() {
-      window.open(this.canvas.toDataURL());
+    App.prototype.SaveImage = function(maxWidth,maxHeight) {
+      var dataUrl = this.GetImageData(maxWidth,maxHeight);
+      window.open(dataUrl);
     };
 
-    App.prototype.GetImageData = function() {
-      return this.canvas.toDataURL();
+    // Function to get a potentially resized canvas with a given maxWidth and maxHeight
+    // while retaining the aspect ratio of the original canvas
+    // The quality of the resized image is probably not great
+    function getResizedCanvas(canvas, maxWidth, maxHeight)
+    {
+      var scale = 1.0;
+      if (maxWidth && canvas.width > maxWidth) {
+        scale = Math.min(scale, maxWidth/canvas.width);
+      }
+      if (maxHeight && canvas.height > maxHeight) {
+        scale = Math.min(scale, maxHeight/canvas.height);
+      }
+      if (scale != 1.0) {
+        var newCanvas = document.createElement("canvas");
+        newCanvas.width = scale*canvas.width;
+        newCanvas.height = scale*canvas.height;
+        var ctx = newCanvas.getContext("2d");
+        ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, newCanvas.width, newCanvas.height);
+        return newCanvas;
+      } else {
+        return canvas;
+      }
+    }
+
+    App.prototype.GetPreviewImageData = function() {
+      return this.GetImageData(Constants.previewMaxWidth, Constants.previewMaxHeight);
+    };
+
+    App.prototype.GetImageData = function(maxWidth,maxHeight) {
+      if (maxWidth || maxHeight) {
+        // Make sure our image is smaller...
+        var newCanvas = getResizedCanvas(this.canvas, maxWidth,maxHeight);
+        return newCanvas.toDataURL();
+      } else {
+        return this.canvas.toDataURL();
+      }
     };
 
     // Exports
