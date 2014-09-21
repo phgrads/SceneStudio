@@ -1,0 +1,13 @@
+<div id="ui">
+  <%= render '/scenes/graphicsArea' %>
+  <%= render '/scenes/graphicsOverlay' %>
+  <%= render '/scenes/searchPanel' %>
+  <%= render '/scenes/console' %>
+  <script type='text/javascript'>
+      var itemId = "<%= @item.id %>";
+      window.globals = {
+          onLoadUrl: window.globalViewData.base_url + '/experiments/desc2scene/' + itemId + '/load'
+     };
+   </script>
+</div>
+<%= requirejs_include_tag('gl_app/editor-main') %>

@@ -13,6 +13,12 @@
 
 class Scene < ActiveRecord::Base
   attr_accessible :data, :name, :ui_log
+  dragonfly_accessor :preview do
+    storage_options do |a|
+      # self is the model and a is the attachment
+      { path: "scenes/#{a.name}" }
+    end
+  end
 
   has_paper_trail
 

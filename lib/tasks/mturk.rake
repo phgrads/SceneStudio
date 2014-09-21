@@ -12,7 +12,7 @@ namespace :mturk do
     config_params = YAML.load_file("config/experiments/#{name}.yml")
     config_params['name'] = name
 
-    MtTask.create_without_submitting(config_params)
+    MtTask.create_and_develop(config_params)
   end
 
   desc 'launch the experiment on mturk'
@@ -21,10 +21,15 @@ namespace :mturk do
 
     # give user friendly error when we can't run
     task = MtTask.find_by_name(name)
-    if task
+    if task then
       if task.submitted? then
-        raise "FAIL: could not mturk:run #{name} because " +
+        if task.completed? then
+          puts "Found completed task #{name} in db (probably mturk:recall). " +
+               'Updating config and resubmitting.'
+        else
+          raise "FAIL: could not mturk:run #{name} because " +
               "apparently it's already been submitted."
+        end
       else
         puts "Found task #{name} in db (probably mturk:develop). " +
              'Destroying first and recreating before submission.'
@@ -43,8 +48,12 @@ namespace :mturk do
     # extend the parameters object with other useful parameters
     config_params['name'] = name
     config_params['url']  = url
-    
-    MtTask.create_and_submit(config_params)
+
+    if task then
+      MtTask.update_and_submit(task, config_params)
+    else
+      MtTask.create_and_submit(config_params)
+    end
   end
 
   desc 'end the experiment on mturk'
@@ -53,14 +62,14 @@ namespace :mturk do
     task.expire! if task.live?
   end
 
-  desc 'delete the experiment (from mturk) and pay all the workers'
-  task :delete, [:name]  => :environment do |_, args|
+  desc 'recall the experiment (from mturk) and pay all the workers'
+  task :recall, [:name]  => :environment do |_, args|
     task = get_task(args.name)
     task.complete! if task.live?
   end
 
   desc 'delete all evidence/data of the experiment having been run'
-  task :recall, [:name]  => :environment do |_, args|
+  task :destroy, [:name]  => :environment do |_, args|
     task = get_task(args.name)
     task.complete! if task.live?
     task.destroy

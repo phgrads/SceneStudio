@@ -6,14 +6,25 @@ gem 'bootstrap-sass', '2.1'
 gem 'bcrypt-ruby', '~> 3.0.1'
 gem 'faker', '1.0.1'
 
+# For authenticating with twitter/google
 gem 'omniauth-twitter', '1.0.0'
 gem 'omniauth-google-oauth2', '0.2.0'
 gem 'omniauth-identity', '1.1.1'
 
+# For pagination
 gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.6'
 
+# For mechanical turk
 gem 'rturk', '2.10.2'
+
+# For uploading images
+gem 'dragonfly', '~> 1.0.7'
+# Caching
+#gem 'rack-cache', :require  => 'rack/cache'
+
+# For integration with solr
+#gem 'sunspot_rails'
 
 group :development, :test, :production do
   gem 'sqlite3', '1.3.5'
@@ -44,8 +55,8 @@ group :assets do
   gem 'uglifier', '1.2.3'
 end
 
-gem 'jquery-rails', '2.0.2'
-gem 'requirejs-rails', '0.9.1'
+gem 'jquery-rails', '3.1.2'
+gem 'requirejs-rails', '0.9.5'
 gem 'font-awesome-sass-rails', '3.0.2.2'
 
 # To use Jbuilder templates for JSON
@@ -59,3 +70,6 @@ gem 'font-awesome-sass-rails', '3.0.2.2'
 
 # To use debugger
 # gem 'debugger'
+
+# For dumping database to YAML files
+gem 'yaml_db'

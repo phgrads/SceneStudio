@@ -40,6 +40,7 @@ var CMDTYPE = Object.freeze({
     SCALE       : "SCALE",
     SWITCHFACE  : "SWITCHFACE",
     INIT        : "INIT",
+    TEXT2SCENE  : "TEXT2SCENE",
     NULL        : "NULL"
 });
 

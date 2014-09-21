@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  include ApplicationHelper
   include SessionsHelper
+
+  before_filter :get_base_url
 
   # for responding SUCCESS to AJAX actions
   def ok_JSON_response

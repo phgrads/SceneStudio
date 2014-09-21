@@ -8,7 +8,7 @@ function(Framebuffer){
 function Picker(gl)
 {
     this.gl_ = gl;
-};
+}
 
 /**
  * Pack two uint16s from array values into a 4 element Float32Array containing normalized byte values.
@@ -48,13 +48,16 @@ Picker.generalUnpackIDs = function(array)
         ids.push([v1,v2]);
     }
     return ids; 
-}
+};
 /**
  * Read pick buffer at pixel coordinates (x,y).
  * Returns: 2 element array with integers [modelID, subgeometryID].
  **/
 Picker.prototype.PickModelGeoIDs = function(x,y)
 {
+    // Check if the pickAfbo is initialized
+    if (!this.pickAfbo) return;
+
     var gl = this.gl_;
 
     var pixel = new Uint8Array(4);
@@ -76,7 +79,7 @@ Picker.prototype.BrowserYToGLY = function(y)
 	var canvas = this.gl_.canvas;
 	var rect = canvas.getBoundingClientRect();
     return canvas.height - y + rect.top;
-}
+};
 
 /**
  * Pick render.scene at canvas coordinates (x,y) from camera's viewpoint.
@@ -86,12 +89,14 @@ Picker.prototype.PickObject = function(x, y, renderer)
 {
 	var gl = this.gl_;
     
-    // Flip and adjust Y coord
-    y = this.BrowserYToGLY(y);
+  // Flip and adjust Y coord
+  y = this.BrowserYToGLY(y);
 	
 	var ids = this.PickModelGeoIDs(x, y);
-	return renderer.scene.IndexToObject(ids[0]);
-}
+  if (ids) {
+	  return renderer.scene.IndexToObject(ids[0]);
+  } else return null;
+};
 
 /**
  * Pick render.scene at canvas coordinates (x,y) from camera's viewpoint.
@@ -106,6 +111,8 @@ Picker.prototype.PickTriangle = function(x, y, camera, renderer)
     
     // Get model and geo IDs from pick buffer
     var modelGeoIDs = this.PickModelGeoIDs(x,y);
+    if (!modelGeoIDs) return undefined;
+
     var obj = renderer.scene.IndexToObject(modelGeoIDs[0]);
     
     // Bail if nothing clicked
@@ -117,11 +124,11 @@ Picker.prototype.PickTriangle = function(x, y, camera, renderer)
     // Intersect with subgeometry
     var intersects = ray.intersectObject(obj, modelGeoIDs[1]);
 	
-	// It should be impossible for there to be no intersection; the pick buffer
-	// had something at this location, so there should be something to intersect.
-    // TODO: This is most likely due to asynchronous postRedisplay calls resulting in out-of-sync pick buffers
-    // However, it should be safe to ignore such out-of-sync intersections
-	if (intersects.length == 0) {
+    // It should be impossible for there to be no intersection; the pick buffer
+    // had something at this location, so there should be something to intersect.
+      // TODO: This is most likely due to asynchronous postRedisplay calls resulting in out-of-sync pick buffers
+      // However, it should be safe to ignore such out-of-sync intersections
+    if (intersects.length == 0) {
         return undefined;
         //console.log(obj);
         //console.log(modelGeoIDs);
@@ -134,7 +141,7 @@ Picker.prototype.PickTriangle = function(x, y, camera, renderer)
     intersect.geoID = modelGeoIDs[1];
     
     return intersect;
-}
+};
 
 /**
  * Pick at canvas coordinates (x,y) from camera's viewpoint.
@@ -150,22 +157,22 @@ Picker.prototype.PickPlane = function(x, y, pp, pn, camera, renderer)
 	
 	// Intersect ray with plane
 	return ray.intersectPlane(pp, pn);
-}
+};
 
 Picker.prototype.HandleResize = function(newWidth, newHeight)
 {
 	this.pickAfbo = new Framebuffer(this.gl_, {width: newWidth, height: newHeight});
-}
+};
 
 Picker.prototype.PrepareForPicking = function()
 {
 	this.pickAfbo.bind(this.gl_);
-}
+};
 
 Picker.prototype.CleanupAfterPicking = function()
 {
 	this.pickAfbo.unbind(this.gl_);
-}
+};
 
 
 // Exports

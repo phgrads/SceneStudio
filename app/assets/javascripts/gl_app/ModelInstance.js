@@ -444,35 +444,37 @@ ModelInstance.prototype.FirstTransform = function(xform)
 // Orient, rotate, and place the object in its final configuration
 ModelInstance.prototype.SecondTransform = function(xform, opt_doLocalRotation)
 {
-	var doLocalRot = opt_doLocalRotation === undefined ? true : opt_doLocalRotation;
-	
-	var anchorInfo = this.parent.EvaluateSurface(this.parentMeshI, this.parentTriI, this.parentUV);
-	vec3.set(anchorInfo.position, this.parentPos);
-    var m = mat4.identity(mat4.create());
+  var doLocalRot = opt_doLocalRotation === undefined ? true : opt_doLocalRotation;
 
-	if (doLocalRot)
-	{
-		// Rotation relative to coordinate frame
-		mat4.rotateZ(m, this.rotation);
-		mat4.multiply(m, xform, xform);
-	}
+  var anchorInfo = this.parent.EvaluateSurface(this.parentMeshI, this.parentTriI, this.parentUV);
+  vec3.set(anchorInfo.position, this.parentPos);
+  var m = mat4.identity(mat4.create());
 
-    // TODO: This coord frame transform enables self-orienting on parent surfaces but overcompensates for rotation
-    //       Disabled for now, but can add option for self-orienting in future
-    // Coordinate frame transform
-	//m = this.coordFrame.ToBasisMatrix();
-	//mat4.multiply(m, xform, xform);
-
-    // Multiply parent rotation
-    mat4.multiply(this.parent.normalTransform, xform, xform);
-
-    // Translate to anchor position (+ small z offset to avoid coplanarity)
-	mat4.identity(m);
-	var offset = vec3.create(this.coordFrame.w);
-	vec3.scale(offset, Constants.transformZoffset);
-	vec3.add(offset, this.parentPos);
-    mat4.translate(m, offset);
+  if (doLocalRot)
+  {
+    // Rotation relative to coordinate frame
+    mat4.rotateZ(m, this.rotation);
     mat4.multiply(m, xform, xform);
+  }
+
+  // TODO: Debug the Constants.autoOrient mode (set to true to enable)
+  //       This coord frame transform enables self-orienting on parent surfaces but may overcompensate for rotation
+  if (Constants.autoOrient) {
+    // Coordinate frame transform
+    m = this.coordFrame.ToBasisMatrix();
+    mat4.multiply(m, xform, xform);
+  }
+
+  // Multiply parent rotation
+  mat4.multiply(this.parent.normalTransform, xform, xform);
+
+  // Translate to anchor position (+ small z offset to avoid coplanarity)
+  mat4.identity(m);
+  var offset = vec3.create(this.coordFrame.w);
+  vec3.scale(offset, Constants.transformZoffset);
+  vec3.add(offset, this.parentPos);
+  mat4.translate(m, offset);
+  mat4.multiply(m, xform, xform);
 };
 
 ModelInstance.prototype.CommonDrawSetup = function(renderer)

@@ -1,0 +1,33 @@
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/725b2a2115b/integration/bootstrap/3/dataTables.bootstrap.css">
+
+<% provide(:title, "Results") %>
+<div class="row">
+  <div class="span8 offset2">
+    <h3>Results (<%= @completed.count %>)</h3>
+    <!-- completed -->
+    <% if @completed.any? %>
+        <table id="resultsTable" class="display">
+          <thead>
+          <tr>
+            <th>Item</th>
+            <th>Condition</th>
+            <th>Worker</th>
+            <th>Sentence</th>
+            <th>Preview</th>
+          </tr>
+          </thead>
+          <tbody>
+          <%= render :partial => 'result', :collection => @completed  %>
+          </tbody>
+        </table>
+    <% end %>
+  </div>
+</div>
+<script type="text/javascript">
+    // For demo to fit into DataTables site builder...
+    $('#resultsTable')
+            .removeClass( 'display' )
+            .addClass('table table-striped table-bordered');
+</script>
+<%= requirejs_include_tag('results') %>

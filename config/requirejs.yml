@@ -4,14 +4,19 @@ modules:
 
 paths:
   'async': 'async.min'
-  'jquery': 'jquery-1.7.2.min'
-  'jquery-ui': 'jquery-ui-1.8.21.custom.min'
+  'jquery': 'jquery-1.11.1.min'
+  'jquery-ui': 'jquery-ui-1.11.1.min'
+  'jquery.datatables': 'jquery.dataTables.min'
+  'jquery.datatables.bootstrap': 'dataTables.bootstrap'
   'gl-matrix': 'gl-matrix-min'
   'gl-matrix-ext': 'gl_app/gl-matrix-ext'
 
 shim:
   'jquery.debouncedresize': ['jquery']
   'jquery-ui': ['jquery']
+  'jquery.console': ['jquery']
+  'jquery.datatables': ['jquery']
+  'jquery.datatables.bootstrap': ['jquery.datatables']
   'gl-matrix-ext': ['gl-matrix']
   'loader': ['base']
   'base': ['jquery']

@@ -1,0 +1,80 @@
+@import "common";
+@import "graphicsArea";
+
+#mturkoverlay {
+  display: none;
+  height: 10%;
+  width: 100%;
+  z-index: 1;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  margin-right: 30px;
+  @include user-select(none);
+}
+#wrap {
+  margin-bottom:0;
+  position:absolute;
+  bottom:0;
+  display: table-cell;
+  text-align: left;
+  vertical-align: bottom;
+  width: 200px;
+  height: 200px;
+  img {
+    z-index:3;
+    position:absolute;
+    width:100%;
+    max-width:400%;
+    bottom:0;
+    &:hover {
+      z-index:3;
+      width: 400%;
+    }
+  }
+}
+
+#startButton {
+  font-size: 30pt;
+  width: 200px;
+  height: 50px;
+}
+
+#editinstructions {
+  z-index:2;
+  position:absolute;
+  left:200px;
+  height:30%;
+  bottom:0;
+  right:300px;
+  background-color: $bg1;
+  overflow: auto;
+  &:hover{
+    height:250%;
+    #instructions p {
+      display: block;
+    }
+    #prompt { display: none; }
+  }
+  #instructions p {
+    display: none;
+    margin-top: 20px;
+    text-align: left;
+    vertical-align: middle;
+  }
+  #prompt {
+    font: 18pt bold sans-serif;
+    text-align: center;
+  }
+}
+
+.textDescription {
+  top: 0%;
+  background: white;
+  color: black;
+  font: 22pt bold sans-serif;
+}
+
+.center {
+  text-align: center;
+}

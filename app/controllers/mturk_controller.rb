@@ -2,7 +2,8 @@ class MturkController < ApplicationController
   include MturkHelper
 
   before_filter :load_iframe_params, only: [:task]
-  before_filter :require_assignment, only: [:report, :coupon]
+  before_filter :require_assignment, only: [:report, :coupon, :report_item]
+  before_filter :load_task_conf, only: [:coupon]
 
   def task
     # should improve on this and be less kludgy in the future...?
@@ -11,8 +12,48 @@ class MturkController < ApplicationController
     if @via_turk and not @preview then
       @new_tab_href = root_url + 'experiments/' + @task.name +
                       '?assignmentId=' + @assignment.mtId
+      # Some basic checks
+      if (@hit.id != @assignment.mt_hit_id)
+        @error = 'Assignment ' + @assignment.mtId + ' belongs to hit ' + @assignment.mt_hit_id.to_s + ' not ' + @hit.id.to_s
+      else
+        if (@task.id != @hit.mt_task_id) then
+          @error = 'Assignment ' + @assignment.mtId + ' belongs to task ' + @hit.mt_task_id.to_s + ' not ' + @task.id.to_s
+        end
+      end
     end
-    render 'mturk/task', layout: false
+
+    if @error then
+      raise StandardError.new(@error)
+    else
+      render 'mturk/task', layout: false
+    end
+  end
+
+  def report_item
+    @item = MtCompletedItem.new(mt_assignment_id: @assignment.id,
+                                mt_item: params['item'],
+                                mt_condition: params['condition'],
+                                data: params['data'])
+    if params['preview'] then
+      preview_data = params['preview']
+      image_data = Base64.decode64(preview_data['data:image/png;base64,'.length .. -1])
+      @item.preview = image_data
+      @item.preview.name = params['condition'].to_s + '_' + params['item'].to_s + '_' + @assignment.id.to_s + '.png'
+      @item.preview.meta = {
+          "name" => @item.preview.name,
+          "time" => Time.now,
+          "task" => @task.name,
+          "condition" => params['condition'],
+          "item" => params['item'],
+          "worker" => @assignment.mt_worker.mtId
+      }
+    end
+
+    if @item.save then
+      ok_JSON_response
+    else
+      fail_JSON_response
+    end
   end
 
   def report
@@ -30,7 +71,16 @@ class MturkController < ApplicationController
     submitted_code  = params[:coupon_code]
     true_code       = @assignment.coupon_code
     if submitted_code == true_code then
-      ok_JSON_response
+      # Only return data if task wants to save data with amazon as well
+      if @conf['uploadSummary'] then
+        render json: {
+            success: "success",
+            status_code: "200",
+            data: @assignment.data
+        }
+      else
+        ok_JSON_response
+      end
     else
       fail_JSON_response
     end
@@ -39,5 +89,10 @@ class MturkController < ApplicationController
   private
     def require_assignment
       @assignment = MtAssignment.find_by_mtId!(params['assignmentId'])
+      @task = @assignment.mt_task
+    end
+
+    def load_task_conf
+      @conf = YAML.load_file("config/experiments/#{@task.name}.yml")['conf']
     end
 end

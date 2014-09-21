@@ -1,0 +1,88 @@
+<script type='text/javascript'>
+    window.globals = {
+        entries: <%= raw(@entries.to_json) %>,
+        conf: <%= raw(@conf.to_json) %>,
+        <% if @via_turk %>
+        assignmentId: "<%= @assignment.mtId %>",
+        <% end %>
+        onSaveCallback: saveSceneCallback
+    };
+    //var store;
+    //$(function() { store = new Persist.Store('desc2scene'); });
+    var entryIndex = 0;
+    var condition = window.globals.conf['condition'];
+    var sceneSummary = [];
+    var savePreview = window.globals.conf['savePreview'];
+
+    function saveSceneCallback(app) {
+        // Check if the scene is acceptable...
+        if(app.scene.modelList.length > 1){
+            saveScene(app);
+        }
+        else{
+            alert("You haven't added anything to the scene yet");
+        }
+    }
+
+    function saveScene(app) {
+      var on_success = function(response) {
+          next();
+      };
+      var on_error = function() { alert("Error saving results. Please close tab and do task again.");};
+      var results = app.GetSceneResults();
+      var preview = (savePreview)? app.GetImageData():undefined;
+      var currentEntry = window.globals.entries[entryIndex];
+      results['image'] = currentEntry;
+      sceneSummary[entryIndex] = {
+          imageId: currentEntry.id,
+          nSceneObjects: app.scene.modelList.length
+      };
+      submit_mturk_report_item(condition, currentEntry.id, results, preview).error(on_error).success(on_success);
+    }
+
+    function showComments() {
+      $('#ui').hide();
+      $('#comment').show();
+      $('#comments').focus();
+    }
+
+    function showCoupon() {
+      var on_success = function(response) {
+          document.body.innerHTML = "<p>Thanks for participating!</p>" +
+                  "<p>Your coupon code is: " + response.coupon_code + "</p>" +
+                  "Copy your code back to the first tab and close this tab when done.";
+      };
+      var on_error = function() { alert("Error saving results. Please close tab and do task again.");};
+
+      var comments = $('#comments').val();
+      var results = {
+        summary: sceneSummary,
+        comments: comments
+      };
+      submit_mturk_report(results).error(on_error).success(on_success);
+    }
+
+    function next() {
+        entryIndex++;
+        console.log("Going to next: " + entryIndex);
+        if (entryIndex < window.globals.entries.length) {
+            // Clear scene
+            app.Launch();
+            //app.Clear();
+            showEntry(entryIndex);
+        } else {
+            showComments();
+        }
+    }
+
+    function showEntry(index) {
+        $('#startButton').hide();
+        console.log(window.globals.entries[index]['url']);
+        $('#targetImage').attr('src', window.globals.entries[index]['url']);
+    }
+
+    function start() {
+        console.log("Show entry: " + entryIndex);
+        showEntry(entryIndex);
+    }
+</script>

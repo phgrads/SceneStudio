@@ -9,10 +9,14 @@
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
+/db/backup
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore uploaded images
+/public/system
 
 # Ignore config file with secret data
 /config/config.yml

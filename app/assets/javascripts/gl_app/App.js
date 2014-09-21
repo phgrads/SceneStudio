@@ -42,6 +42,7 @@ define([
       PubSub.call(this);
 
       this.canvas = canvas;
+      this.savePreview = true;
 
       // the following variables from globalViewData
       // should be rendered by the jade template
@@ -85,11 +86,77 @@ define([
         snapToGrid: Constants.searchAreaResizeGrid
       });
 
+      // TODO: Clean up MTurk stuff
+      this.mturk = (window.globalViewData.assignment || window.globalViewData.task_id);
+      if (this.mturk) {
+        $('#mturkoverlay').css("display","inline");
+      }
+      if (window.globals) {
+        this.onSaveCallback = window.globals.onSaveCallback;
+        this.onLoadUrl = window.globals.onLoadUrl;
+      }
+      if (this.onLoadUrl === undefined) {
+        if (this.scene_record) {
+          this.onLoadUrl = this.base_url + '/scenes/' + this.scene_record.id + '/load';
+        }
+      }
+      if (this.scene_record) {
+        this.onSaveUrl = this.base_url + '/scenes/' + this.scene_record.id;
+      }
+
       preventSelection(this.canvas);
+
+      // TODO: Handle preventing of default browser action in a less hackish way
+      // Prevent browser from capturing Ctrl+S, Ctrl+K
+      document.addEventListener("keydown", function(e) {
+        if ((e.keyCode == 83 /*s*/ || e.keyCode == 75 /*k*/)
+          && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+          e.preventDefault();
+        }
+      }, false);
     }
 
     // Extend PubSub
     App.prototype = Object.create(PubSub.prototype);
+
+    // TODO: Clean up MTurk stuff
+    App.prototype.SaveScene = function(on_success, on_error) {
+      if (this.onSaveCallback) {
+        this.onSaveCallback(this,on_success,on_error);
+      } else if(this.mturk) {
+        if(this.scene.modelList.length > 1){
+          this.SaveMTurkResults(on_success, on_error);
+        }
+        else{
+          alert("You haven't added anything to the scene yet");
+        }
+      } else{
+        this.SaveScene_(on_success, on_error);
+      }
+    };
+
+    // TODO: Clean up MTurk stuff
+    App.prototype.SaveMTurkResults = function(on_success, on_error){
+      on_success = on_success || function(response) {
+        document.body.innerHTML = "<p>Thanks for participating!</p>" +
+          "<p>Your coupon code is: " + response.coupon_code + "</p>" +
+          "Copy your code back to the first tab and close this tab when done.";
+      };
+      on_error = on_error || function() { alert("Error saving results. Please close tab and do task again.");};
+      var results = this.GetSceneResults();
+      submit_mturk_report(results).error(on_error).success(on_success);
+    };
+
+    App.prototype.GetSceneResults = function() {
+      var finalcamera=this.camera.toJSONString();
+      this.uilog.log('STATE_SCENE',finalcamera);
+      var serialized = this.scene.SerializeForNetwork();
+      var results = {
+        scene: JSON.stringify(serialized),
+        ui_log: this.uilog.stringify()
+      };
+      return results;
+    };
 
     App.prototype.Launch = function () {
       this.LoadScene(
@@ -102,16 +169,22 @@ define([
           this.renderer.UpdateView();
         }.bind(this),
         function() { // on failure create an empty room
-          this.assman.GetModel('room', function (model)
-          {
-            this.scene.Reset(new ModelInstance(model, null));
-            this.camera.UpdateSceneBounds(this.scene.Bounds());
-            this.camera.InitToSceneBounds();
-            this.undoStack.clear();
-            this.renderer.resizeEnd();
-            this.renderer.UpdateView();
-          }.bind(this));
+          this.CreateEmpty();
         }.bind(this));
+    };
+
+    // Create a empty scene
+    App.prototype.CreateEmpty = function() {
+      this.assman.GetModel('room01', function (model)
+      {
+        this.scene.Reset(new ModelInstance(model, null));
+        this.camera.UpdateSceneBounds(this.scene.Bounds());
+        this.camera.InitToSceneBounds();
+        this.undoStack.clear();
+        this.renderer.resizeEnd();
+        this.renderer.UpdateView();
+        this.SelectInstance(null);
+      }.bind(this));
     };
 
     App.prototype.AttachEventHandlers = function ()
@@ -250,7 +323,7 @@ define([
           }.bind(this)));
 
       // Keyboard Tumble
-      Behaviors.keyhold(this.uimap, 'M')
+      Behaviors.keyhold(this.uimap, 'ctrl+M')
         .onhold(ensureInstance(function(opts) {
           this.Tumble(opts.instance, false);
           this.renderer.postRedisplay();
@@ -262,13 +335,13 @@ define([
         }.bind(this)));
 
       // Copy/Paste
-      Behaviors.keypress(this.uimap, 'C, ctrl+C')
+      Behaviors.keypress(this.uimap, 'ctrl+C')
         .onpress(function(data) {
           data.preventDefault();
           this.Copy();
           this.renderer.postRedisplay();
         }.bind(this));
-      Behaviors.keypress(this.uimap, 'V, ctrl+V')
+      Behaviors.keypress(this.uimap, 'ctrl+V')
         .onpress(function(data) {
           data.preventDefault();
           this.Paste(data);
@@ -276,14 +349,14 @@ define([
         }.bind(this));
 
       // Undo/Redo
-      Behaviors.keypress(this.uimap, 'Z, ctrl+Z')
+      Behaviors.keypress(this.uimap, 'ctrl+Z')
         .onpress(function(data) {
           data.preventDefault();
           this.insertion_behavior.cancel();
           this.Undo();
           this.renderer.postRedisplay();
         }.bind(this));
-      Behaviors.keypress(this.uimap, 'Y, ctrl+Y')
+      Behaviors.keypress(this.uimap, 'ctrl+Y')
         .onpress(function(data) {
           data.preventDefault();
           this.insertion_behavior.cancel();
@@ -292,7 +365,7 @@ define([
         }.bind(this));
 
       // Save
-      Behaviors.keypress(this.uimap, 'S, ctrl+S')
+      Behaviors.keypress(this.uimap, 'ctrl+S')
         .onpress(function(data) {
           data.preventDefault();
           this.SaveScene();
@@ -314,21 +387,29 @@ define([
         }.bind(this));
 
       // debug which instance is currently being manipulated
-      Behaviors.keypress(this.uimap, 'X')
+      Behaviors.keypress(this.uimap, 'ctrl+B')
         .onpress(ensureInstance(function(opts) {
           console.log(opts.instance.model.id);
         }));
 
       // spit out bare JSON data for the scene
-      Behaviors.keypress(this.uimap, 'K')
-        .onpress(function() {
+      Behaviors.keypress(this.uimap, 'ctrl+K')
+        .onpress(function(data) {
+          data.preventDefault();
           console.log(this.scene.SerializeBare());
         }.bind(this));
 
       // toggle text2scene console
-      Behaviors.keypress(this.uimap, 'T')
-        .onpress(function() {
+      Behaviors.keypress(this.uimap, 'alt+T')
+        .onpress(function(data) {
+          data.preventDefault();
           this.text2scene.ToggleConsole();
+        }.bind(this));
+      // Save image
+      Behaviors.keypress(this.uimap, 'ctrl+I')
+        .onpress(function(data) {
+          data.preventDefault();
+          this.SaveImage();
         }.bind(this));
     };
 
@@ -476,31 +557,41 @@ define([
 
     App.prototype.LoadScene = function(on_success, on_error)
     {
-      getViaJquery(this.base_url + '/scenes/' +
-        this.scene_record.id + '/load')
-        .error(on_error).success(function(json) {
-          var scene_json = JSON.parse(json.scene);
-          this.uilog.fromJSONString(json.ui_log);
-          this.scene.LoadFromNetworkSerialized(scene_json,
-            this.assman,
-            on_success);
-        }.bind(this));
+      if (this.onLoadUrl) {
+        getViaJquery(this.onLoadUrl)
+          .error(on_error).success(function(json) {
+            var scene_json = JSON.parse(json.scene);
+            this.uilog.fromJSONString(json.ui_log);
+            this.scene.LoadFromNetworkSerialized(scene_json,
+              this.assman,
+              on_success);
+          }.bind(this));
+      } else {
+        console.log("Cannot load scene: No load url");
+        this.CreateEmpty();
+      }
     };
 
-    App.prototype.SaveScene = function(on_success, on_error)
+    App.prototype.SaveScene_ = function(on_success, on_error)
     {
-      on_success = on_success || function() {
-        alert('saved!  Please develop a better UI alert');
-      };
-      on_error = on_error || function() {
-        alert('did not save!  Please develop a better UI alert');
-      };
-      var serialized = this.scene.SerializeForNetwork();
-      putViaJQuery(this.base_url + '/scenes/' + this.scene_record.id,
-        {
-          scene_file: JSON.stringify(serialized),
-          ui_log: this.uilog.stringify()
-        }).error(on_error).success(on_success);
+      if (this.onSaveUrl) {
+        on_success = on_success || function() {
+          alert('saved!  Please develop a better UI alert');
+        };
+        on_error = on_error || function() {
+          alert('did not save!  Please develop a better UI alert');
+        };
+        var serialized = this.scene.SerializeForNetwork();
+        var preview = (this.savePreview)? this.GetImageData():undefined;
+        putViaJQuery(this.onSaveUrl,
+          {
+            scene: JSON.stringify(serialized),
+            ui_log: this.uilog.stringify(),
+            preview: preview
+          }).error(on_error).success(on_success);
+      } else {
+        console.error("Cannot save scene: No save url");
+      }
     };
 
     App.prototype.ExitTo = function(destination)
@@ -654,6 +745,14 @@ define([
         this.undoStack.pushCurrentState(UndoStack.CMDTYPE.INSERT, hi);
         this.renderer.postRedisplay();
       }
+    };
+
+    App.prototype.SaveImage = function() {
+      window.open(this.canvas.toDataURL());
+    };
+
+    App.prototype.GetImageData = function() {
+      return this.canvas.toDataURL();
     };
 
     // Exports

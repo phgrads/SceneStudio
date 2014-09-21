@@ -124,7 +124,7 @@ FSMTemplate.step = function(input_name, state_name, output_name)
     var outputs = (output_name instanceof Array)? output_name : [output_name];
     if ((typeof state_name) == 'string') {
         handler = function(fsm, params) {
-            fsm.jump(state_name)
+            fsm.jump(state_name);
             for(var i=0; i<outputs.length; i++)
                 fsm.emit(outputs[i], params);
         };
@@ -141,7 +141,7 @@ FSMTemplate.spoof = function(input_name, reroute)
     this.inputs[input_name] = null;
     this.states[this.curr_state][input_name] = function(fsm, params) {
         fsm.dispatch(reroute, params);
-    }
+    };
     
     return this;
 };

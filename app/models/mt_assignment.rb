@@ -20,6 +20,7 @@ class MtAssignment < ActiveRecord::Base
   belongs_to :mt_hit
   belongs_to :mt_worker
   has_one    :mt_task, through: :mt_hit
+  has_many   :mt_completed_item, dependent: :destroy
 
   validates :mtId,          presence: true
   validates :mt_hit_id,     presence: true
