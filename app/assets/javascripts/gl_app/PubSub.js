@@ -34,7 +34,7 @@ PubSub.prototype.Subscribe = function(eventname, contextObj, callback)
 	}
 	if (!found)
 		esubs.push({ ctx: contextObj, func: callback });
-}
+};
 
 PubSub.prototype.Unsubscribe = function(eventname, contextObj, opt_callback)
 {
@@ -50,7 +50,7 @@ PubSub.prototype.Unsubscribe = function(eventname, contextObj, opt_callback)
 			newsubs.push(entry);
 	}
 	subs[eventname] = newsubs;
-}
+};
 
 PubSub.prototype.Publish = function(eventname)
 {
@@ -63,7 +63,7 @@ PubSub.prototype.Publish = function(eventname)
 			entry.func.apply(entry.ctx, optargs);
 		});
 	}
-}
+};
 
 
 // Exports

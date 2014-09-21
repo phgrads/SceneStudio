@@ -31,7 +31,7 @@ Filter.output = function()
     });
     
     return this;
-}
+};
 
 Filter.filter = function(signal, filter_fn)
 {
@@ -40,7 +40,7 @@ Filter.filter = function(signal, filter_fn)
     
     this.filters[signal] = filter_fn;
     return this;
-}
+};
 
 Filter.dispatch = function(input, params)
 {
@@ -62,14 +62,14 @@ Filter.dispatch = function(input, params)
         next(params);
     
     return this;
-}
+};
 
 Filter.on = function(output, callback)
 {
     if(this.outputs[output])
         this.outputs[output].push(callback);
     return this;
-}
+};
 
 Filter.listen = function(src, signals)
 {
@@ -87,7 +87,7 @@ Filter.listen = function(src, signals)
     }.bind(this));
     
     return this;
-}
+};
 
 
 return {

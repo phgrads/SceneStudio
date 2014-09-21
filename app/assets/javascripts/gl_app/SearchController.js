@@ -68,9 +68,10 @@ SearchController.prototype.CreateSearchResult = function(result)
 {
 	var elem = $('<div></div>')
 				.attr('id', result.id)
+                .data('metadata', result)
 				.addClass('searchResultContainer')
 				.append($('<span>' + result.name + '</span>')
-                    .attr('title', result.name))
+                    .attr('title', result.name + ", unit: " + result.unit))
 				.append($('<img src="' +
 				          Constants.imageDir + result.id +
 				          '.jpg"></img>')
@@ -78,10 +79,10 @@ SearchController.prototype.CreateSearchResult = function(result)
 				
 	elem.click(function() {
 	   this.ResultSelected(elem.attr('id'));
-}.bind(this));
+    }.bind(this));
 	
 	return elem;
-}
+};
 
 SearchController.prototype.ResultSelected = function(mid)
 {
@@ -101,21 +102,21 @@ SearchController.prototype.ResultSelected = function(mid)
 	
 	resultElem.siblings().removeClass('selected');
 	resultElem.addClass('selected');
-	this.app.BeginModelInsertion(resultElem.attr('id'), function() {
+	this.app.BeginModelInsertion(resultElem.attr('id'), resultElem.data('metadata'), function() {
 	   this.ModelRetrieved(resultElem.attr('id'));
     }.bind(this));
-}
+};
 
 SearchController.prototype.ModelRetrieved = function(mid)
 {
 	this.app.ToggleBusy(false);
-}
+};
 
 SearchController.prototype.ResultDeselected = function(mid)
 {
 	var resultElem = $('#'+mid);
 	resultElem.removeClass('selected');
-}
+};
 
 SearchController.encodeQueryText = function(text)
 {
@@ -125,7 +126,7 @@ SearchController.encodeQueryText = function(text)
 	text = encodeURIComponent(text);
 	text = text.replace(/%20/g, '+');
 	return text;
-}
+};
 
 SearchController.prototype.DoSearch = function(querytext)
 {
@@ -146,13 +147,15 @@ SearchController.prototype.DoSearch = function(querytext)
 	$.ajax
 	({
 		type: 'GET',
-		url: 'http://' + window.location.host + window.globalViewData.base_url + '/solr/select/',
-		data:
+		url: Constants.searchUrl,
+        data:
 		{
 			'q': SearchController.encodeQueryText(querytext),
 			'wt': 'json',
             'rows': '100',
-			'fl': 'name,id'
+            // Limit to web scene studio models for now
+            'fq': '+source:wss',
+			'fl': 'name,id,unit'
 		},
 		dataType: 'jsonp',	 	// At some point, we might want to switch to a PHP script that queries Solr locally, and then we could use regular JSON again.
 		jsonp: 'json.wrf',		// Solr requires the JSONP callback to have this name.
@@ -160,7 +163,7 @@ SearchController.prototype.DoSearch = function(querytext)
 		error: this.SearchFailed.bind(this),
 		timeout: 3000		// in milliseconds. With JSONP, this is the only way to get the error handler to fire.
 	});
-}
+};
 
 /**
  'data' is a Solr JSON response object
@@ -168,7 +171,7 @@ SearchController.prototype.DoSearch = function(querytext)
 SearchController.prototype.SearchSucceeded = function(data, textStatus, jqXHR)
 {
 	this.PopulateWithResults(data.response.docs);
-}
+};
 
 SearchController.prototype.SearchFailed = function(jqXHR, textStatus, errorThrown)
 {
@@ -179,7 +182,7 @@ SearchController.prototype.SearchFailed = function(jqXHR, textStatus, errorThrow
 		  '<br/>' +
 		  '<span>Error: ' + textStatus + ' ' + errorThrown + '</span>')
 	);
-}
+};
 
 /**
  'resultList' is a list of objects with 'name' and 'id' properties
@@ -205,7 +208,7 @@ SearchController.prototype.PopulateWithResults = function(resultList)
 	{
 		this.results.append(this.CreateSearchResult(resultList[i]));
 	}
-}
+};
 
 
 // Exports

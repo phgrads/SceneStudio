@@ -31,26 +31,26 @@ AssetManager.prototype.ClearCache = function()
 {
 	this.modelCache.Clear();
 	this.textureCache.Clear();
-}
+};
 
 AssetManager.prototype.CancelDownloads = function()
 {
 	// 'this.downloadingModels' maps model IDs to
 	// XHR objects.
-	for (id in this.downloadingModels)
+	for (var id in this.downloadingModels)
 		this.downloadingModels[id].abort();
 	this.downloadingModels = {};
 	
 	// 'this.downloadingMeshes' maps mesh URLs to
 	// XHR objects.
-	for (url in this.downloadingMeshes)
+	for (var url in this.downloadingMeshes)
 		this.downloadingMeshes[url].abort();
 	this.downloadingMeshes = {};
 	
 	// 'this.downloadingImages' maps texture URLS
 	// to Image objects.
 	this.downloadingImages = {};
-}
+};
 
 AssetManager.prototype.GetModel = function(id, callback)
 {
@@ -66,7 +66,7 @@ AssetManager.prototype.GetModel = function(id, callback)
     } else {
 		this.DownloadModel(id, callback);
     }
-}
+};
 
 AssetManager.prototype.GetTexture = function(url, callback)
 {
@@ -77,7 +77,7 @@ AssetManager.prototype.GetTexture = function(url, callback)
 	}
 	else
 		this.DownloadTexture(url, callback);
-}
+};
 
 AssetManager.prototype.DownloadModel = function(id, callback)
 {
@@ -121,7 +121,7 @@ AssetManager.prototype.DownloadModel = function(id, callback)
 
 		var downloads = downloadMeshes(Constants.geomDir, jsonObj.urls, jsonObj.decodeParams, meshDecompressed);
 		AppendObject(downloads, that.downloadingMeshes);
-	}
+	};
 	
 	var meshDecompressed = function(attribArray, indexArray, bboxen, meshUrl, meshIndex, meshParams)
 	{
@@ -140,7 +140,7 @@ AssetManager.prototype.DownloadModel = function(id, callback)
 			if (numUrlsDownloaded == numUrls)
 				getTextures();
 		}
-	}
+	};
 
 	var getTextures = function()
 	{
@@ -159,14 +159,14 @@ AssetManager.prototype.DownloadModel = function(id, callback)
 			for (var texname in texnames)
 				that.GetTexture(texname, textureReady);
 		}
-	}
+	};
 
 	var textureReady = function(texture)
 	{
 		numTexturesRetrieved++;
 		if (numTexturesRetrieved == numTextures)
 			finalizeModel();
-	}
+	};
 	
 	var finalizeModel = function()
 	{
@@ -204,12 +204,12 @@ AssetManager.prototype.DownloadModel = function(id, callback)
 		var toCall = that.callOnDownload[id];
 		delete that.callOnDownload[id];
 		toCall(model);
-	}
+	};
 
 	var download = getHttpRequest(Constants.modelDir + id + '.json', function(req, e) { jsonFileDownloaded(req); });
 	this.downloadingModels[id] = download;
 	this.callOnDownload[id] = callback;
-}
+};
 
 AssetManager.prototype.DownloadTexture = function(url, callback)
 {
@@ -249,7 +249,7 @@ AssetManager.prototype.DownloadTexture = function(url, callback)
 
 	this.downloadingImages[url] = image;
 	image.src = Constants.textureDir + url;
-}
+};
 
 // Exports
 return AssetManager;

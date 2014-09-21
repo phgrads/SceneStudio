@@ -8,12 +8,28 @@ function(){
 var Constants = {};
 
 // Asset directories
-Constants.base_url= window.globalViewData.base_url;
+Constants.base_url = window.globalViewData.base_url;
 Constants.modelDir= Constants.base_url + '/data/model/';
 Constants.geomDir= Constants.base_url + '/data/geometry/';
 Constants.textureDir = Constants.base_url + '/data/texture/';
 Constants.imageDir = Constants.base_url + '/data/image/';
 Constants.resourceDir = Constants.base_url + '/assets/';
+
+// Model search url
+Constants.searchUrl = 'http://' + window.location.host + window.globalViewData.base_url + '/solr/select';
+// Text to scene generation
+Constants.sceneGenerationUrl = 'http://' + window.location.host + window.globalViewData.base_url + '/text2scene/interact';
+
+// Smart scene editing options
+Constants.autoSize = true;
+Constants.autoOrient = false;
+
+// Default for scale
+Constants.defaultModelUnit = 0.0254; // Use inches as the default unit
+Constants.metersToVirtualUnit = 1.0/0.0254; // Use virtual unit of inches
+Constants.defaultSceneUp = { x: 0, y: 0, z: 1 };
+Constants.defaultSceneFront = { x: 0, y: -1, z: 0 };
+Constants.defaultSceneUnit = 0.0254;
 
 // Shader locations
 Constants.modelVertShaderSource = id('model.vert').text;

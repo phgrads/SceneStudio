@@ -345,7 +345,7 @@ function focusmachine(app) {
     }
 
     // "semaphore" for keeping track of how many extra
-    // interruptions are occuring right now.
+    // interruptions are occurring right now.
     var extra_interruptions = 0;
 
     function augmentShim(fsm, params, next) {

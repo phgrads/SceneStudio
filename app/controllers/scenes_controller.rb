@@ -1,7 +1,7 @@
 class ScenesController < ApplicationController
   before_filter :signed_in_user_filter
   before_filter :access_by_owner, only: [:edit, :update, :destroy]
-  before_filter :retrieve, only: [:edit, :load, :view, :update]
+  before_filter :retrieve, only: [:edit, :load, :view, :update, :destroy]
   layout 'webgl_viewport', only: [:edit, :view]
 
   def index

@@ -59,7 +59,7 @@ function RayWorkspace()
         t: -1,
     };
     return ws;
-};
+}
 
 /**
  * Ray starting at origin and pointing in direction.
@@ -73,7 +73,7 @@ function Ray( origin, direction )
     this.setPrecision = function ( value ) {
         this.ws.precision = value;
     };
-};
+}
 
 /**
  * pp is the point and pn the normal that define the plane
@@ -89,7 +89,7 @@ Ray.prototype.intersectPlane = function(pp, pn)
 	vec3.scale(isect.position, isect.distance);
 	vec3.add(isect.position, this.o);
 	return isect;
-}
+};
 
 /**
  * Intersect ray with subgeometry modelInst.components[geoID].

@@ -161,7 +161,7 @@ function(Framebuffer, Picker, Constants, Renderer, Distribution){
 		var scenecenter = this.camera.sceneBounds.Centroid();
 		var sceneradius = this.camera.sceneBounds.Radius();
     		var liveSet = this.randomSeedInitialization(numSeeds);
-		var iter = 0 
+		var iter = 0;
 		while(iter < maxIter){
 			var nextSet = []; 
 			ViewPortOptimizer.sortDecreasing(liveSet);
@@ -202,4 +202,4 @@ function(Framebuffer, Picker, Constants, Renderer, Distribution){
 	
 
 
-})
+});

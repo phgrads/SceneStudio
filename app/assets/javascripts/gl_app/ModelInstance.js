@@ -89,12 +89,21 @@ ModelInstance.fromJSONString = function(string, assman, modelMap, callback)
         newMinst.cubeFace = json.cubeFace;
         newMinst.scale = json.scale;
         newMinst.rotation = json.rotation;
-        newMinst.renderState = {
-            isPickable: json.renderStateArr[0],
-            isInserting: json.renderStateArr[1],
-            isSelected: json.renderStateArr[2],
-            isSelectable: json.renderStateArr[3]
-        };
+        if (json.renderStateArr) {
+          newMinst.renderState = {
+              isPickable: json.renderStateArr[0],
+              isInserting: json.renderStateArr[1],
+              isSelected: json.renderStateArr[2],
+              isSelectable: json.renderStateArr[3]
+          };
+        } else {
+          newMinst.renderState = {
+            isPickable: false,
+            isInserting: false,
+            isSelected: false,
+            isSelectable: false
+          };
+        }
         newMinst.coordFrame = new CoordinateFrame(json.cu, json.cv, json.cw);
 
         // If transform was stored in json, re-instate it here
@@ -151,7 +160,7 @@ ModelInstance.prototype.Remove = function()
 ModelInstance.prototype.Bounds = function()
 {
 	return this.model.bbox.Transform(this.transform);
-}
+};
 
 ModelInstance.prototype.CascadingRotate = function (rotate)
 {
@@ -192,19 +201,25 @@ ModelInstance.prototype.Tumble = function()
 
 ModelInstance.prototype.SetReasonableScale = function (scene)
 {
-    var sceneSize = vec3.length(scene.root.model.bbox.Dimensions());
-    var mySize = vec3.length(this.model.bbox.Dimensions());
+    if (Constants.autoSize && this.model.metadata && this.model.metadata.unit) {
+        this.scale = this.model.metadata.unit*Constants.metersToVirtualUnit;
+    } else {
+        this.scale = Constants.defaultModelUnit*Constants.metersToVirtualUnit;
+        var sceneSize = vec3.length(scene.root.model.bbox.Dimensions());
+        var mySize = this.scale*vec3.length(this.model.bbox.Dimensions());
 
-    this.scale = 1.0;
-    if (mySize < 0.05 * sceneSize)
-    {
-        this.scale = 0.05 * sceneSize / mySize;
+        if (mySize < 0.05 * sceneSize)
+        {
+            this.scale = 0.05 * sceneSize / mySize;
+        }
+        if (mySize > 0.25 * sceneSize)
+        {
+            this.scale = 0.25 * sceneSize / mySize;
+        }
     }
-    if (mySize > 0.25 * sceneSize)
-    {
-        this.scale = 0.25 * sceneSize / mySize;
-    }
+    console.log("Set scale to: " + this.scale );
 };
+
 
 ModelInstance.prototype.SetParent = function(parInst)
 {
@@ -279,7 +294,7 @@ ModelInstance.prototype.UpdateStateFromRayIntersection = function(isect)
 	var newParent = isect.inst;
 
     // Ignore intersection if picked parent is not a ModelInstance
-    // TODO: This uses a custom type check hack for now. BEWARE OF instaceOf, it is INCONSISTENT
+    // TODO: This uses a custom type check hack for now. BEWARE OF instanceOf, it is INCONSISTENT
     if (!(newParent.type && newParent.type === "ModelInstance")) {
         //TODO: Would be cleaner to modify pickability of Manipulators instead
         return;
@@ -291,7 +306,7 @@ ModelInstance.prototype.UpdateStateFromRayIntersection = function(isect)
 	this.parentUV = isect.uv;
 	
 	/** Update coordinate frame **/
-	
+
 	// Save old coordinate frame information
 	var prevCoordFrame = new CoordinateFrame();
 	prevCoordFrame.FromCoordinateFrame(this.coordFrame);
@@ -304,14 +319,15 @@ ModelInstance.prototype.UpdateStateFromRayIntersection = function(isect)
 	// ending up unexpectedly rotated if it is quickly dragged across surfaces of
 	// different orientation.
 	this.moveState && vec3.normalize(isect.normal);
-	var equivalentToOrignal = this.moveState && vec3.dot(isect.normal, this.moveState.origFrame.w) > 0.999;
-	if (equivalentToOrignal)
+	var equivalentToOriginal = this.moveState && vec3.dot(isect.normal, this.moveState.origFrame.w) > 0.999;
+	if (equivalentToOriginal)
 	{
 		this.coordFrame.FromCoordinateFrame(this.moveState.origFrame);
 		this.rotation = this.moveState.origRot;
 	}
 	else
 	{
+//        console.log("Not equivalent to original surface normal!!!");
 		this.coordFrame.Face(isect.normal);
 	}	
 	
@@ -319,9 +335,10 @@ ModelInstance.prototype.UpdateStateFromRayIntersection = function(isect)
 	// coordinate frame accordingly
 	if (oldParent !== this.parent)
 	{
+//        console.log("Resetting Coordinate Frame!!!");
 		this.ResetCoordFrame();
 		// And, if we're in the middle of a move, we may need to update the origFrame
-		if (equivalentToOrignal)
+		if (equivalentToOriginal)
 		{
 			this.moveState.origFrame.FromCoordinateFrame(this.coordFrame);
 			this.moveState.origRot = this.rotation;
@@ -335,8 +352,7 @@ ModelInstance.prototype.UpdateStateFromRayIntersection = function(isect)
 	this.rotation = prevRot;
 	this.TransformCoordFrameCascading(xform);
 	this.CascadingRotate(rotdiff);
-	
-	
+
 	this.UpdateTransformCascading();
 	this.Publish('Moved');
 };
@@ -384,8 +400,8 @@ ModelInstance.prototype.UpdateTransform = function ()
 	this.FirstTransform(this.transform);
 	this.SecondTransform(this.transform);
 
-    // Update inverse transpose
-    mat4.toRotationMat(this.transform, this.normalTransform);
+    // Update normalized rotation matrix
+    mat4.toNormalizedRotationMat(this.transform, this.normalTransform);
 };
 
 // Make the object upright and sitting at the origin at the correct size
@@ -414,6 +430,7 @@ ModelInstance.prototype.FirstTransform = function(xform)
     mat4.translate(m, d);
     mat4.multiply(m, xform, xform);
 
+    // Rotate
     mat4.identity(m);
     mat4.face(axis, vec3.createFrom(0.0, 0.0, 1.0), m);
     mat4.multiply(m, xform, xform);
@@ -431,18 +448,23 @@ ModelInstance.prototype.SecondTransform = function(xform, opt_doLocalRotation)
 	
 	var anchorInfo = this.parent.EvaluateSurface(this.parentMeshI, this.parentTriI, this.parentUV);
 	vec3.set(anchorInfo.position, this.parentPos);
-	
+    var m = mat4.identity(mat4.create());
+
 	if (doLocalRot)
 	{
 		// Rotation relative to coordinate frame
-		var m = mat4.identity(mat4.create());
 		mat4.rotateZ(m, this.rotation);
 		mat4.multiply(m, xform, xform);
 	}
-	
+
+    // TODO: This coord frame transform enables self-orienting on parent surfaces but overcompensates for rotation
+    //       Disabled for now, but can add option for self-orienting in future
     // Coordinate frame transform
-	m = this.coordFrame.ToBasisMatrix();
-	mat4.multiply(m, xform, xform);
+	//m = this.coordFrame.ToBasisMatrix();
+	//mat4.multiply(m, xform, xform);
+
+    // Multiply parent rotation
+    mat4.multiply(this.parent.normalTransform, xform, xform);
 
     // Translate to anchor position (+ small z offset to avoid coplanarity)
 	mat4.identity(m);
