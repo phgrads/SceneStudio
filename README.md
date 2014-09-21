@@ -7,7 +7,7 @@ Installation / Setup  (local development)
 
 1. clone this repository onto your machine
 
-2. get a copy of the `config/config.yml` file from your teammates or look at the `config/example.config.yml` file for some directions on how to create your own from scratch.  The values in this file are secrets, so you ABSOLUTELY don't want to put this file under version control or make it publicly available. For development purposes, set `HOST_BASE_URL` to localhost:3000
+2. get a copy of the `config/config.yml` file from your teammates or look at the `config/example.config.yml` file for some directions on how to create your own from scratch.  The values in this file are secrets, so you ABSOLUTELY don't want to put this file under version control or make it publicly available. For development purposes, set `HOST_BASE_URL` to `localhost:3000`.  For running on MTurk, make sure the `HOST_BASE_URL` starts with `https:` and that you have a proper SSL certificate for your server.
 
 3. download the model data directory and symlink it into `public/data`
 
