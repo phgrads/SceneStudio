@@ -21,10 +21,15 @@ namespace :mturk do
 
     # give user friendly error when we can't run
     task = MtTask.find_by_name(name)
-    if task
+    if task then
       if task.submitted? then
-        raise "FAIL: could not mturk:run #{name} because " +
+        if task.completed? then
+          puts "Found completed task #{name} in db (probably mturk:recall). " +
+               'Updating config and resubmitting.'
+        else
+          raise "FAIL: could not mturk:run #{name} because " +
               "apparently it's already been submitted."
+        end
       else
         puts "Found task #{name} in db (probably mturk:develop). " +
              'Destroying first and recreating before submission.'
@@ -43,8 +48,12 @@ namespace :mturk do
     # extend the parameters object with other useful parameters
     config_params['name'] = name
     config_params['url']  = url
-    
-    MtTask.create_and_submit(config_params)
+
+    if task then
+      MtTask.update_and_submit(task, config_params)
+    else
+      MtTask.create_and_submit(config_params)
+    end
   end
 
   desc 'end the experiment on mturk'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140920201814) do
+ActiveRecord::Schema.define(:version => 20140921000521) do
 
   create_table "identities", :force => true do |t|
     t.string   "name"
@@ -48,9 +48,11 @@ ActiveRecord::Schema.define(:version => 20140920201814) do
 
   create_table "mt_hits", :force => true do |t|
     t.string   "mtId"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.integer  "mt_task_id"
+    t.datetime "completed_at"
+    t.string   "conf"
   end
 
   add_index "mt_hits", ["mtId"], :name => "index_mt_hits_on_mtId_and_name"

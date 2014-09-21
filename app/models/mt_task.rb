@@ -88,18 +88,22 @@ class MtTask < ActiveRecord::Base
   # but leaves approval/rejection decisions open
   def expire!
     mt_hits.each do |hit|
+      hit.complete!
       begin
         RTurk::Hit.new(hit.mtId).expire!
       rescue RTurk::InvalidRequest
         # log that we could not find this HIT
       end
     end
+    self.completed_at = DateTime.now
+    save!
   end
 
   # completion closes out all the HITs, removes the HITs from the system,
   # and approves all outstanding assignments
   def complete!
     mt_hits.each do |hit|
+      hit.complete!
       begin
         RTurk::Hit.new(hit.mtId).disable!
       rescue RTurk::InvalidRequest
@@ -152,7 +156,6 @@ class MtTask < ActiveRecord::Base
     return [task, user]
   end
 
-
   def self.create_without_submitting(params)
     task, user = create_task_and_user(params)
     return task
@@ -160,40 +163,61 @@ class MtTask < ActiveRecord::Base
 
   def self.create_and_develop(params)
     task, user = create_task_and_user(params)
-    task.develop!
+    task.develop!(params)
+    return task
+  end
+
+  def self.update_and_submit(task, params)
+    url  = params['url']
+    raise "no url provided for new task" unless url
+
+    task.update_config!(params)
+    task.submit!(params, url)
     return task
   end
 
   def self.create_and_submit(params)
-    name = params['name']
     url  = params['url']
-
     raise "no url provided for new task" unless url
 
     task, user = create_task_and_user(params)
-
-    task.submit!(url)
-
+    task.submit!(params, url)
     return task
   end
 
-  def submit!(task_url)
+  def update_config!(params)
+    self.title                = params['title']
+    self.description          = params['description']
+    self.reward               = params['reward']
+    self.num_assignments      = params['num_assignments']
+    self.max_workers          = params['max_workers']
+    self.max_hits_per_worker  = params['max_hits_per_worker']
+    self.keywords             = params['keywords']
+    self.shelf_life           = params['shelf_life']
+    self.max_task_time        = params['max_task_time']
+    save!
+  end
+
+  def submit!(params, task_url)
     # for now, launch a single hit here
     hit_id = launch_hit(task_url)
     mt_hit = self.mt_hits.create! do |hit|
       hit.mtId = hit_id
+      hit.conf = params
     end
 
     # mark the task as submitted and save
     self.submitted_at = DateTime.now
+    self.completed_at = nil
     save!
   end
 
-  def develop!
+  def develop!(params)
     # Setup the task for development
     # by adding a fake hit
     mt_hit = self.mt_hits.create! do |hit|
       hit.mtId = name
+      hit.conf = params
     end
     save!
   end
