@@ -752,42 +752,17 @@ define([
       window.open(dataUrl);
     };
 
-    // Function to get a potentially resized canvas with a given maxWidth and maxHeight
-    // while retaining the aspect ratio of the original canvas
-    // The quality of the resized image is probably not great
-    function getResizedCanvas(canvas, maxWidth, maxHeight)
-    {
-      var scale = 1.0;
-      if (maxWidth && canvas.width > maxWidth) {
-        scale = Math.min(scale, maxWidth/canvas.width);
-      }
-      if (maxHeight && canvas.height > maxHeight) {
-        scale = Math.min(scale, maxHeight/canvas.height);
-      }
-      if (scale != 1.0) {
-        var newCanvas = document.createElement("canvas");
-        newCanvas.width = scale*canvas.width;
-        newCanvas.height = scale*canvas.height;
-        var ctx = newCanvas.getContext("2d");
-        ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, newCanvas.width, newCanvas.height);
-        return newCanvas;
-      } else {
-        return canvas;
-      }
-    }
-
     App.prototype.GetPreviewImageData = function() {
       return this.GetImageData(Constants.previewMaxWidth, Constants.previewMaxHeight);
     };
 
     App.prototype.GetImageData = function(maxWidth,maxHeight) {
-      if (maxWidth || maxHeight) {
-        // Make sure our image is smaller...
-        var newCanvas = getResizedCanvas(this.canvas, maxWidth,maxHeight);
-        return newCanvas.toDataURL();
-      } else {
-        return this.canvas.toDataURL();
-      }
+      this.renderer.UpdateView();
+      var c = copyCanvas(this.canvas);
+      var trimmed = trimCanvas(c);
+      // Make sure our image is smaller...
+      var newCanvas = getResizedCanvas(trimmed, maxWidth, maxHeight);
+      return newCanvas.toDataURL();
     };
 
     // Exports

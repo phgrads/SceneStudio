@@ -7,6 +7,7 @@ class MtCompletedItem < ActiveRecord::Base
       { path: "mturk/#{a.meta['task']}/#{a.meta['condition']}/#{a.name}" }
     end
   end
+  validates_size_of :preview, maximum: 500.kilobytes
 
   validates :data, presence: true
   validates :mt_assignment_id, presence: true

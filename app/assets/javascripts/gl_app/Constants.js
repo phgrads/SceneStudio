@@ -21,8 +21,8 @@ Constants.searchUrl = Constants.base_url + '/solr/select';
 Constants.sceneGenerationUrl = Constants.base_url + '/text2scene/interact';
 
 // Preview constants
-Constants.previewMaxWidth = 640;
-Constants.previewMaxHeight = 480;
+Constants.previewMaxWidth = 500;
+Constants.previewMaxHeight = 500;
 
 // Smart scene editing options
 Constants.autoSize = true;
