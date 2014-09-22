@@ -16,7 +16,7 @@ gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.6'
 
 # For mechanical turk
-gem 'rturk', '2.10.2'
+gem 'rturk', '2.12.1'
 
 # For uploading images
 gem 'dragonfly', '~> 1.0.7'
