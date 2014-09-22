@@ -42,7 +42,7 @@ class Experiments::Desc2sceneController < ApplicationController
     def retrieve
       @item = CompletedItemsView.find(params[:id])
       @data = JSON.parse(@item.data)
-      @title = @data["sentence"]["description"]
+      @title = @data["entry"]["description"]
     end
 
 end

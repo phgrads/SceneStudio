@@ -86,11 +86,6 @@ define([
         snapToGrid: Constants.searchAreaResizeGrid
       });
 
-      // TODO: Clean up MTurk stuff
-      this.mturk = (window.globalViewData.assignment || window.globalViewData.task_id);
-      if (this.mturk) {
-        $('#mturkoverlay').css("display","inline");
-      }
       if (window.globals) {
         this.onSaveCallback = window.globals.onSaveCallback;
         this.onLoadUrl = window.globals.onLoadUrl;
@@ -119,32 +114,12 @@ define([
     // Extend PubSub
     App.prototype = Object.create(PubSub.prototype);
 
-    // TODO: Clean up MTurk stuff
     App.prototype.SaveScene = function(on_success, on_error) {
       if (this.onSaveCallback) {
         this.onSaveCallback(this,on_success,on_error);
-      } else if(this.mturk) {
-        if(this.scene.modelList.length > 1){
-          this.SaveMTurkResults(on_success, on_error);
-        }
-        else{
-          alert("You haven't added anything to the scene yet");
-        }
       } else{
         this.SaveScene_(on_success, on_error);
       }
-    };
-
-    // TODO: Clean up MTurk stuff
-    App.prototype.SaveMTurkResults = function(on_success, on_error){
-      on_success = on_success || function(response) {
-        document.body.innerHTML = "<p>Thanks for participating!</p>" +
-          "<p>Your coupon code is: " + response.coupon_code + "</p>" +
-          "Copy your code back to the first tab and close this tab when done.";
-      };
-      on_error = on_error || function() { alert("Error saving results. Please close tab and do task again.");};
-      var results = this.GetSceneResults();
-      submit_mturk_report(results).error(on_error).success(on_success);
     };
 
     App.prototype.GetSceneResults = function() {

@@ -42,7 +42,7 @@ class Experiments::Image2sceneController < ApplicationController
     def retrieve
       @item = CompletedItemsView.find(params[:id])
       @data = JSON.parse(@item.data)
-      @title = @data["image"]["id"]
+      @title = @data["entry"]["id"]
     end
 
 end

@@ -4,8 +4,8 @@
   <td><%= result.workerId %></td>
   <td>
     <% parsed = JSON.parse(result.data) %>
-    <% if parsed["sentence"] %>
-        <%= link_to parsed["sentence"]["description"], { action: 'view', id: result.id } %>
+    <% if parsed["entry"] %>
+        <%= link_to parsed["entry"]["description"], { action: 'view', id: result.id } %>
     <% else %>
         <%= link_to result.item, { action: 'view', id: result.id } %>
     <% end %>
