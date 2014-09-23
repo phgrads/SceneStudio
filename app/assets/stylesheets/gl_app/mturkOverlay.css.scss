@@ -1,7 +1,7 @@
 @import "common";
 @import "graphicsArea";
 
-#mturkoverlay {
+.mturkOverlay {
   display: none;
   height: 10%;
   width: 100%;
@@ -12,7 +12,7 @@
   margin-right: 30px;
   @include user-select(none);
 }
-#wrap {
+.wrap {
   margin-bottom:0;
   position:absolute;
   bottom:0;
@@ -34,13 +34,13 @@
   }
 }
 
-#startButton {
+.largeButton {
   font-size: 30pt;
   width: 200px;
   height: 50px;
 }
 
-#editinstructions {
+.editInstructions {
   z-index:2;
   position:absolute;
   left:200px;
@@ -56,13 +56,13 @@
     }
     #prompt { display: none; }
   }
-  #instructions p {
+  .instructions p {
     display: none;
     margin-top: 20px;
     text-align: left;
     vertical-align: middle;
   }
-  #prompt {
+  .prompt {
     font: 18pt bold sans-serif;
     text-align: center;
   }

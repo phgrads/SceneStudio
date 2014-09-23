@@ -16,8 +16,11 @@ define([
       this.showEntryCallback = params.showEntryCallback;
       this.sceneSummary = [];
       // TODO: Be flexible about binding actions to buttons...
-      $('#startButton').click(this.start.bind(this));
-      $('#completeTaskButton').click(this.showCoupon.bind(this));
+      this.mturkOverlay = $('#mturkOverlay');
+      this.startButton = $('#startButton');
+      this.completeTaskButton = $('#completeTaskButton');
+      this.startButton.click(this.start.bind(this));
+      this.completeTaskButton.click(this.showCoupon.bind(this));
     }
 
     EditSceneTask.prototype.saveSceneCallback = function(app) {
@@ -48,8 +51,11 @@ define([
     };
 
     EditSceneTask.prototype.showComments = function() {
+      // Hide rest of UI
       $('#ui').hide();
+      // Show comment area
       $('#comment').show();
+      // Focus on comments text box
       $('#comments').focus();
     };
 
@@ -83,7 +89,7 @@ define([
     };
 
     EditSceneTask.prototype.showEntry = function(index) {
-      $('#startButton').hide();
+      this.startButton.hide();
       this.showEntryCallback(this.entries[index]);
     };
 
@@ -96,7 +102,7 @@ define([
     };
 
     EditSceneTask.prototype.Launch = function() {
-      $('#mturkoverlay').css("display","inline");
+      this.mturkOverlay.css("display","inline");
       this.showInstructions();
     };
 

@@ -404,10 +404,20 @@ ModelInstance.prototype.UpdateTransform = function ()
     mat4.toNormalizedRotationMat(this.transform, this.normalTransform);
 };
 
+ModelInstance.prototype.AlignUpFront = function(xform)
+{
+  // Align this to the up and front
+  if (Constants.autoAlign && this.model.metadata) {
+    if (this.model.metadata.up && this.model.metadata.front) {
+      // TODO: Align to front to worldFront, up to worldUp
+    }
+  }
+};
+
 // Make the object upright and sitting at the origin at the correct size
 ModelInstance.prototype.FirstTransform = function(xform)
-{	
-	// Translate centroid to origin
+{
+	 // Translate centroid to origin
     var bbox = this.model.bbox;
     var center = bbox.Centroid();
     vec3.negate(center);

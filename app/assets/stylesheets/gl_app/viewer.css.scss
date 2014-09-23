@@ -1,7 +1,7 @@
 @import "common";
 @import "graphicsArea";
 
-#blocker {
+.blocker {
   display:table;
   position: absolute;
   width: 100%;
@@ -10,7 +10,7 @@
   z-index: 1000;
 }
 
-#instructions {
+.instructions {
   display:table-cell;
   vertical-align:middle;
   margin-left:auto;
@@ -20,7 +20,7 @@
   top:0;
 }
 
-#message {
+.message {
   font-family:sans-serif;
   position:fixed;
   top:0px;

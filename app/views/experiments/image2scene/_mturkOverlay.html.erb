@@ -1,13 +1,13 @@
-<div id="mturkoverlay" oncontextmenu="$('#canvas').focus(); return false;" onclick="$('#canvas').focus();">
+<div id="mturkOverlay" class="mturkOverlay" oncontextmenu="$('#canvas').focus(); return false;" onclick="$('#canvas').focus();">
   <div class="center">
-    <input type="button" id="startButton" value="Start"/>
+    <input type="button" id="startButton" class="largeButton" value="Start"/>
   </div>
-  <div id = "wrap">
+  <div id="wrap" class="wrap">
     <%= image_tag '', :id => 'targetImage' %>
   </div>
-  <div id="editinstructions">
-    <p id="prompt">Put mouse here for instructions</p>
-    <div id="instructions">
+  <div id="editInstructions" class="editInstructions">
+    <p id="prompt" class="prompt">Put mouse here for instructions</p>
+    <div id="instructions" class="instructions">
       <p>Place objects in the room to create a scene that best resembles the picture on the left (mouse over to zoom).</p>
       <p>Find objects using the search bar on the right.
         Left click on search results and left click in the scene to place the object. Left-click drag to move objects.</p>
