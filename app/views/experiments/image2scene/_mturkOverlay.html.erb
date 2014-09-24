@@ -1,9 +1,50 @@
-<div id="mturkOverlay" class="mturkOverlay" oncontextmenu="$('#canvas').focus(); return false;" onclick="$('#canvas').focus();">
-  <div class="center">
+<div id="taskInstructions" class="taskInstructions wholescreenOverlay">
+  <p>You will be shown <%=@entries.length%> images of indoor scenes.
+    For each image, you will be asked to construct a scene that matches the image
+    by finding appropriate objects and placing them in a room.
+  </p>
+  <p>
+    Each scene should take around 5 minutes to complete.  The task should take about 10 minutes in total.
+  </p>
+  <div>
+    <p><b>Example</b></p>
+    <table>
+      <thead>
+      <th>Image</th>
+      <th>Constructed scene</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <%= image_tag( @conf['exampleImagesPath'] + 'image1.png', { width: 400, class: "cssEnlarge" } ) %>
+        </td>
+        <td>
+          <div align="center" class="scene">
+            <%= image_tag( @conf['exampleImagesPath'] + 'scene1.png', { width: 400, class: "cssEnlarge" } ) %>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= image_tag( @conf['exampleImagesPath'] + 'image2.png', { width: 400, class: "cssEnlarge" } ) %>
+        </td>
+        <td>
+          <div align="center" class="scene">
+            <%= image_tag( @conf['exampleImagesPath'] + 'scene2.png', { width: 400, class: "cssEnlarge" } ) %>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div  class="center">
     <input type="button" id="startButton" class="largeButton" value="Start"/>
   </div>
-  <div id="wrap" class="wrap">
-    <%= image_tag '', :id => 'targetImage' %>
+</div>
+
+<div id="mturkOverlay" class="mturkOverlay" oncontextmenu="$('#canvas').focus(); return false;" onclick="$('#canvas').focus();"  style="display:none">
+  <div class="center">
+    <input type="button" id="startButton" class="largeButton" value="Start"/>
   </div>
   <div id="editInstructions" class="editInstructions">
     <p id="prompt" class="prompt">Put mouse here for instructions</p>

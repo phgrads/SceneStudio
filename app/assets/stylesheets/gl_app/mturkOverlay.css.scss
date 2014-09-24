@@ -56,11 +56,10 @@
 }
 
 .taskInstructions {
-  font-size:20px;
-  margin: 30px;
+  padding: 30px;
 }
 
-.editInstructionsHoverable {
+.editInstructions {
   z-index:2;
   position:absolute;
   left:200px;
@@ -93,6 +92,12 @@
   background: white;
   color: black;
   font: 22pt bold sans-serif;
+}
+
+.topOverlay {
+  position: absolute;
+  top: 80px;
+  width: 100%;
 }
 
 .center {
