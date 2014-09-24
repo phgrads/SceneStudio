@@ -31,7 +31,7 @@ keywords: 3D models, scenes, pictures, scene design
 
 # EXPERIMENT CONFIGURATION
 conf:
-  nScenes: 2
+  nScenes: 4
   sceneEditSecs: 60
   inputFile: public/experiments/desc2scene/sentences.txt
   condition: pilot
