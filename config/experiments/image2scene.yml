@@ -36,3 +36,4 @@ conf:
   condition: pilot
   savePreview: true
   uploadSummary: true
+  exampleImagesPath: /experiments/image2scene/images/

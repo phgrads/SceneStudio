@@ -31,8 +31,9 @@ keywords: 3D models, scenes, pictures, scene design
 
 # EXPERIMENT CONFIGURATION
 conf:
-  nScenes: 4
+  nScenes: 2
   inputFile: public/experiments/desc2scene/sentences.txt
   condition: pilot
   savePreview: true
   uploadSummary: true
+  exampleImagesPath: /experiments/desc2scene/images/

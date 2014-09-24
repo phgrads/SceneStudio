@@ -1,6 +1,21 @@
 @import "common";
 @import "graphicsArea";
 
+.wholescreenOverlay {
+  z-index:3;
+  position:absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: $bg1;
+  @include user-select(none);
+}
+
+.entryOverlay {
+  z-index: 1;
+}
+
 .mturkOverlay {
   display: none;
   height: 10%;
@@ -40,7 +55,12 @@
   height: 50px;
 }
 
-.editInstructions {
+.taskInstructions {
+  font-size:20px;
+  margin: 30px;
+}
+
+.editInstructionsHoverable {
   z-index:2;
   position:absolute;
   left:200px;
@@ -51,10 +71,10 @@
   overflow: auto;
   &:hover{
     height:250%;
-    #instructions p {
+    .instructions p {
       display: block;
     }
-    #prompt { display: none; }
+    .prompt { display: none; }
   }
   .instructions p {
     display: none;

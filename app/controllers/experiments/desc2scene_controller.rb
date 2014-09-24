@@ -5,8 +5,11 @@ class Experiments::Desc2sceneController < ApplicationController
 
   before_filter :load_new_tab_params, only: [:index]
   before_filter :load_data, only: [:index]
+
+  before_filter :signed_in_user_filter, only: [:results, :view, :load]
   before_filter :retrieve_list, only: [:results]
   before_filter :retrieve, only: [:view, :load]
+
   layout 'webgl_viewport', only: [:index, :view]
 
   def index
@@ -42,7 +45,8 @@ class Experiments::Desc2sceneController < ApplicationController
     def retrieve
       @item = CompletedItemsView.find(params[:id])
       @data = JSON.parse(@item.data)
-      @title = @data["entry"]["description"]
+      @entry = @data['entry']
+      @title = @item.taskName + ' ' + @item.condition + ' ' + @item.item
     end
 
 end

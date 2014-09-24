@@ -1,10 +1,53 @@
-<div id="mturkOverlay" class="mturkOverlay" oncontextmenu="$('#canvas').focus(); return false;" onclick="$('#canvas').focus();">
-  <div class="center">
-      <input type="button" id="startButton" class="largeButton" value="Start"/>
+<div class="center">
       <span id="sentence" class="textDescription">
       </span>
+</div>
+<div id="mturkOverlay" class="wholescreenOverlay" oncontextmenu="$('#canvas').focus(); return false;" onclick="$('#canvas').focus();">
+  <div id="taskInstructions" class="taskInstructions">
+    <p>You will be shown <%=@entries.length%> short descriptions of simple indoor scenes.
+       For each description, you will be asked to construct a scene that matches the description
+       by finding appropriate objects and placing them in a room.
+    </p>
+    <p>
+      Each scene should take around 1 minute to complete.  The task should take about 5 minutes in total.
+    </p>
+    <div>
+      <p><b>Example</b></p>
+      <table>
+        <thead>
+          <th>Scene description</th>
+          <th>Constructed scene</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+             There is a table and there are four chairs.
+            </td>
+            <td>
+              <div align="center" class="scene">
+                <%= image_tag( @conf['exampleImagesPath'] + 'example1.png', { width: 400, class: "cssEnlarge" } ) %>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              The <span class='color1'>chair</span> is <b>to the right of</b> the <span class='color2'>table</span>.
+            </td>
+            <td>
+              <div align="center" class="scene">
+                <%= image_tag( @conf['exampleImagesPath'] + 'example2.png', { width: 400, class: "cssEnlarge" } ) %>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div  class="center">
+      <input type="button" id="startButton" class="largeButton" value="Start"/>
+    </div>
   </div>
-  <div id="editInstructions" class="editInstructions">
+
+  <div id="editInstructions" class="editInstructions" style="display:none">
     <p id="prompt" class="prompt">Put mouse here for instructions</p>
     <div id="instructions" class="instructions">
       <p>Place objects in the room to create a scene that best resembles the text description.</p>

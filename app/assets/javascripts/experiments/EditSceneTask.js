@@ -16,7 +16,7 @@ define([
       this.showEntryCallback = params.showEntryCallback;
       this.sceneSummary = [];
       // TODO: Be flexible about binding actions to buttons...
-      this.mturkOverlay = $('#mturkOverlay');
+      //this.mturkOverlay = $('#mturkOverlay');
       this.startButton = $('#startButton');
       this.completeTaskButton = $('#completeTaskButton');
       this.startButton.click(this.start.bind(this));
@@ -102,7 +102,7 @@ define([
     };
 
     EditSceneTask.prototype.Launch = function() {
-      this.mturkOverlay.css("display","inline");
+      //this.mturkOverlay.css("display","inline");
       this.showInstructions();
     };
 
