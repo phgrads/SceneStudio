@@ -10,7 +10,9 @@
     <% end %>
   </td>
   <td>
-    <%= image_tag parsed["entry"]["url"] %>
+    <% if @entry %>
+      <%= image_tag @entry["url"] %>
+    <% end %>
   </td>
   <td>
     <% if result.preview %>

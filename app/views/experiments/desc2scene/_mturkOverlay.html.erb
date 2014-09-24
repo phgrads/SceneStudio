@@ -1,10 +1,12 @@
+<%= render '/experiments/largeimg' %>
 <div id="taskInstructions" class="taskInstructions wholescreenOverlay">
   <p>You will be shown <%=@entries.length%> short descriptions of simple indoor scenes.
     For each description, you will be asked to construct a scene that matches the description
     by finding appropriate objects and placing them in a room.
   </p>
   <p>
-    Each scene should take around 1 minute to complete.  The task should take about 5 minutes in total.
+    Each scene should take about <%=@taskTime['sceneTime'] %> to complete.
+    The task should take about <%=@taskTime['taskTime'] %> in total.
   </p>
   <div>
     <p><b>Example</b></p>
@@ -19,18 +21,20 @@
           There is a table and there are four chairs.
         </td>
         <td>
-          <div align="center" class="scene">
-            <%= image_tag( @conf['exampleImagesPath'] + 'example1.png', { width: 400, class: "cssEnlarge" } ) %>
+          <div align="center" class="mturkExample">
+            <%= image_tag( @conf['exampleImagesPath'] + 'example1.png', { width: 400, class: "enlarge" } ) %>
           </div>
         </td>
       </tr>
       <tr>
         <td>
-          The <span class='color1'>chair</span> is <b>to the right of</b> the <span class='color2'>table</span>.
+          There is a bed and there is a nightstand next to the bed.
+          <br/>
+          There is a floor lamp next to the bed.
         </td>
         <td>
-          <div align="center" class="scene">
-            <%= image_tag( @conf['exampleImagesPath'] + 'example2.png', { width: 400, class: "cssEnlarge" } ) %>
+          <div align="center" class="mturkExample">
+            <%= image_tag( @conf['exampleImagesPath'] + 'example2.png', { width: 400, class: "enlarge" } ) %>
           </div>
         </td>
       </tr>

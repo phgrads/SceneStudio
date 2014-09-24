@@ -32,8 +32,9 @@ keywords: 3D models, scenes, pictures, scene design # defaults to nothing
 # EXPERIMENT CONFIGURATION
 conf:
   nScenes: 4
+  sceneEditSecs: 300
   inputFile: public/experiments/image2scene/images.txt
   condition: pilot
   savePreview: true
   uploadSummary: true
-  exampleImagesPath: /experiments/image2scene/images/
+  exampleImagesPath: /experiments/image2scene/examples/

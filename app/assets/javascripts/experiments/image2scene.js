@@ -4,6 +4,11 @@
 define(function(require) {
   require(['./EditSceneTask','./../gl_app/App'], function(EditSceneTask, SceneEditor) {
     $(document).ready(function() {
+      $("img.enlarge").hover(function(){
+        showLarge($(this));
+      },function() {
+      } );
+
       var app = new SceneEditor(id('canvas'));
 
       var showEntryCallback = function(entry) {

@@ -1,10 +1,14 @@
 class Experiments::Image2sceneController < ApplicationController
+  require 'action_view'
+
+  include ActionView::Helpers::DateHelper
   include MturkHelper
   include Experiments::ExperimentsHelper
   include Experiments::Image2sceneHelper
 
   before_filter :load_new_tab_params, only: [:index]
   before_filter :load_data, only: [:index]
+  before_filter :estimate_task_time, only: [:index]
 
   before_filter :signed_in_user_filter, only: [:results, :view, :load]
   before_filter :retrieve_list, only: [:results]

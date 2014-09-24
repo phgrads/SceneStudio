@@ -373,6 +373,26 @@ function trimCanvas(c) {
   }
 }
 
+function showLarge(elem) {
+  var url = elem.attr("src");
+  elem.addClass("enlarged");
+  var align = elem.attr("enlarge_align");
+  if (!align) {
+    align = "center";
+  }
+  $('#large img').show();
+  $('#large img').attr("src", url);
+  $('#large img').position({
+    my: align,
+    at: align,
+    of: elem
+  });
+  $('#large img').hover(function(){
+  },function(){
+    $(this).hide();
+    elem.removeClass("enlarged");
+  });
+}
 
 // Taken from John Resig:
 // http://ejohn.org/blog/partial-functions-in-javascript/

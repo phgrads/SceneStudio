@@ -7,6 +7,17 @@ module Experiments::ExperimentsHelper
     @entries = load_and_select_random(@conf['inputFile'], @conf['doneFile'], @conf['doneThreshold'], @conf['nScenes'])
   end
 
+  def estimate_task_time
+    sceneTimeInSecs = @conf['sceneEditSecs']
+    taskTimeInSecs = @conf['sceneEditSecs']*@conf['nScenes']
+    @taskTime = {
+      'sceneTimeInSecs' => sceneTimeInSecs,
+      'sceneTime' => distance_of_time_in_words(sceneTimeInSecs),
+      'taskTimeInSecs'  => taskTimeInSecs,
+      'taskTime'  => distance_of_time_in_words(taskTimeInSecs)
+    }
+  end
+
   def load_and_select_random(inputFile, doneFile, doneThreshold, n)
     all_entries = load_entries(inputFile)
     if (doneFile != nil && doneFile != "")
