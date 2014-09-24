@@ -1,5 +1,12 @@
 SceneStudio::Application.routes.draw do
 
+  # Mturk tasks
+  get 'experiments/recon2scene', to: 'experiments/recon2scene#index'
+  get 'experiments/recon2scene/results', to: 'experiments/recon2scene#results'
+
+  match 'experiments/recon2scene/:id/load',         to: 'experiments/recon2scene#load'
+  match 'experiments/recon2scene/:id/view',         to: 'experiments/recon2scene#view'
+
   get 'experiments/image2scene', to: 'experiments/image2scene#index'
   get 'experiments/image2scene/results', to: 'experiments/image2scene#results'
 
@@ -12,6 +19,7 @@ SceneStudio::Application.routes.draw do
   match 'experiments/desc2scene/:id/load',         to: 'experiments/desc2scene#load'
   match 'experiments/desc2scene/:id/view',         to: 'experiments/desc2scene#view'
 
+  # Main app
   root                              to: 'static_pages#home'
   match '/help',                    to: 'static_pages#help'
 
