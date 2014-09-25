@@ -1,6 +1,8 @@
 @import "common";
 @import "graphicsArea";
 
+$overlaybg: rgba(150,200,150,0.75);
+
 .wholescreenOverlay {
   z-index:3;
   position:absolute;
@@ -63,13 +65,15 @@
 .editInstructions {
   z-index:2;
   position:absolute;
-  left:200px;
+  left:310px;
   bottom:0;
-  right:300px;
-  background-color: $bg1;
+  right:310px;
+  background-color: $overlaybg;
+  padding: 10px 10px 0;
+  border: thin solid #A5A5A5;
+  @include border-radius(8px);
   overflow: auto;
   &:hover{
-    padding: 10px;
     .instructions p {
       display: block;
     }
@@ -77,26 +81,29 @@
   }
   .instructions p {
     display: none;
-    margin-top: 20px;
+    font-size: 14pt;
     text-align: left;
     vertical-align: middle;
   }
   .prompt {
-    font: 18pt bold sans-serif;
+    font-size: 14pt;
     text-align: center;
   }
 }
 
 .textDescription {
   top: 0%;
-  background: white;
+  background: $overlaybg;
+  padding: 10px;
+  border: thin solid #A5A5A5;
+  @include border-radius(8px);
   color: black;
-  font: 22pt bold sans-serif;
+  font-size: 18pt;
 }
 
 .topOverlay {
   position: absolute;
-  top: 80px;
+  top: 90px;
   width: 100%;
 }
 
