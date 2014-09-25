@@ -11,7 +11,7 @@ Installation / Setup  (local development)
 
 3. download the model data directory and symlink it into `public/data`
 
-4. run `bundle install` to get all the ruby gems you need
+4. run `bundle install` to get all the ruby gems you need.   If you have problems running `bundle install`, try removing your `Gemfile.lock`.
 
 5. run `rake db:migrate` to build/update the database
 
@@ -55,17 +55,17 @@ The following assumes that we are running in development mode on a local machine
 1. run `rails generate experiment sampleName` to generate some skeleton files.
    The skeleton files will be usable out of the box, so try that first.
 
-2. run `rake mturk:develop[sampleName]` to create the database entries for the
+2. Take a look at the generated skeleton and get a feel for what everything
+   does.  Make sure to update the `config/experiments/sampleName.yml` with your configuration.
+
+3. run `rake mturk:develop[sampleName]` to create the database entries for the
    experiment and run the setup script. You can develop locally by providing
    a param to the appropriate address (e.g. `mturk/task/assignmentId=?&workerId=?&hitId=sampleName`  or `experiments/sampleName?task_id=7`)
 
-3. run `rake mturk:run[sampleName]` in order to launch the experiment
+4. run `rake mturk:run[sampleName]` in order to launch the experiment
    you just created on the MTurk sandbox.
 
-4. go to the worker sandbox (https://workersandbox.mturk.com/) and try doing your new task.
-
-5. Take a look at the generated skeleton and get a feel for what everything
-   does.  Make sure to update the `config/experiments/sampleName.yml` with your configuration.
+5. go to the worker sandbox (https://workersandbox.mturk.com/) and try doing your new task.
 
 6. After running a task, you can do `rake mturk:recall[sampleName]` to approve all workers 
    and withdraw the task from Amazon Mturk.  WARNING: This will remove all evidence of the
