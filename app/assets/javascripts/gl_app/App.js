@@ -551,10 +551,10 @@ define([
     {
       if (this.onSaveUrl) {
         on_success = on_success || function() {
-          alert('saved!  Please develop a better UI alert');
+          showAlert('Scene successfully saved!', 'alert-success');
         };
         on_error = on_error || function() {
-          alert('did not save!  Please develop a better UI alert');
+          showAlert('Error saving scene', 'alert-error');
         };
         var serialized = this.scene.SerializeForNetwork();
         var preview = (this.savePreview)? this.GetPreviewImageData():undefined;

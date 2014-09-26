@@ -117,7 +117,7 @@ function addWheelHandler(dom, wheel) {
       }
     });
   }
-};
+}
 
 // Shim layer with setTimeout fallback, adapted from:
 // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
@@ -143,7 +143,7 @@ function getHttpRequest(url, onload, opt_onprogress) {
   req.send(null);
   
   return req;
-};
+}
 
 
 // CSRF authenticity token for AJAX requests to Rails
@@ -373,6 +373,7 @@ function trimCanvas(c) {
   }
 }
 
+// UI functions using JQuery
 function showLarge(elem) {
   var url = elem.attr("src");
   elem.addClass("enlarged");
@@ -392,6 +393,17 @@ function showLarge(elem) {
     $(this).hide();
     elem.removeClass("enlarged");
   });
+}
+
+function showAlert(message, style) {
+  $('#alertMessage').text(message);
+  $('#alert').attr('class', 'alert');
+  $('#alert').addClass(style);
+  $('#alert').show();
+}
+
+function hideAlert() {
+  $('#alert').hide();
 }
 
 // Taken from John Resig:

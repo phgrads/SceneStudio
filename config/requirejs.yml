@@ -10,6 +10,7 @@ paths:
   'jquery.datatables.bootstrap': 'dataTables.bootstrap'
   'gl-matrix': 'gl-matrix-min'
   'gl-matrix-ext': 'gl_app/gl-matrix-ext'
+  'bootstrap': 'bootstrap'
 
 shim:
   'jquery.debouncedresize': ['jquery']
@@ -17,6 +18,7 @@ shim:
   'jquery.console': ['jquery']
   'jquery.datatables': ['jquery']
   'jquery.datatables.bootstrap': ['jquery.datatables']
+  'bootstrap': ['jquery']
   'gl-matrix-ext': ['gl-matrix']
   'loader': ['base']
   'base': ['jquery']

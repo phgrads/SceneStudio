@@ -18,3 +18,12 @@
   bottom: 0;
   pointer-events: none;
 }
+
+#graphicsOverlay .alert
+{
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  z-index: 3;
+  pointer-events: all;
+}
