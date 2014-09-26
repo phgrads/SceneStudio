@@ -542,7 +542,7 @@ define([
               on_success);
           }.bind(this));
       } else {
-        console.log("Cannot load scene: No load url");
+        showAlert("Cannot load scene: No load url", 'alert-error');
         this.CreateEmpty();
       }
     };
@@ -565,7 +565,7 @@ define([
             preview: preview
           }).error(on_error).success(on_success);
       } else {
-        console.error("Cannot save scene: No save url");
+        showAlert("Cannot save scene: No save url", 'alert-error');
       }
     };
 

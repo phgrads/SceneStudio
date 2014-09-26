@@ -1,18 +1,20 @@
 <li class="span3">
   <div class="thumbnail">
+    <div class="scene-item">
       <% if scene.preview %>
         <% preview_url = scene.preview.url %>
         <% if preview_url %>
-            <%= image_tag preview_url, { 'data-src' => preview_url } %>
+          <%= image_tag preview_url, { 'data-src' => preview_url } %>
         <% end %>
+      <% else %>
+          <%= image_tag 'scenePreview.jpg' %>
       <% end %>
-      <div class='btn-group scene-item'>
-        <%= link_to scene.name, { action: 'edit', id: scene.id },
-                    class: 'btn scene-name' %>
-        <%= link_to '', { action: 'view', id: scene.id },
-                    class: 'btn icon-camera scene-view' %>
-        <%= link_to '×', scene, confirm: 'Are you sure?', method: :delete,
-                    class: 'btn btn-danger scene-delete' %>
-      </div>
+      <%= link_to scene.name, { action: 'edit', id: scene.id },
+                  class: 'btn scene-name' %>
+      <%= link_to '', { action: 'view', id: scene.id },
+                  class: 'btn icon-camera scene-view' %>
+      <%= link_to '×', scene, confirm: 'Are you sure?', method: :delete,
+                  class: 'btn btn-danger scene-delete' %>
+    </div>
   </div>
 </li>
