@@ -6,6 +6,7 @@
   position: relative;
   margin: 0 auto;
   display: table;
+  text-align: center;
 
   .scene-name {
     overflow: hidden;
@@ -26,8 +27,7 @@
     right: 0;
     top: 0;
     font-size: 30px;
-    padding: 7px 5px;
-    padding-top: 1px;
+    padding: 4px 4px;
   }
 }
 
