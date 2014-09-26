@@ -19,7 +19,7 @@ class Scene < ActiveRecord::Base
       { path: "scenes/#{a.name}" }
     end
   end
-  validates_size_of :preview, maximum: 500.kilobytes
+  #validates_size_of :preview, maximum: 500.kilobytes
 
   has_paper_trail
 
