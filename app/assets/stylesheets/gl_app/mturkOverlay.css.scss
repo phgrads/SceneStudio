@@ -101,6 +101,12 @@ $overlaybg: rgba(150,200,150,0.75);
   font-size: 18pt;
 }
 
+.exampleTable {
+  td, th {
+    padding: 20px;
+  }
+}
+
 .topOverlay {
   position: absolute;
   top: 90px;
@@ -135,3 +141,4 @@ img.enlarged {
 .center {
   text-align: center;
 }
+

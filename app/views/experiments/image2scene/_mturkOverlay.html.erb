@@ -8,15 +8,17 @@
     Each scene should take about <%=@taskTime['sceneTime'] %> to complete.
     The task should take about <%=@taskTime['taskTime'] %> in total.
   </p>
-  <div>
-    <p><b>Example</b></p>
-    <table>
+  <br/>
+  <div align="center">
+    <table class="exampleTable">
       <thead>
+      <th></th>
       <th>Image</th>
       <th>Constructed scene</th>
       </thead>
       <tbody>
       <tr>
+        <th>Example 1</th>
         <td>
           <div align="center" class="mturkExample">
             <%= image_tag( @conf['exampleImagesPath'] + 'image1.png', { width: 400, class: "enlarge" } ) %>
@@ -29,6 +31,7 @@
         </td>
       </tr>
       <tr>
+        <th>Example 2</th>
         <td>
           <div align="center" class="mturkExample">
             <%= image_tag( @conf['exampleImagesPath'] + 'image2.png', { width: 400, class: "enlarge" } ) %>
@@ -43,6 +46,7 @@
       </tbody>
     </table>
   </div>
+  <br/>
   <div  class="center">
     <input type="button" id="startButton" class="largeButton" value="Start"/>
   </div>
