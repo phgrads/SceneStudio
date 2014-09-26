@@ -1,18 +1,18 @@
-<li class='scene-item'>
-  <div class="btn-group">
-    <%= link_to scene.name, { action: 'edit', id: scene.id },
-          class: 'btn scene-name' %>
-    <%= link_to '', { action: 'view', id: scene.id },
-          class: 'btn icon-camera scene-view' %>
-    <%= link_to '×', scene, confirm: 'Are you sure?', method: :delete,
-          class: 'btn btn-danger scene-delete' %>
-  </div>
-  <% if scene.preview %>
-    <% preview_url = scene.preview.url %>
-    <% if preview_url %>
-      <div>
-        <%= image_tag preview_url, class: 'scene-preview' %>
+<li class="span3">
+  <div class="thumbnail">
+      <% if scene.preview %>
+        <% preview_url = scene.preview.url %>
+        <% if preview_url %>
+            <%= image_tag preview_url, { 'data-src' => preview_url } %>
+        <% end %>
+      <% end %>
+      <div class='btn-group scene-item'>
+        <%= link_to scene.name, { action: 'edit', id: scene.id },
+                    class: 'btn scene-name' %>
+        <%= link_to '', { action: 'view', id: scene.id },
+                    class: 'btn icon-camera scene-view' %>
+        <%= link_to '×', scene, confirm: 'Are you sure?', method: :delete,
+                    class: 'btn btn-danger scene-delete' %>
       </div>
-    <% end %>
-  <% end %>
+  </div>
 </li>

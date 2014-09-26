@@ -1,19 +1,15 @@
 <% provide(:title, "My Scenes") %>
 <div class="row">
-  <div class="span8 offset2">
-    <h3>Scenes (<%= @scene_list.count %>)</h3>
-    <!-- scene list -->
-    <% if @scene_list.any? %>
-      <ol class="unstyled">
-        <%= render @scene_list %>
-      </ol>
-    <% end %>
-
-    <!-- new scene modal -->
+  <div class="span12">
+    <h3>Scenes (<%= @scene_list.count %>)
+    <!-- new scene button -->
     <button class="new-scene btn btn-primary" href="#NewSceneModal"
             type="button" data-toggle="modal">
       New Scene
     </button>
+    </h3>
+
+    <!-- new scene modal -->
     <div id="NewSceneModal" class="modal hide fade"
          tabindex="-1" role="dialog"
          aria-labelledby="NewSceneModalLabel" aria-hidden="true">
@@ -45,3 +41,14 @@
     </div>
   </div>
 </div>
+
+<!-- scene list -->
+<% if @scene_list.any? %>
+<div class="row">
+  <div class="span12">
+      <ul class="thumbnails">
+        <%= render @scene_list %>
+      </ul>
+  </div>
+</div>
+<% end %>
