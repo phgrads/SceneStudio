@@ -1,15 +1,18 @@
 <%= render '/experiments/largeimg' %>
-<div id="taskInstructions" class="taskInstructions wholescreenOverlay">
-  <p>You will be shown <%=@entries.length%> scans of indoor scenes.
-    For each scan, you will be asked to construct a scene that matches the scan
-    by finding appropriate objects and placing them in a room.
-  </p>
-  <p>
-    Each scene should take about <%=@taskTime['sceneTime'] %> to complete.
-    The task should take about <%=@taskTime['taskTime'] %> in total.
-  </p>
-  <br/>
-  <div align="center">
+<div id="taskInstructions" class="wholescreenOverlay">
+  <div align="center" class="taskInstructions">
+    <div style='text-align:left'>
+      <p>You will be shown <%=@entries.length%> scans of indoor scenes.
+        For each scan, you will be asked to construct a scene that matches the scan
+        by finding appropriate objects and placing them in a room.
+      </p>
+      <p>
+        Each scene should take about <%=@taskTime['sceneTime'] %> to complete.
+        The task should take about <%=@taskTime['taskTime'] %> in total.
+      </p>
+      <br/>
+    </div>
+    <div align="center">
     <table class="exampleTable">
       <thead>
       <th></th>
@@ -45,10 +48,11 @@
       </tr>
       </tbody>
     </table>
-  </div>
-  <br/>
-  <div  class="center">
+    </div>
+    <br/>
+    <div  class="center">
     <input type="button" id="startButton" class="largeButton" value="Start"/>
+    </div>
   </div>
 </div>
 

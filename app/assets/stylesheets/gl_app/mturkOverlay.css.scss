@@ -11,7 +11,6 @@ $overlaybg: rgba(150,200,150,0.75);
   height: 100%;
   width: 100%;
   background-color: $bg1;
-  @include user-select(none);
 }
 
 .entryOverlay {
@@ -60,6 +59,10 @@ $overlaybg: rgba(150,200,150,0.75);
 .taskInstructions {
   padding: 30px;
   font-size:20px;
+  line-height: 150%;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .editInstructions {
