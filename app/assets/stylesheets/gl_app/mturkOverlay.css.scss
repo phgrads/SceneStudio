@@ -102,6 +102,13 @@ $overlaybg: rgba(150,200,150,0.75);
   @include border-radius(8px);
   color: black;
   font-size: 18pt;
+  line-height: 150%;
+}
+
+#sentence {
+  max-width: 75%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .exampleTable {
