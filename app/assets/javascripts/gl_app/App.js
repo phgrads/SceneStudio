@@ -19,7 +19,8 @@ define([
   './fsm',
   './UILog',
   './TextToScene',
-  'jquery'
+  'jquery',
+  'bootstrap'
 ],
   function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, SearchController,
             Manipulators, UndoStack, Toolbar, CameraControls, PubSub, SplitView, uimap, Behaviors, FSM, UILog,
@@ -42,6 +43,7 @@ define([
       PubSub.call(this);
 
       this.canvas = canvas;
+
       this.savePreview = true;
 
       // the following variables from globalViewData
@@ -88,6 +90,7 @@ define([
 
       if (window.globals) {
         this.onSaveCallback = window.globals.onSaveCallback;
+        this.onCloseCallback = window.globals.onCloseCallback;
         this.onLoadUrl = window.globals.onLoadUrl;
       }
       if (this.onLoadUrl === undefined) {
@@ -98,6 +101,12 @@ define([
       if (this.scene_record) {
         this.onSaveUrl = this.base_url + '/scenes/' + this.scene_record.id;
       }
+
+      // Whether to automatically save when closing a scene
+      this.autoSave = false;
+      // Bindings for ExitSceneModal
+      $('#ExitSceneSaveYes').click( this.SaveAndCloseScene.bind(this) );
+      $('#ExitSceneSaveNo').click( this.CloseScene.bind(this) );
 
       preventSelection(this.canvas);
 
@@ -569,13 +578,45 @@ define([
       }
     };
 
-    App.prototype.ExitTo = function(destination)
+    App.prototype.Close = function(destination)
     {
+      if (this.autoSave) {
+        // Automatically saves the scene
+        this.SaveAndCloseScene();
+      } else {
+        var hasChanges = !this.undoStack.isEmpty();
+        console.log("has changes " + hasChanges);
+        if (hasChanges) {
+          // Ask if user wants to save
+          $('#ExitSceneModal').modal('show');
+        } else {
+          this.CloseScene();
+        }
+      }
+    };
+
+    App.prototype.SaveAndCloseScene = function() {
+      $('#ExitSceneModal').modal('hide');
       this.SaveScene(function() { // on success
-        window.onbeforeunload = null;
-        window.location.href = this.on_close_url;
-      }.bind(this)); // should add dialog to ask if the user wants to leave
-      // even though nothing was saved in event of error
+        this.CloseScene();
+      }.bind(this));
+        // TODO: should add dialog to ask if the user wants to leave
+        // even though nothing was saved in event of error
+    };
+
+    App.prototype.CloseScene = function() {
+      $('#ExitSceneModal').modal('hide');
+      if (this.onCloseCallback) {
+        this.onCloseCallback(this);
+      } else {
+        this.ExitTo(this.on_close_url);
+      }
+    };
+
+     App.prototype.ExitTo = function(destination)
+    {
+      window.onbeforeunload = null;
+      window.location.href = destination;
     };
 
     // This exists to permit us to drag objects around

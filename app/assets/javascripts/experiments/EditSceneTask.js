@@ -38,7 +38,7 @@ define([
       var on_success = function(response) {
         this.next();
       }.bind(this);
-      var on_error = function() { alert("Error saving results. Please close tab and do task again.");};
+      var on_error = function() { showAlert("Error saving results. Please close tab and do task again.", 'alert-error');};
       var preview = (this.savePreview)? app.GetPreviewImageData():undefined;
       var currentEntry = this.entries[this.entryIndex];
       var results = app.GetSceneResults();

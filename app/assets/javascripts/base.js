@@ -396,6 +396,7 @@ function showLarge(elem) {
 }
 
 function showAlert(message, style) {
+  window.setTimeout(function() { hideAlert(); }, 5000);
   $('#alertMessage').text(message);
   $('#alert').attr('class', 'alert');
   $('#alert').addClass(style);

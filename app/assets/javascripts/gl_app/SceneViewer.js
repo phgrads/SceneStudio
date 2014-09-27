@@ -115,8 +115,8 @@ define([
                 else if (taskStage == 4) {
                     // TODO: Replace this with saving of UI log through special route
                     this.SaveScene(
-                        function() { this.ExitTo(window.globalViewData.on_close_url); }.bind(this) ,
-                        function() { alert("Error saving results. Please close tab and do task again."); }
+                        function() { this.Close(); }.bind(this) ,
+                        function() { showAlert("Error saving results. Please close tab and do task again.", 'alert-error'); }
                     );
                 }
                 taskStage++;
@@ -143,15 +143,15 @@ define([
         SceneViewer.prototype.SaveScene = function(on_success, on_error)
         {
             on_success = on_success || function() {
-                alert('saved!  Please develop a better UI alert');
+              showAlert('Scene successfully saved!', 'alert-success');
             };
             on_error = on_error || function() {
-                alert('did not save!  Please develop a better UI alert');
+              showAlert('Error saving scene', 'alert-error');
             };
             var serialized = this.scene.SerializeForNetwork();
             putViaJQuery(this.base_url + '/scenes/' + this.scene_record.id,
             {
-                scene_file: JSON.stringify(serialized),
+                scene: JSON.stringify(serialized),
                 ui_log: this.uilog.stringify()
             }).error(on_error).success(on_success);
         };
@@ -175,12 +175,17 @@ define([
             this.renderer.UpdateView();
         };
 
-        SceneViewer.prototype.ExitTo = function(destination)
+        SceneViewer.prototype.Close = function()
         {
             this.SaveScene(function() {
-                window.onbeforeunload = null;
-                window.location.href = destination;
+                this.ExitTo(this.on_close_url);
             }.bind(this));
+        };
+
+        SceneViewer.prototype.ExitTo = function(destination)
+        {
+          window.onbeforeunload = null;
+          window.location.href = destination;
         };
 
         // Exports

@@ -1,0 +1,24 @@
+<!-- Modal to save before exit -->
+<div id="ExitSceneModal" class="modal hide fade"
+     tabindex="-1" role="dialog"
+     aria-labelledby="ExitSceneModalLabel" aria-hidden="true">
+  <%= form_tag(scenes_path,
+               class: 'form-horizontal modal-form') do %>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"
+                aria-hidden="true">&times;</button>
+        <h3 id="ExitSceneModalLabel">Exit?</h3>
+      </div>
+      <div class="modal-body">
+        Your scene has unsaved changed.  Would you like to save your scene before exiting?
+      </div>
+      <div class="modal-footer">
+        <button id="ExitSceneSaveYes" type="button" class="btn btn-primary">Yes</button>
+        <button id="ExitSceneSaveNo" type="button" class="btn">No</button>
+        <button id="ExitSceneCancel" type="button" class="btn"
+                data-dismiss="modal" aria-hidden="true">
+          Cancel
+        </button>
+      </div>
+  <% end %>
+</div>

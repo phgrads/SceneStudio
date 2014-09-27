@@ -48,10 +48,10 @@ function Toolbar(app)
     });
 	this.AddButton('Close', 'Close the editor',
 	               'close', function() {
-	   app.ExitTo('scenes/');
+	   app.Close();
     });
 	
-	// Disable buttons in the intial state
+	// Disable buttons in the initial state
 	this.DisableButton('Undo');
 	this.DisableButton('Redo');
 	this.DisableButton('Copy');

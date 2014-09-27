@@ -133,6 +133,11 @@ UndoStack.prototype.pushCurrentState = function(cmdType, targetModel)
 
 };
 
+UndoStack.prototype.isEmpty = function()
+{
+  return this.pos === 0;
+};
+
 // Exports
 return {
     UndoStack: UndoStack,
