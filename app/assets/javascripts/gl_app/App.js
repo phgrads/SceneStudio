@@ -103,7 +103,7 @@ define([
       }
 
       // Whether to automatically save when closing a scene
-      this.autoSave = false;
+      this.autoSaveOnClose = false;
       // Bindings for ExitSceneModal
       $('#ExitSceneSaveYes').click( this.SaveAndCloseScene.bind(this) );
       $('#ExitSceneSaveNo').click( this.CloseScene.bind(this) );
@@ -124,6 +124,12 @@ define([
     App.prototype = Object.create(PubSub.prototype);
 
     App.prototype.SaveScene = function(on_success, on_error) {
+      on_success = on_success || function() {
+        showAlert('Scene successfully saved!', 'alert-success');
+      };
+      on_error = on_error || function() {
+        showAlert('Error saving scene', 'alert-error');
+      };
       if (this.onSaveCallback) {
         this.onSaveCallback(this,on_success,on_error);
       } else{
@@ -551,7 +557,7 @@ define([
               on_success);
           }.bind(this));
       } else {
-        showAlert("Cannot load scene: No load url", 'alert-error');
+        console.log("Cannot load scene: No load url.");
         this.CreateEmpty();
       }
     };
@@ -559,12 +565,6 @@ define([
     App.prototype.SaveScene_ = function(on_success, on_error)
     {
       if (this.onSaveUrl) {
-        on_success = on_success || function() {
-          showAlert('Scene successfully saved!', 'alert-success');
-        };
-        on_error = on_error || function() {
-          showAlert('Error saving scene', 'alert-error');
-        };
         var serialized = this.scene.SerializeForNetwork();
         var preview = (this.savePreview)? this.GetPreviewImageData():undefined;
         putViaJQuery(this.onSaveUrl,
@@ -578,9 +578,9 @@ define([
       }
     };
 
-    App.prototype.Close = function(destination)
+    App.prototype.Close = function()
     {
-      if (this.autoSave) {
+      if (this.autoSaveOnClose) {
         // Automatically saves the scene
         this.SaveAndCloseScene();
       } else {

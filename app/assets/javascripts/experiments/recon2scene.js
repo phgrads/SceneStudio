@@ -20,7 +20,10 @@ define(function(require) {
         conf: window.globals.conf,
         showEntryCallback: showEntryCallback
       });
+      app.autoSaveOnClose = true;
       app.onSaveCallback = editSceneTask.saveSceneCallback.bind(editSceneTask);
+      app.onCloseCallback = editSceneTask.closeSceneCallback.bind(editSceneTask);
+      app.toolbar.LabelButton("Close", "Done", "Done with scene");
 
       editSceneTask.Launch();
       app.Launch();

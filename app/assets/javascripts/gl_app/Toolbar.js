@@ -127,6 +127,15 @@ Toolbar.prototype.AddButton = function(name, tooltip, iconName, callback)
 	this.buttons[name] = button;
 };
 
+// Function to relabel a existing button (used for mturk tasks)
+Toolbar.prototype.LabelButton = function(name, label, tooltip) {
+  var button = this.buttons[name];
+  if (button) {
+    button.attr('title', tooltip);
+    button.find(".buttonLabel").text(label);
+  }
+};
+
 Toolbar.prototype.AddSpacer = function()
 {
 	this.elem.append($('<div class="spacer"></div>'));
