@@ -14,8 +14,32 @@
       </div>
       <div class="modal-footer">
         <button id="ExitSceneSaveYes" type="button" class="btn btn-primary">Yes</button>
-        <button id="ExitSceneSaveNo" type="button" class="btn">No</button>
+        <button id="ExitSceneSaveNo" type="button" class="btn btn-danger">No</button>
         <button id="ExitSceneCancel" type="button" class="btn"
+                data-dismiss="modal" aria-hidden="true">
+          Cancel
+        </button>
+      </div>
+  <% end %>
+</div>
+
+<!-- Modal to exit  -->
+<div id="ExitSceneErrorSavingModal" class="modal hide fade"
+     tabindex="-1" role="dialog"
+     aria-labelledby="ExitSceneErrorSavingModalLabel" aria-hidden="true">
+  <%= form_tag(scenes_path,
+               class: 'form-horizontal modal-form') do %>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"
+                aria-hidden="true">&times;</button>
+        <h3 id="ExitSceneErrorSavingModalLabel">Exit?</h3>
+      </div>
+      <div class="modal-body alert-error">
+        There was a error saving your scene.  Would you still like to exit without saving?
+      </div>
+      <div class="modal-footer">
+        <button id="ExitSceneErrorYes" type="button" class="btn btn-danger">Yes</button>
+        <button id="ExitSceneErrorCancel" type="button" class="btn"
                 data-dismiss="modal" aria-hidden="true">
           Cancel
         </button>

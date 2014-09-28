@@ -108,6 +108,9 @@ define([
       $('#ExitSceneSaveYes').click( this.SaveAndCloseScene.bind(this) );
       $('#ExitSceneSaveNo').click( this.CloseScene.bind(this) );
 
+      // Bindings for ExisSceneErrorSavingModal
+      $('#ExitSceneErrorYes').click( this.CloseScene.bind(this) );
+
       preventSelection(this.canvas);
 
       // TODO: Handle preventing of default browser action in a less hackish way
@@ -597,15 +600,21 @@ define([
 
     App.prototype.SaveAndCloseScene = function() {
       $('#ExitSceneModal').modal('hide');
-      this.SaveScene(function() { // on success
-        this.CloseScene();
-      }.bind(this));
-        // TODO: should add dialog to ask if the user wants to leave
-        // even though nothing was saved in event of error
+      this.SaveScene(
+        function() { // on success
+          this.CloseScene();
+        }.bind(this),
+        function() { // on failure
+          // Add dialog to ask if the user wants to leave
+          // even though nothing was saved in event of error
+          $('#ExitSceneErrorSavingModal').modal('show');
+        }
+      );
     };
 
     App.prototype.CloseScene = function() {
       $('#ExitSceneModal').modal('hide');
+      $('#ExitSceneErrorSavingModal').modal('hide');
       if (this.onCloseCallback) {
         this.onCloseCallback(this);
       } else {
