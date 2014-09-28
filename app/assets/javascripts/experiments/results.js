@@ -4,7 +4,9 @@
 define(function(require) {
   require(['jquery.datatables.bootstrap'], function() {
     $(document).ready(function() {
-      $('#resultsTable').dataTable();
+      $('#resultsTable').dataTable({
+        "order": [[ 0, "desc" ]]
+      });
     } );
   })
 });
