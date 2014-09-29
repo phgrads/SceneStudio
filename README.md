@@ -60,7 +60,7 @@ The following assumes that we are running in development mode on a local machine
 
 3. run `rake mturk:develop[sampleName]` to create the database entries for the
    experiment and run the setup script. You can develop locally by providing
-   a param to the appropriate address (e.g. `mturk/task/assignmentId=?&workerId=?&hitId=sampleName`  or `experiments/sampleName?task_id=7`)
+   a param to the appropriate address (e.g. `mturk/task?assignmentId=xxx&workerId=yyy&hitId=sampleName`  or `experiments/sampleName?task_id=7`)
 
 4. run `rake mturk:run[sampleName]` in order to launch the experiment
    you just created on the MTurk sandbox.
