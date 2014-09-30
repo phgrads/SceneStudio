@@ -604,6 +604,8 @@ ModelInstance.prototype.BeginMouseInteract = function(data)
 		return;
 	}
 
+  if (!app.allowEdit) return;
+
 	// Project the base centroid of the selected model instance
 	// This now becomes the 'x, y' screen space point used for
 	// picking a location for the object.
@@ -628,7 +630,8 @@ ModelInstance.prototype.ContinueMouseInteract = function(data)
 	var app = data.app;
 	
 	app.renderer.postRedisplay();
-	
+
+  if (!app.allowEdit) return;
 	// Make the model unpickable, so drag moves don't pick it.
 	app.ToggleSuppressPickingOnSelectedInstance(true);
 
@@ -654,7 +657,8 @@ ModelInstance.prototype.EndMouseInteract = function(data)
 	var app = data.app;
 	
 	app.renderer.postRedisplay();
-	
+
+  if (!app.allowEdit) return;
 	// Make this model pickable again.
 	app.ToggleSuppressPickingOnSelectedInstance(false);
 

@@ -9,7 +9,10 @@ define(function(require) {
       },function() {
       } );
 
-      var app = new SceneEditor(id('canvas'));
+      var app = new SceneEditor({
+        canvas: id('canvas'),
+        allowEdit: true
+      });
 
       var showEntryCallback = function(entry) {
         $('#sentence').text(entry['description']);

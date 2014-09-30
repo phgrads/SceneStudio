@@ -37,12 +37,18 @@ define([
       this.isBusy = false;
     }
 
-    function App(canvas)
+    function App(params)
     {
       // Extend PubSub
       PubSub.call(this);
 
-      this.canvas = canvas;
+      if (params instanceof HTMLCanvasElement) {
+        this.canvas = params;
+        this.allowEdit = true;
+      } else {
+        this.canvas = params.canvas;
+        this.allowEdit = params.allowEdit;
+      }
 
       this.savePreview = true;
 
@@ -68,10 +74,14 @@ define([
       this.uilog = new UILog.UILog();
 
       // Initialize text2scene
-      this.text2scene = new TextToScene(this);
+      if (this.allowEdit) {
+        this.text2scene = new TextToScene(this);
+      }
 
-      this.scene.AddManipulator(new Manipulators.RotationManipulator(this.renderer.gl_));
-      this.scene.AddManipulator(new Manipulators.ScaleManipulator(this.renderer.gl_));
+      if (this.allowEdit) {
+        this.scene.AddManipulator(new Manipulators.RotationManipulator(this.renderer.gl_));
+        this.scene.AddManipulator(new Manipulators.ScaleManipulator(this.renderer.gl_));
+      }
 
       this.AttachEventHandlers();
 
@@ -80,13 +90,16 @@ define([
       this.cameraControls = new CameraControls(this);
       this.searchController = new SearchController(this);
 
-      SplitView.MakeSplitView({
-        leftElem: $('#graphicsOverlay'),
-        rightElem: $('#searchArea'),
-        rightMinWidth: Constants.searchAreaMinWidth,
-        rightMaxWidth: Constants.searchAreaMaxWidth,
-        snapToGrid: Constants.searchAreaResizeGrid
-      });
+      // Only have split view (with search area) if we allow edit
+      if (this.allowEdit) {
+        SplitView.MakeSplitView({
+          leftElem: $('#graphicsOverlay'),
+          rightElem: $('#searchArea'),
+          rightMinWidth: Constants.searchAreaMinWidth,
+          rightMaxWidth: Constants.searchAreaMaxWidth,
+          snapToGrid: Constants.searchAreaResizeGrid
+        });
+      }
 
       if (window.globals) {
         this.onSaveCallback = window.globals.onSaveCallback;
@@ -218,172 +231,174 @@ define([
         .onstart(focus.start_interruption.bind(focus))
         .onfinish(focus.finish_interruption.bind(focus));
 
-      // also make sure insertion inhibits focusing
-      this.insertion_behavior = this.CreateInsertionBehavior()
-        .onstart(focus.start_interruption.bind(focus))
-        .onfinish(function(data) {
-          this.FinishModelInsertion(data.instance);
-          focus.finish_interruption();
-        }.bind(this))
-        .onhover(function(data) {
-          this.ContinueModelInsertion(data.x, data.y);
-        }.bind(this))
-        .oncancel(function(data) {
-          this.CancelModelInsertion(data.instance);
-          focus.finish_interruption();
-        }.bind(this));
+      if (this.allowEdit) {
+        // also make sure insertion inhibits focusing
+        this.insertion_behavior = this.CreateInsertionBehavior()
+          .onstart(focus.start_interruption.bind(focus))
+          .onfinish(function(data) {
+            this.FinishModelInsertion(data.instance);
+            focus.finish_interruption();
+          }.bind(this))
+          .onhover(function(data) {
+            this.ContinueModelInsertion(data.x, data.y);
+          }.bind(this))
+          .oncancel(function(data) {
+            this.CancelModelInsertion(data.instance);
+            focus.finish_interruption();
+          }.bind(this));
 
-      // mouse wheel scrolls
-      addWheelHandler(this.canvas, this.MouseWheel.bind(this));
+        // mouse wheel scrolls
+        addWheelHandler(this.canvas, this.MouseWheel.bind(this));
 
-      // some support functions
-      var ensureInstance = function(toWrap) {
-        var helper = function(opts) {
-          if(this.insertion_behavior.isActive()) {
-            opts.instance = this.insertion_behavior.instance();
-          } else if(this.uistate.selectedInstance) {
-            opts.instance = this.uistate.selectedInstance;
-            opts.saveUndo = true;
-          } else {
-            return false;
-          }
-          return true;
-        }.bind(this);
-        if($.isFunction(toWrap)) {
-          return function(opts) {
-            if(helper(opts))
-              toWrap(opts);
-          };
-        } else  {
-          return mapTable(toWrap, function(key, callback) {
+        // some support functions
+        var ensureInstance = function(toWrap) {
+          var helper = function(opts) {
+            if(this.insertion_behavior.isActive()) {
+              opts.instance = this.insertion_behavior.instance();
+            } else if(this.uistate.selectedInstance) {
+              opts.instance = this.uistate.selectedInstance;
+              opts.saveUndo = true;
+            } else {
+              return false;
+            }
+            return true;
+          }.bind(this);
+          if($.isFunction(toWrap)) {
             return function(opts) {
               if(helper(opts))
-                callback(opts);
+                toWrap(opts);
             };
-          });
-        }
-      }.bind(this);
+          } else  {
+            return mapTable(toWrap, function(key, callback) {
+              return function(opts) {
+                if(helper(opts))
+                  callback(opts);
+              };
+            });
+          }
+        }.bind(this);
 
-      // Keyboard Rotate/Scale
-      var rotateIncrement = Constants.keyboardRotationIncrementUnmodified;
-      var scaleIncrement  = Constants.keyboardScaleFactorUnmodified;
-      var rotate_left_behavior =
-        Behaviors.keyhold(this.uimap, 'left')
+        // Keyboard Rotate/Scale
+        var rotateIncrement = Constants.keyboardRotationIncrementUnmodified;
+        var scaleIncrement  = Constants.keyboardScaleFactorUnmodified;
+        var rotate_left_behavior =
+          Behaviors.keyhold(this.uimap, 'left')
+            .onhold(ensureInstance(function(opts) {
+              opts.instance.CascadingRotate(rotateIncrement);
+              this.renderer.postRedisplay();
+            }.bind(this)))
+            .onfinish(ensureInstance(function(opts) {
+              if(opts.saveUndo)
+                this.undoStack.pushCurrentState(UndoStack.CMDTYPE.ROTATE,
+                  opts.instance);
+            }.bind(this)));
+
+        var rotate_right_behavior =
+          Behaviors.keyhold(this.uimap, 'right')
+            .onhold(ensureInstance(function(opts) {
+              opts.instance.CascadingRotate(-rotateIncrement);
+              this.renderer.postRedisplay();
+            }.bind(this)))
+            .onfinish(ensureInstance(function(opts) {
+              if(opts.saveUndo)
+                this.undoStack.pushCurrentState(UndoStack.CMDTYPE.ROTATE,
+                  opts.instance);
+            }.bind(this)));
+
+        var scale_up_behavior =
+          Behaviors.keyhold(this.uimap, 'up')
+            .onhold(ensureInstance(function(opts) {
+              opts.instance.CascadingScale(scaleIncrement);
+              this.renderer.postRedisplay();
+            }.bind(this)))
+            .onfinish(ensureInstance(function(opts) {
+              if(opts.saveUndo)
+                this.undoStack.pushCurrentState(UndoStack.CMDTYPE.SCALE,
+                  opts.instance);
+            }.bind(this)));
+
+        var scale_down_behavior =
+          Behaviors.keyhold(this.uimap, 'down')
+            .onhold(ensureInstance(function(opts) {
+              opts.instance.CascadingScale(1.0 / scaleIncrement);
+              this.renderer.postRedisplay();
+            }.bind(this)))
+            .onfinish(ensureInstance(function(opts) {
+              if(opts.saveUndo)
+                this.undoStack.pushCurrentState(UndoStack.CMDTYPE.SCALE,
+                  opts.instance);
+            }.bind(this)));
+
+        // Keyboard Tumble
+        Behaviors.keyhold(this.uimap, 'ctrl+M')
           .onhold(ensureInstance(function(opts) {
-            opts.instance.CascadingRotate(rotateIncrement);
+            this.Tumble(opts.instance, false);
             this.renderer.postRedisplay();
           }.bind(this)))
           .onfinish(ensureInstance(function(opts) {
             if(opts.saveUndo)
-              this.undoStack.pushCurrentState(UndoStack.CMDTYPE.ROTATE,
-                opts.instance);
+              this.undoStack.pushCurrentState(
+                UndoStack.CMDTYPE.SWITCHFACE, opts.instance);
           }.bind(this)));
 
-      var rotate_right_behavior =
-        Behaviors.keyhold(this.uimap, 'right')
-          .onhold(ensureInstance(function(opts) {
-            opts.instance.CascadingRotate(-rotateIncrement);
+        // Copy/Paste
+        Behaviors.keypress(this.uimap, 'ctrl+C')
+          .onpress(function(data) {
+            data.preventDefault();
+            this.Copy();
             this.renderer.postRedisplay();
-          }.bind(this)))
-          .onfinish(ensureInstance(function(opts) {
-            if(opts.saveUndo)
-              this.undoStack.pushCurrentState(UndoStack.CMDTYPE.ROTATE,
-                opts.instance);
-          }.bind(this)));
-
-      var scale_up_behavior =
-        Behaviors.keyhold(this.uimap, 'up')
-          .onhold(ensureInstance(function(opts) {
-            opts.instance.CascadingScale(scaleIncrement);
+          }.bind(this));
+        Behaviors.keypress(this.uimap, 'ctrl+V')
+          .onpress(function(data) {
+            data.preventDefault();
+            this.Paste(data);
             this.renderer.postRedisplay();
-          }.bind(this)))
-          .onfinish(ensureInstance(function(opts) {
-            if(opts.saveUndo)
-              this.undoStack.pushCurrentState(UndoStack.CMDTYPE.SCALE,
-                opts.instance);
-          }.bind(this)));
+          }.bind(this));
 
-      var scale_down_behavior =
-        Behaviors.keyhold(this.uimap, 'down')
-          .onhold(ensureInstance(function(opts) {
-            opts.instance.CascadingScale(1.0 / scaleIncrement);
+        // Undo/Redo
+        Behaviors.keypress(this.uimap, 'ctrl+Z')
+          .onpress(function(data) {
+            data.preventDefault();
+            this.insertion_behavior.cancel();
+            this.Undo();
             this.renderer.postRedisplay();
-          }.bind(this)))
-          .onfinish(ensureInstance(function(opts) {
-            if(opts.saveUndo)
-              this.undoStack.pushCurrentState(UndoStack.CMDTYPE.SCALE,
-                opts.instance);
-          }.bind(this)));
+          }.bind(this));
+        Behaviors.keypress(this.uimap, 'ctrl+Y')
+          .onpress(function(data) {
+            data.preventDefault();
+            this.insertion_behavior.cancel();
+            this.Redo();
+            this.renderer.postRedisplay();
+          }.bind(this));
 
-      // Keyboard Tumble
-      Behaviors.keyhold(this.uimap, 'ctrl+M')
-        .onhold(ensureInstance(function(opts) {
-          this.Tumble(opts.instance, false);
-          this.renderer.postRedisplay();
-        }.bind(this)))
-        .onfinish(ensureInstance(function(opts) {
-          if(opts.saveUndo)
-            this.undoStack.pushCurrentState(
-              UndoStack.CMDTYPE.SWITCHFACE, opts.instance);
-        }.bind(this)));
+        // Save
+        Behaviors.keypress(this.uimap, 'ctrl+S')
+          .onpress(function(data) {
+            data.preventDefault();
+            this.SaveScene();
+          }.bind(this));
 
-      // Copy/Paste
-      Behaviors.keypress(this.uimap, 'ctrl+C')
-        .onpress(function(data) {
-          data.preventDefault();
-          this.Copy();
-          this.renderer.postRedisplay();
-        }.bind(this));
-      Behaviors.keypress(this.uimap, 'ctrl+V')
-        .onpress(function(data) {
-          data.preventDefault();
-          this.Paste(data);
-          this.renderer.postRedisplay();
-        }.bind(this));
+        // Delete object, Escape selection
+        Behaviors.keypress(this.uimap, 'delete, backspace')
+          .onpress(function(data) {
+            data.preventDefault();
+            this.Delete();
+            this.renderer.postRedisplay();
+          }.bind(this));
+        Behaviors.keypress(this.uimap, 'escape')
+          .onpress(function(data) {
+            data.preventDefault();
+            this.insertion_behavior.cancel();
+            this.SelectInstance(null);
+            this.renderer.postRedisplay();
+          }.bind(this));
 
-      // Undo/Redo
-      Behaviors.keypress(this.uimap, 'ctrl+Z')
-        .onpress(function(data) {
-          data.preventDefault();
-          this.insertion_behavior.cancel();
-          this.Undo();
-          this.renderer.postRedisplay();
-        }.bind(this));
-      Behaviors.keypress(this.uimap, 'ctrl+Y')
-        .onpress(function(data) {
-          data.preventDefault();
-          this.insertion_behavior.cancel();
-          this.Redo();
-          this.renderer.postRedisplay();
-        }.bind(this));
-
-      // Save
-      Behaviors.keypress(this.uimap, 'ctrl+S')
-        .onpress(function(data) {
-          data.preventDefault();
-          this.SaveScene();
-        }.bind(this));
-
-      // Delete object, Escape selection
-      Behaviors.keypress(this.uimap, 'delete, backspace')
-        .onpress(function(data) {
-          data.preventDefault();
-          this.Delete();
-          this.renderer.postRedisplay();
-        }.bind(this));
-      Behaviors.keypress(this.uimap, 'escape')
-        .onpress(function(data) {
-          data.preventDefault();
-          this.insertion_behavior.cancel();
-          this.SelectInstance(null);
-          this.renderer.postRedisplay();
-        }.bind(this));
-
-      // debug which instance is currently being manipulated
-      Behaviors.keypress(this.uimap, 'ctrl+B')
-        .onpress(ensureInstance(function(opts) {
-          console.log(opts.instance.model.id);
-        }));
+        // debug which instance is currently being manipulated
+        Behaviors.keypress(this.uimap, 'ctrl+B')
+          .onpress(ensureInstance(function(opts) {
+            console.log(opts.instance.model.id);
+          }));
+      }
 
       // spit out bare JSON data for the scene
       Behaviors.keypress(this.uimap, 'ctrl+K')
@@ -392,12 +407,14 @@ define([
           console.log(this.scene.SerializeBare());
         }.bind(this));
 
-      // toggle text2scene console
-      Behaviors.keypress(this.uimap, 'alt+T')
-        .onpress(function(data) {
-          data.preventDefault();
-          this.text2scene.ToggleConsole();
-        }.bind(this));
+      if (this.allowEdit) {
+        // toggle text2scene console
+        Behaviors.keypress(this.uimap, 'alt+T')
+          .onpress(function(data) {
+            data.preventDefault();
+            this.text2scene.ToggleConsole();
+          }.bind(this));
+      }
       // Save image
       Behaviors.keypress(this.uimap, 'ctrl+I')
         .onpress(function(data) {
