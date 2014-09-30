@@ -373,6 +373,13 @@ function trimCanvas(c) {
   }
 }
 
+function getTrimmedCanvasDataUrl(canvas,maxWidth,maxHeight) {
+  var copy = copyCanvas(canvas);
+  var trimmed = trimCanvas(copy);
+  var newCanvas = getResizedCanvas(trimmed, maxWidth, maxHeight);
+  return newCanvas.toDataURL();
+}
+
 // UI functions using JQuery
 function showLarge(elem) {
   var url = elem.attr("src");

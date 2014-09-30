@@ -800,11 +800,8 @@ define([
 
     App.prototype.GetImageData = function(maxWidth,maxHeight) {
       this.renderer.UpdateView();
-      var c = copyCanvas(this.canvas);
-      var trimmed = trimCanvas(c);
-      // Make sure our image is smaller...
-      var newCanvas = getResizedCanvas(trimmed, maxWidth, maxHeight);
-      return newCanvas.toDataURL();
+      var dataUrl  = getTrimmedCanvasDataUrl(this.canvas,maxWidth,maxHeight);
+      return dataUrl;
     };
 
     // Exports
