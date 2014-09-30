@@ -111,5 +111,6 @@ class MturkController < ApplicationController
 
     def list_tasks
       @tasks = MtTask.all()
+      @completed_items_count = CompletedItemsView.group(:taskId).count()
     end
 end

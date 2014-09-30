@@ -3,7 +3,8 @@
   <td><%= task.name %></td>
   <td><%= task.title %></td>
   <td>
-    <%= link_to 'results', { controller: 'experiments/' + task.name, action: 'results' }  rescue "" %>
+    <% completed_count = @completed_items_count[task.id] %>
+    <%= link_to "results(#{completed_count})", { controller: 'experiments/' + task.name, action: 'results' }  rescue "" %>
   </td>
   <td><%= link_to 'test', { action: 'task',
                             assignmentId: task.name + '_assignment', workerId: 'test_worker', hitId: task.name } %></td>
