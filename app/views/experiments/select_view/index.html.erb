@@ -1,0 +1,17 @@
+<div id="ui">
+  <%= render 'graphicsArea' %>
+  <div id='message' class="message" style="display: none;">
+    <span>I AM MESSAGE BOX</span>
+  </div>
+</div>
+<div id="blocker" class="blocker">
+  <div id="instructions" class="instructions">
+    <p>You will see a 3D scene. Look around using the mouse and move horizontally using the AWSD keys.</p>
+    <p>Change your viewing height using the R and F keys.</p>
+    <p>Take a picture with the ENTER key.</p>
+    <p>Your task is to first take a picture of the view you think most people would agree shows the scene best.</p>
+    <p>Then, you should take a picture of a bad view.</p>
+    <p>Once you're ready, left click on these instructions to enter fullscreen mode.</p>
+  </div>
+</div>
+<%= requirejs_include_tag('experiments/select-view') %>

@@ -1,25 +1,25 @@
 'use strict';
 
 define([
-    './Constants',
-    './Camera',
-    './FPCamera',
-    './Renderer',
-    './AssetManager',
-    './ModelInstance',
-    './Scene',
-    './CameraControls',
-    './PubSub',
-    './uimap',
-    './uibehaviors',
-    './fsm',
-    './UILog',
+    './gl_app/Constants',
+    './gl_app/Camera',
+    './gl_app/FPCamera',
+    './gl_app/Renderer',
+    './gl_app/AssetManager',
+    './gl_app/ModelInstance',
+    './gl_app/Scene',
+    './gl_app/CameraControls',
+    './gl_app/PubSub',
+    './gl_app/uimap',
+    './gl_app/uibehaviors',
+    './gl_app/fsm',
+    './gl_app/UILog',
     'jquery',
     'game-shim'
 ], function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Scene, CameraControls, PubSub, uimap,
              Behaviors, FSM, UILog) {
 
-        function SceneViewer(canvas) {
+        function SelectViewTask(canvas) {
             // Extend PubSub
             PubSub.call(this);
 
@@ -42,14 +42,15 @@ define([
         }
 
         // Extend PubSub
-        SceneViewer.prototype = Object.create(PubSub.prototype);
+        SelectViewTask.prototype = Object.create(PubSub.prototype);
 
-        SceneViewer.prototype.Launch = function () {
+        SelectViewTask.prototype.Launch = function () {
             this.LoadScene(
                 function() { // on success finish up some setup
                     this.camera.SetRandomPositionAndLookAtPointInSceneBounds();
                     this.renderer.UpdateView();
                 }.bind(this),
+                // TODO: Give error message instead
                 function() { // on failure create an empty room
                     this.assman.GetModel('room', function (model) {
                         this.scene.Reset(new ModelInstance(model, null));
@@ -64,7 +65,7 @@ define([
             this.renderer.resizeEnd();
         };
 
-        SceneViewer.prototype.ViewSelectionTaskLogic = function () {
+        SelectViewTask.prototype.ViewSelectionTaskLogic = function () {
             // Get message box and text
             var msgBox = $('#message');
             var msgTxt = msgBox.children('span');
@@ -140,7 +141,7 @@ define([
                 }.bind(this));
         };
 
-        SceneViewer.prototype.SaveScene = function(on_success, on_error)
+        SelectViewTask.prototype.SaveScene = function(on_success, on_error)
         {
             on_success = on_success || function() {
               showAlert('Scene successfully saved!', 'alert-success');
@@ -156,7 +157,7 @@ define([
             }).error(on_error).success(on_success);
         };
 
-        SceneViewer.prototype.SaveCamera = function(tag)
+        SelectViewTask.prototype.SaveCamera = function(tag)
         {
             var record = {
                 user: this.user_record,
@@ -169,26 +170,26 @@ define([
             $("#ui").fadeOut('fast').fadeIn('fast');
         };
 
-        SceneViewer.prototype.LoadCamera = function(cam)
+        SelectViewTask.prototype.LoadCamera = function(cam)
         {
             this.camera.ResetFromJSONString(cam);
             this.renderer.UpdateView();
         };
 
-        SceneViewer.prototype.Close = function()
+        SelectViewTask.prototype.Close = function()
         {
             this.SaveScene(function() {
                 this.ExitTo(this.on_close_url);
             }.bind(this));
         };
 
-        SceneViewer.prototype.ExitTo = function(destination)
+        SelectViewTask.prototype.ExitTo = function(destination)
         {
           window.onbeforeunload = null;
           window.location.href = destination;
         };
 
         // Exports
-        return SceneViewer;
+        return SelectViewTask;
 
     });
