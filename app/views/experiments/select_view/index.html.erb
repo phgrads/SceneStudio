@@ -1,5 +1,6 @@
 <div id="ui">
-  <%= render 'graphicsArea' %>
+  <%= render '/scenes/graphicsArea' %>
+  <%= render 'globals' %>
   <div id='message' class="message" style="display: none;">
     <span>I AM MESSAGE BOX</span>
   </div>
@@ -14,4 +15,5 @@
     <p>Once you're ready, left click on these instructions to enter fullscreen mode.</p>
   </div>
 </div>
+<%= render '/experiments/comments' %>
 <%= requirejs_include_tag('experiments/select-view') %>

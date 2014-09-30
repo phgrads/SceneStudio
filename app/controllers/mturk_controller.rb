@@ -5,6 +5,10 @@ class MturkController < ApplicationController
   before_filter :require_assignment, only: [:report, :coupon, :report_item]
   before_filter :load_task_conf, only: [:coupon]
 
+  before_filter :signed_in_user_filter, only: [:tasks]
+  before_filter :list_tasks, only: [:tasks]
+
+  # IFrame to be displayed in Amazon MTurk redirecting workers to actual task
   def task
     # should improve on this and be less kludgy in the future...?
     # could build a table of experiment_urls in the initializer
@@ -29,6 +33,7 @@ class MturkController < ApplicationController
     end
   end
 
+  # Stores a completed item in the database
   def report_item
     @item = MtCompletedItem.new(mt_assignment_id: @assignment.id,
                                 mt_item: params['item'],
@@ -56,6 +61,7 @@ class MturkController < ApplicationController
     end
   end
 
+  # Indicates that this assignment was done
   def report
     # close out the assignment (preventing re-completion)
     @assignment.complete!(params['data']) unless @assignment.completed?
@@ -67,6 +73,7 @@ class MturkController < ApplicationController
     }
   end
 
+  # Provides a coupon for the workers to validate and get credit for their work
   def coupon
     submitted_code  = params[:coupon_code]
     true_code       = @assignment.coupon_code
@@ -86,6 +93,12 @@ class MturkController < ApplicationController
     end
   end
 
+  # Shows the tasks we have
+  # For developers to check task results and debug/develop task
+  def tasks
+    render 'mturk/tasks'
+  end
+
   private
     def require_assignment
       @assignment = MtAssignment.find_by_mtId!(params['assignmentId'])
@@ -94,5 +107,9 @@ class MturkController < ApplicationController
 
     def load_task_conf
       @conf = YAML.load_file("config/experiments/#{@task.name}.yml")['conf']
+    end
+
+    def list_tasks
+      @tasks = MtTask.all()
     end
 end

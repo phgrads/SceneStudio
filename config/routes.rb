@@ -1,8 +1,8 @@
 SceneStudio::Application.routes.draw do
 
+  # Mturk tasks
   get 'experiments/select_view', to: 'experiments/select_view#index'
 
-  # Mturk tasks
   get 'experiments/recon2scene', to: 'experiments/recon2scene#index'
   get 'experiments/recon2scene/results', to: 'experiments/recon2scene#results'
 
@@ -38,6 +38,7 @@ SceneStudio::Application.routes.draw do
 
   # mTurk
   get '/mturk/task',                to: 'mturk#task'
+  get '/mturk/tasks',               to: 'mturk#tasks'
   post '/mturk/report',             to: 'mturk#report'
   post '/mturk/coupon',             to: 'mturk#coupon'
   post '/mturk/report_item',        to: 'mturk#report_item'

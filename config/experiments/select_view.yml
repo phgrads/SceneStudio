@@ -32,8 +32,8 @@ keywords: 3D scenes, view finding, camera
 conf:
   nScenes: 1
   sceneEditSecs: 300
-  inputFile: public/experiments/select-view/scenes.txt
+  inputFile: public/experiments/select_view/scenes.txt
   condition: pilot
   savePreview: true
   uploadSummary: true
-  exampleImagesPath: /experiments/select-view/examples/
+  exampleImagesPath: /experiments/select_view/examples/
