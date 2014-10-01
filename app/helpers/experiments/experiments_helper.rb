@@ -61,7 +61,8 @@ module Experiments::ExperimentsHelper
       end
     end
     # Filter by entries that were already done for the worker
-    entries = filter_worker_completed_entries(entries, taskId, workerId)
+    #TODO: Check limit
+    #entries = filter_worker_completed_entries(entries, taskId, workerId)
 
     # Do random selection from final remaining entries
     logger.debug "Selecting " + n.to_s + " random entries from " + entries.size.to_s + " entries"

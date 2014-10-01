@@ -1,46 +1,22 @@
 'use strict';
 
 define([
-    './../gl_app/Constants',
-    './../gl_app/Camera',
-    './../gl_app/FPCamera',
-    './../gl_app/Renderer',
-    './../gl_app/AssetManager',
-    './../gl_app/ModelInstance',
-    './../gl_app/Scene',
-    './../gl_app/CameraControls',
-    './../gl_app/PubSub',
-    './../gl_app/uimap',
+    './../gl_app/SceneViewer',
     './../gl_app/uibehaviors',
-    './../gl_app/fsm',
-    './../gl_app/UILog',
-    'jquery',
-    'game-shim'
-], function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Scene, CameraControls, PubSub, uimap,
-             Behaviors, FSM, UILog) {
+    'jquery'
+], function (SceneViewer, Behaviors) {
 
   function SelectViewTask(params) {
-    // Extend PubSub
-    PubSub.call(this);
+    this.viewer = new SceneViewer(params);
 
     // the following variables from globalViewData
     // should be rendered by the jade template
     this.user_record    = window.globalViewData.user;
-    this.scene_record   = window.globalViewData.scene;
-    this.on_close_url   = window.globalViewData.on_close_url;
     this.base_url   = window.globalViewData.base_url;
 
-    this.canvas = params.canvas;
-    this.uimap = uimap.create(canvas);
-    this.scene = new Scene();
-    this.camera = new FPCamera(this.scene);
-    this.renderer = new Renderer(canvas, this.scene, undefined, this.camera);
-    this.assman = new AssetManager(this.renderer.gl_);
-    this.uilog = new UILog.UILog();
-
     // Task initialization
+    console.log(params)
     this.entryIndex = 0;
-//            this.app = params.app;
     this.entries = params.entries;
     this.condition = params.conf['condition'];
     this.savePreview = params.conf['savePreview'];
@@ -53,31 +29,13 @@ define([
     this.completeTaskButton = $('#completeTaskButton');
 //            this.startButton.click(this.start.bind(this));
     this.completeTaskButton.click(this.ShowCoupon.bind(this));
+
+    this.viewer.onLoadUrl = this.base_url + this.entries[this.entryIndex]['url'];
     this.ViewSelectionTaskLogic();
   }
 
-  // Extend PubSub
-  SelectViewTask.prototype = Object.create(PubSub.prototype);
-
   SelectViewTask.prototype.Launch = function () {
-    this.LoadScene(
-      function() { // on success finish up some setup
-        this.camera.SetRandomPositionAndLookAtPointInSceneBounds();
-        this.renderer.UpdateView();
-      }.bind(this),
-      // TODO: Give error message instead
-      function() { // on failure create an empty room
-        this.assman.GetModel('room', function (model) {
-          this.scene.Reset(new ModelInstance(model, null));
-          this.camera.SetRandomPositionAndLookAtPointInSceneBounds();
-          this.renderer.UpdateView();
-        }.bind(this));
-      }.bind(this)
-    );
-
-    this.camera.AttachControls(this);
-
-    this.renderer.resizeEnd();
+    this.viewer.Launch();
   };
 
   SelectViewTask.prototype.ViewSelectionTaskLogic = function () {
@@ -88,16 +46,10 @@ define([
 
     // Fullscreeen on canvas click and fade message in
     instructions.addEventListener('click', function() {
-      id("ui").requestFullScreen();
+      this.viewer.EnterFullScreen();
       msgBox.fadeIn('slow');
       $(instructions).html("<p>Left click to go back to task.</p>" +
         "<p>Controls: mouse for looking, AWSD for horizontal motion, R and F for vertical height.</p>");
-    });
-
-    // Pointerlock on fullscreen (seems to require direct attachment to document otherwise fails)
-    document.addEventListener('fullscreenchange', function() {
-      this.canvas.requestPointerLock();
-      this.canvas.focus();
     }.bind(this));
 
     // Initialize task stage counter and messages
@@ -112,7 +64,7 @@ define([
     msgTxt.text(taskMessages[0]);
 
     // Canceling with delete decrements task counter and updates message
-    Behaviors.keypress(this.uimap, 'delete').onpress(function() {
+    Behaviors.keypress(this.viewer.uimap, 'delete').onpress(function() {
       if (taskStage == 1 || taskStage == 3) {
         taskStage--;
         msgTxt.text(taskMessages[taskStage]);
@@ -121,7 +73,7 @@ define([
     });
 
     // Confirming with enter takes action, increments task counter and updates message
-    Behaviors.keypress(this.uimap, 'enter').onpress(function() {
+    Behaviors.keypress(this.viewer.uimap, 'enter').onpress(function() {
       if (taskStage == 1) {
         this.SaveCamera('CAMBEST');
       }
@@ -135,13 +87,11 @@ define([
       msgTxt.text(taskMessages[taskStage]);
       msgBox.hide().fadeIn('slow');
     }.bind(this));
-
-    preventSelection(this.canvas);
   };
 
   SelectViewTask.prototype.ShowComments = function() {
     // Exit full screen
-    document.cancelFullScreen();
+    this.viewer.ExitFullScreen();
     $('#blocker').hide();
     // Hide rest of UI
     $('#ui').hide();
@@ -171,7 +121,6 @@ define([
 
   SelectViewTask.prototype.LoadScene = function(on_success, on_error)
   {
-    var on_load_url = this.base_url + this.entries[this.entryIndex]['url'];
     getViaJquery(on_load_url)
       .error(on_error).success(function(json) {
         var scene_json = JSON.parse(json.scene);
@@ -189,32 +138,16 @@ define([
     on_error = on_error || function() {
       showAlert("Error saving results. Please close tab and do task again.", 'alert-error');
     };
-    var preview = (this.savePreview)? this.GetPreviewImageData():undefined;
+    var preview = (this.savePreview)? this.viewer.GetPreviewImageData():undefined;
     var currentEntry = this.entries[this.entryIndex];
     var record = {
       user: this.user_record,
       entry: currentEntry,
       tag: tag,
-      camera: this.camera.toJSONString()
+      camera: this.viewer.camera.toJSONString()
     };
     submit_mturk_report_item(this.condition, currentEntry.id, record, preview).error(on_error).success(on_success);
     $("#ui").fadeOut('fast').fadeIn('fast');
-  };
-
-  SelectViewTask.prototype.LoadCamera = function(cam)
-  {
-    this.camera.ResetFromJSONString(cam);
-    this.renderer.UpdateView();
-  };
-
-  SelectViewTask.prototype.GetPreviewImageData = function() {
-    return this.GetImageData(Constants.previewMaxWidth, Constants.previewMaxHeight);
-  };
-
-  SelectViewTask.prototype.GetImageData = function(maxWidth,maxHeight) {
-    this.renderer.UpdateView();
-    var dataUrl  = getTrimmedCanvasDataUrl(this.canvas,maxWidth,maxHeight);
-    return dataUrl;
   };
 
   // Exports
