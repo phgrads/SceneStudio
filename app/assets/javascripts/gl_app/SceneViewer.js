@@ -32,6 +32,8 @@ define([
     this.base_url   = window.globalViewData.base_url;
 
     this.canvas = params.canvas;
+    this.enableControls = true;
+
     this.uimap = uimap.create(canvas);
     this.scene = new Scene();
     this.camera = new FPCamera(this.scene);
@@ -39,8 +41,21 @@ define([
     this.assman = new AssetManager(this.renderer.gl_);
     this.uilog = new UILog.UILog();
 
+    if (window.globals) {
+      this.onCloseCallback = window.globals.onCloseCallback;
+      this.onLoadUrl = window.globals.onLoadUrl;
+      this.cameraJsonString = window.globals.cameraJsonString;
+      if (this.cameraJsonString) {
+        this.enableControls = false;
+      }
+    }
+    if (this.onLoadUrl === undefined) {
+      if (this.scene_record) {
+        this.onLoadUrl = this.base_url + '/scenes/' + this.scene_record.id + '/load';
+      }
+    }
     if (this.scene_record) {
-      this.onLoadUrl = this.base_url + '/scenes/' + this.scene_record.id + '/load';
+      this.onSaveUrl = this.base_url + '/scenes/' + this.scene_record.id;
     }
   }
 
@@ -58,7 +73,11 @@ define([
 
     this.LoadScene(
       function() { // on success finish up some setup
-        this.camera.SetRandomPositionAndLookAtPointInSceneBounds();
+        if (this.cameraJsonString) {
+          this.LoadCamera(this.cameraJsonString);
+        } else {
+          this.camera.SetRandomPositionAndLookAtPointInSceneBounds();
+        }
         this.renderer.UpdateView();
       }.bind(this),
       // TODO: Give error message instead
@@ -71,8 +90,9 @@ define([
       }.bind(this)
     );
 
-    this.camera.AttachControls(this);
-
+    if (this.enableControls) {
+      this.camera.AttachControls(this);
+    }
     this.renderer.resizeEnd();
   };
 

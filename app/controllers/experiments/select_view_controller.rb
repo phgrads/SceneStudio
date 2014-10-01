@@ -10,10 +10,11 @@ class Experiments::SelectViewController < ApplicationController
   before_filter :load_data, only: [:index]
   before_filter :estimate_task_time, only: [:index]
 
-  before_filter :signed_in_user_filter, only: [:results]
+  before_filter :signed_in_user_filter, only: [:results, :view, :load]
   before_filter :retrieve_list, only: [:results]
+  before_filter :retrieve, only: [:view, :load]
 
-  layout 'webgl_viewport', only: [:index]
+  layout 'webgl_viewport', only: [:index, :view]
 
   def index
     if not @via_turk then
@@ -33,7 +34,12 @@ class Experiments::SelectViewController < ApplicationController
 
   def load
     if @item.data
-      render :json => @data
+      if @data['scene']
+        render :json => @data
+      else
+        # Scene was not saved, get scene from url
+        redirect_to @entry['url']
+      end
     else
       raise ActionController::RoutingError.new('Item Not Found')
     end

@@ -118,18 +118,6 @@ define([
     submit_mturk_report(results).error(on_error).success(on_success);
   };
 
-  SelectViewTask.prototype.LoadScene = function(on_success, on_error)
-  {
-    getViaJquery(on_load_url)
-      .error(on_error).success(function(json) {
-        var scene_json = JSON.parse(json.scene);
-        this.uilog.fromJSONString(json.ui_log);
-        this.scene.LoadFromNetworkSerialized(scene_json,
-          this.assman,
-          on_success);
-      }.bind(this));
-  };
-
   SelectViewTask.prototype.SaveCamera = function(tag, on_success, on_error)
   {
     on_success = on_success || function(response) {
