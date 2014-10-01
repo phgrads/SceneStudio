@@ -33,6 +33,13 @@ $bg2: rgba(221,238,255,1);
   margin-right: 0px;
 }
 
+#graphicsOverlay
+{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 #canvas
 {
   height: 100%;

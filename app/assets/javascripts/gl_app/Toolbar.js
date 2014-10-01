@@ -6,10 +6,11 @@ define([
 ],
 function(Constants){
 	
-function Toolbar(app)
+function Toolbar(app, allowEdit)
 {
 	this.app = app;
 	this.elem = $('#toolbar');
+  this.elem.hide();
 	this.buttons = {};
 	
 	this.AddButton('Undo', 'Undo (Ctrl+Z)',
@@ -58,7 +59,7 @@ function Toolbar(app)
 	this.DisableButton('Paste');
 	this.DisableButton('Delete');
 	this.DisableButton('Tumble');
-	
+
 	// Subscribe to app notifications so we can disable/enable/hide as necessary
 	this.app.Subscribe('SelectedInstanceChanged', this, function(oldInst, newInst) {
 		if (oldInst)
@@ -84,19 +85,33 @@ function Toolbar(app)
 	this.app.Subscribe('CopyCompleted', this, function() {
 		this.EnableButton('Paste');
 	});
-	this.app.undoStack.Subscribe('RestoredSavedState', this, function() {
-		this.EnableButton('Undo');
-		this.EnableButton('Redo');
-	});
-	this.app.undoStack.Subscribe('ReachedBeginning', this, function() {
-		this.DisableButton('Undo');
-	});
-	this.app.undoStack.Subscribe('ReachedEnd', this, function() {
-		this.DisableButton('Redo');
-	});
-	this.app.undoStack.Subscribe('RecordedNewState', this, function() {
-		this.EnableButton('Undo');
-	});
+
+  if (this.app.undoStack) {
+    this.app.undoStack.Subscribe('RestoredSavedState', this, function() {
+      this.EnableButton('Undo');
+      this.EnableButton('Redo');
+    });
+    this.app.undoStack.Subscribe('ReachedBeginning', this, function() {
+      this.DisableButton('Undo');
+    });
+    this.app.undoStack.Subscribe('ReachedEnd', this, function() {
+      this.DisableButton('Redo');
+    });
+    this.app.undoStack.Subscribe('RecordedNewState', this, function() {
+      this.EnableButton('Undo');
+    });
+  }
+
+  if (!allowEdit) {
+    this.DisableButton('Save');
+    // Hide every button except for close
+    for (var name in this.buttons) {
+      if (name !== 'Close') {
+        this.buttons[name].hide();
+      }
+    }
+  }
+  this.elem.show();
 }
 
 Toolbar.prototype.AddButton = function(name, tooltip, iconName, callback)
@@ -151,6 +166,18 @@ Toolbar.prototype.DisableButton = function(name)
 {
 	var button = this.buttons[name];
 	button && button.addClass('disabled');
+};
+
+Toolbar.prototype.ShowButton = function(name)
+{
+  var button = this.buttons[name];
+  button && button.show();
+};
+
+Toolbar.prototype.HideButton = function(name)
+{
+  var button = this.buttons[name];
+  button && button.hide();
 };
 
 Toolbar.prototype.Hide = function()

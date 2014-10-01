@@ -6,6 +6,7 @@ define(function(require) {
     require(['./SelectViewTask'], function(SelectViewTask) {
 	    app = new SelectViewTask({
           canvas: id('canvas'),
+          includeToolbar: false,
           entries: window.globals.entries,
           conf: window.globals.conf
       });

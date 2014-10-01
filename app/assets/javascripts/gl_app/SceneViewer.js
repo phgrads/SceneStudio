@@ -9,6 +9,7 @@ define([
   './AssetManager',
   './ModelInstance',
   './Scene',
+  './Toolbar',
   './CameraControls',
   './PubSub',
   './uimap',
@@ -17,7 +18,7 @@ define([
   './UILog',
   'jquery',
   'game-shim'
-], function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Scene, CameraControls, PubSub, uimap,
+], function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Scene, Toolbar, CameraControls, PubSub, uimap,
              Behaviors, FSM, UILog) {
 
   function SceneViewer(params) {
@@ -33,6 +34,10 @@ define([
 
     this.canvas = params.canvas;
     this.enableControls = true;
+
+    if (params.includeToolbar) {
+      this.toolbar = new Toolbar(this, false);
+    }
 
     this.uimap = uimap.create(canvas);
     this.scene = new Scene();
@@ -131,6 +136,20 @@ define([
     this.renderer.UpdateView();
     var dataUrl  = getTrimmedCanvasDataUrl(this.canvas,maxWidth,maxHeight);
     return dataUrl;
+  };
+
+  SceneViewer.prototype.Close = function() {
+    if (this.onCloseCallback) {
+      this.onCloseCallback(this);
+    } else {
+      this.ExitTo(this.on_close_url);
+    }
+  };
+
+  SceneViewer.prototype.ExitTo = function(destination)
+  {
+    window.onbeforeunload = null;
+    window.location.href = destination;
   };
 
   // Exports

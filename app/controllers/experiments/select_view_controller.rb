@@ -56,6 +56,7 @@ class Experiments::SelectViewController < ApplicationController
       @data = JSON.parse(@item.data)
       @entry = @data['entry']
       @title = @item.taskName + ' ' + @item.condition + ' ' + @item.item
+      @on_close_url = url_for(:action => 'results', :only_path => true)
     end
 
 end

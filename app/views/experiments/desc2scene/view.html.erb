@@ -1,8 +1,6 @@
 <div id="ui">
   <%= render '/scenes/graphicsArea' %>
   <%= render '/scenes/graphicsOverlay' %>
-  <%= render '/scenes/searchPanel' %>
-  <%= render '/scenes/console' %>
   <%= render 'entryOverlay' %>
   <script type='text/javascript'>
       var itemId = "<%= @item.id %>";
@@ -14,4 +12,4 @@
      //$('#sentence').text(entry['description']);
    </script>
 </div>
-<%= requirejs_include_tag('gl_app/editor-main') %>
+<%= requirejs_include_tag('gl_app/viewer-main') %>

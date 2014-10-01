@@ -5,7 +5,8 @@ var app;
 define(function(require) {
     require(['./SceneViewer'], function(SceneViewer) {
       app = new SceneViewer({
-        canvas: id('canvas')
+        canvas: id('canvas'),
+        includeToolbar: true
       });
 	    app.Launch();
       app.EnterFullScreen();

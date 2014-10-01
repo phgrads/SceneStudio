@@ -86,7 +86,7 @@ define([
       this.AttachEventHandlers();
 
       this.undoStack = new UndoStack.UndoStack(this, Constants.undoStackMaxSize);
-      this.toolbar = new Toolbar(this);
+      this.toolbar = new Toolbar(this, this.allowEdit);
       this.cameraControls = new CameraControls(this);
       this.searchController = new SearchController(this);
 
@@ -99,13 +99,6 @@ define([
           rightMaxWidth: Constants.searchAreaMaxWidth,
           snapToGrid: Constants.searchAreaResizeGrid
         });
-      } else {
-        // Add CSS for graphics overlay
-        var l = $('#graphicsOverlay');
-        l.css('position', 'absolute');
-        l.css('top', '0');
-        l.css('right', '0');
-        this.toolbar.DisableButton('Save');
       }
 
       if (window.globals) {
