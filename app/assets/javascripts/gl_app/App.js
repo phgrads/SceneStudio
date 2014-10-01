@@ -99,6 +99,13 @@ define([
           rightMaxWidth: Constants.searchAreaMaxWidth,
           snapToGrid: Constants.searchAreaResizeGrid
         });
+      } else {
+        // Add CSS for graphics overlay
+        var l = $('#graphicsOverlay');
+        l.css('position', 'absolute');
+        l.css('top', '0');
+        l.css('right', '0');
+        this.toolbar.DisableButton('Save');
       }
 
       if (window.globals) {
