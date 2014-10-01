@@ -15,7 +15,6 @@ define([
     this.base_url   = window.globalViewData.base_url;
 
     // Task initialization
-    console.log(params)
     this.entryIndex = 0;
     this.entries = params.entries;
     this.condition = params.conf['condition'];

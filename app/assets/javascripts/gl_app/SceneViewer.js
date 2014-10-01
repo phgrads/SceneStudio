@@ -48,6 +48,14 @@ define([
   SceneViewer.prototype = Object.create(PubSub.prototype);
 
   SceneViewer.prototype.Launch = function () {
+    // Pointerlock on fullscreen (seems to require direct attachment to document otherwise fails)
+    document.addEventListener('fullscreenchange', function() {
+      this.canvas.requestPointerLock();
+      this.canvas.focus();
+    }.bind(this));
+
+    preventSelection(this.canvas);
+
     this.LoadScene(
       function() { // on success finish up some setup
         this.camera.SetRandomPositionAndLookAtPointInSceneBounds();
@@ -66,14 +74,6 @@ define([
     this.camera.AttachControls(this);
 
     this.renderer.resizeEnd();
-
-    // Pointerlock on fullscreen (seems to require direct attachment to document otherwise fails)
-    document.addEventListener('fullscreenchange', function() {
-      this.canvas.requestPointerLock();
-      this.canvas.focus();
-    }.bind(this));
-
-    preventSelection(this.canvas);
   };
 
   SceneViewer.prototype.EnterFullScreen = function() {
