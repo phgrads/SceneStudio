@@ -2,4 +2,8 @@
   <%= render '/scenes/graphicsArea' %>
   <%= render '/scenes/graphicsOverlay' %>
 </div>
+<% if params[:fp] %>
+<%= requirejs_include_tag('gl_app/fp-viewer-main') %>
+<% else %>
 <%= requirejs_include_tag('gl_app/viewer-main') %>
+<% end %>
