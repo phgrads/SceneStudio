@@ -109,6 +109,10 @@ define([
     document.cancelFullScreen();
   };
 
+  SceneViewer.prototype.Help = function() {
+    $('#help').show();
+  };
+
   SceneViewer.prototype.LoadScene = function(on_success, on_error)
   {
     var on_load_url = this.onLoadUrl;

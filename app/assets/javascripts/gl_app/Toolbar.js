@@ -12,7 +12,12 @@ function Toolbar(app, allowEdit)
 	this.elem = $('#toolbar');
   this.elem.hide();
 	this.buttons = {};
-	
+
+  this.AddButton('Help', 'Help',
+    'help', function() {
+    app.Help();
+  });
+
 	this.AddButton('Undo', 'Undo (Ctrl+Z)',
 	               'undo', function() {
 		app.Undo();

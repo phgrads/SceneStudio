@@ -139,6 +139,10 @@ define([
     // Extend PubSub
     App.prototype = Object.create(PubSub.prototype);
 
+    App.prototype.Help = function() {
+      $('#help').show();
+    };
+
     App.prototype.SaveScene = function(on_success, on_error) {
       on_success = on_success || function() {
         showAlert('Scene successfully saved!', 'alert-success');
