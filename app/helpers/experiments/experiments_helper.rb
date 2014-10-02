@@ -4,7 +4,8 @@ module Experiments::ExperimentsHelper
 
   def load_data
     @conf = YAML.load_file("config/experiments/#{controller_name}.yml")['conf']
-    @entries = load_and_select_random(@conf['inputFile'], @conf['doneFile'], @conf['doneThreshold'], @conf['nScenes'])
+    @entries = load_and_select_random(@conf['inputFile'], @conf['doneFile'],
+                                      @conf['doneThreshold'], @conf['perWorkerItemCompletedThreshold'], @conf['nScenes'])
   end
 
   def estimate_task_time
@@ -18,7 +19,7 @@ module Experiments::ExperimentsHelper
     }
   end
 
-  def load_and_select_random(inputFile, doneFile, doneThreshold, n)
+  def load_and_select_random(inputFile, doneFile, doneThreshold, itemCompletedThreshold, n)
     # Figure out task and worker id
     taskId = @task.id
     workerId = @worker ? @worker.mtId : ''
@@ -34,7 +35,7 @@ module Experiments::ExperimentsHelper
         all_done_count = done_entries.size
         done_entries = done_entries.select{ |x| x[:count].to_i >= doneThreshold }
         done_count = done_entries.size
-        logger.debug "Keep done " + done_count.to_s + " of " + all_done_count.to_s + " (threshold " + doneThreshold.to_s + ")"
+        logger.debug "Keep done #{done_count} of #{all_done_count} (threshold #{doneThreshold})"
         # Remove done from all
         done = done_entries.map{ |x| x[:id] }.to_set
         entries = all_entries.select{ |x| !done.include?(x[:id]) }
@@ -51,7 +52,7 @@ module Experiments::ExperimentsHelper
         all_done_count = done_entries.size
         done_entries = done_entries.select{ |k,v| v.to_i >= doneThreshold }
         done_count = done_entries.size
-        logger.debug "Keep done " + done_count.to_s + " of " + all_done_count.to_s + " (threshold " + doneThreshold.to_s + ")"
+        logger.debug "Keep done #{done_count} of #{all_done_count} (threshold #{doneThreshold})"
         done = done_entries.map{ |k,v| k }.to_set
 
         # Remove done from all
@@ -60,25 +61,48 @@ module Experiments::ExperimentsHelper
         entries = all_entries
       end
     end
-    # Filter by entries that were already done for the worker
-    #TODO: Check limit
-    #entries = filter_worker_completed_entries(entries, taskId, workerId)
 
-    # Do random selection from final remaining entries
-    logger.debug "Selecting " + n.to_s + " random entries from " + entries.size.to_s + " entries"
-    select_random(entries, n)
+    # Filter by entries that were already done for the worker
+    if itemCompletedThreshold != nil && itemCompletedThreshold > 0
+      entries = filter_worker_completed_entries(entries, taskId, workerId, itemCompletedThreshold)
+    end
+
+    # Experimental code for different selection policies
+    select_policy = "random"
+    logger.debug "Selecting #{n} entries from #{entries.size} entries"
+    if select_policy == "random" || select_policy == nil
+      # Do random selection from final remaining entries
+      select_random(entries, n)
+    elsif select_policy == "mincount"
+      # Select entries that were completed least
+      entries_counts = count_completed_entries_for(taskId, entries)
+      select_by_count_min(entries_counts, n)
+    elsif select_policy == "mincount_random"
+      # Select entries randomly, favoring those with minimum completed count
+      entries_counts = count_completed_entries_for(taskId, entries)
+      select_random_grouped(entries_counts, n)
+    else
+      raise "Invalid selection policy #{select_policy}"
+    end
   end
 
-  def filter_worker_completed_entries(entries, taskId, workerId)
-    worker_completed = load_worker_completed_entries(taskId, workerId)
-    logger.debug "Worker " + workerId.to_s + " has already completed " + worker_completed.size.to_s + " entries"
-    worker_done = worker_completed.map{ |x| x[:item] }.to_set
+  def filter_worker_completed_entries(entries, taskId, workerId, itemCompletedThreshold)
+    worker_completed_counts = count_worker_completed_entries(taskId, workerId)
+    worker_completed = worker_completed_counts.select{ |k,v| v.to_i >= itemCompletedThreshold }
+    logger.debug "Worker #{workerId} has already completed #{worker_completed_counts.size} entries, #{worker_completed.size} >= #{itemCompletedThreshold}"
+    worker_done = worker_completed.map{ |k,v| k }.to_set
     entries.select{ |x| !worker_done.include?(x[:id]) }
   end
 
   def load_worker_completed_entries(taskId, workerId)
     # Load entries that were already done by the worker for this task
     CompletedItemsView.where('taskId = ? AND workerId = ?', taskId, workerId)
+  end
+
+  def count_worker_completed_entries(taskId, workerId)
+    # Count entries that were already done by the worker for this task
+    # TODO: Only count approved
+    CompletedItemsView.group(:item).where('taskId = ? AND workerId = ?', taskId, workerId).count()
   end
 
   def load_completed_entries(taskId)
@@ -90,6 +114,11 @@ module Experiments::ExperimentsHelper
     # Count entries already done for this task
     # TODO: Only count approved
     CompletedItemsView.group(:item).where('taskId = ?', taskId).count()
+  end
+
+  def count_completed_entries_for(taskId, entries)
+    completed_counts = count_completed_entries(taskId)
+    entries.each { |x| x[:count] = completed_counts[x[:id]]? completed_counts[x[:id]]:0 }
   end
 
   def load_entries(file)
@@ -123,6 +152,26 @@ module Experiments::ExperimentsHelper
       entries.shuffle.take(n)
     else
       entries.shuffle
+    end
+  end
+
+  def select_random_grouped(entries, n)
+    if (entries.length > n)
+      logger.debug(entries)
+      grouped = entries.group_by{ |x| x[:count] }
+      logger.debug(grouped)
+      grouped.sort_by{ |k,v| k }.map{ |k,v| v.shuffle }.flatten.take(n)
+    else
+      entries.shuffle
+    end
+  end
+
+  def select_by_count_min(entries, n)
+    if (entries.length > n)
+      sorted = entries.sort_by{ |x| x[:count] }
+      sorted.take(n).shuffle
+    else
+      entries.keys.shuffle
     end
   end
 end
