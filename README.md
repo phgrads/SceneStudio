@@ -88,15 +88,19 @@ The following assumes that we are running in development mode on a local machine
 Existing Mechanical Turk Tasks
 --------------
 
-We currently have the following mechanical turk tasks
+We currently have the following mechanical turk tasks.  You can find which tasks you have in your database by going to `mturk/tasks`.
 
 ### desc2scene
-Ask users to create a scene based on a textual description
+Ask users to create a scene based on a textual description.
 
 After running task, go to `experiments/desc2scene/results` to view results.
 
 ### image2scene
-Ask users to create a scene based on a image
+Ask users to create a scene based on a image.
 
 After running task, go to `experiments/image2scene/results` to view results.
 
+### select-view
+Ask users to select a BEST and a WORST view for a scene.
+
+After running task, go to `experiments/select-view/results` to view results.
