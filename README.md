@@ -104,3 +104,24 @@ After running task, go to `experiments/image2scene/results` to view results.
 Ask users to select a BEST and a WORST view for a scene.
 
 After running task, go to `experiments/select-view/results` to view results.
+
+Troubleshooting
+--------------
+
+### Problem setting up a new server
+* Error during `bundle install`
+  Try removing your `Gemfile.lock`
+
+* Error precompiling assets
+  Check that your ruby version is `ruby-1.9.3`.  
+  Use [rvm](https://www.digitalocean.com/community/tutorials/how-to-use-rvm-to-manage-ruby-installations-and-environments-on-a-vps) to manage and install `ruby-1.9.3`.
+
+
+* You just set up a new server, and everything should be working, but you get "The page you were looking for doesn't exist.".
+  If you have been testing with a different instance, try a different browser or incognito mode.  You were probably logged in, and the new server doesn't know about that user.  If incognito mode works, create a user and login.
+ 
+
+
+
+
+
