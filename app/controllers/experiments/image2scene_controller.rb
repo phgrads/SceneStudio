@@ -21,7 +21,12 @@ class Experiments::Image2sceneController < ApplicationController
       @task = MtTask.find_by_name!("image2scene")
     end
     @title = @task.title
-    render "experiments/image2scene/index", layout: true
+    if @entries.any? then
+      render "experiments/image2scene/index", layout: true
+    else
+      @message = @no_entries_message
+      render "mturk/message", layout: false
+    end
   end
 
   def results

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= stylesheet_link_tag    'application', :media => 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+  <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+<body>
+<div class='container'>
+  <div class="row">
+    <div class="span8 offset2">
+      <h2><%= @message %></h2>
+    </div>
+  </div>
+  <%= debug(params) if Rails.env.development? %>
+</div>
+</body>
+</html>

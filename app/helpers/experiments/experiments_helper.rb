@@ -6,6 +6,7 @@ module Experiments::ExperimentsHelper
     @conf = YAML.load_file("config/experiments/#{controller_name}.yml")['conf']
     @entries = load_and_select_random(@conf['inputFile'], @conf['doneFile'],
                                       @conf['doneThreshold'], @conf['perWorkerItemCompletedThreshold'], @conf['nScenes'])
+    @no_entries_message = "You already completed all items in this task!  There are no more items for you to complete."
   end
 
   def estimate_task_time

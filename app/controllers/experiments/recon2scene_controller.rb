@@ -21,7 +21,12 @@ class Experiments::Recon2sceneController < ApplicationController
       @task = MtTask.find_by_name!("recon2scene")
     end
     @title = @task.title
-    render "experiments/recon2scene/index", layout: true
+    if @entries.any? then
+      render "experiments/recon2scene/index", layout: true
+    else
+      @message = @no_entries_message
+      render "mturk/message", layout: false
+    end
   end
 
   def results

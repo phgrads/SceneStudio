@@ -21,7 +21,12 @@ class Experiments::SelectViewController < ApplicationController
       @task = MtTask.find_by_name!("select_view")
     end
     @title = @task.title
-    render "experiments/select_view/index", layout: true
+    if @entries.any? then
+      render "experiments/select_view/index", layout: true
+    else
+      @message = @no_entries_message
+      render "mturk/message", layout: false
+    end
   end
 
   def results
