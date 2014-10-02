@@ -62,6 +62,12 @@ namespace :mturk do
     task.expire! if task.live?
   end
 
+  desc 'approve and pay all the workers'
+  task :recall, [:name]  => :environment do |_, args|
+    task = get_task(args.name)
+    task.approve! if task.live?
+  end
+
   desc 'recall the experiment (from mturk) and pay all the workers'
   task :recall, [:name]  => :environment do |_, args|
     task = get_task(args.name)

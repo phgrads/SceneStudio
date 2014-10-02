@@ -99,6 +99,19 @@ class MtTask < ActiveRecord::Base
     save!
   end
 
+  # approves all outstanding assignments
+  def approve!
+    mt_hits.each do |hit|
+      hit.assignments.each do |assignment|
+        begin
+          assignment.approve! if assignment.status == 'Submitted'
+        rescue RTurk::InvalidRequest
+          # log that there was error approving the assignment
+        end
+      end
+    end
+  end
+
   # completion closes out all the HITs, removes the HITs from the system,
   # and approves all outstanding assignments
   def complete!
