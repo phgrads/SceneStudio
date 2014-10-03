@@ -25,17 +25,38 @@ define([
     }
 
     EditSceneTask.prototype.saveSceneCallback = function(app, on_success, on_error) {
-      // Check if the scene is acceptable...
-      if(app.scene.modelList.length > 1){
+      if (app.scene.modelList.length > 1) {
         this.saveScene(app, on_success, on_error);
+      } else{
+        alert("You haven't added anything to the scene yet.");
       }
-      else{
-        alert("You haven't added anything to the scene yet");
+    };
+
+    EditSceneTask.prototype.checkScene = function(app) {
+      // Check if the scene is acceptable...
+      var currentEntry = this.entries[this.entryIndex];
+      var minObjects = currentEntry['minObjects'];
+      if (!minObjects) {
+        minObjects = 1;
+      }
+      // Include one extra model for the room...
+      if(app.scene.modelList.length > minObjects){
+        return true;
+      } else {
+        if (app.scene.modelList.length <= 1) {
+          alert("You haven't added anything to the scene yet.");
+        } else {
+          alert("Are you sure you have included all objects in the scene?  Please check your scene.");
+        }
+        return false;
       }
     };
 
     EditSceneTask.prototype.closeSceneCallback = function(app) {
-      this.next();
+      var ok = this.checkScene(app);
+      if (ok) {
+        this.next();
+      }
     };
 
     EditSceneTask.prototype.saveScene = function(app, on_success, on_error) {

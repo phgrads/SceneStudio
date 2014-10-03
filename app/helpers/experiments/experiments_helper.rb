@@ -131,7 +131,8 @@ module Experiments::ExperimentsHelper
           id: row['id'],
           description: row['description'],
           category: row['category'],
-          url: row['url']
+          url: row['url'],
+          minObjects: row['minObjects']
       }
     }
   end
