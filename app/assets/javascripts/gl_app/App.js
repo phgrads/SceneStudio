@@ -140,7 +140,7 @@ define([
     App.prototype = Object.create(PubSub.prototype);
 
     App.prototype.Help = function() {
-      $('#help').show();
+      $('#help').toggle();
     };
 
     App.prototype.SaveScene = function(on_success, on_error) {

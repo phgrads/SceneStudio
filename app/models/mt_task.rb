@@ -252,7 +252,6 @@ class MtTask < ActiveRecord::Base
       max_assignments = task.num_assignments
 
       rturk_hit = RTurk::Hit.create(:title => task.title) do |hit|
-#        hit.hit_type_id   = task.name
         hit.description   = task.description
         hit.reward        = task.reward / 100.0
         hit.assignments   = max_assignments

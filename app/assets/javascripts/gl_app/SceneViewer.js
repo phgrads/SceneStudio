@@ -110,7 +110,7 @@ define([
   };
 
   SceneViewer.prototype.Help = function() {
-    $('#help').show();
+    $('#help').toggle();
   };
 
   SceneViewer.prototype.LoadScene = function(on_success, on_error)
