@@ -85,4 +85,5 @@ $help_bg2: rgba(99,147,193,0.75);
   @include background-linear-gradient($help_bg1, $help_bg2);
   @include box-shadow(3px 3px 3px rgba(0, 0, 0, 0.5));
   @include border-radius(3px);
+  pointer-events: all;
 }
