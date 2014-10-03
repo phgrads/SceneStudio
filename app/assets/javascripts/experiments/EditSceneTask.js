@@ -2,7 +2,8 @@
 
 define([
   './../gl_app/App',
-  'jquery'
+  'jquery',
+  'bootbox'
 ],
   function (App)
   {
@@ -28,7 +29,7 @@ define([
       if (app.scene.modelList.length > 1) {
         this.saveScene(app, on_success, on_error);
       } else{
-        alert("You haven't added anything to the scene yet.");
+        bootbox.alert("You haven't added anything to the scene yet.");
       }
     };
 
@@ -44,9 +45,9 @@ define([
         return true;
       } else {
         if (app.scene.modelList.length <= 1) {
-          alert("You haven't added anything to the scene yet.");
+          bootbox.alert("You haven't added anything to the scene yet.");
         } else {
-          alert("Are you sure you have included all objects in the scene?  Please check your scene.");
+          bootbox.alert("Are you sure you have included all objects in the scene?  Please check your scene.");
         }
         return false;
       }
@@ -94,7 +95,7 @@ define([
           "<p>Your coupon code is: " + response.coupon_code + "</p>" +
           "Copy your code back to the first tab and close this tab when done.";
       };
-      var on_error = function() { alert("Error saving results. Please close tab and do task again.");};
+      var on_error = function() { bootbox.alert("Error saving results. Please close tab and do task again.");};
 
       var comments = $('#comments').val();
       var results = {

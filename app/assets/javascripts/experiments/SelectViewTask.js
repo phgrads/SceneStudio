@@ -3,7 +3,8 @@
 define([
     './../gl_app/SceneViewer',
     './../gl_app/uibehaviors',
-    'jquery'
+    'jquery',
+    'bootbox'
 ], function (SceneViewer, Behaviors) {
 
   function SelectViewTask(params) {
@@ -107,7 +108,7 @@ define([
         "<p>Your coupon code is: " + response.coupon_code + "</p>" +
         "Copy your code back to the first tab and close this tab when done.";
     };
-    var on_error = function() { alert("Error saving results. Please close tab and do task again.");};
+    var on_error = function() { bootbox.alert("Error saving results. Please close tab and do task again.");};
 
     var comments = $('#comments').val();
     var results = {
