@@ -19,8 +19,8 @@ $.fn.serializeObject = function()
 };
 
 function camelCase(string) {
-  return string.toLowerCase().replace(/(\-[a-zA-Z])/g, function($1) {
-    return $1.toUpperCase().replace('\\s+','');
+  return string.toLowerCase().replace(/(^[a-zA-Z]|\s+[a-zA-Z])/g, function($1) {
+    return $1.toUpperCase().replace(' ','');
   })
 }
 
