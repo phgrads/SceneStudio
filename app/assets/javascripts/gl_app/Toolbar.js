@@ -124,23 +124,28 @@ function Toolbar(app, allowEdit)
   this.elem.show();
 }
 
+Toolbar.prototype.SetIcon = function(button, iconName)
+{
+  var iconURL = Constants.resourceDir + 'toolbar_icons/' + iconName;
+  button.css('background-image', 'url(' + iconURL + '_normal.png)');
+
+  // Change the icon color when the button is active
+  button.mousedown(function() {
+    button.css('background-image', 'url(' + iconURL + '_active.png)');
+    var mouseup = function() {
+      button.css('background-image', 'url(' + iconURL + '_normal.png)');
+      $(document).unbind('mouseup', mouseup);
+    };
+    $(document).mouseup(mouseup);
+  });
+};
+
 Toolbar.prototype.AddButton = function(name, tooltip, iconName, callback)
 {
 	var button = $('<div class="button"></div>');
 	button.attr('title', tooltip);
 	button.append($('<span class="buttonLabel">' + name + '</span>'));
-	var iconURL = Constants.resourceDir + 'toolbar_icons/' + iconName;
-	button.css('background-image', 'url(' + iconURL + '_normal.png)');
-	
-	// Change the icon color when the button is active
-	button.mousedown(function() {
-		button.css('background-image', 'url(' + iconURL + '_active.png)');
-		var mouseup = function() {
-			button.css('background-image', 'url(' + iconURL + '_normal.png)');
-			$(document).unbind('mouseup', mouseup);
-		};
-		$(document).mouseup(mouseup);	
-	});
+  this.SetIcon(button, iconName);
 	
 	// Click callback
 	button.click(function(event) {
@@ -153,11 +158,14 @@ Toolbar.prototype.AddButton = function(name, tooltip, iconName, callback)
 };
 
 // Function to relabel a existing button (used for mturk tasks)
-Toolbar.prototype.LabelButton = function(name, label, tooltip) {
+Toolbar.prototype.LabelButton = function(name, label, tooltip, iconName) {
   var button = this.buttons[name];
   if (button) {
     button.attr('title', tooltip);
     button.find(".buttonLabel").text(label);
+    if (iconName) {
+      this.SetIcon(button, iconName);
+    }
   }
 };
 
