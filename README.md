@@ -88,15 +88,43 @@ The following assumes that we are running in development mode on a local machine
 Existing Mechanical Turk Tasks
 --------------
 
-We currently have the following mechanical turk tasks
+We currently have the following mechanical turk tasks.  You can find which tasks you have in your database by going to `mturk/tasks`.
 
 ### desc2scene
-Ask users to create a scene based on a textual description
+Ask users to create a scene based on a textual description.
 
 After running task, go to `experiments/desc2scene/results` to view results.
 
 ### image2scene
-Ask users to create a scene based on a image
+Ask users to create a scene based on a image.
 
 After running task, go to `experiments/image2scene/results` to view results.
+
+### select-view
+Ask users to select a BEST and a WORST view for a scene.
+
+After running task, go to `experiments/select-view/results` to view results.
+
+Troubleshooting
+--------------
+
+### Problem setting up a new server
+* Error during `bundle install`.
+
+  Try removing your `Gemfile.lock`
+
+* Error precompiling assets.
+
+  Check that your ruby version is `ruby-1.9.3`.  
+  Use [rvm](https://www.digitalocean.com/community/tutorials/how-to-use-rvm-to-manage-ruby-installations-and-environments-on-a-vps) to manage and install `ruby-1.9.3`.
+
+
+* You just set up a new server, and everything should be working, but you get "The page you were looking for doesn't exist."
+
+  If you have been testing with a different instance, try a different browser or incognito mode.  You were probably logged in, and the new server doesn't know about that user.  If incognito mode works, create a user and login.
+ 
+
+
+
+
 
