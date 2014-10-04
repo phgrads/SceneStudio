@@ -59,7 +59,6 @@ function SearchController(app)
 // times (one for each search result). So now it's named.
 function NoDrag(event)
 {
-    console.log('nodrag');
 	event.preventDefault();
 }
 
@@ -145,6 +144,15 @@ SearchController.prototype.DoSearch = function(querytext)
   // Seed for search randomization
   var seed = Math.floor((Math.random() * 1000000000) + 1);
 
+  var textQuery = SearchController.encodeQueryText(querytext);
+  var solrQuery = textQuery;
+  // Boost if text is found in name
+  solrQuery = solrQuery + ' name:' + textQuery + '^2';
+  // Boost if text is found in category or category0
+  var camelQuery = SearchController.encodeQueryText(camelCase(querytext));
+  solrQuery = solrQuery + ' category:' + camelQuery + '^4';
+  solrQuery = solrQuery + ' category0:' + textQuery + '^4';
+
 	// This is where the search actually happens.
 	$.ajax
 	({
@@ -152,7 +160,7 @@ SearchController.prototype.DoSearch = function(querytext)
 		url: Constants.searchUrl,
     data:
       {
-        'q': SearchController.encodeQueryText(querytext),
+        'q': solrQuery,
         'wt': 'json',
         'rows': '100',
         // Limit to web scene studio models for now

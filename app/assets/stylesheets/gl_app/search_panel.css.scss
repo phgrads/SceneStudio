@@ -107,12 +107,12 @@ $bg2: rgba(99,147,193,0.75);
 .searchResultContainer
 {
   float: left;
-  width: 200px;
-  padding: 8px;
-  margin-bottom: 8px;
-  margin-right: 8px;
+  width: 95px;
+  padding: 4px;
+  margin-bottom: 4px;
+  margin-right: 4px;
   border: medium solid #3F6993;
-  @include border-radius(8px);
+  @include border-radius(4px);
   background: rgb(79,133,187);
   &.selected {
     background: #EF9F56;

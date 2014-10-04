@@ -18,6 +18,12 @@ $.fn.serializeObject = function()
   return o;
 };
 
+function camelCase(string) {
+  return string.toLowerCase().replace(/(\-[a-zA-Z])/g, function($1) {
+    return $1.toUpperCase().replace('\\s+','');
+  })
+}
+
 if (typeof String.prototype.startsWith != 'function') {
   String.prototype.startsWith = function (str){
     return this.slice(0, str.length) == str;
