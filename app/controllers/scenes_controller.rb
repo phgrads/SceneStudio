@@ -11,6 +11,10 @@ class ScenesController < ApplicationController
   def create
     @scene = current_user.scenes.build({
       name: params[:name],
+      description: params[:description],
+      category: params[:category],
+      tag: params[:tag],
+      dataset: params[:dataset]
     })
     if @scene.save
       flash[:success] = 'Scene created!'
@@ -41,24 +45,41 @@ class ScenesController < ApplicationController
 
   # send PUT to scenes/#id to update
   def update
-    @scene.update_attributes!({
-      :data => params[:scene],
-      :ui_log => params[:ui_log]
-    })
-    if params['preview'] then
-      preview_data = params['preview']
-      image_data = Base64.decode64(preview_data['data:image/png;base64,'.length .. -1])
-      @scene.preview = image_data
-      @scene.preview.name = 'scene' + @scene.id.to_s + '.png'
-      @scene.preview.meta = {
-          "name" => @scene.preview.name,
-          "time" => Time.now
-      }
+    if params[:scene] then
+      # Saving scene
+      @scene.data = params[:scene]
+      @scene.ui_log = params[:ui_log]
+      if params['preview'] then
+        preview_data = params['preview']
+        image_data = Base64.decode64(preview_data['data:image/png;base64,'.length .. -1])
+        @scene.preview = image_data
+        @scene.preview.name = 'scene' + @scene.id.to_s + '.png'
+        @scene.preview.meta = {
+            "name" => @scene.preview.name,
+            "time" => Time.now
+        }
+      end
       @scene.save!
-    end
 
-    # send 200 response
-    ok_JSON_response
+      # send 200 response
+      ok_JSON_response
+    elsif params[:name] then
+      # Saving meta data
+      @scene.update_attributes!({
+        :name => params[:name],
+        :description => params[:description],
+        :category => params[:category],
+        :tag => params[:tag],
+        :dataset => params[:dataset],
+        :noedit => params[:noedit]
+      })
+
+      # send 200 response
+      ok_JSON_response
+    else
+      # send error response
+      fail_JSON_response
+    end
   end
 
   # send DELETE to scenes/#id to destroy

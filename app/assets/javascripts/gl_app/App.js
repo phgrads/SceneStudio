@@ -121,8 +121,11 @@ define([
       $('#ExitSceneSaveYes').click( this.SaveAndCloseScene.bind(this) );
       $('#ExitSceneSaveNo').click( this.CloseScene.bind(this) );
 
-      // Bindings for ExisSceneErrorSavingModal
+      // Bindings for ExitSceneErrorSavingModal
       $('#ExitSceneErrorYes').click( this.CloseScene.bind(this) );
+
+      // Bindings for EditSceneSaveModal
+      $('#EditSceneModalSave').click( this.SaveSceneMeta.bind(this) );
 
       preventSelection(this.canvas);
 
@@ -141,6 +144,10 @@ define([
 
     App.prototype.Help = function() {
       $('#help').toggle();
+    };
+
+    App.prototype.EditMeta = function() {
+      $('#EditSceneModal').modal('show');
     };
 
     App.prototype.SaveScene = function(on_success, on_error) {
@@ -600,6 +607,18 @@ define([
       } else {
         showAlert("Cannot save scene: No save url", 'alert-error');
       }
+    };
+
+    App.prototype.SaveSceneMeta = function(on_success, on_error)
+    {
+      if (this.onSaveUrl) {
+        var data = $('#EditSceneForm').serializeObject();
+        //console.log(data);
+        putViaJQuery(this.onSaveUrl, data).error(on_error).success(on_success);
+      } else {
+        showAlert("Cannot save scene meta data: No save url", 'alert-error');
+      }
+      $('#EditSceneModal').modal('hide');
     };
 
     App.prototype.Close = function()

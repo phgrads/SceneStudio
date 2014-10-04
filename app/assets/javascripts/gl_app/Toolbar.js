@@ -18,7 +18,12 @@ function Toolbar(app, allowEdit)
     app.Help();
   });
 
-	this.AddButton('Undo', 'Undo (Ctrl+Z)',
+  this.AddButton('Edit Meta', 'Edit Meta',
+    'editmeta', function() {
+    app.EditMeta();
+  });
+
+  this.AddButton('Undo', 'Undo (Ctrl+Z)',
 	               'undo', function() {
 		app.Undo();
 	});

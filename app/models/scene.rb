@@ -12,14 +12,15 @@
 #
 
 class Scene < ActiveRecord::Base
-  attr_accessible :data, :name, :ui_log
+  attr_accessible :data, :ui_log
+  attr_accessible :name, :description, :category, :tag, :dataset, :noedit
   dragonfly_accessor :preview do
     storage_options do |a|
       # self is the model and a is the attachment
       { path: "scenes/#{a.name}" }
     end
   end
-  #validates_size_of :preview, maximum: 500.kilobytes
+  validates_size_of :preview, maximum: 500.kilobytes
 
   has_paper_trail
 

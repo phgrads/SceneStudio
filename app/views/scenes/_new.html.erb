@@ -1,0 +1,46 @@
+<!-- new scene modal -->
+<div id="NewSceneModal" class="modal hide fade"
+     tabindex="-1" role="dialog"
+     aria-labelledby="NewSceneModalLabel" aria-hidden="true">
+  <%= form_tag(scenes_path,
+               class: 'form-horizontal modal-form') do %>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"
+                aria-hidden="true">
+          ×
+        </button>
+        <h3 id="NewSceneModalLabel"> New Scene </h3>
+      </div>
+      <div class="modal-body">
+        <div class="field control-group">
+          <%= label_tag :name, nil, class: 'control-label' %>
+          <div class='controls'>
+            <%= text_field_tag :name, nil, autofocus: 'autofocus' %>
+          </div>
+          <%= label_tag :description, nil, class: 'control-label' %>
+          <div class='controls'>
+            <%= text_area_tag :description, nil %>
+          </div>
+          <%= label_tag :category, nil, class: 'control-label' %>
+          <div class='controls'>
+            <%= text_field_tag :category, nil %>
+          </div>
+          <%= label_tag :tag, nil, class: 'control-label' %>
+          <div class='controls'>
+            <%= text_field_tag :tag, nil %>
+          </div>
+          <%= label_tag :dataset, nil, class: 'control-label' %>
+          <div class='controls'>
+            <%= text_field_tag :dataset, nil %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn"
+                data-dismiss="modal" aria-hidden="true">
+          Cancel
+        </button>
+        <%= submit_tag "Create Scene", class: "btn btn-primary" %>
+      </div>
+  <% end %>
+</div>
