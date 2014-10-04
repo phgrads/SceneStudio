@@ -7,11 +7,11 @@ Installation / Setup  (local development)
 
 1. clone this repository onto your machine
 
-2. get a copy of the `config/config.yml` file from your teammates or look at the `config/example.config.yml` file for some directions on how to create your own from scratch.  The values in this file are secrets, so you ABSOLUTELY don't want to put this file under version control or make it publicly available. For development purposes, set `HOST_BASE_URL` to localhost:3000
+2. get a copy of the `config/config.yml` file from your teammates or look at the `config/example.config.yml` file for some directions on how to create your own from scratch.  The values in this file are secrets, so you ABSOLUTELY don't want to put this file under version control or make it publicly available. For development purposes, set `HOST_BASE_URL` to `localhost:3000`.  For running on MTurk, make sure the `HOST_BASE_URL` starts with `https:` and that you have a proper SSL certificate for your server.
 
 3. download the model data directory and symlink it into `public/data`
 
-4. run `bundle install` to get all the ruby gems you need
+4. run `bundle install` to get all the ruby gems you need.   If you have problems running `bundle install`, try removing your `Gemfile.lock`.
 
 5. run `rake db:migrate` to build/update the database
 
@@ -55,24 +55,26 @@ The following assumes that we are running in development mode on a local machine
 1. run `rails generate experiment sampleName` to generate some skeleton files.
    The skeleton files will be usable out of the box, so try that first.
 
-2. run `rake mturk:develop[sampleName]` to create the database entries for the
-   experiment and run the setup script. You can develop locally by providing
-   a param to the appropriate address (e.g. experiments/sampleName?task_id=7)
+2. Take a look at the generated skeleton and get a feel for what everything
+   does.  Make sure to update the `config/experiments/sampleName.yml` with your configuration.
 
-3. run `rake mturk:run[sampleName]` in order to launch the experiment
+3. run `rake mturk:develop[sampleName]` to create the database entries for the
+   experiment and run the setup script. You can develop locally by providing
+   a param to the appropriate address (e.g. `mturk/task?assignmentId=xxx&workerId=yyy&hitId=sampleName`  or `experiments/sampleName?task_id=7`)
+
+4. run `rake mturk:run[sampleName]` in order to launch the experiment
    you just created on the MTurk sandbox.
 
-4. go to the worker sandbox and try doing your new task.
+5. go to the worker sandbox (https://workersandbox.mturk.com/) and try doing your new task.
 
-5. Take a look at the generated skeleton and get a feel for what everything
-   does.
-
-6. You can only run a particular task once!  However, that's not so great
-   for development.  So, you can just `rake mturk:recall[sampleName]` to
-   completely destroy all evidence of having run the experiment.  WARNING:
+6. After running a task, you can do `rake mturk:recall[sampleName]` to approve all workers 
+   and withdraw the task from Amazon Mturk.  WARNING: This will remove all evidence of the
+   hit from Amazon as well make it hard to adjust payment for Turkers.  The data tables
+   for the task is retains so your results are still there.  For development, you 
+   may want to wipe out those tables too.  To do so, you can do `rake mturk:destroy[sampleName]` 
+   to completely destroy all evidence of having run the experiment.  WARNING:
    If you do this in production you will lose all your experiment data.
-   This is a bad idea, and will make it hard/impossible
-   to audit yourself later.
+   This is a bad idea, and will make it hard/impossible to audit yourself later.
 
 7. When you're done playing around, make sure to get rid of all these junky
    template files for the `sampleName` task by running
@@ -82,3 +84,19 @@ The following assumes that we are running in development mode on a local machine
 
 9. For more experiment management commands run `rake --tasks` or
    look at the `lib/tasks/mturk.rake` file
+
+Existing Mechanical Turk Tasks
+--------------
+
+We currently have the following mechanical turk tasks
+
+### desc2scene
+Ask users to create a scene based on a textual description
+
+After running task, go to `experiments/desc2scene/results` to view results.
+
+### image2scene
+Ask users to create a scene based on a image
+
+After running task, go to `experiments/image2scene/results` to view results.
+
