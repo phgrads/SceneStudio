@@ -63,7 +63,7 @@ namespace :mturk do
   end
 
   desc 'approve and pay all the workers'
-  task :recall, [:name]  => :environment do |_, args|
+  task :approve, [:name]  => :environment do |_, args|
     task = get_task(args.name)
     task.approve! if task.live?
   end
