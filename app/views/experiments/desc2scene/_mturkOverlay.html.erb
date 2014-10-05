@@ -4,7 +4,7 @@
     <div style='text-align:left'>
       <p>You will be shown <%=@entries.length%> short descriptions of simple indoor scenes.
         For each description, you will be asked to construct a scene that matches the description
-        by finding appropriate objects and placing them in a room.
+        by finding appropriate objects and placing them in a room. Position objects so that they look natural.
       </p>
       <p>
         Each scene should take about <%=@taskTime['sceneTime'] %> to complete.
@@ -62,7 +62,7 @@
     <p id="prompt" class="prompt">Put mouse here for instructions</p>
     <div id="instructions" class="instructions">
       <p>Place objects to create a scene that best resembles the text description.</p>
-      <p>Please make sure the final arrangement of objects matches the description.</p>
+      <p>Please make sure the final arrangement of objects matches the description and the arrangement of the objects looks natural.</p>
       <p>Click the "Save" button to save your progress, and click the "Done" button when you're done to go on to the next scene.</p>
     </div>
   </div>
