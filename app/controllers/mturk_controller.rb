@@ -35,10 +35,34 @@ class MturkController < ApplicationController
 
   # Stores a completed item in the database
   def report_item
-    @item = MtCompletedItem.new(mt_assignment_id: @assignment.id,
-                                mt_item: params['item'],
-                                mt_condition: params['condition'],
-                                data: params['data'])
+    if (params['id']) then
+      # Update
+      @item = MtCompletedItem.find(params['id'])
+      # Verify hash, assignment id, item, and condition
+      if @item.code != params['code']
+        logger.warn("hash mismatch: #{@item.code} expected")
+        fail_JSON_response and return
+      elsif @item.mt_assignment_id != @assignment.id
+        logger.warn("mt_assignment_id mismatch: #{@item.mt_assignment_id} expected")
+        fail_JSON_response and return
+      elsif @item.mt_item != params['item']
+        logger.warn("mt_item mismatch: #{@item.mt_item} expected")
+        fail_JSON_response and return
+      elsif @item.mt_condition != params['condition']
+        logger.warn("mt_condition mismatch: #{@item.mt_condition} expected")
+        fail_JSON_response and return
+      else
+        @item.data = params['data']
+      end
+    else
+      # New item
+      @item = MtCompletedItem.new(mt_assignment_id: @assignment.id,
+                                  mt_item: params['item'],
+                                  mt_condition: params['condition'],
+                                  data: params['data'])
+    end
+
+    @item.code = generate_hash(8)
     if params['preview'] then
       preview_data = params['preview']
       image_data = Base64.decode64(preview_data['data:image/png;base64,'.length .. -1])
@@ -55,7 +79,14 @@ class MturkController < ApplicationController
     end
 
     if @item.save then
-      ok_JSON_response
+      render json: {
+          success: "success",
+          status_code: "200",
+          item: {
+            id: @item.id,
+            code: @item.code
+          }
+      }
     else
       fail_JSON_response
     end
@@ -112,5 +143,9 @@ class MturkController < ApplicationController
     def list_tasks
       @tasks = MtTask.all()
       @completed_items_count = CompletedItemsView.group(:taskId).count()
+    end
+
+    def generate_hash(length)
+      (36**(length-1) + rand(36**length - 36**(length-1))).to_s(36)
     end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141004174147) do
+ActiveRecord::Schema.define(:version => 20141005201649) do
 
   create_table "identities", :force => true do |t|
     t.string   "name"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(:version => 20141004174147) do
     t.string   "status"
     t.string   "preview_uid"
     t.string   "preview_name"
+    t.string   "code"
   end
 
   create_table "mt_hits", :force => true do |t|

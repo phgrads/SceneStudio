@@ -1,6 +1,6 @@
 class MtCompletedItem < ActiveRecord::Base
   belongs_to :mt_assignment
-  attr_accessible :data, :mt_assignment_id, :mt_condition, :mt_item
+  attr_accessible :data, :mt_assignment_id, :mt_condition, :mt_item, :code
   dragonfly_accessor :preview do
     storage_options do |a|
       # self is the model and a is the attachment
