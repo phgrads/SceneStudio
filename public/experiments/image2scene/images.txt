@@ -1,3 +1,7 @@
 id	category	url
-room1	room	/data/image/stimuli/room1.png
-sun_akhtbjmzqdfwbuiz	parlor	http://labelme.csail.mit.edu/Release3.0/Images/users/antonio/static_sun_database/p/parlor/sun_akhtbjmzqdfwbuiz.jpg
+sun_aydhsmfmddqktvnc	living_room	http://labelme.csail.mit.edu/Release3.0/Images/users/antonio/static_sun_database/l/living_room/sun_aydhsmfmddqktvnc.jpg
+sun_adyajggianociupv	living_room	http://labelme.csail.mit.edu/Release3.0/Images/users/antonio/static_sun_database/l/living_room/sun_adyajggianociupv.jpg
+sun_alsyjrolwydcjkkv	bedroom	http://labelme.csail.mit.edu/Release3.0/Images/users/antonio/static_sun_database/b/bedroom/sun_alsyjrolwydcjkkv.jpg
+sun_aevqjxkcmdzqzzhd	bedroom	http://labelme.csail.mit.edu/Release3.0/Images/users/antonio/static_sun_database/b/bedroom/sun_aevqjxkcmdzqzzhd.jpg
+sun_aqldfuuwyvnnujed	dining_room	http://labelme.csail.mit.edu/Release3.0/tool.html?actions=v&folder=users/antonio/static_sun_database/d/dining_room&image=sun_aqldfuuwyvnnujed.jpg
+sun_aehnijhaepzerrqt	dining_room	http://labelme.csail.mit.edu/Release3.0/tool.html?actions=v&folder=users/antonio/static_sun_database/d/dining_room&image=sun_aehnijhaepzerrqt.jpg

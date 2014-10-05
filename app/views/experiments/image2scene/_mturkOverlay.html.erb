@@ -2,9 +2,12 @@
 <div id="taskInstructions" class="wholescreenOverlay">
   <div align="center" class="taskInstructions">
     <div style='text-align:left'>
-      <p>You will be shown <%=@entries.length%> images of indoor scenes.
-        For each image, you will be asked to construct a scene that matches the image
+      <p>You will be shown <%=@entries.length%> image(s) of indoor scenes.
+        For each image, you will be asked to design a scene that matches the image
         by finding appropriate objects and placing them in a room.
+        Don't worry about finding exact matches for the objects, but try to get their
+        arrangement to look as close as possible to the image.
+        Focus on big, important objects and leave out any small objects you can't find.
       </p>
       <p>
         Each scene should take about <%=@taskTime['sceneTime'] %> to complete.
