@@ -10,6 +10,7 @@ define([
     function EditSceneTask(params)
     {
       this.entryIndex = 0;
+      this.savedItemInfo = undefined;
       this.app = params.app;
       this.entries = params.entries;
       this.condition = params.conf['condition'];
@@ -60,10 +61,17 @@ define([
       }
     };
 
-    EditSceneTask.prototype.saveScene = function(app, on_success, on_error) {
-      on_success = on_success || function(response) {
-          this.next();
-        }.bind(this);
+    EditSceneTask.prototype.saveScene = function(app, on_success_callback, on_error) {
+      on_success_callback = on_success_callback || function(response) {
+        this.next();
+      }.bind(this);
+      var on_success = function(response) {
+        if (response.item) {
+          this.savedItemInfo = response.item;
+        }
+        on_success_callback(response);
+      }.bind(this);
+
       on_error = on_error || function() {
         showAlert("Error saving results. Please close tab and do task again.", 'alert-error');
       };
@@ -76,7 +84,7 @@ define([
         nSceneObjects: app.scene.modelList.length
       };
       // This is included somewhere...
-      submit_mturk_report_item(this.condition, currentEntry.id, results, preview).error(on_error).success(on_success);
+      submit_mturk_report_item(this.condition, currentEntry.id, results, preview, this.savedItemInfo).error(on_error).success(on_success);
     };
 
     EditSceneTask.prototype.showComments = function() {
@@ -107,6 +115,7 @@ define([
     };
 
     EditSceneTask.prototype.next = function() {
+      this.savedItemInfo = undefined;
       this.entryIndex++;
       if (this.entryIndex < this.entries.length) {
         // New scene

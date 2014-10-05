@@ -13,4 +13,8 @@ class ApplicationController < ActionController::Base
   def fail_JSON_response
     render status: 500, json: { status_code: "500" }
   end
+
+  def fail_JSON_message(message)
+    render status: 500, json: { status_code: "500", message: message }
+  end
 end

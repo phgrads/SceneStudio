@@ -1,16 +1,21 @@
 <% if @via_turk %>
 <script type="text/javascript">
-  function submit_mturk_report_item(condition, item, submission_data, preview_image) {
+  function submit_mturk_report_item(condition, item, submission_data, preview_image, itemInfo) {
+      var data = {
+                  assignmentId: "<%= @assignment.mtId %>",
+                  item: item,
+                  condition: condition,
+                  data: JSON.stringify(submission_data),
+                  preview: preview_image
+              };
+      if (itemInfo) {
+          data['id'] = itemInfo.id;
+          data['code'] = itemInfo.code;
+      }
       return $.ajax({
           type: 'POST',
           url: "<%= mturk_report_item_url %>",
-          data: {
-              assignmentId: "<%= @assignment.mtId %>",
-              item: item,
-              condition: condition,
-              data: JSON.stringify(submission_data),
-              preview: preview_image
-          },
+          data: data,
           dataType: 'json',
           timeout: 10000
       });
@@ -31,9 +36,10 @@
 </script>
 <% else %>
 <script type="text/javascript">
-  function submit_mturk_report_item(condition, item, submission_data, preview_image) {
+  function submit_mturk_report_item(condition, item, submission_data, preview_image, itemInfo) {
     console.log('submitting mturk_report_item for condition=' + condition + ", item=" + item);
     console.log(submission_data);
+    if (itemInfo) console.log(itemInfo);
     var obj = {
           error: function(fn) {
               return obj;

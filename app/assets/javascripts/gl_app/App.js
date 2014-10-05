@@ -150,13 +150,22 @@ define([
       $('#EditSceneModal').modal('show');
     };
 
-    App.prototype.SaveScene = function(on_success, on_error) {
-      on_success = on_success || function() {
+    App.prototype.SaveScene = function(on_success_callback, on_error_callback) {
+      on_success_callback = on_success_callback || function() {
         showAlert('Scene successfully saved!', 'alert-success');
       };
-      on_error = on_error || function() {
+      on_error_callback = on_error_callback || function() {
         showAlert('Error saving scene', 'alert-error');
       };
+      var on_success = function() {
+        this.toolbar.Show();
+        on_success_callback();
+      }.bind(this);
+      var on_error = function() {
+        this.toolbar.Show();
+        on_error_callback();
+      }.bind(this);
+      this.toolbar.Hide();
       if (this.onSaveCallback) {
         this.onSaveCallback(this,on_success,on_error);
       } else{
