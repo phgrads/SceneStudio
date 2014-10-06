@@ -25,4 +25,10 @@
         <% end %>
     <% end %>
   </td>
+  <td>
+    <%= link_to '×',
+                { controller: '/mturk', action: 'destroy_item', itemId: result.id },
+                confirm: 'Are you sure?', method: :post,
+                class: 'btn btn-danger scene-delete' %>
+  </td>
 </tr>
