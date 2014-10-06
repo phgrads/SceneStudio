@@ -8,7 +8,7 @@ id	description	minObjects
 7	There is a desk and a keyboard and a monitor.	3
 8	There is a desk and a monitor and a mouse.	3
 9	There is a desk and a monitor and a keyboard and a mouse.	4
-10	There is a desk and there is a notepad on the desk. There is a pen next to the notepad.	4
+10	There is a desk and there is a notepad on the desk. There is a pen next to the notepad.	3
 11	There is a desk and there is a notepad on the desk. There is a pen on the notepad.	3
 12	There is a desk and there is a stapler on the desk. There is a notepad to the left of the stapler.	3
 13	There is a desk and there is a stapler on the desk. There is a keyboard to the right of the stapler.	3
