@@ -14,6 +14,7 @@ Constants.geomDir= Constants.base_url + '/data/geometry/';
 Constants.textureDir = Constants.base_url + '/data/texture/';
 Constants.imageDir = Constants.base_url + '/data/image/';
 Constants.resourceDir = Constants.base_url + '/assets/';
+Constants.vfDir= Constants.base_url + '/data/vf/';
 
 // Model search url
 Constants.searchUrl = Constants.base_url + '/solr/select';

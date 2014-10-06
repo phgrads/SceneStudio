@@ -91,7 +91,16 @@ AssetManager.prototype.DownloadModel = function(id, callback)
 	var numTextures = 0;
 	var numTexturesRetrieved = 0;
 	var meshDump = {};
-	
+
+  var modelOptions = {};
+  if (id.startsWith("vf.")) {
+    modelOptions['geomDir'] = Constants.vfDir;
+    modelOptions['jsonFile'] = Constants.vfDir + id.substring(3) + '.json';
+  } else {
+    modelOptions['geomDir'] = Constants.geomDir;
+    modelOptions['jsonFile'] = Constants.modelDir + id + '.json';
+  }
+
 	var jsonFileDownloaded = function (req)
 	{
 		// It should be impossible for this callback to fire if the model download was aborted.
@@ -119,7 +128,7 @@ AssetManager.prototype.DownloadModel = function(id, callback)
 			meshDump[keys[i]] = [];
 		}
 
-		var downloads = downloadMeshes(Constants.geomDir, jsonObj.urls, jsonObj.decodeParams, meshDecompressed);
+		var downloads = downloadMeshes(modelOptions.geomDir, jsonObj.urls, jsonObj.decodeParams, meshDecompressed);
 		AppendObject(downloads, that.downloadingMeshes);
 	};
 	
@@ -170,7 +179,7 @@ AssetManager.prototype.DownloadModel = function(id, callback)
 	
 	var finalizeModel = function()
 	{
-		// Store the meshes lexicographically by url (gives a determininstic
+		// Store the meshes lexicographically by url (gives a deterministic
 		// ordering to 'components')
 		// If they come from the same url, then sort by position in the list.
 		var components = [];
@@ -206,7 +215,7 @@ AssetManager.prototype.DownloadModel = function(id, callback)
 		toCall(model);
 	};
 
-	var download = getHttpRequest(Constants.modelDir + id + '.json', function(req, e) { jsonFileDownloaded(req); });
+  var download = getHttpRequest(modelOptions.jsonFile, function(req, e) { jsonFileDownloaded(req); });
 	this.downloadingModels[id] = download;
 	this.callOnDownload[id] = callback;
 };

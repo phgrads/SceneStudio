@@ -29,6 +29,9 @@ define(function(require) {
       app.toolbar.HideButton("Edit Meta");
       app.toolbar.LabelButton("Close", "Done", "Done with scene", "done");
 
+      // Use window less room
+      app.rootModelId = "room";
+
       editSceneTask.Launch();
       app.Launch();
     } );

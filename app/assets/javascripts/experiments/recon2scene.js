@@ -29,6 +29,8 @@ define(function(require) {
       app.toolbar.HideButton("Edit Meta");
       app.toolbar.LabelButton("Close", "Done", "Done with scene", "done");
 
+      app.rootModelId = "vf.gates250d";
+
       editSceneTask.Launch();
       app.Launch();
     } );

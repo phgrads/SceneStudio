@@ -50,7 +50,11 @@ define([
         this.allowEdit = params.allowEdit;
       }
 
+      // Whether an image of the scene should be saved as a preview
       this.savePreview = true;
+
+      // Id of the initial model to use
+      this.rootModelId = "room01";
 
       // the following variables from globalViewData
       // should be rendered by the jade template
@@ -201,16 +205,18 @@ define([
 
     // Create a empty scene
     App.prototype.CreateEmpty = function() {
-      this.assman.GetModel('room01', function (model)
-      {
-        this.scene.Reset(new ModelInstance(model, null));
-        this.camera.UpdateSceneBounds(this.scene.Bounds());
-        this.camera.InitToSceneBounds();
-        this.undoStack.clear();
-        this.renderer.resizeEnd();
-        this.renderer.UpdateView();
-        this.SelectInstance(null);
-      }.bind(this));
+      if (this.rootModelId) {
+        this.assman.GetModel(this.rootModelId, function (model)
+        {
+          this.scene.Reset(new ModelInstance(model, null));
+          this.camera.UpdateSceneBounds(this.scene.Bounds());
+          this.camera.InitToSceneBounds();
+          this.undoStack.clear();
+          this.renderer.resizeEnd();
+          this.renderer.UpdateView();
+          this.SelectInstance(null);
+        }.bind(this));
+      }
     };
 
     App.prototype.AttachEventHandlers = function ()
