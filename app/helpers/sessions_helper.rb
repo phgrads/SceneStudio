@@ -60,7 +60,7 @@ module SessionsHelper
   end
 
   def can_manage_tasks
-    has_role?("mturk")
+    Rails.env.development? || has_role?("mturk")
   end
 
   class NotAuthorizedError < ActionController::ActionControllerError #:nodoc:

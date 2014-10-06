@@ -10,7 +10,7 @@ class Experiments::Recon2sceneController < ApplicationController
   before_filter :load_data, only: [:index]
   before_filter :estimate_task_time, only: [:index]
 
-  before_filter :signed_in_user_filter, only: [:results, :view, :load]
+  before_filter :can_manage_tasks_filter, only: [:results, :view, :load]
   before_filter :retrieve_list, only: [:results]
   before_filter :retrieve, only: [:view, :load]
 
