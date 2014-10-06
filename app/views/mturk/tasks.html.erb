@@ -14,7 +14,9 @@
             <th>Task</th>
             <th>Description</th>
             <th>Results</th>
+            <% if Rails.env.development? %>
             <th>Test</th>
+            <% end %>
             <th>Active</th>
           </tr>
           </thead>
