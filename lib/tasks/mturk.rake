@@ -81,6 +81,12 @@ namespace :mturk do
     task.destroy
   end
 
+  desc 'allow user to manage mturk tasks'
+  task :allow, [:user]  => :environment do |_, args|
+    user = get_user(args.user)
+    user.role = "mturk"
+    user.save!
+  end
 
 
 
@@ -109,4 +115,9 @@ namespace :mturk do
       return task
     end
 
+    def get_user(name)
+      user = User.find_by_name(name)
+      raise "Could not find user #{name}" unless user
+      return user
+    end
 end

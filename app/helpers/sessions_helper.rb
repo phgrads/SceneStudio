@@ -4,6 +4,10 @@ module SessionsHelper
     @current_user = user
   end
 
+  def has_role?(role)
+    @current_user.role == role
+  end
+
   def on_mturk?
     !!(params['assignmentId'] || params['task_id'])
   end
@@ -52,6 +56,24 @@ module SessionsHelper
   def non_mturk_filter
     if on_mturk?
       raise ActionController::RoutingError.new('Not Found')
+    end
+  end
+
+  def can_manage_tasks
+    has_role?("mturk")
+  end
+
+  class NotAuthorizedError < ActionController::ActionControllerError #:nodoc:
+  end
+
+  def can_manage_tasks_filter
+    unless can_manage_tasks
+      if request.referer
+        flash[:error] = 'Not Authorized'
+        redirect_to request.referer
+      else
+        raise NotAuthorizedError.new('Not Authorized')
+      end
     end
   end
 end

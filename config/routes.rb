@@ -3,25 +3,21 @@ SceneStudio::Application.routes.draw do
   # Mturk tasks
   get 'experiments/select_view', to: 'experiments/select_view#index'
   get 'experiments/select_view/results', to: 'experiments/select_view#results'
-
   match 'experiments/select_view/:id/load',         to: 'experiments/select_view#load'
   match 'experiments/select_view/:id/view',         to: 'experiments/select_view#view'
 
   get 'experiments/recon2scene', to: 'experiments/recon2scene#index'
   get 'experiments/recon2scene/results', to: 'experiments/recon2scene#results'
-
   match 'experiments/recon2scene/:id/load',         to: 'experiments/recon2scene#load'
   match 'experiments/recon2scene/:id/view',         to: 'experiments/recon2scene#view'
 
   get 'experiments/image2scene', to: 'experiments/image2scene#index'
   get 'experiments/image2scene/results', to: 'experiments/image2scene#results'
-
   match 'experiments/image2scene/:id/load',         to: 'experiments/image2scene#load'
   match 'experiments/image2scene/:id/view',         to: 'experiments/image2scene#view'
 
   get 'experiments/desc2scene', to: 'experiments/desc2scene#index'
   get 'experiments/desc2scene/results', to: 'experiments/desc2scene#results'
-
   match 'experiments/desc2scene/:id/load',         to: 'experiments/desc2scene#load'
   match 'experiments/desc2scene/:id/view',         to: 'experiments/desc2scene#view'
 
@@ -46,6 +42,7 @@ SceneStudio::Application.routes.draw do
   post '/mturk/report',             to: 'mturk#report'
   post '/mturk/coupon',             to: 'mturk#coupon'
   post '/mturk/report_item',        to: 'mturk#report_item'
+  post '/mturk/destroy_item',       to: 'mturk#destroy_item'
 
 
   #resources :identities
