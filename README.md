@@ -88,7 +88,7 @@ The following assumes that we are running in development mode on a local machine
 Existing Mechanical Turk Tasks
 --------------
 
-We currently have the following mechanical turk tasks.  You can find which tasks you have in your database by going to `mturk/tasks`.
+We currently have the following mechanical turk tasks.  You can find which tasks you have in your database by going to `mturk/tasks`.  In production mode, in order to manage the mturk tasks from the web interface, you will need to make sure that you are logged in and that the user's role is "mturk" (you can run `rake mturk:allow[user's name]` to give a user access to the mturk role. 
 
 ### desc2scene
 Ask users to create a scene based on a textual description.
