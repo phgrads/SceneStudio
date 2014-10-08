@@ -4,10 +4,10 @@
       <% if scene.preview %>
         <% preview_url = scene.preview.url %>
         <% if preview_url %>
-          <%= image_tag preview_url, { 'data-src' => preview_url } %>
+          <%= image_tag preview_url, { 'data-src' => preview_url, 'class' => 'img-responsive' } %>
         <% end %>
       <% else %>
-          <%= image_tag 'scenePreview.jpg' %>
+          <%= image_tag 'scenePreview.jpg', { 'class' => 'img-responsive'}%>
       <% end %>
       <%= link_to scene.name, { action: 'edit', id: scene.id },
                   class: 'btn scene-name' %>
