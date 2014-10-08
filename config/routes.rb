@@ -1,5 +1,7 @@
 SceneStudio::Application.routes.draw do
 
+  get 'experiments/scene2desc', to: 'experiments/scene2desc#index'
+
   # Mturk tasks
   get 'experiments/select_view', to: 'experiments/select_view#index'
   get 'experiments/select_view/results', to: 'experiments/select_view#results'
