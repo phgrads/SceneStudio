@@ -4,15 +4,12 @@
 define(function(require) {
   require(['jquery.datatables.bootstrap','jquery.datatables.tabletools'], function() {
     $(document).ready(function() {
-      var sSwfPath = window.globals.base_url + '/swf/copy_csv_xls_pdf.swf';
+      $.fn.dataTable.TableTools.defaults.sSwfPath = window.globals.base_url + '/swf/copy_csv_xls_pdf.swf';
       $('#resultsTable').dataTable({
-        'dom': 'T<"clear">lfrtip',
-        'order': [ 0, "desc" ],
-        tableTools: {
-//          "sSwfPath": sSwfPath
-          "sSwfPath": '../../../swf/copy_csv_xls_pdf.swf'
-        }
+        'order': [ 0, "desc" ]
       });
+      var tt = new $.fn.dataTable.TableTools( $('#resultsTable') );
+      $( tt.fnContainer() ).insertBefore('div.dataTables_wrapper');
     } );
   })
 });
