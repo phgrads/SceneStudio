@@ -9,6 +9,12 @@
   <%= csrf_meta_tags %>
   <meta charset="utf-8">
   <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"/><![endif]-->
+  <script type="text/javascript">
+      // We use the following structure to send data to the client
+      window.globals = {
+          base_url: "<%= @base_url %>"
+      };
+  </script>
 </head>
 <body>
 <%= render 'layouts/header' %>
