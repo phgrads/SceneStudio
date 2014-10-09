@@ -102,7 +102,8 @@ class MtTask < ActiveRecord::Base
   # approves all outstanding assignments
   def approve!
     mt_hits.each do |hit|
-      hit.assignments.each do |assignment|
+      rhit = RTurk::Hit.new(hit.mtId)
+      rhit.assignments.each do |assignment|
         begin
           assignment.approve! if assignment.status == 'Submitted'
         rescue RTurk::InvalidRequest
