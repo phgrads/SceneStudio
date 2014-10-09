@@ -2,18 +2,18 @@
 
 define([
   './../gl_app/App',
-  'jquery'
+  'jquery',
+  'bootbox'
 ],
   function (App)
   {
-    function EditSceneTask(params)
+    function DescribeSceneTask(params)
     {
       this.entryIndex = 0;
       this.app = params.app;
       this.entries = params.entries;
       this.condition = params.conf['condition'];
       this.savePreview = params.conf['savePreview'];
-      this.showEntryCallback = params.showEntryCallback;
       this.sceneSummary = [];
       // TODO: Be flexible about binding actions to buttons...
       this.taskInstructions = $('#taskInstructions');
@@ -24,24 +24,29 @@ define([
       this.completeTaskButton.click(this.showCoupon.bind(this));
     }
 
-    EditSceneTask.prototype.saveSceneCallback = function(app) {
-      // Check if the scene is acceptable...
+    DescribeSceneTask.prototype.saveSceneCallback = function(app) {
+      // TODO: Check if the description is acceptable...
       if(app.scene.modelList.length > 1){
         this.saveScene(app);
       }
       else{
-        alert("You haven't added anything to the scene yet");
+        bootbox.alert("You haven't added anything to the scene yet");
       }
     };
 
-    EditSceneTask.prototype.saveScene = function(app) {
+    DescribeSceneTask.prototype.closeSceneCallback = function(app) {
+      this.next();
+    };
+
+    DescribeSceneTask.prototype.saveScene = function(app) {
       var on_success = function(response) {
         this.next();
       }.bind(this);
       var on_error = function() { alert("Error saving results. Please close tab and do task again.");};
       var preview = (this.savePreview)? app.GetPreviewImageData():undefined;
       var currentEntry = this.entries[this.entryIndex];
-      var results = app.GetSceneResults();
+      // TODO: get scene description
+      var results = "this is where the scene description would go";
       results['entry'] = currentEntry;
       this.sceneSummary[this.entryIndex] = {
         entryId: currentEntry.id,
@@ -51,7 +56,7 @@ define([
       submit_mturk_report_item(this.condition, currentEntry.id, results, preview).error(on_error).success(on_success);
     };
 
-    EditSceneTask.prototype.showComments = function() {
+    DescribeSceneTask.prototype.showComments = function() {
       // Hide rest of UI
       $('#ui').hide();
       // Show comment area
@@ -60,7 +65,7 @@ define([
       $('#comments').focus();
     };
 
-    EditSceneTask.prototype.showCoupon = function() {
+    DescribeSceneTask.prototype.showCoupon = function() {
       // TODO: Improve coupon
       var on_success = function(response) {
         document.body.innerHTML = "<p>Thanks for participating!</p>" +
@@ -78,35 +83,32 @@ define([
       submit_mturk_report(results).error(on_error).success(on_success);
     };
 
-    EditSceneTask.prototype.next = function() {
+    DescribeSceneTask.prototype.next = function() {
       this.entryIndex++;
       if (this.entryIndex < this.entries.length) {
-        // New scene
-        this.app.CreateEmpty();
-        this.showEntry(this.entryIndex);
+        // Launch next scene
+        var entry = this.entries[this.entryIndex];
+        this.app.on_load_url = entry['url'];
+        this.app.Launch();
       } else {
         this.showComments();
       }
     };
 
-    EditSceneTask.prototype.showEntry = function(index) {
-      this.showEntryCallback(this.entries[index]);
-    };
-
-    EditSceneTask.prototype.start = function() {
+    DescribeSceneTask.prototype.start = function() {
       this.taskInstructions.hide();
       this.mturkOverlay.show();
       this.showEntry(this.entryIndex);
     };
 
-    EditSceneTask.prototype.showInstructions = function() {
+    DescribeSceneTask.prototype.showInstructions = function() {
       // TODO: Show instructions
     };
 
-    EditSceneTask.prototype.Launch = function() {
+    DescribeSceneTask.prototype.Launch = function() {
       this.showInstructions();
     };
 
     // Exports
-    return EditSceneTask;
+    return DescribeSceneTask;
 });
