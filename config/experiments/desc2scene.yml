@@ -38,3 +38,4 @@ conf:
   savePreview: true
   uploadSummary: true
   exampleImagesPath: /experiments/desc2scene/examples/
+  selectPolicy: mincount_random

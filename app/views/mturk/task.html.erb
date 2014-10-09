@@ -53,8 +53,8 @@
 <div class='container'>
   <div class="row">
     <div class="span6 offset3">
-      <h1>External HIT</h1>
-
+      <h2><%= @task.title %></h2>
+      <h4><%= @task.description %></h4>
       <% if @via_turk and not @preview then %>
       <div class="well">
         <a href="<%= @new_tab_href %>"

@@ -132,14 +132,14 @@ class MtTask < ActiveRecord::Base
 
     # sanity check this request
     # some of these checks go beyond the record validation...
-    raise "no name provided for new task" unless name
+    raise 'no name provided for new task' unless name
     name = name.underscore
     controller_path = Rails.root.join(
       'app', 'controllers', 'experiments',
       name + '_controller.rb')
-    if not controller_path.exist?
-      raise ("Cannot create database entry for an experiment without " +
-             "a controller.  Could not find " + controller_path.to_s)
+    unless controller_path.exist?
+      raise ('Cannot create database entry for an experiment without ' +
+             'a controller.  Could not find ' + controller_path.to_s)
     end
 
     # create a user for this task
@@ -169,6 +169,7 @@ class MtTask < ActiveRecord::Base
     return [task, user]
   end
 
+
   def self.create_without_submitting(params)
     task, user = create_task_and_user(params)
     return task
@@ -185,16 +186,16 @@ class MtTask < ActiveRecord::Base
     raise "no url provided for new task" unless url
 
     task.update_config!(params)
-    task.submit!(params, url)
+    task.submit!(params)
     return task
   end
 
   def self.create_and_submit(params)
     url  = params['url']
-    raise "no url provided for new task" unless url
+    raise 'no url provided for new task' unless url
 
     task, user = create_task_and_user(params)
-    task.submit!(params, url)
+    task.submit!(params)
     return task
   end
 
@@ -211,9 +212,9 @@ class MtTask < ActiveRecord::Base
     save!
   end
 
-  def submit!(params, task_url)
+  def submit!(params)
     # for now, launch a single hit here
-    hit_id = launch_hit(task_url)
+    hit_id = launch_hit(params)
     mt_hit = self.mt_hits.create! do |hit|
       hit.mtId = hit_id
       hit.conf = params
@@ -244,7 +245,7 @@ class MtTask < ActiveRecord::Base
       self.max_workers ||= self.num_assignments
     end
 
-    def launch_hit(task_url)
+    def launch_hit(params)
       task = self
 
       # dummy version of these params being set
@@ -259,9 +260,16 @@ class MtTask < ActiveRecord::Base
         hit.duration      = task.max_task_time
         hit.keywords      = task.keywords       if task.keywords
       
+        task_url  = params['url']
         hit.question(task_url)
-        # non exposed hit parameters -- don't use on the sandbox
-        if not RTurk.sandbox? then
+
+        qual = params['qualification']
+        unless qual.nil?
+          id = RTurk.sandbox? ? qual['sandbox_id'] : qual['id']
+          hit.qualifications.add(id, :exists => true, :RequiredToPreview => true)
+        end
+
+        unless RTurk.sandbox? then
           #hit.qualifications.approval_rate gte: 95
           #hit.qualifications.hits_approved gte: 100
           hit.auto_approval = 259200 # 3 days

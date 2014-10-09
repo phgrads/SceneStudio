@@ -5,7 +5,8 @@ module Experiments::ExperimentsHelper
   def load_data
     @conf = YAML.load_file("config/experiments/#{controller_name}.yml")['conf']
     @entries = load_and_select_random(@conf['inputFile'], @conf['doneFile'],
-                                      @conf['doneThreshold'], @conf['perWorkerItemCompletedThreshold'], @conf['nScenes'])
+                                      @conf['doneThreshold'], @conf['perWorkerItemCompletedThreshold'],
+                                      @conf['selectPolicy'], @conf['nScenes'])
     @no_entries_message = "You already completed all items in this task!  There are no more items for you to complete."
   end
 
@@ -20,7 +21,7 @@ module Experiments::ExperimentsHelper
     }
   end
 
-  def load_and_select_random(inputFile, doneFile, doneThreshold, itemCompletedThreshold, n)
+  def load_and_select_random(inputFile, doneFile, doneThreshold, itemCompletedThreshold, select_policy, n)
     # Figure out task and worker id
     taskId = @task.id
     workerId = @worker ? @worker.mtId : ''
@@ -69,7 +70,6 @@ module Experiments::ExperimentsHelper
     end
 
     # Experimental code for different selection policies
-    select_policy = "random"
     logger.debug "Selecting #{n} entries from #{entries.size} entries"
     if select_policy == "random" || select_policy == nil
       # Do random selection from final remaining entries

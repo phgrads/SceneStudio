@@ -32,6 +32,23 @@ module MturkHelper
     end
   end
 
+  # Assign qualification to workers
+  def assign_qualification(qual_type_id, worker_ids, notification, value)
+    worker_ids.each do |worker_id|
+      RTurk.AssignQualification(:qualification_type_id => qual_type_id,
+                                :worker_id => worker_id,
+                                :send_notification => notification,
+                                :integer_value => value)
+    end
+  end
+
+  # Assign qualification to workers
+  def notify_workers(worker_ids, subject, message_text)
+    RTurk.NotifyWorkers(:worker_ids => worker_ids,
+                        :subject => subject,
+                        :message_text => message_text)
+  end
+
   private
     def get_worker(mt_id)
       @worker = MtWorker.find_by_mtId(mt_id) ||
