@@ -34,6 +34,7 @@ namespace :mturk do
         puts "Found task #{name} in db (probably mturk:develop). " +
              'Destroying first and recreating before submission.'
         task.destroy
+        task = nil
       end
     end
 
