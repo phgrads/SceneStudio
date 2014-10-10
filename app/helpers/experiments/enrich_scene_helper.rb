@@ -1,0 +1,2 @@
+module Experiments::EnrichSceneHelper
+end
