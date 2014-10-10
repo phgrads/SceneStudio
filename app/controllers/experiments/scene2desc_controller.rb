@@ -10,7 +10,7 @@ class Experiments::Scene2descController < ApplicationController
   before_filter :load_data, only: [:index]
   before_filter :estimate_task_time, only: [:index]
 
-  before_filter :signed_in_user_filter, only: [:results, :view, :load]
+  before_filter :can_manage_tasks_filter, only: [:results, :view, :load]
   before_filter :retrieve_list, only: [:results]
   before_filter :retrieve, only: [:view, :load]
 
@@ -21,7 +21,12 @@ class Experiments::Scene2descController < ApplicationController
       @task = MtTask.find_by_name!("desc2scene")
     end
     @title = @task.title
-    render "experiments/scene2desc/index", layout: true
+    if @entries.any? then
+      render "experiments/scene2desc/index", layout: true
+    else
+      @message = @no_entries_message
+      render "mturk/message", layout: false
+    end
   end
 
   def results
@@ -34,7 +39,12 @@ class Experiments::Scene2descController < ApplicationController
 
   def load
     if @item.data
-      render :json => @data
+      if @data['scene']
+        render :json => @data
+      else
+        # Scene was not saved, get scene from url
+        redirect_to @entry['url']
+      end
     else
       raise ActionController::RoutingError.new('Item Not Found')
     end

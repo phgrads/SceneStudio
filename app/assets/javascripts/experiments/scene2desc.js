@@ -22,6 +22,7 @@ define(function(require) {
         entries: window.globals.entries,
         conf: window.globals.conf
       });
+      app.autoSaveOnClose = true;
       app.onSaveCallback = describeSceneTask.saveSceneCallback.bind(describeSceneTask);
       app.onCloseCallback = describeSceneTask.closeSceneCallback.bind(describeSceneTask);
       app.toolbar.LabelButton("Close", "Done", "Done with scene", "done");

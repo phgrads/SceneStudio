@@ -1,8 +1,11 @@
 SceneStudio::Application.routes.draw do
 
-  get 'experiments/scene2desc', to: 'experiments/scene2desc#index'
-
   # Mturk tasks
+  get 'experiments/scene2desc', to: 'experiments/scene2desc#index'
+  get 'experiments/scene2desc/results', to: 'experiments/scene2desc#results'
+  match 'experiments/scene2desc/:id/load',         to: 'experiments/scene2desc#load'
+  match 'experiments/scene2desc/:id/view',         to: 'experiments/scene2desc#view'
+
   get 'experiments/select_view', to: 'experiments/select_view#index'
   get 'experiments/select_view/results', to: 'experiments/select_view#results'
   match 'experiments/select_view/:id/load',         to: 'experiments/select_view#load'
