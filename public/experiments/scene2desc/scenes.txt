@@ -1,3 +1,3 @@
 id	url
-room1	scenes/1/load
-room2	scenes/3/load
+room1	/scenes/1/load
+room2	/scenes/3/load

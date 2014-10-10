@@ -17,6 +17,7 @@ define([
       this.sceneSummary = [];
       // TODO: Be flexible about binding actions to buttons...
       this.taskInstructions = $('#taskInstructions');
+      this.sceneDescriptionElem = $('#sceneDescription');
       this.mturkOverlay = $('#mturkOverlay');
       this.startButton = $('#startButton');
       this.completeTaskButton = $('#completeTaskButton');
@@ -26,11 +27,12 @@ define([
 
     DescribeSceneTask.prototype.saveSceneCallback = function(app) {
       // TODO: Check if the description is acceptable...
-      if(app.scene.modelList.length > 1){
+      var desc = this.sceneDescriptionElem.val().trim();
+      if(desc.length > 1){
         this.saveScene(app);
       }
       else{
-        bootbox.alert("You haven't added anything to the scene yet");
+        bootbox.alert("Please write a sentence describing what you see!");
       }
     };
 
@@ -45,11 +47,15 @@ define([
       var on_error = function() { alert("Error saving results. Please close tab and do task again.");};
       var preview = (this.savePreview)? app.GetPreviewImageData():undefined;
       var currentEntry = this.entries[this.entryIndex];
-      // TODO: get scene description
-      var results = "this is where the scene description would go";
-      results['entry'] = currentEntry;
+      // Get scene description
+      var desc = this.sceneDescriptionElem.val().trim();
+      var results = {
+        description: desc,
+        entry: currentEntry
+      };
       this.sceneSummary[this.entryIndex] = {
         entryId: currentEntry.id,
+        description: desc,
         nSceneObjects: app.scene.modelList.length
       };
       // This is included somewhere...
@@ -87,12 +93,16 @@ define([
       this.entryIndex++;
       if (this.entryIndex < this.entries.length) {
         // Launch next scene
-        var entry = this.entries[this.entryIndex];
-        this.app.on_load_url = entry['url'];
-        this.app.Launch();
+        this.showEntry(this.entryIndex);
       } else {
         this.showComments();
       }
+    };
+
+    DescribeSceneTask.prototype.showEntry = function(i) {
+      var entry = this.entries[i];
+      this.app.onLoadUrl = entry['url'];
+      this.app.Launch();
     };
 
     DescribeSceneTask.prototype.start = function() {

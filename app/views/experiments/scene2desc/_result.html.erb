@@ -4,20 +4,19 @@
   <td><%= result.condition %></td>
   <td><%= result.workerId %></td>
   <td>
-    <% parsed = JSON.parse(result.data) %>
-    <% entry = parsed ? parsed['entry']:nil %>
-    <% if entry %>
-        <%= link_to entry['description'], { action: 'view', id: result.id } %>
-    <% else %>
-        <%= link_to result.item, { action: 'view', id: result.id } %>
-    <% end %>
-  </td>
-  <td>
     <% if result.preview %>
         <% preview_url = result.preview.url %>
         <% if preview_url %>
            <%= image_tag preview_url %>
         <% end %>
+    <% end %>
+  </td>
+  <td>
+    <% entry = JSON.parse(result.data) %>
+    <% if entry %>
+        <%= link_to entry['description'], { action: 'view', id: result.id } %>
+    <% else %>
+        <%= link_to result.item, { action: 'view', id: result.id } %>
     <% end %>
   </td>
 </tr>
