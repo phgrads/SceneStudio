@@ -257,6 +257,9 @@ define([
         .onstart(focus.start_interruption.bind(focus))
         .onfinish(focus.finish_interruption.bind(focus));
 
+      // mouse wheel scrolls
+      addWheelHandler(this.canvas, this.MouseWheel.bind(this));
+
       if (this.allowEdit) {
         // also make sure insertion inhibits focusing
         this.insertion_behavior = this.CreateInsertionBehavior()
@@ -272,9 +275,6 @@ define([
             this.CancelModelInsertion(data.instance);
             focus.finish_interruption();
           }.bind(this));
-
-        // mouse wheel scrolls
-        addWheelHandler(this.canvas, this.MouseWheel.bind(this));
 
         // some support functions
         var ensureInstance = function(toWrap) {
