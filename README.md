@@ -100,10 +100,21 @@ Ask users to create a scene based on a image.
 
 After running task, go to `experiments/image2scene/results` to view results.
 
+### recon2scene (Not working)
+Ask users to create a scene based on a scanned reconstruction.
+
+After running task, go to `experiments/recon2scene/results` to view results.
+
+### scene2desc (Need refinement)
+Ask users to provide a textual description of a scene.
+
+After running task, go to `experiments/scene2desc/results` to view results.
+
 ### select-view
 Ask users to select a BEST and a WORST view for a scene.
 
 After running task, go to `experiments/select-view/results` to view results.
+
 
 Troubleshooting
 --------------
