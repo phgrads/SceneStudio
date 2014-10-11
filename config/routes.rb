@@ -1,6 +1,8 @@
 SceneStudio::Application.routes.draw do
 
   # Mturk tasks
+  get 'experiments/enrich_scene', to: 'experiments/enrich_scene#index'
+
   get 'experiments/scene2desc', to: 'experiments/scene2desc#index'
   get 'experiments/scene2desc/results', to: 'experiments/scene2desc#results'
   match 'experiments/scene2desc/:id/load',         to: 'experiments/scene2desc#load'
@@ -44,6 +46,7 @@ SceneStudio::Application.routes.draw do
   # mTurk
   get '/mturk/task',                to: 'mturk#task'
   get '/mturk/tasks',               to: 'mturk#tasks'
+  get '/mturk/assignments',         to: 'mturk#assignments'
   post '/mturk/report',             to: 'mturk#report'
   post '/mturk/coupon',             to: 'mturk#coupon'
   post '/mturk/report_item',        to: 'mturk#report_item'

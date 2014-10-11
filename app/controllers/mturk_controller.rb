@@ -5,8 +5,9 @@ class MturkController < ApplicationController
   before_filter :require_assignment, only: [:report, :coupon, :report_item]
   before_filter :load_task_conf, only: [:coupon]
 
-  before_filter :can_manage_tasks_filter, only: [:tasks, :destroy_item]
+  before_filter :can_manage_tasks_filter, only: [:tasks, :assignments, :destroy_item]
   before_filter :list_tasks, only: [:tasks]
+  before_filter :list_assignments, only: [:assignments]
   before_filter :retrieve_item, only: [:destroy_item]
 
   # IFrame to be displayed in Amazon MTurk redirecting workers to actual task
@@ -131,6 +132,10 @@ class MturkController < ApplicationController
     render 'mturk/tasks'
   end
 
+  def assignments
+    render 'mturk/assignments'
+  end
+
   def destroy_item
     @item.destroy
     flash[:success] = 'Item deleted.'
@@ -150,6 +155,10 @@ class MturkController < ApplicationController
     def list_tasks
       @tasks = MtTask.all()
       @completed_items_count = CompletedItemsView.group(:taskId).count()
+    end
+
+    def list_assignments
+      @assignments = MtAssignment.all()
     end
 
     def retrieve_item
