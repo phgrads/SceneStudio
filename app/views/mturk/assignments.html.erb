@@ -1,0 +1,30 @@
+<%= render 'experiments/datatables_style' %>
+
+<% provide(:title, "Assignments") %>
+<div class="row">
+  <div class="span12">
+    <h3>Assignments (<%= @assignments.count %>)</h3>
+
+    <!-- assignment list -->
+    <% if @assignments.any? %>
+        <table id="resultsTable" class="table table-striped table-bordered">
+          <thead>
+          <tr>
+            <th>Time</th>
+            <th>Duration</th>
+            <th>Task</th>
+            <th>Worker</th>
+            <th>Summary</th>
+          </tr>
+          </thead>
+          <tbody>
+          <%= render :partial => 'assignment', :collection => @assignments  %>
+          </tbody>
+        </table>
+    <% else %>
+        No assignments!  Get some MTurkers to do your task!
+    <% end %>
+  </div>
+</div>
+<%= requirejs_include_tag('experiments/results') %>
+
