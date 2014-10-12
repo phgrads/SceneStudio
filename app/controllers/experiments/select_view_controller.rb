@@ -53,7 +53,7 @@ class Experiments::SelectViewController < ApplicationController
   private
     def retrieve_list
       @task = MtTask.find_by_name!("select_view")
-      @completed = CompletedItemsView.where('taskId = ?', @task.id)
+      @completed = get_completed_items(@task.id)
     end
 
     def retrieve

@@ -1,8 +1,17 @@
+require 'concerns/filterable'
 class CompletedItemsView < ActiveRecord::Base
+  include Filterable
   self.table_name = 'completed_items_view'  # for rails >= 3.2
   attr_readonly :data, :taskId, :taskName, :workerId, :condition, :item, :created_at, :updated_at
   dragonfly_accessor :preview
 
   belongs_to :mt_task, :foreign_key => 'taskId'
   default_scope order: 'completed_items_view.created_at DESC'
+
+  scope :workerId, lambda { |workerId| where(workerId: workerId) }
+  scope :hitId, lambda { |hitId| where(hitId: hitId) }
+  scope :taskName, lambda { |taskName| where(taskName: taskName) }
+  scope :taskId, lambda { |taskName| where(taskId: taskId) }
+  scope :item, lambda { |item| where(item: item) }
+  scope :condition, lambda { |condition| where(condition: condition) }
 end

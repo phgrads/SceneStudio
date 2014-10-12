@@ -176,4 +176,8 @@ module Experiments::ExperimentsHelper
       entries.keys.shuffle
     end
   end
+
+  def get_completed_items(taskId)
+    @completed = CompletedItemsView.filter(params.slice(:workerId, :item, :condition)).where('taskId = ?', taskId)
+  end
 end

@@ -158,8 +158,7 @@ class MturkController < ApplicationController
     end
 
     def list_assignments
-      @assignments = AssignmentsView.filter(params.slice(:hitId, :workerId, :taskId, :taskName))
-      #@assignments = AssignmentsView.all()
+      @assignments = AssignmentsView.filter(params.slice(:hitId, :workerId, :taskName))
     end
 
     def retrieve_item

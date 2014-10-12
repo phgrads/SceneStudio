@@ -1,8 +1,8 @@
 <tr>
   <td><nobr><%= result.updated_at %></nobr></td>
-  <td><%= result.item %></td>
-  <td><%= result.condition %></td>
-  <td><%= result.workerId %></td>
+  <td><%= link_to result.item, params.merge(:item => result.item) %></td>
+  <td><%= link_to result.condition, params.merge(:condition => result.condition) %></td>
+  <td><%= link_to result.workerId, params.merge(:workerId => result.workerId) %></td>
   <td>
     <% parsed = JSON.parse(result.data) %>
     <% entry = parsed ? parsed['entry']:nil %>

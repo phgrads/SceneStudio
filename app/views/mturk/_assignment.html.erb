@@ -6,7 +6,8 @@
       <%= distance_of_time_in_words(assignment.created_at, assignment.completed_at) %>
     <% end %>
   </td>
-  <td><%= assignment.taskName %></td>
-  <td><%= assignment.workerId %></td>
+  <td><%= link_to assignment.taskName, params.merge(:taskName => assignment.taskName) %></td>
+  <td><%= link_to assignment.hitId, params.merge(:hitId => assignment.hitId) %></td>
+  <td><%= link_to assignment.workerId, params.merge(:workerId => assignment.workerId) %></td>
   <td><%= assignment.data %></td>
 </tr>

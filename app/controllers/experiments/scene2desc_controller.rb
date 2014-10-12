@@ -53,7 +53,7 @@ class Experiments::Scene2descController < ApplicationController
   private
     def retrieve_list
       @task = MtTask.find_by_name!("scene2desc")
-      @completed = CompletedItemsView.where('taskId = ?', @task.id)
+      @completed = get_completed_items(@task.id)
     end
 
     def retrieve
