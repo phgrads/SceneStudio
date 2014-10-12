@@ -9,5 +9,8 @@
   <td><%= link_to assignment.taskName, params.merge(:taskName => assignment.taskName) %></td>
   <td><%= link_to assignment.hitId, params.merge(:hitId => assignment.hitId) %></td>
   <td><%= link_to assignment.workerId, params.merge(:workerId => assignment.workerId) %></td>
-  <td><%= assignment.data %></td>
+  <!-- TODO: Filter on assignment id -->
+  <td>
+    <%= link_to assignment.data, { controller: 'experiments/' + assignment.taskName, action: 'results', workerId: assignment.workerId }  rescue assignment.data %>
+  </td>
 </tr>
