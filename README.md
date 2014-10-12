@@ -135,7 +135,11 @@ Troubleshooting
   If you have been testing with a different instance, try a different browser or incognito mode.  You were probably logged in, and the new server doesn't know about that user.  If incognito mode works, create a user and login.
  
 
+Tools
+--------------
 
+* http://sqlitebrowser.org/ for viewing/editing Sqlite database 
+ 
 
 
 
