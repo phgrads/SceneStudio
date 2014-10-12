@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141006020410) do
+ActiveRecord::Schema.define(:version => 20141012222918) do
 
   create_table "identities", :force => true do |t|
     t.string   "name"

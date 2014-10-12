@@ -6,7 +6,7 @@
       <%= distance_of_time_in_words(assignment.created_at, assignment.completed_at) %>
     <% end %>
   </td>
-  <td><%= assignment.mt_task.name %></td>
-  <td><%= assignment.mt_worker.mtId %></td>
+  <td><%= assignment.taskName %></td>
+  <td><%= assignment.workerId %></td>
   <td><%= assignment.data %></td>
 </tr>
