@@ -4,4 +4,5 @@ class CompletedItemsView < ActiveRecord::Base
   dragonfly_accessor :preview
 
   belongs_to :mt_task, :foreign_key => 'taskId'
+  default_scope order: 'completed_items_view.created_at DESC'
 end
