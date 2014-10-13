@@ -7,6 +7,9 @@
         <ul class='nav pull-right'>
           <li><%= link_to 'Home', root_path %></li>
           <li><%= link_to 'Help', help_path %></li>
+          <% if can_manage_tasks %>
+            <li><%= link_to 'Tasks', mturk_tasks_path %></li>
+          <% end %>
           <li class="divider-vertical"></li>
           <% if signed_in? %>
             <li><%= link_to "Logout ", signout_path %></li>
