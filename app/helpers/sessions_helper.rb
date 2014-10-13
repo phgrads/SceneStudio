@@ -5,7 +5,7 @@ module SessionsHelper
   end
 
   def has_role?(role)
-    @current_user.role == role
+	@current_user && @current_user.role == role
   end
 
   def on_mturk?
