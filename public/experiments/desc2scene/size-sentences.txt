@@ -1,0 +1,60 @@
+id	description	minObjects
+sz1	There is a chair and a desk.	2
+sz2	There is a chair and a tiny desk.	2
+sz3	There is a chair and a very small desk.	2
+sz4	There is a chair and a small desk.	2
+sz5	There is a chair and a large desk.	2
+sz6	There is a chair and a very large desk.	2
+sz7	There is a chair and a huge desk.	2
+sz8	There is a tiny chair and a desk.	2
+sz9	There is a very small chair and a desk.	2
+sz10	There is a small chair and a desk.	2
+sz11	There is a large chair and a desk.	2
+sz12	There is a very large chair and a desk.	2
+sz13	There is a huge chair and a desk.	2
+sz14	There is a chair and a floor lamp.	2
+sz15	There is a chair and a tiny floor lamp.	2
+sz16	There is a chair and a very small floor lamp.	2
+sz17	There is a chair and a small floor lamp.	2
+sz18	There is a chair and a large floor lamp.	2
+sz19	There is a chair and a very large floor lamp.	2
+sz20	There is a chair and a huge floor lamp.	2
+sz21	There is a chair and a very short floor lamp.	2
+sz22	There is a chair and a short floor lamp.	2
+sz23	There is a chair and a tall floor lamp.	2
+sz24	There is a chair and a very tall floor lamp.	2
+sz25	There is a chair and another chair.	2
+sz26	There is a chair and another tiny chair.	2
+sz27	There is a chair and another very small chair.	2
+sz28	There is a chair and another small chair.	2
+sz29	There is a chair and another large chair.	2
+sz30	There is a chair and another very large chair.	2
+sz31	There is a chair and another huge chair.	2
+sz32	There is a chair and another very short chair.	2
+sz33	There is a chair and another short chair.	2
+sz34	There is a chair and another tall chair.	2
+sz35	There is a chair and another very tall chair.	2
+sz36	There is a coffee table and a vase.	2
+sz37	There is a coffee table and a tiny vase.	2
+sz38	There is a coffee table and a very small vase.	2
+sz39	There is a coffee table and a small vase.	2
+sz40	There is a coffee table and a large vase.	2
+sz41	There is a coffee table and a very large vase.	2
+sz42	There is a coffee table and a huge vase.	2
+sz43	There is a coffee table and a tall vase.	2
+sz44	There is a coffee table and a very tall vase.	2
+sz45	There is a coffee table and a very short vase.	2
+sz46	There is a coffee table and a short vase.	2
+sz47	There is a coffee table and a vase on the table.	2
+sz48	There is a coffee table and a tiny vase on the table.	2
+sz49	There is a coffee table and a very small vase on the table.	2
+sz50	There is a coffee table and a small vase on the table.	2
+sz51	There is a coffee table and a large vase on the table.	2
+sz52	There is a coffee table and a very large vase on the table.	2
+sz53	There is a coffee table and a huge vase on the table.	2
+sz54	There is a coffee table and a short vase on the table.	2
+sz55	There is a coffee table and a tall vase on the table.	2
+sz56	There is a coffee table and a very short vase on the table.	2
+sz57	There is a coffee table and a very tall vase on the table.	2
+
+
