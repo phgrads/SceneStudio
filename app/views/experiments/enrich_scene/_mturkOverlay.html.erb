@@ -1,0 +1,71 @@
+<%= render '/experiments/largeimg' %>
+<div id="taskInstructions" class="wholescreenOverlay">
+  <div align="center" class="taskInstructions">
+    <div style='text-align:left'>
+      <p>You will be shown <%=@entries.length%> simple indoor scenes.
+        For each scene, you will be asked to place 3-5 additional objects that you will expect to find in the scene.
+        Please try to position objects so that they look natural.
+      </p>
+      <p>
+        Each scene should take about <%=@taskTime['sceneTime'] %> to complete.
+        The task should take about <%=@taskTime['taskTime'] %> in total.
+      </p>
+    </div>
+  <div align="center">
+    <table class="exampleTable">
+      <thead>
+      <th></th>
+      <th>Example 1</th>
+      <th>Example 2</th>
+      </thead>
+      <tbody>
+      <tr>
+        <th>Scene description</th>
+        <td>
+          There is a table and there are four chairs.
+        </td>
+        <td>
+          There is a bed and there is a nightstand next to the bed.
+          <br/>
+          There is a floor lamp next to the bed.
+        </td>
+      </tr>
+      <tr>
+        <th>Constructed scene</th>
+        <td>
+          <div align="center" class="mturkExample">
+            <%= image_tag( @conf['exampleImagesPath'] + 'example1.png', { width: 400, class: "enlarge" } ) %>
+          </div>
+        </td>
+        <td>
+          <div align="center" class="mturkExample">
+            <%= image_tag( @conf['exampleImagesPath'] + 'example2.png', { width: 400, class: "enlarge" } ) %>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <br/>
+  <div>
+      <%= render 'experiments/interface_help' %>
+  </div>
+  <div class="center">
+      <input type="button" id="startButton" class="largeButton" value="Start"/>
+  </div>
+  </div>
+</div>
+
+<div id="mturkOverlay" class="mturkOverlay" oncontextmenu="$('#canvas').focus(); return false;"
+     onclick="$('#canvas').focus();" style="display:none">
+  <div id="editInstructions" class="editInstructions">
+    <p id="prompt" class="prompt">Put mouse here for instructions</p>
+    <div id="instructions" class="instructions">
+      <p>Place objects to create a scene that best resembles the text description.</p>
+      <p>Please make sure the final arrangement of objects matches the description and the arrangement of the objects looks natural.</p>
+      <p>Click the "Save" button to save your progress, and click the "Done" button when you're done to go on to the next scene.</p>
+    </div>
+  </div>
+</div>
+
+<%= render 'entryOverlay' %>

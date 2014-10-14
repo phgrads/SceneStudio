@@ -12,7 +12,7 @@ class Experiments::Scene2descController < ApplicationController
 
   before_filter :can_manage_tasks_filter, only: [:results, :view, :load]
   before_filter :retrieve_list, only: [:results]
-  before_filter :retrieve, only: [:view, :load]
+  before_filter :retrieve_item, only: [:view, :load]
 
   layout 'webgl_viewport', only: [:index, :view]
 
@@ -54,13 +54,6 @@ class Experiments::Scene2descController < ApplicationController
     def retrieve_list
       @task = MtTask.find_by_name!("scene2desc")
       @completed = get_completed_items(@task.id)
-    end
-
-    def retrieve
-      @item = CompletedItemsView.find(params[:id])
-      @data = JSON.parse(@item.data)
-      @entry = @data['entry']
-      @title = @item.taskName + ' ' + @item.condition + ' ' + @item.item
     end
 
 end

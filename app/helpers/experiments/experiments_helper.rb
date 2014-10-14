@@ -180,4 +180,13 @@ module Experiments::ExperimentsHelper
   def get_completed_items(taskId)
     @completed = CompletedItemsView.filter(params.slice(:workerId, :item, :condition)).where('taskId = ?', taskId)
   end
+
+  def retrieve_item
+    @item = CompletedItemsView.find(params[:id])
+    @data = JSON.parse(@item.data)
+    @entry = @data['entry']
+    @title = @item.taskName + ' ' + @item.condition + ' ' + @item.item
+    @on_close_url = url_for(:action => 'results', :only_path => true)
+  end
+
 end

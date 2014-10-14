@@ -1,0 +1,3 @@
+id	category	url
+3	test	/scenes/3/load
+15	test	/scenes/15/load

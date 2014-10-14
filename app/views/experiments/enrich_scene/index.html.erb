@@ -1,44 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>MTurk Task</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <!-- defines js function abstracting submission -->
-  <%= render 'experiments/submit_mturk_report' %>
-  <script type="text/javascript">
-    function submit() {
-      submit_mturk_report({
-        example_input: 'hello',
-        example_output: 'world',
-      }).error(function() {
-        alert('failed to submit data');
-      }).success(function(response) {
-        $('#coupon_code_display').text(
-          'your coupon code is ' + response.coupon_code
-         );
-      });
-    }
-  </script>
-  <%= csrf_meta_tags %>
-  <!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-</head>
-<body>
-<div class='container'>
-  <div class="row">
-    <div class="span6 offset3">
-      <h1> MTurk Task </h1>
-      <h4> Complete the task by hitting the button below </h4>
-      <a class='btn' onclick="submit();">
-        Complete Task
-      </a>
-      <h5 id='coupon_code_display'></h5>
-    </div>
-  </div>
-
-  <%= debug(params) if Rails.env.development? %>
+<div id="ui">
+  <%= render '/scenes/graphicsArea' %>
+  <%= render '/scenes/graphicsOverlay' %>
+  <%= render '/scenes/searchPanel' %>
+  <%= render '/scenes/console' %>
+  <%= render '/experiments/submit_mturk_report' %>
+  <%= render 'mturkOverlay' %>
+  <%= render 'globals' %>
 </div>
-</body>
-</html>
+<%= render '/experiments/comments' %>
+<%= requirejs_include_tag('experiments/enrich_scene') %>
