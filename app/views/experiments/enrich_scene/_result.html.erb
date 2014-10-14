@@ -1,0 +1,29 @@
+<tr>
+  <td><nobr><%= result.updated_at %></nobr></td>
+  <td><%= link_to result.item, params.merge(:item => result.item) %></td>
+  <td><%= link_to result.condition, params.merge(:condition => result.condition) %></td>
+  <td><%= link_to result.workerId, params.merge(:workerId => result.workerId) %></td>
+  <td>
+    <% parsed = JSON.parse(result.data) %>
+    <% entry = parsed ? parsed['entry']:nil %>
+    <% if entry %>
+        <%= link_to entry['description'], { action: 'view', id: result.id } %>
+    <% else %>
+        <%= link_to result.item, { action: 'view', id: result.id } %>
+    <% end %>
+  </td>
+  <td>
+    <% if result.preview %>
+        <% preview_url = result.preview.url %>
+        <% if preview_url %>
+           <%= image_tag preview_url %>
+        <% end %>
+    <% end %>
+  </td>
+  <td>
+    <%= link_to '×',
+        { controller: '/mturk', action: 'destroy_item', itemId: result.id },
+        confirm: 'Are you sure?', method: :post,
+        class: 'btn btn-danger scene-delete' %>
+  </td>
+</tr>

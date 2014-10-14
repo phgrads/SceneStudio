@@ -21,6 +21,7 @@ define(function(require) {
         app: app,
         entries: window.globals.entries,
         conf: window.globals.conf,
+        loadSceneFromUrl: true,
         showEntryCallback: showEntryCallback
       });
       app.autoSaveOnClose = true;

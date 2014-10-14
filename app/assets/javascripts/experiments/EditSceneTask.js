@@ -12,6 +12,7 @@ define([
       this.entryIndex = 0;
       this.savedItemInfo = undefined;
       this.app = params.app;
+      this.loadSceneFromUrl = params.loadSceneFromUrl;
       this.entries = params.entries;
       this.condition = params.conf['condition'];
       this.savePreview = params.conf['savePreview'];
@@ -118,8 +119,6 @@ define([
       this.savedItemInfo = undefined;
       this.entryIndex++;
       if (this.entryIndex < this.entries.length) {
-        // New scene
-        this.app.CreateEmpty();
         this.showEntry(this.entryIndex);
       } else {
         this.showComments();
@@ -127,7 +126,15 @@ define([
     };
 
     EditSceneTask.prototype.showEntry = function(index) {
-      this.showEntryCallback(this.entries[index]);
+      var entry = this.entries[index];
+      if (this.loadSceneFromUrl) {
+        this.app.onLoadUrl = entry['url'];
+        this.app.Launch();
+      } else {
+        // New scene
+        this.app.CreateEmpty();
+      }
+      this.showEntryCallback(entry);
     };
 
     EditSceneTask.prototype.start = function() {
