@@ -5,10 +5,10 @@ class MturkController < ApplicationController
   before_filter :require_assignment, only: [:report, :coupon, :report_item]
   before_filter :load_task_conf, only: [:coupon]
 
-  before_filter :can_manage_tasks_filter, only: [:tasks, :assignments, :destroy_item]
+  before_filter :can_manage_tasks_filter, only: [:tasks, :assignments, :preview_item, :destroy_item]
   before_filter :list_tasks, only: [:tasks]
   before_filter :list_assignments, only: [:assignments]
-  before_filter :retrieve_item, only: [:destroy_item]
+  before_filter :retrieve_item, only: [:preview_item, :destroy_item]
 
   # IFrame to be displayed in Amazon MTurk redirecting workers to actual task
   def task
@@ -140,6 +140,11 @@ class MturkController < ApplicationController
     @item.destroy
     flash[:success] = 'Item deleted.'
     redirect_to request.referer
+  end
+
+  # preview for item image available at mturk/results/#id/preview
+  def preview_item
+    redirect_to @item.preview.url
   end
 
   private

@@ -1,7 +1,7 @@
 class ScenesController < ApplicationController
   before_filter :signed_in_user_filter
   before_filter :access_by_owner, only: [:edit, :update, :destroy]
-  before_filter :retrieve, only: [:edit, :load, :view, :update, :destroy]
+  before_filter :retrieve, only: [:edit, :load, :view, :preview, :update, :destroy]
   layout 'webgl_viewport', only: [:edit, :view]
 
   def index
@@ -41,6 +41,11 @@ class ScenesController < ApplicationController
   # view for observing the scene available at scenes/#id/view
   def view
     render 'view'
+  end
+
+  # preview for scene image available at scenes/#id/preview
+  def preview
+    redirect_to @scene.preview.url
   end
 
   # send PUT to scenes/#id to update

@@ -189,4 +189,14 @@ module Experiments::ExperimentsHelper
     @on_close_url = url_for(:action => 'results', :only_path => true)
   end
 
+  def get_preview_for_scene_url(url)
+    if url =~ /^(.*)\/experiments\/(.*)\/(\d+)\/load$/
+      "#{$1}/mturk/results/#{$3}/preview"
+    elsif url =~ /^(.*)\/scenes\/(\d+)\/load$/
+      "#{$1}/scenes/#{$2}/preview"
+    else
+      nil
+    end
+  end
+
 end

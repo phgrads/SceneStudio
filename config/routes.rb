@@ -45,11 +45,13 @@ SceneStudio::Application.routes.draw do
   resources :scenes, only: [:index, :create, :edit, :update, :destroy]
   match '/scenes/:id/load',         to: 'scenes#load'
   match '/scenes/:id/view',         to: 'scenes#view'
+  match '/scenes/:id/preview',      to: 'scenes#preview'
 
   # mTurk
   get '/mturk/task',                to: 'mturk#task'
   get '/mturk/tasks',               to: 'mturk#tasks'
   get '/mturk/assignments',         to: 'mturk#assignments'
+  get '/mturk/results/:itemId/preview', to: 'mturk#preview_item'
   post '/mturk/report',             to: 'mturk#report'
   post '/mturk/coupon',             to: 'mturk#coupon'
   post '/mturk/report_item',        to: 'mturk#report_item'
