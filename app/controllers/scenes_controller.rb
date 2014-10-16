@@ -6,6 +6,11 @@ class ScenesController < ApplicationController
 
   def index
     @scene_list = current_user.scenes
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @scene_list.as_csv }
+    end
   end
 
   def create
