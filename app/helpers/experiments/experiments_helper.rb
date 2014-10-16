@@ -125,7 +125,7 @@ module Experiments::ExperimentsHelper
   def load_entries(file)
     # Loads entries from file
     csv_file = File.join(Rails.root,file)
-    csv = CSV.read(csv_file, { :headers => true, :col_sep => "\t"})
+    csv = CSV.read(csv_file, { :headers => true, :col_sep => "\t", :skip_blanks => true})
     csv.map { |row|
       {
           id: row['id'],

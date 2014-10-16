@@ -3,7 +3,7 @@
 define([
   './../gl_app/App',
   'bootbox',
-  'jquery',
+  'jquery'
 ],
   function (App,bootbox)
   {

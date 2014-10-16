@@ -56,5 +56,3 @@ sz54	There is a coffee table and a short vase on the table.	2
 sz55	There is a coffee table and a tall vase on the table.	2
 sz56	There is a coffee table and a very short vase on the table.	2
 sz57	There is a coffee table and a very tall vase on the table.	2
-
-
