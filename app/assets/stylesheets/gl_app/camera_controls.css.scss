@@ -25,6 +25,7 @@ $blue: rgba(79,127,173,1);
   text-align: center;
 
   @include background-linear-gradient($white, $lightblue);
+  @include box-sizing(content-box);
 }
 .cameraControlsButton:hover
 {
@@ -58,6 +59,7 @@ $blue: rgba(79,127,173,1);
   width: 58px;
   height: 58px;
   margin-bottom: 10px;
+  @include box-sizing(content-box);
 }
 
 .dpadIconHolder

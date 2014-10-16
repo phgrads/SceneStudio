@@ -29,3 +29,9 @@
   -o-box-shadow: $v;
   box-shadow: $v;
 }
+
+@mixin box-sizing($v) {
+  -webkit-box-sizing: $v;
+  -moz-box-sizing: $v;
+  box-sizing: $v;
+}

@@ -36,6 +36,8 @@
   width: 40px;
 
   cursor: default;
+
+  @include box-sizing(content-box);
 }
 #toolbar .button:hover
 {
