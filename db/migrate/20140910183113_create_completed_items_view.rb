@@ -3,7 +3,7 @@ class CreateCompletedItemsView < ActiveRecord::Migration
     execute <<-SQL
       CREATE VIEW completed_items_view AS
         SELECT items.id,
-               items.mt_condition AS condition,
+               items.mt_condition AS 'condition',
                items.mt_item AS item,
                items.data,
                items.created_at,
