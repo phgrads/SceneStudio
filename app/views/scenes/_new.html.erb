@@ -1,7 +1,9 @@
 <!-- new scene modal -->
-<div id="NewSceneModal" class="modal hide fade"
+<div id="NewSceneModal" class="modal fade"
      tabindex="-1" role="dialog"
-     aria-labelledby="NewSceneModalLabel" aria-hidden="true">
+     aria-labelledby="NewSceneModalLabel">
+  <div class="modal-dialog">
+  <div class="modal-content">
   <%= form_tag(scenes_path,
                class: 'form-horizontal modal-form') do %>
       <div class="modal-header">
@@ -9,29 +11,37 @@
                 aria-hidden="true">
           ×
         </button>
-        <h3 id="NewSceneModalLabel"> New Scene </h3>
+        <h4 class="modal-title" id="NewSceneModalLabel"> New Scene </h4>
       </div>
       <div class="modal-body">
-        <div class="field control-group">
-          <%= label_tag :name, nil, class: 'control-label' %>
-          <div class='controls'>
+        <div class="field form-group">
+          <%= label_tag :name, nil, class: 'col-sm-2 control-label' %>
+          <div class='col-sm-10'>
             <%= text_field_tag :name, nil, autofocus: 'autofocus' %>
           </div>
-          <%= label_tag :description, nil, class: 'control-label' %>
-          <div class='controls'>
-            <%= text_area_tag :description, nil %>
+        </div>
+        <div class="field form-group">
+          <%= label_tag :description, nil, class: 'col-sm-2 control-label' %>
+          <div class='col-sm-10'>
+            <%= text_area_tag :description, nil, class: 'form-control' %>
           </div>
-          <%= label_tag :category, nil, class: 'control-label' %>
-          <div class='controls'>
-            <%= text_field_tag :category, nil %>
+        </div>
+        <div class="field form-group">
+          <%= label_tag :category, nil, class: 'col-sm-2 control-label' %>
+          <div class='col-sm-10'>
+            <%= text_field_tag :category, nil, class: 'form-control' %>
           </div>
-          <%= label_tag :tag, nil, class: 'control-label' %>
-          <div class='controls'>
-            <%= text_field_tag :tag, nil %>
+        </div>
+        <div class="field form-group">
+          <%= label_tag :tag, nil, class: 'col-sm-2 control-label' %>
+          <div class='col-sm-10'>
+            <%= text_field_tag :tag, nil, class: 'form-control' %>
           </div>
-          <%= label_tag :dataset, nil, class: 'control-label' %>
-          <div class='controls'>
-            <%= text_field_tag :dataset, nil %>
+        </div>
+        <div class="field form-group">
+          <%= label_tag :dataset, nil, class: 'col-sm-2 control-label' %>
+          <div class='col-sm-10'>
+            <%= text_field_tag :dataset, nil, class: 'form-control' %>
           </div>
         </div>
       </div>
@@ -43,4 +53,6 @@
         <%= submit_tag "Create Scene", class: "btn btn-primary" %>
       </div>
   <% end %>
+  </div>
+  </div>
 </div>

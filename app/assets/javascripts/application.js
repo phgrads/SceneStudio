@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap
+//= require bootstrap-sprockets
 // //= require require
 // DO NOT: use "require_tree ." OR "require require" here when require.js-rails is used with the assets pipeline
 //         All the AMD module javascripts should be pulled in by define() calls and managed by require.js

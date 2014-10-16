@@ -50,11 +50,11 @@ end
 # in production environments by default.
 group :assets do
   # Following 3 gems are for bootstrap-sass 3.2 support for rails 3.2.x support (see https://github.com/twbs/bootstrap-sass)
-  gem 'sprockets-rails', '=2.0.0.backport1'
-  gem 'sprockets', '=2.2.2.backport2'
-  gem 'sass-rails', github: 'guilleiguaran/sass-rails', branch: 'backport'
+  #gem 'sprockets-rails', '=2.0.0.backport1'
+  #gem 'sprockets', '=2.2.2.backport2'
+  #gem 'sass-rails', github: 'guilleiguaran/sass-rails', branch: 'backport'
 
-#  gem 'sass-rails',   '~> 3.2.3'
+  gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
 
   gem 'uglifier', '1.2.3'

@@ -1,16 +1,15 @@
 
 <header class='navbar navbar-fixed-top navbar-inverse'>
-  <div class='navbar-inner'>
     <div class='container'>
       <%= link_to 'SceneStudio', root_path, id: 'logo' %>
       <nav>
-        <ul class='nav pull-right'>
+        <ul class='nav navbar-nav pull-right'>
           <li><%= link_to 'Home', root_path %></li>
           <li><%= link_to 'Help', help_path %></li>
           <% if can_manage_tasks %>
             <li><%= link_to 'Tasks', mturk_tasks_path %></li>
           <% end %>
-          <li class="divider-vertical"></li>
+          <li class="divider"></li>
           <% if signed_in? %>
             <li><%= link_to "Logout ", signout_path %></li>
             <li><a id='username'><%= current_user.name %></a></li>
@@ -22,7 +21,6 @@
         </ul>
       </nav>
     </div>
-  </div>
 </header>
 
 <script>

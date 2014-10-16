@@ -1,6 +1,6 @@
 <% provide(:title, "My Scenes") %>
 <div class="row">
-  <div class="span12">
+  <div class="col-md-12">
     <h3>Scenes (<%= @scene_list.count %>)
     <!-- new scene button -->
     <button class="new-scene btn btn-primary" href="#NewSceneModal"
@@ -15,10 +15,8 @@
 <!-- scene list -->
 <% if @scene_list.any? %>
 <div class="container-fluid">
-  <div class="span12">
-      <ul class="thumbnails">
+  <div class="col-md-12">
         <%= render @scene_list %>
-      </ul>
   </div>
 </div>
 <% end %>

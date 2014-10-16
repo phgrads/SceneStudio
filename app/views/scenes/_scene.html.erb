@@ -1,4 +1,4 @@
-<li class="span3">
+<div class="col-md-3">
   <div class="thumbnail">
     <div class="scene-item">
       <% if scene.preview %>
@@ -10,11 +10,11 @@
           <%= image_tag 'scenePreview.jpg', { 'class' => 'img-responsive'}%>
       <% end %>
       <%= link_to scene.name, { action: 'edit', id: scene.id },
-                  class: 'btn scene-name' %>
+                  class: 'btn btn-default scene-name' %>
       <%= link_to '', { action: 'view', id: scene.id },
-                  class: 'btn icon-camera scene-view' %>
+                  class: 'btn glyphicon glyphicon-camera scene-view' %>
       <%= link_to '×', scene, confirm: 'Are you sure?', method: :delete,
                   class: 'btn btn-danger scene-delete' %>
     </div>
   </div>
-</li>
+</div>
