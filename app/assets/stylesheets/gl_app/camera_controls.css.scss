@@ -24,6 +24,7 @@ $blue: rgba(79,127,173,1);
 
   text-align: center;
 
+  line-height: normal;
   @include background-linear-gradient($white, $lightblue);
   @include box-sizing(content-box);
 }
@@ -72,6 +73,7 @@ $blue: rgba(79,127,173,1);
   margin-left: -10px;
   margin-top: -10px;
   background-color: rgba(207,231,250,1);
+  @include box-sizing(content-box);
 }
 
 .dpadIcon

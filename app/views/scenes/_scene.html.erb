@@ -1,4 +1,4 @@
-<div class="col-md-3">
+<div class="col-md-3 col-sm-6 col-xs-12">
   <div class="thumbnail">
     <div class="scene-item">
       <% if scene.preview %>
@@ -12,7 +12,7 @@
       <%= link_to scene.name, { action: 'edit', id: scene.id },
                   class: 'btn btn-default scene-name' %>
       <%= link_to '', { action: 'view', id: scene.id },
-                  class: 'btn glyphicon glyphicon-camera scene-view' %>
+                  class: 'btn btn-default glyphicon glyphicon-camera scene-view' %>
       <%= link_to '×', scene, confirm: 'Are you sure?', method: :delete,
                   class: 'btn btn-danger scene-delete' %>
     </div>
