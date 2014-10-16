@@ -9,7 +9,13 @@ class ScenesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @scene_list.as_csv }
+      format.csv {
+        columns = params[:columns]
+        if columns
+          columns = columns.split(',')
+        end
+        send_data @scene_list.as_csv(columns)
+      }
     end
   end
 

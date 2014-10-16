@@ -10,8 +10,9 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-
+require 'concerns/exportable'
 class Scene < ActiveRecord::Base
+  include Exportable
   attr_accessible :data, :ui_log
   attr_accessible :name, :description, :category, :tag, :dataset, :noedit
   dragonfly_accessor :preview do
@@ -30,13 +31,4 @@ class Scene < ActiveRecord::Base
   validates :user_id, presence: true
 
   default_scope order: 'scenes.created_at DESC'
-
-  def self.as_csv
-    CSV.generate do |csv|
-      csv << column_names
-      all.each do |item|
-        csv << item.attributes.values_at(*column_names)
-      end
-    end
-  end
 end
