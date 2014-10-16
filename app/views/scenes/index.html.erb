@@ -14,9 +14,11 @@
 
 <!-- scene list -->
 <% if @scene_list.any? %>
-<div class="container-fluid">
-  <div class="row">
-        <%= render @scene_list %>
-  </div>
+<div class="container">
+  <% @scene_list.in_groups_of(4).each do |group| %>
+      <div class="row">
+        <%= render group %>
+    </div>
+  <% end %>
 </div>
 <% end %>

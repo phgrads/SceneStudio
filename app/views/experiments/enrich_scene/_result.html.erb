@@ -16,7 +16,7 @@
     <% if entry %>
         <% preview_url = get_preview_for_scene_url(entry['url']) %>
         <% if preview_url %>
-            <%= image_tag preview_url %>
+            <%= image_tag preview_url, { 'class' => 'img-responsive'} %>
         <% end %>
     <% end %>
   </td>
@@ -24,7 +24,7 @@
     <% if result.preview %>
         <% preview_url = result.preview.url %>
         <% if preview_url %>
-           <%= image_tag preview_url %>
+           <%= image_tag preview_url, { 'class' => 'img-responsive'} %>
         <% end %>
     <% end %>
   </td>
