@@ -8,6 +8,11 @@
   display: table;
   text-align: center;
 
+  // Restrict width to our filler image width
+  img {
+    max-width: 225px;
+  }
+
   .scene-name {
     overflow: hidden;
   }

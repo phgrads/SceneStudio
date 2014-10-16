@@ -23,7 +23,14 @@ section {
   text-align: center;
 }
 
-
+// Improve behavior of img-responsive in firefox
+// from http://stackoverflow.com/questions/21943108/bootstrap-3-img-responsive-images-are-not-responsive-inside-fieldset-in-firefox
+.img-responsive {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+}
 
 /* basic typography */
 
