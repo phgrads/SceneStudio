@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
 gem 'rake', '10.1.0'
-gem 'bootstrap-sass', '~> 3.2.0'
+gem 'bootstrap-sass', '2.1'
 gem 'bcrypt-ruby', '~> 3.0.1'
 gem 'faker', '1.0.1'
 
@@ -49,11 +49,6 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  # Following 3 gems are for bootstrap-sass 3.2 support for rails 3.2.x support (see https://github.com/twbs/bootstrap-sass)
-  #gem 'sprockets-rails', '=2.0.0.backport1'
-  #gem 'sprockets', '=2.2.2.backport2'
-  #gem 'sass-rails', github: 'guilleiguaran/sass-rails', branch: 'backport'
-
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
 
