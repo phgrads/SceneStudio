@@ -1,5 +1,21 @@
-<div id='comment' class='center' style='display:none'>
-    <div>Please provide your comments about this task:</div>
-    <div><%= text_area_tag('comments', nil, {class: 'col-md-6', rows: 6}) %></div>
-    <div><button type='button' id='completeTaskButton'>Complete Task</button></div>
+<div id='comment' class='container' style='display:none'>
+  <div class="row">
+  <div  class='col-md-8 col-md-offset-2'>
+    <form role="form">
+    <div class="form-group">
+      <div class="row">
+      <label for="comments" class='control-label'>Please provide your comments about this task</label>
+      </div>
+      <div class="row">
+      <%= text_area_tag('comments', nil, {class: 'col-md-12', rows: 6}) %>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-md-4 top-buffer'>
+        <button type='button' id='completeTaskButton' class='btn btn-primary' >Complete Task</button>
+      </div>
+    </div>
+    </form>
+  </div>
+  </div>
 </div>

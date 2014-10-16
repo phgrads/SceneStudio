@@ -3,9 +3,9 @@
 define([
     './../gl_app/SceneViewer',
     './../gl_app/uibehaviors',
-    'jquery',
-    'bootbox'
-], function (SceneViewer, Behaviors) {
+    'bootbox',
+    'jquery'
+], function (SceneViewer, Behaviors, bootbox) {
 
   function SelectViewTask(params) {
     this.viewer = new SceneViewer(params);

@@ -59,17 +59,19 @@
       <div class="well">
         <a href="<%= @new_tab_href %>"
          target="_blank" style="target-new: tab;">
-          Please click here to visit the task page. <br />
-          On completion you will be given a code, <br />
-          which can be entered below to receive credit. <br />
+          Please click here to visit the task page. <br/>
+          On completion you will be given a code, <br/>
+          which can be entered below to receive credit. <br/>
         </a>
       </div>
       <div class="well">
         <form>
-          <label for="coupon_box">Coupon code:</label>
-          <input id='coupon_box' type="text" name="coupon_code"><br />
+          <div class="form-group">
+            <label for="coupon_box">Coupon code:</label>
+            <input id='coupon_box' type="text" name="coupon_code" class='form-control' ><br/>
+          </div>
         </form>
-        <a class='btn' onclick="submit_coupon();">Submit Coupon</a><br />
+        <a class='btn btn-default' onclick="submit_coupon();">Submit Coupon</a><br/>
       </div>
       <% else %>
       <p>

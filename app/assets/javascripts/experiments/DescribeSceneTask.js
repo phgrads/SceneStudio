@@ -2,10 +2,10 @@
 
 define([
   './../gl_app/App',
-  'jquery',
-  'bootbox'
+  'bootbox',
+  'jquery'
 ],
-  function (App)
+  function (App,bootbox)
   {
     function DescribeSceneTask(params)
     {

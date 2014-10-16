@@ -2,10 +2,10 @@
 
 define([
   './../gl_app/App',
+  'bootbox',
   'jquery',
-  'bootbox'
 ],
-  function (App)
+  function (App,bootbox)
   {
     function EditSceneTask(params)
     {
@@ -134,7 +134,9 @@ define([
         // New scene
         this.app.CreateEmpty();
       }
-      this.showEntryCallback(entry);
+      if (this.showEntryCallback) {
+        this.showEntryCallback(entry);
+      }
     };
 
     EditSceneTask.prototype.start = function() {
