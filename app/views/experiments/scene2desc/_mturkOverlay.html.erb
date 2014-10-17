@@ -56,7 +56,9 @@
   <div id="editInstructions" class="editInstructions">
     <div class="textDescription center">
     <p>Please write a couple of sentences that describes the scene.</p>
-    <%= text_area_tag('sceneDescription', nil, {class: 'span6', rows: 4}) %>
+    <div class='row'>
+    <%= text_area_tag('sceneDescription', nil, {class: 'col-md-6 col-md-offset-3', rows: 4}) %>
+    </div>
     <p>Click the "Done" button when you're done to go on to the next scene.</p>
     </div>
   </div>

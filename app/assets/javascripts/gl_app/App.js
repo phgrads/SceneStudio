@@ -154,19 +154,24 @@ define([
       $('#EditSceneModal').modal('show');
     };
 
+    App.prototype.SaveDone = function() {
+      // Save done - redisplay toolbar
+      this.toolbar.Show();
+    };
+
     App.prototype.SaveScene = function(on_success_callback, on_error_callback) {
       on_success_callback = on_success_callback || function() {
         showAlert('Scene successfully saved!', 'alert-success');
       };
       on_error_callback = on_error_callback || function() {
-        showAlert('Error saving scene', 'alert-error');
+        showAlert('Error saving scene', 'alert-danger');
       };
       var on_success = function() {
-        this.toolbar.Show();
+        this.SaveDone();
         on_success_callback();
       }.bind(this);
       var on_error = function() {
-        this.toolbar.Show();
+        this.SaveDone();
         on_error_callback();
       }.bind(this);
       this.toolbar.Hide();
@@ -620,7 +625,7 @@ define([
             preview: preview
           }).error(on_error).success(on_success);
       } else {
-        showAlert("Cannot save scene: No save url", 'alert-error');
+        showAlert("Cannot save scene: No save url", 'alert-danger');
       }
     };
 
@@ -631,7 +636,7 @@ define([
         //console.log(data);
         putViaJQuery(this.onSaveUrl, data).error(on_error).success(on_success);
       } else {
-        showAlert("Cannot save scene meta data: No save url", 'alert-error');
+        showAlert("Cannot save scene meta data: No save url", 'alert-danger');
       }
       $('#EditSceneModal').modal('hide');
     };

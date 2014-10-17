@@ -32,6 +32,8 @@ define([
         this.saveScene(app, on_success, on_error);
       } else{
         bootbox.alert("You haven't added anything to the scene yet.");
+        // Indicates to app that the save is done (without doing error callback)
+        app.SaveDone();
       }
     };
 
@@ -74,7 +76,7 @@ define([
       }.bind(this);
 
       on_error = on_error || function() {
-        showAlert("Error saving results. Please close tab and do task again.", 'alert-error');
+        showAlert("Error saving results. Please close tab and do task again.", 'alert-danger');
       };
       var preview = (this.savePreview)? app.GetPreviewImageData():undefined;
       var currentEntry = this.entries[this.entryIndex];

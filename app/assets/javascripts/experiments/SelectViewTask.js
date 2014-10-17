@@ -124,7 +124,7 @@ define([
     on_success = on_success || function(response) {
     }.bind(this);
     on_error = on_error || function() {
-      showAlert("Error saving results. Please close tab and do task again.", 'alert-error');
+      showAlert("Error saving results. Please close tab and do task again.", 'alert-danger');
     };
     var preview = (this.savePreview)? this.viewer.GetPreviewImageData():undefined;
     var currentEntry = this.entries[this.entryIndex];

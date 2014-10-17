@@ -156,7 +156,20 @@ class MturkController < ApplicationController
         if columns
           columns = columns.split(',')
         end
-        send_data @items.as_csv(columns)
+
+        if params[:expr]
+          # Exporting for use in experiment
+          # Remap the items
+          mapped_items = @items.map{ |item| {
+              id: "#{item.taskName}-#{item.id}",
+              url: "#{item.taskName}/#{item.id}/load"
+#              url: item.preview.url
+          }}
+          send_data as_csv(mapped_items, columns, :col_sep => "\t")
+        else
+          # Normal export as csv
+          send_data @items.as_csv(columns)
+        end
       }
     end
   end

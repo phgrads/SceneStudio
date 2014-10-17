@@ -12,4 +12,15 @@ module ApplicationHelper
     end
   end
 
+  def as_csv(array, column_names, *options)
+    if column_names.nil?
+      column_names = array.first.keys
+    end
+    CSV.generate(*options) do |csv|
+      csv << column_names
+      array.each do |item|
+        csv << item.values_at(*column_names)
+      end
+    end
+  end
 end

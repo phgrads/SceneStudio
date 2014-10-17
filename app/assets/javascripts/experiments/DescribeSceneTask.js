@@ -33,6 +33,8 @@ define([
       }
       else{
         bootbox.alert("Please write a sentence describing what you see!");
+        // Indicates to app that the save is done (without doing error callback)
+        app.SaveDone();
       }
     };
 

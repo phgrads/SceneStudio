@@ -6,11 +6,11 @@ module Exportable
   module ClassMethods
 
     # Exports as csv
-    def as_csv(column_names)
+    def as_csv(column_names, *options)
       if column_names.nil?
         column_names = self.column_names
       end
-      CSV.generate do |csv|
+      CSV.generate(*options) do |csv|
         csv << column_names
         self.all.each do |item|
           csv << item.attributes.values_at(*column_names)
