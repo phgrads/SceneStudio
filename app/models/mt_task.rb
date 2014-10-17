@@ -29,7 +29,7 @@ class MtTask < ActiveRecord::Base
 
   # Payment / Worker Parameters
     # note reward is an integer # of cents
-    attr_readonly   :num_assignments, :reward,
+    attr_accessible :num_assignments, :reward,
                     :max_workers, :max_hits_per_worker
     validates       :num_assignments, presence: true
     validates       :reward,          presence: true
@@ -38,7 +38,7 @@ class MtTask < ActiveRecord::Base
 
   # Description Parameters (how the HIT appears publicly)
     # note keywords is a string: a comma separated list
-    attr_readonly   :title, :description, :keywords
+    attr_accessible :title, :description, :keywords
     validates       :title,           presence: true, length: { maximum: 80 }
     validates       :description,     presence: true
 
