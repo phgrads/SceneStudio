@@ -9,5 +9,9 @@
         <button type="button" class="close" onclick="hideAlert()">&times;</button>
         <span id="alertMessage"></span>
     </div>
-    <%= render '/scenes/editHelp' %>
+    <% if allowEdit %>
+        <%= render '/scenes/editHelp' %>
+    <% else %>
+      <%= render '/scenes/viewHelp' %>
+    <% end %>
 </div>

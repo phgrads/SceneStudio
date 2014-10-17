@@ -114,9 +114,9 @@ function Toolbar(app, allowEdit)
 
   if (!allowEdit) {
     this.DisableButton('Save');
-    // Hide every button except for close
+    // Hide every button except for close and help
     for (var name in this.buttons) {
-      if (name !== 'Close') {
+      if (name !== 'Close' && name !== 'Help') {
         this.buttons[name].hide();
       }
     }

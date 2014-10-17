@@ -44,6 +44,9 @@
       </tbody>
     </table>
   </div>
+  <div>
+    <%= render 'experiments/interface_help_view_only' %>
+  </div>
   <div  class="center">
     <input type="button" id="startButton" class="largeButton" value="Start"/>
   </div>
@@ -53,7 +56,7 @@
 <div id="mturkOverlay" class="mturkOverlay" style="display:none">
   <div id="editInstructions" class="editInstructions">
     <div class="textDescription center">
-    <p>Please write a couple of sentences that describes the scene.
+    <p>Please write a couple of sentences that describe the scene.
       Please try to provide concrete details about the appearance and location of the objects in the scene.</p>
     <div class='row'>
     <%= text_area_tag('sceneDescription', nil, {class: 'col-md-6 col-md-offset-3', rows: 4}) %>
