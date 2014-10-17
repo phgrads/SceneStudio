@@ -106,7 +106,11 @@ define([
     DescribeSceneTask.prototype.showEntry = function(i) {
       this.sceneDescriptionElem.val('');
       var entry = this.entries[i];
-      this.app.onLoadUrl = entry['url'];
+      var url = entry['url'];
+      if (url.startsWith('/')) {
+        url = this.app.base_url + url;
+      }
+      this.app.onLoadUrl = url;
       this.app.Launch();
     };
 
