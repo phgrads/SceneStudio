@@ -43,7 +43,7 @@ class Experiments::SelectViewController < ApplicationController
         render :json => @data
       else
         # Scene was not saved, get scene from url
-        redirect_to @entry['url']
+        redirect_to get_path(@entry['url'])
       end
     else
       raise ActionController::RoutingError.new('Item Not Found')

@@ -68,7 +68,7 @@ class ScenesController < ApplicationController
 
   # preview for scene image available at scenes/#id/preview
   def preview
-    redirect_to @base_url + @scene.preview.url
+    redirect_to get_path(@scene.preview.url)
   end
 
   # send PUT to scenes/#id to update

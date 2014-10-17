@@ -182,7 +182,7 @@ class MturkController < ApplicationController
 
   # preview for item image available at mturk/results/#id/preview
   def preview_item
-    redirect_to @base_url + @item.preview.url
+    redirect_to get_path(@item.preview.url)
   end
 
   private

@@ -23,4 +23,12 @@ module ApplicationHelper
       end
     end
   end
+
+  def get_path(url)
+    if url.start_with?("/")
+      @base_url + url
+    else
+      url
+    end
+  end
 end
