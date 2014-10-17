@@ -64,12 +64,13 @@ $bg2: rgba(221,238,255,1);
 
 .help
 {
+  z-index: 3;
   font: 16pt arial;
   text-align: center;
   background: white;
   position: absolute;
-  bottom: 5%;
-  left: 5%;
+  top: 100px;
+  left: 100px;
   max-width: 40%;
   max-height: 75%;
   border: 1px solid #A5A5A5;
