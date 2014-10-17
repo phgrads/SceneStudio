@@ -205,7 +205,7 @@ class MturkController < ApplicationController
     end
 
     def list_items
-      @items = CompletedItemsView.filter(params.slice(:workerId, :taskName))
+      @items = CompletedItemsView.filter(params.slice(:workerId, :taskName, :condition, :item))
     end
 
     def retrieve_item
