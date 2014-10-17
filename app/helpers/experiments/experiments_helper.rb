@@ -126,12 +126,14 @@ module Experiments::ExperimentsHelper
     # Loads entries from file
     csv_file = File.join(Rails.root,file)
     csv = CSV.read(csv_file, { :headers => true, :col_sep => "\t", :skip_blanks => true})
+    # TODO: Make this more general
     csv.map { |row|
       {
           id: row['id'],
           description: row['description'],
           category: row['category'],
           url: row['url'],
+          rootModelId: row['rootModelId'],
           minObjects: row['minObjects']
       }
     }

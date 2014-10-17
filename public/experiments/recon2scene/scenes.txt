@@ -1,2 +1,2 @@
-id	category
-gates250d	office
+id	category	rootModelId
+gates250d	office	vf.gates250d

@@ -132,6 +132,9 @@ define([
         this.app.Launch();
       } else {
         // New scene
+        if (entry.rootModelId) {
+          this.app.rootModelId = entry.rootModelId;
+        }
         this.app.CreateEmpty();
       }
       if (this.showEntryCallback) {
