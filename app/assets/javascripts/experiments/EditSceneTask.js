@@ -130,7 +130,11 @@ define([
     EditSceneTask.prototype.showEntry = function(index) {
       var entry = this.entries[index];
       if (this.loadSceneFromUrl) {
-        this.app.onLoadUrl = entry['url'];
+        var url = entry['url'];
+        if (url.startsWith('/')) {
+          url = this.app.base_url + url;
+        }
+        this.app.onLoadUrl = url;
         this.app.Launch();
       } else {
         // New scene
