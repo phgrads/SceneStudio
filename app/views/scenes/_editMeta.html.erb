@@ -19,31 +19,31 @@
         <div class="field form-group">
           <%= label_tag :name, nil, class: 'col-sm-2 control-label' %>
           <div class='col-sm-10'>
-            <%= text_field_tag :name, nil, autofocus: 'autofocus', class: 'form-control'  %>
+            <%= text_field_tag :name, @scene.name, autofocus: 'autofocus', class: 'form-control'  %>
           </div>
         </div>
         <div class="field form-group">
           <%= label_tag :description, nil, class: 'col-sm-2 control-label' %>
           <div class='col-sm-10'>
-            <%= text_area_tag :description, nil, class: 'form-control' %>
+            <%= text_area_tag :description, @scene.description, class: 'form-control' %>
           </div>
         </div>
         <div class="field form-group">
           <%= label_tag :category, nil, class: 'col-sm-2 control-label' %>
           <div class='col-sm-10'>
-            <%= text_field_tag :category, nil, class: 'form-control' %>
+            <%= text_field_tag :category, @scene.category, class: 'form-control' %>
           </div>
         </div>
         <div class="field form-group">
           <%= label_tag :tag, nil, class: 'col-sm-2 control-label' %>
           <div class='col-sm-10'>
-            <%= text_field_tag :tag, nil, class: 'form-control' %>
+            <%= text_field_tag :tag, @scene.tag, class: 'form-control' %>
           </div>
         </div>
         <div class="field form-group">
           <%= label_tag :dataset, nil, class: 'col-sm-2 control-label' %>
           <div class='col-sm-10'>
-            <%= text_field_tag :dataset, nil, class: 'form-control' %>
+            <%= text_field_tag :dataset, @scene.dataset, class: 'form-control' %>
           </div>
         </div>
           <!--<%= label_tag :noedit, 'Read only', class: 'control-label' %>-->
