@@ -160,12 +160,12 @@ class MturkController < ApplicationController
         if params[:expr]
           # Exporting for use in experiment
           # Remap the items
-          mapped_items = @items.map{ |item| {
+          mapped = @items.map{ |item| {
               id: "#{item.taskName}-#{item.id}",
-              url: "#{item.taskName}/#{item.id}/load"
+              url: "/experiments/#{item.taskName}/#{item.id}/load"
 #              url: item.preview.url
           }}
-          send_data as_csv(mapped_items, columns, :col_sep => "\t")
+          send_data as_csv(mapped, columns, :col_sep => "\t")
         else
           # Normal export as csv
           send_data @items.as_csv(columns)

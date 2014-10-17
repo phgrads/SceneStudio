@@ -14,7 +14,19 @@ class ScenesController < ApplicationController
         if columns
           columns = columns.split(',')
         end
-        send_data @scene_list.as_csv(columns)
+
+        if params[:expr]
+          # Exporting for use in experiment
+          # Remap the scenes
+          mapped = @scene_list.map{ |item| {
+              id: "scene-#{item.id}",
+              url: "/scenes/#{item.id}/load"
+              #              url: item.preview.url
+          }}
+          send_data as_csv(mapped, columns, :col_sep => "\t")
+        else
+          send_data @scene_list.as_csv(columns)
+        end
       }
     end
   end
