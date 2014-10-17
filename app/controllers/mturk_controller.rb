@@ -5,9 +5,11 @@ class MturkController < ApplicationController
   before_filter :require_assignment, only: [:report, :coupon, :report_item]
   before_filter :load_task_conf, only: [:coupon]
 
-  before_filter :can_manage_tasks_filter, only: [:tasks, :assignments, :preview_item, :destroy_item]
+  before_filter :can_manage_tasks_filter,
+                only: [:tasks, :assignments, :items, :preview_item, :destroy_item]
   before_filter :list_tasks, only: [:tasks]
   before_filter :list_assignments, only: [:assignments]
+  before_filter :list_items, only: [:items]
   before_filter :retrieve_item, only: [:preview_item, :destroy_item]
 
   # IFrame to be displayed in Amazon MTurk redirecting workers to actual task
@@ -133,7 +135,30 @@ class MturkController < ApplicationController
   end
 
   def assignments
-    render 'mturk/assignments'
+    respond_to do |format|
+      format.html {
+        render 'mturk/assignments'
+      }
+      format.csv {
+        columns = params[:columns]
+        if columns
+          columns = columns.split(',')
+        end
+        send_data @assignments.as_csv(columns)
+      }
+    end
+  end
+
+  def items
+    respond_to do |format|
+      format.csv {
+        columns = params[:columns]
+        if columns
+          columns = columns.split(',')
+        end
+        send_data @items.as_csv(columns)
+      }
+    end
   end
 
   def destroy_item
@@ -164,6 +189,10 @@ class MturkController < ApplicationController
 
     def list_assignments
       @assignments = AssignmentsView.filter(params.slice(:hitId, :workerId, :taskName))
+    end
+
+    def list_items
+      @items = CompletedItemsView.filter(params.slice(:workerId, :taskName))
     end
 
     def retrieve_item

@@ -10,9 +10,12 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+require 'concerns/filterable'
 require 'concerns/exportable'
 class Scene < ActiveRecord::Base
+  include Filterable
   include Exportable
+
   attr_accessible :data, :ui_log
   attr_accessible :name, :description, :category, :tag, :dataset, :noedit
   dragonfly_accessor :preview do

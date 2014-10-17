@@ -1,6 +1,8 @@
 require 'concerns/filterable'
+require 'concerns/exportable'
 class AssignmentsView < ActiveRecord::Base
   include Filterable
+  include Exportable
   self.table_name = 'assignments_view'  # for rails >= 3.2
   attr_readonly :data, :assignmentId, :hitId, :taskName, :workerId, :conf, :created_at, :updated_at, :completed_at
 

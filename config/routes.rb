@@ -51,6 +51,7 @@ SceneStudio::Application.routes.draw do
   get '/mturk/task',                to: 'mturk#task'
   get '/mturk/tasks',               to: 'mturk#tasks'
   get '/mturk/assignments',         to: 'mturk#assignments'
+  get '/mturk/items',               to: 'mturk#items'
   get '/mturk/results/:itemId/preview', to: 'mturk#preview_item'
   post '/mturk/report',             to: 'mturk#report'
   post '/mturk/coupon',             to: 'mturk#coupon'
