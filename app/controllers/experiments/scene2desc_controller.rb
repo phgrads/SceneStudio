@@ -10,7 +10,7 @@ class Experiments::Scene2descController < ApplicationController
   before_filter :load_data, only: [:index]
   before_filter :estimate_task_time, only: [:index]
 
-  before_filter :can_manage_tasks_filter, only: [:results, :view, :load]
+  before_filter :can_manage_tasks_filter, only: [:results, :view]
   before_filter :retrieve_list, only: [:results]
   before_filter :retrieve_item, only: [:view, :load]
 
@@ -18,7 +18,7 @@ class Experiments::Scene2descController < ApplicationController
 
   def index
     if not @via_turk then
-      @task = MtTask.find_by_name!("desc2scene")
+      @task = MtTask.find_by_name!("scene2desc")
     end
     @title = @task.title
     if @entries.any? then
