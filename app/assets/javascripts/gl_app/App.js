@@ -91,7 +91,7 @@ define([
 
       this.AttachEventHandlers();
 
-      this.undoStack = new UndoStack.UndoStack(this, Constants.undoStackMaxSize);
+      this.undoStack = new UndoStack(this, Constants.undoStackMaxSize);
       this.toolbar = new Toolbar(this, this.allowEdit);
       this.cameraControls = new CameraControls(this);
       this.searchController = new SearchController(this);
@@ -322,7 +322,7 @@ define([
             }.bind(this)))
             .onfinish(ensureInstance(function(opts) {
               if(opts.saveUndo)
-                this.undoStack.pushCurrentState(UndoStack.CMDTYPE.ROTATE,
+                this.undoStack.pushCurrentState(Constants.CMDTYPE.ROTATE,
                   opts.instance);
             }.bind(this)));
 
@@ -334,7 +334,7 @@ define([
             }.bind(this)))
             .onfinish(ensureInstance(function(opts) {
               if(opts.saveUndo)
-                this.undoStack.pushCurrentState(UndoStack.CMDTYPE.ROTATE,
+                this.undoStack.pushCurrentState(Constants.CMDTYPE.ROTATE,
                   opts.instance);
             }.bind(this)));
 
@@ -346,7 +346,7 @@ define([
             }.bind(this)))
             .onfinish(ensureInstance(function(opts) {
               if(opts.saveUndo)
-                this.undoStack.pushCurrentState(UndoStack.CMDTYPE.SCALE,
+                this.undoStack.pushCurrentState(Constants.CMDTYPE.SCALE,
                   opts.instance);
             }.bind(this)));
 
@@ -358,7 +358,7 @@ define([
             }.bind(this)))
             .onfinish(ensureInstance(function(opts) {
               if(opts.saveUndo)
-                this.undoStack.pushCurrentState(UndoStack.CMDTYPE.SCALE,
+                this.undoStack.pushCurrentState(Constants.CMDTYPE.SCALE,
                   opts.instance);
             }.bind(this)));
 
@@ -371,7 +371,7 @@ define([
           .onfinish(ensureInstance(function(opts) {
             if(opts.saveUndo)
               this.undoStack.pushCurrentState(
-                UndoStack.CMDTYPE.SWITCHFACE, opts.instance);
+                Constants.CMDTYPE.SWITCHFACE, opts.instance);
           }.bind(this)));
 
         // Copy/Paste
@@ -587,14 +587,14 @@ define([
       if (selectedMinst)
       {
         this.RemoveModelInstance(selectedMinst);
-        this.undoStack.pushCurrentState(UndoStack.CMDTYPE.DELETE, null);
+        this.undoStack.pushCurrentState(Constants.CMDTYPE.DELETE, null);
       }
     };
 
     App.prototype.Tumble = function(mInst, doRecordUndoEvent)
     {
       mInst.Tumble();
-      doRecordUndoEvent && this.undoStack.pushCurrentState(UndoStack.CMDTYPE.SWITCHFACE, mInst);
+      doRecordUndoEvent && this.undoStack.pushCurrentState(Constants.CMDTYPE.SWITCHFACE, mInst);
       this.renderer.postRedisplay();
     };
 
@@ -830,7 +830,7 @@ define([
         hi.renderState.isInserting = false;
 
         this.SelectInstance(hi);
-        this.undoStack.pushCurrentState(UndoStack.CMDTYPE.INSERT, hi);
+        this.undoStack.pushCurrentState(Constants.CMDTYPE.INSERT, hi);
         this.renderer.postRedisplay();
       }
     };

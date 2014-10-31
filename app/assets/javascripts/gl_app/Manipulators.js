@@ -5,14 +5,13 @@ define([
 	'./Mesh',
 	'./Material',
 	'./Model',
-	'./UndoStack',
 	'./fsm',
 	'./uibehaviors',
 	'gl-matrix',
 	'gl-matrix-ext',
 	'jquery'
 ],
-function(Constants, Mesh, Material, Model, UndoStack, FSM, Behaviors){
+function(Constants, Mesh, Material, Model, FSM, Behaviors){
 
 ////  Manipulator base class ////
 
@@ -328,7 +327,7 @@ RotationManipulator.prototype.ContinueMouseInteract = function(data)
 
 RotationManipulator.prototype.EndMouseInteract = function(data)
 {
-    data.app.undoStack.pushCurrentState(UndoStack.CMDTYPE.ROTATE,
+    data.app.undoStack.pushCurrentState(Constants.CMDTYPE.ROTATE,
                                         this.ownerInstance);
 };
 
@@ -475,7 +474,7 @@ ScaleManipulator.prototype.ContinueMouseInteract = function(data)
 
 ScaleManipulator.prototype.EndMouseInteract = function(data)
 {
-    data.app.undoStack.pushCurrentState(UndoStack.CMDTYPE.SCALE,
+    data.app.undoStack.pushCurrentState(Constants.CMDTYPE.SCALE,
                                         this.ownerInstance);
 };
 

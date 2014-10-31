@@ -1,10 +1,11 @@
 'use strict';
 
 define([
+  './Constants',
 	'./PubSub',
   './PackedModelsSceneLoader'
 ],
-function(PubSub, PackedModelsSceneLoader){
+function(Constants, PubSub, PackedModelsSceneLoader){
 
 /**
  * Undo stack encapsulation class
@@ -28,37 +29,23 @@ UndoStack.prototype = Object.create(PubSub.prototype);
 UndoStack.prototype.clear = function() {
   this.states = [];
   this.pos = 0;
-  this.states[0] = this.createSaveState(CMDTYPE.INIT, -1);
+  this.states[0] = this.createSaveState(Constants.CMDTYPE.INIT, -1);
 };
 
-// Command type enum
-var CMDTYPE = Object.freeze({
-  INSERT      : "INSERT",
-  DELETE      : "DELETE",
-  MOVE        : "MOVE",
-  ROTATE      : "ROTATE",
-  SCALE       : "SCALE",
-  SWITCHFACE  : "SWITCHFACE",
-  INIT        : "INIT",
-  TEXT2SCENE  : "TEXT2SCENE",
-  NULL        : "NULL"
-});
-
 // Constructor to save scene state snapshot before a command of cmdType is applied to targetModel
-function SavedState(cmdType, targetModelIndex, app, serializedScene, selectedIndex) {
+function SavedState(cmdType, targetModelIndex, serializedScene, selectedIndex) {
   this.cmdType = cmdType;
   this.targetModelIndex = targetModelIndex;
-  this.app = app;
 	this.serializedScene = serializedScene;
 	this.selectedIndex = selectedIndex;
 }
 
-SavedState.prototype.restore = function() {
+UndoStack.prototype.restoreSaveState = function(saveState) {
 	var app = this.app;
-	var scene = app.scene;
+  var scene = app.scene;
 	
-	this.loader.LoadFromLocalSerialized(scene, this.serializedScene, app.assman);
-	app.SelectInstance(scene.IndexToObject(this.selectedIndex));
+	this.loader.LoadFromLocalSerialized(scene, saveState.serializedScene, app.assman);
+	app.SelectInstance(scene.IndexToObject(saveState.selectedIndex));
 };
 
 UndoStack.prototype.createSaveState = function(cmdType, targetModelIndex) {
@@ -66,7 +53,7 @@ UndoStack.prototype.createSaveState = function(cmdType, targetModelIndex) {
 	var selectedInst = this.app.uistate.selectedInstance;
 	var selectedIndex = scene.ObjectToIndex(selectedInst);
   var serializedScene = this.loader.SerializeForLocal(scene);
-  return new SavedState(cmdType, targetModelIndex, this.app, serializedScene, selectedIndex);
+  return new SavedState(cmdType, targetModelIndex, serializedScene, selectedIndex);
 };
 
 UndoStack.prototype.undo = function() {
@@ -75,7 +62,7 @@ UndoStack.prototype.undo = function() {
 
   //console.log("UndoStack: undo " + this.states[this.pos].cmdType + ", pos=" + this.pos);
   this.pos--;
-  this.states[this.pos].restore();
+  this.restoreSaveState(this.states[this.pos]);
 
 	this.Publish('RestoredSavedState');
 	if (this.pos === 0) {
@@ -88,7 +75,7 @@ UndoStack.prototype.redo = function() {
   if (this.pos === (this.states.length - 1)) return;
 
   this.pos++;
-  this.states[this.pos].restore();
+  this.restoreSaveState(this.states[this.pos]);
   //console.log("UndoStack: redo " + this.states[this.pos].cmdType + ", pos=" + this.pos);
 
 	this.Publish('RestoredSavedState');
@@ -130,9 +117,5 @@ UndoStack.prototype.isEmpty = function() {
 };
 
 // Exports
-return {
-  UndoStack: UndoStack,
-  CMDTYPE: CMDTYPE
-};
-
+return UndoStack;
 });

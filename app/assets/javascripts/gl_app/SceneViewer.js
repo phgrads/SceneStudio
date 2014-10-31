@@ -40,11 +40,11 @@ define([
       this.toolbar = new Toolbar(this, false);
     }
 
-    this.uimap = uimap.create(canvas);
+    this.uimap = uimap.create(this.canvas);
     this.scene = new Scene();
     this.loader = new PackedModelsSceneLoader();
     this.camera = new FPCamera(this.scene);
-    this.renderer = new Renderer(canvas, this.scene, undefined, this.camera);
+    this.renderer = new Renderer(this.canvas, this.scene, undefined, this.camera);
     this.assman = new AssetManager(this.renderer.gl_);
     this.uilog = new UILog.UILog();
 

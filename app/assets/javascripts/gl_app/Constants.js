@@ -116,6 +116,19 @@ Constants.textureCacheMaxSize = 20;
 // Undo stack settings
 Constants.undoStackMaxSize = 100;
 
+// Command type enum
+Constants.CMDTYPE = Object.freeze({
+  INSERT      : "INSERT",
+  DELETE      : "DELETE",
+  MOVE        : "MOVE",
+  ROTATE      : "ROTATE",
+  SCALE       : "SCALE",
+  SWITCHFACE  : "SWITCHFACE",
+  INIT        : "INIT",
+  TEXT2SCENE  : "TEXT2SCENE",
+  NULL        : "NULL"
+});
+
 // Exports
 return Constants;
 
