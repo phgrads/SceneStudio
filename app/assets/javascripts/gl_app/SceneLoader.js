@@ -1,13 +1,17 @@
 'use strict';
 
 define([
-  './PackedModelsSceneLoader'
+  './PackedModelsSceneLoader',
+  './SSJSceneLoader'
 ],
 
-function(PackedModelsSceneLoader){
+function(PackedModelsSceneLoader, SSJSceneLoader){
 
   function SceneLoader() {
-    this.packedModelsLoader = new PackedModelsSceneLoader();
+    this.loaders = {
+      "packed": new PackedModelsSceneLoader(),
+      "ssj": new SSJSceneLoader()
+    };
   }
 
   // Returns a JSON stringified array of {modelID, transform} objects
@@ -23,12 +27,12 @@ function(PackedModelsSceneLoader){
 
   // Return stringified array of strings, each string representing a serialized model instance
   SceneLoader.prototype.SerializeForNetwork = function(scene) {
-    return this.packedModelsLoader.SerializeForNetwork(scene);
+    return this.loaders["packed"].SerializeForNetwork(scene);
   };
 
   // Load stringified array of strings, each string representing a serialized model instance
   SceneLoader.prototype.LoadFromNetworkSerialized = function(scene, serialized, assman, callback) {
-    return this.packedModelsLoader.LoadFromNetworkSerialized(scene, serialized, assman, callback);
+    return this.loaders["packed"].LoadFromNetworkSerialized(scene, serialized, assman, callback);
   };
 
   // Exports
