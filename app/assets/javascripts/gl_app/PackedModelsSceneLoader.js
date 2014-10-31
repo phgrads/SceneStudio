@@ -2,18 +2,17 @@
 
 define([
   './ModelInstance',
-  './Scene',
   'async'
 ],
 
-function(ModelInstance, Scene){
+function(ModelInstance){
 
   function PackedModelsSceneLoader() {
   }
 
+  // Returns a JSON stringified array of {modelID, transform} objects
+  // for rendering in external application
   PackedModelsSceneLoader.prototype.SerializeBare = function(scene) {
-    // Just serializes model ids and transforms; enough to render
-    // the scene correctly in a different application
     var mlist = [];
     scene.modelList.forEach(function(model) {
       model.UpdateTransform();
@@ -22,6 +21,8 @@ function(ModelInstance, Scene){
     return JSON.stringify(mlist);
   };
 
+  // In-memory JSON stringification of model instances for re-rendering
+  // at later time
   PackedModelsSceneLoader.prototype.SerializeForLocal = function(scene) {
     var packedModels = [];
     var modelMap = [];
@@ -32,8 +33,8 @@ function(ModelInstance, Scene){
     return { packedModels: packedModels, modelMap: modelMap };
   };
 
-  PackedModelsSceneLoader.prototype.LoadFromLocalSerialized = function(serializedScene, assman, top_level_callback) {
-    var scene = new Scene();
+  // Load in-memory JSON stringification of model instances
+  PackedModelsSceneLoader.prototype.LoadFromLocalSerialized = function(scene, serializedScene, assman, top_level_callback) {
     top_level_callback = top_level_callback || function(){};
     scene.Reset();
 
@@ -65,21 +66,23 @@ function(ModelInstance, Scene){
         delete model.parentIndex;
       }.bind(this));
 
-      scene.root = this.modelList[0];
+      scene.root = scene.modelList[0];
       scene.root.renderState.isSelectable = false;
 
       top_level_callback(err); // pass the error along I guess?
     }.bind(this));
   };
 
+  // Return stringified array of strings, each string representing a serialized model instance
   PackedModelsSceneLoader.prototype.SerializeForNetwork = function(scene) {
     var pair = this.SerializeForLocal(scene);
     return pair.packedModels;
   };
 
-  PackedModelsSceneLoader.prototype.LoadFromNetworkSerialized = function(serialized, assman, callback) {
+  // Load stringified array of strings, each string representing a serialized model instance
+  PackedModelsSceneLoader.prototype.LoadFromNetworkSerialized = function(scene, serialized, assman, callback) {
     var pair = { packedModels: serialized };
-    this.LoadFromLocalSerialized(pair, assman, callback);
+    this.LoadFromLocalSerialized(scene, pair, assman, callback);
   };
 
   // Exports

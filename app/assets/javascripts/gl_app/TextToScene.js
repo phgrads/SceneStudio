@@ -109,7 +109,8 @@ define(['./TextToSceneGenerator', './UndoStack',
         return JSON.stringify(x);
       });
       //TODO: Update this.app.uilog
-      this.app.scene.LoadFromNetworkSerialized(reserialized,
+      this.app.loader.LoadFromNetworkSerialized(this.app.scene,
+        reserialized,
         this.app.assman,
         on_success);
     };
@@ -137,7 +138,8 @@ define(['./TextToSceneGenerator', './UndoStack',
         return JSON.stringify(x);
       });
       //TODO: Update this.app.uilog
-      this.app.scene.LoadFromNetworkSerialized(reserialized,
+      this.app.loader.LoadFromNetworkSerialized(this.app.scene,
+        reserialized,
         this.app.assman,
         on_success);
     };

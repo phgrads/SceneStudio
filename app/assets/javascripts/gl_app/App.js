@@ -19,12 +19,13 @@ define([
   './fsm',
   './UILog',
   './TextToScene',
+  './PackedModelsSceneLoader',
   'jquery',
   'bootstrap'
 ],
   function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, SearchController,
             Manipulators, UndoStack, Toolbar, CameraControls, PubSub, SplitView, uimap, Behaviors, FSM, UILog,
-            TextToScene)
+            TextToScene, PackedModelsSceneLoader)
   {
     function UIState(gl)
     {
@@ -72,6 +73,7 @@ define([
       $.extend(this.camera, cameraData);
 
       this.scene = new Scene();
+      this.loader = new PackedModelsSceneLoader();
       this.renderer = new Renderer(canvas, this.scene, undefined, this.camera);
       this.assman = new AssetManager(this.renderer.gl_);
       this.uistate = new UIState(this.renderer.gl_);
@@ -185,7 +187,7 @@ define([
     App.prototype.GetSceneResults = function() {
       var finalcamera=this.camera.toJSONString();
       this.uilog.log('STATE_SCENE',finalcamera);
-      var serialized = this.scene.SerializeForNetwork();
+      var serialized = this.loader.SerializeForNetwork(this.scene);
       var results = {
         scene: JSON.stringify(serialized),
         ui_log: this.uilog.stringify()
@@ -435,7 +437,7 @@ define([
       Behaviors.keypress(this.uimap, 'ctrl+K')
         .onpress(function(data) {
           data.preventDefault();
-          console.log(this.scene.SerializeBare());
+          console.log(this.loader.SerializeBare(this.scene));
         }.bind(this));
 
       if (this.allowEdit) {
@@ -603,7 +605,8 @@ define([
           .error(on_error).success(function(json) {
             var scene_json = JSON.parse(json.scene);
             this.uilog.fromJSONString(json.ui_log);
-            this.scene.LoadFromNetworkSerialized(scene_json,
+            this.loader.LoadFromNetworkSerialized(this.scene,
+              scene_json,
               this.assman,
               on_success);
           }.bind(this));
@@ -616,7 +619,7 @@ define([
     App.prototype.SaveScene_ = function(on_success, on_error)
     {
       if (this.onSaveUrl) {
-        var serialized = this.scene.SerializeForNetwork();
+        var serialized = this.loader.SerializeForNetwork(this.scene);
         var preview = (this.savePreview)? this.GetPreviewImageData():undefined;
         putViaJQuery(this.onSaveUrl,
           {

@@ -16,10 +16,11 @@ define([
   './uibehaviors',
   './fsm',
   './UILog',
+  './PackedModelsSceneLoader',
   'jquery',
   'game-shim'
 ], function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Scene, Toolbar, CameraControls, PubSub, uimap,
-             Behaviors, FSM, UILog) {
+             Behaviors, FSM, UILog, PackedModelsSceneLoader) {
 
   function SceneViewer(params) {
     // Extend PubSub
@@ -41,6 +42,7 @@ define([
 
     this.uimap = uimap.create(canvas);
     this.scene = new Scene();
+    this.loader = new PackedModelsSceneLoader();
     this.camera = new FPCamera(this.scene);
     this.renderer = new Renderer(canvas, this.scene, undefined, this.camera);
     this.assman = new AssetManager(this.renderer.gl_);
@@ -120,7 +122,8 @@ define([
       .error(on_error).success(function(json) {
         var scene_json = JSON.parse(json.scene);
         this.uilog.fromJSONString(json.ui_log);
-        this.scene.LoadFromNetworkSerialized(scene_json,
+        this.loader.LoadFromNetworkSerialized(this.scene,
+          scene_json,
           this.assman,
           on_success);
       }.bind(this));
