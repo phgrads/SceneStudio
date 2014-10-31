@@ -7,7 +7,7 @@ define([
   './AssetManager',
   './ModelInstance',
   './Scene',
-  './PackedModelsSceneLoader',
+  './SceneLoader',
   './SearchController',
   './Manipulators',
   './UndoStack',
@@ -23,7 +23,7 @@ define([
   'jquery',
   'bootstrap'
 ],
-  function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, PackedModelsSceneLoader, SearchController,
+  function (Constants, Camera, Renderer, AssetManager, ModelInstance, Scene, SceneLoader, SearchController,
             Manipulators, UndoStack, Toolbar, CameraControls, PubSub, SplitView, uimap, Behaviors, FSM, UILog,
             TextToScene)
   {
@@ -73,7 +73,7 @@ define([
       $.extend(this.camera, cameraData);
 
       this.scene = new Scene();
-      this.loader = new PackedModelsSceneLoader();
+      this.loader = new SceneLoader();
       this.renderer = new Renderer(this.canvas, this.scene, undefined, this.camera);
       this.assman = new AssetManager(this.renderer.gl_);
       this.uistate = new UIState(this.renderer.gl_);

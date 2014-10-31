@@ -16,11 +16,11 @@ define([
   './uibehaviors',
   './fsm',
   './UILog',
-  './PackedModelsSceneLoader',
+  './SceneLoader',
   'jquery',
   'game-shim'
 ], function (Constants, Camera, FPCamera, Renderer, AssetManager, ModelInstance, Scene, Toolbar, CameraControls, PubSub, uimap,
-             Behaviors, FSM, UILog, PackedModelsSceneLoader) {
+             Behaviors, FSM, UILog, SceneLoader) {
 
   function SceneViewer(params) {
     // Extend PubSub
@@ -42,7 +42,7 @@ define([
 
     this.uimap = uimap.create(this.canvas);
     this.scene = new Scene();
-    this.loader = new PackedModelsSceneLoader();
+    this.loader = new SceneLoader();
     this.camera = new FPCamera(this.scene);
     this.renderer = new Renderer(this.canvas, this.scene, undefined, this.camera);
     this.assman = new AssetManager(this.renderer.gl_);

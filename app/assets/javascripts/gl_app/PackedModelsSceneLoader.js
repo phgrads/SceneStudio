@@ -6,20 +6,8 @@ define([
 ],
 
 function(ModelInstance){
-
   function PackedModelsSceneLoader() {
   }
-
-  // Returns a JSON stringified array of {modelID, transform} objects
-  // for rendering in external application
-  PackedModelsSceneLoader.prototype.SerializeBare = function(scene) {
-    var mlist = [];
-    scene.modelList.forEach(function(model) {
-      model.UpdateTransform();
-      mlist.push({ modelID: model.modelID, transform: model.transform});
-    });
-    return JSON.stringify(mlist);
-  };
 
   // In-memory JSON stringification of model instances for re-rendering
   // at later time
