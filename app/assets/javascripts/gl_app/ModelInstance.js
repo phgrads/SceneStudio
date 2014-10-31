@@ -3,14 +3,14 @@
 define([
 	'./Constants',
 	'./PubSub',
-	'./UndoStack',
 	'./CoordinateFrame',
 	'./fsm',
 	'./uibehaviors',
+  'jquery',
 	'gl-matrix',
 	'gl-matrix-ext'
 ],
-function(Constants, PubSub, UndoStack, CoordinateFrame, FSM, Behaviors){
+function(Constants, PubSub, CoordinateFrame, FSM, Behaviors){
 
 function ModelInstance(model, parentInst)
 {
@@ -667,8 +667,8 @@ ModelInstance.prototype.EndMouseInteract = function(data)
 
 	// If we actually did a move, then record it
 	// (this will fail to fire when the mouse was simply clicked and released)
-	if (this.moveState.isInteracting)
-		app.undoStack.pushCurrentState(UndoStack.CMDTYPE.MOVE, this);
+	//if (this.moveState.isInteracting)
+  //  app.undoStack.pushCurrentState(UndoStack.CMDTYPE.MOVE, this);
 		
 	delete this.moveState;
 		
