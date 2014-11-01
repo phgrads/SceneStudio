@@ -136,7 +136,7 @@ ModelInstance.fromJSON = function(json, assman, modelMap, callback) {
 
       // If transform was stored in json, re-instate it here
       if (json.transform) {
-          newMinst.parentMeshI = -1;
+          //newMinst.parentMeshI = -1;
           newMinst.transform = mat4.create(json.transform);
           mat4.toRotationMat(newMinst.transform, newMinst.normalTransform);
           newMinst.bakedTransform = true;

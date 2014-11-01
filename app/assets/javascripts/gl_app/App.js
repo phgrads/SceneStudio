@@ -201,8 +201,10 @@ define([
         function() { // on success finish up some setup
           this.camera.SaveStateForReset();
           this.camera.UpdateSceneBounds(this.scene.Bounds());
-//          this.camera.InitToSceneBounds();
-          //this.undoStack.clear();
+          if (!this.scene.cameraInitialized) {
+            this.camera.InitToSceneBounds();
+          }
+          this.undoStack.clear();
           this.renderer.resizeEnd();
           this.renderer.UpdateView();
         }.bind(this),

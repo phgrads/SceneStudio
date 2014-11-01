@@ -33,6 +33,7 @@ function(ModelInstance){
 
     var camera = jsonObject.cameras[0];
     scene.camera.Reset(camera.eye, camera.lookAt, camera.up);
+    scene.cameraInitialized = true;
 
     var getModelFromJSON = function(json, callback) {
       ModelInstance.fromJSON(

@@ -69,6 +69,7 @@ function(ModelInstance){
 
   // Load array of stringified JSON models
   PackedModelsSceneLoader.prototype.LoadFromNetworkSerialized = function(scene, serialized, assman, callback) {
+    scene.cameraInitialized = false;  // This format doesn't store a camera
     var pair = { packedModels: serialized };
     this.LoadFromLocalSerialized(scene, pair, assman, callback);
   };
