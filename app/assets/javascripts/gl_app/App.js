@@ -186,8 +186,6 @@ define([
     };
 
     App.prototype.GetSceneResults = function() {
-      var finalcamera=this.camera.toJSONString();
-      this.uilog.log('STATE_SCENE',finalcamera);
       var serialized = this.loader.SerializeForNetwork(this.scene);
       var results = {
         scene: JSON.stringify(serialized),
