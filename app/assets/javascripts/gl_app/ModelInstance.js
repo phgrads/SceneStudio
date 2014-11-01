@@ -56,7 +56,7 @@ ModelInstance.prototype = Object.create(PubSub.prototype);
 
 // This gets called by JSON.stringify()
 ModelInstance.prototype.toJSON = function() {
-  this.UpdateTransform();
+  //this.UpdateTransform();
   var obj = {};
   obj.index = this.index;
   obj.modelID = this.model.id;
@@ -78,17 +78,11 @@ ModelInstance.prototype.toJSON = function() {
   return obj;
 };
   
-ModelInstance.prototype.toJSONString = function()
-{
-    this.modelID = this.model.id;
-    this.parentIndex = (this.parent) ? this.parent.index : -1;
-    this.renderStateArr = [this.renderState.isPickable, this.renderState.isInserting, this.renderState.isSelected, this.renderState.isSelectable];
-    this.cu = this.coordFrame.u;
-    this.cv = this.coordFrame.v;
-    this.cw = this.coordFrame.w;
-    var fieldsToSave = ["index","modelID", "parentIndex", "renderStateArr", "cu", "cv", "cw", "parentMeshI", "parentTriI", "parentUV", "cubeFace", "scale", "rotation"];
-    if (this.bakedTransform) fieldsToSave.push("transform");
-    return JSON.stringify(this, fieldsToSave);
+ModelInstance.prototype.toJSONString = function() {
+  var fieldsToSave = ["index","modelID", "parentIndex", "renderStateArr", "cu", "cv", "cw", "parentMeshI", "parentTriI", "parentUV", "cubeFace", "scale", "rotation"];
+  if (this.bakedTransform) fieldsToSave.push("transform");
+  var obj = this.toJSON();
+  return JSON.stringify(obj, fieldsToSave);
 };
 
 // Recreates ModelInstance from given stringified JSON object and calls callback on it
@@ -140,10 +134,10 @@ ModelInstance.fromJSON = function(json, assman, modelMap, callback, unsetParentM
             // Do this for SceneStudio scenes with wrong parentMeshI's
             // TODO: Remove this hacky logic
             newMinst.parentMeshI = -1;
+            newMinst.transform = mat4.create(json.transform);
+            mat4.toRotationMat(newMinst.transform, newMinst.normalTransform);
+            newMinst.bakedTransform = true;
           }
-          newMinst.transform = mat4.create(json.transform);
-          mat4.toRotationMat(newMinst.transform, newMinst.normalTransform);
-          newMinst.bakedTransform = true;
       }
 
       // Copy over parent index.
@@ -699,9 +693,10 @@ ModelInstance.prototype.EndMouseInteract = function(data)
 
 	// If we actually did a move, then record it
 	// (this will fail to fire when the mouse was simply clicked and released)
-	//if (this.moveState.isInteracting)
-  //  app.undoStack.pushCurrentState(UndoStack.CMDTYPE.MOVE, this);
-		
+	if (this.moveState.isInteracting) {
+    app.undoStack.pushCurrentState(Constants.CMDTYPE.MOVE, this);
+  }
+
 	delete this.moveState;
 		
 	this.Publish('StoppedMoving');
