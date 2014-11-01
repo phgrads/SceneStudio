@@ -4,7 +4,7 @@
       <% if scene.preview %>
         <% preview_url = scene.preview.url %>
         <% if preview_url %>
-          <%= image_tag preview_url, { 'data-src' => preview_url, 'class' => 'img-responsive' } %>
+          <%= image_tag 'scenePreview.jpg', { 'data-original' => preview_url, 'class' => 'img-responsive lazy' } %>
         <% end %>
       <% else %>
           <%= image_tag 'scenePreview.jpg', { 'class' => 'img-responsive'}%>

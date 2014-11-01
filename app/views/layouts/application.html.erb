@@ -6,6 +6,7 @@
   <%= javascript_include_tag 'application' %>
   <%= favicon_link_tag %>
   <!--<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>-->
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
   <%= csrf_meta_tags %>
   <meta charset="utf-8">
   <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"/><![endif]-->
@@ -14,6 +15,9 @@
       window.globals = {
           base_url: "<%= @base_url %>"
       };
+      $(function() {
+          $("img.lazy").lazyload();
+      });
   </script>
 </head>
 <body>
