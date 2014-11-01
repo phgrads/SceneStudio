@@ -16,15 +16,15 @@
     <% if entry %>
         <% preview_url = get_preview_for_scene_url(entry['url']) %>
         <% if preview_url %>
-            <%= image_tag preview_url, { 'class' => 'img-responsive'} %>
+            <%= image_tag 'scenePreview.jpg', { 'data-original' => preview_url, 'class' => 'img-responsive lazy'} %>
         <% end %>
     <% end %>
   </td>
   <td>
     <% if result.preview %>
-        <% preview_url = result.preview.url %>
+        <% preview_url = get_path(result.preview.url) %>
         <% if preview_url %>
-           <%= image_tag preview_url, { 'class' => 'img-responsive'} %>
+            <%= image_tag 'scenePreview.jpg', { 'data-original' => preview_url, 'class' => 'img-responsive lazy'} %>
         <% end %>
     <% end %>
   </td>

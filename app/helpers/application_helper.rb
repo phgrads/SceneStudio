@@ -25,7 +25,7 @@ module ApplicationHelper
   end
 
   def get_path(url)
-    if url.start_with?("/")
+    if url && url.start_with?("/")
       @base_url + url
     else
       url
