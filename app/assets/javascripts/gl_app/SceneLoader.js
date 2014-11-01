@@ -12,6 +12,7 @@ function(PackedModelsSceneLoader, SSJSceneLoader){
       "packed": new PackedModelsSceneLoader(),
       "ssj": new SSJSceneLoader()
     };
+    this.defaultSerializer = this.loaders["ssj"];
   }
 
   // Returns a JSON stringified array of {modelID, transform} objects
@@ -27,12 +28,17 @@ function(PackedModelsSceneLoader, SSJSceneLoader){
 
   // Return stringified array of strings, each string representing a serialized model instance
   SceneLoader.prototype.SerializeForNetwork = function(scene) {
-    return this.loaders["packed"].SerializeForNetwork(scene);
+    return this.defaultSerializer.SerializeForNetwork(scene);
   };
 
-  // Load stringified array of strings, each string representing a serialized model instance
+  // Load scene from a JSON object or array representing the scene
   SceneLoader.prototype.LoadFromNetworkSerialized = function(scene, serialized, assman, callback) {
-    return this.loaders["packed"].LoadFromNetworkSerialized(scene, serialized, assman, callback);
+    if (serialized instanceof Array) {
+      return this.loaders["packed"].LoadFromNetworkSerialized(scene, serialized, assman, callback);
+    } else {
+      var format = serialized.format;
+      return this.loaders[format].LoadFromNetworkSerialized(scene, serialized, assman, callback);
+    }
   };
 
   // Exports

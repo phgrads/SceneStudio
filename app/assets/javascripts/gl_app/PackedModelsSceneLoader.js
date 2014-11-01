@@ -61,13 +61,13 @@ function(ModelInstance){
     }.bind(this));
   };
 
-  // Return stringified array of strings, each string representing a serialized model instance
+  // Return array of stringified JSON models
   PackedModelsSceneLoader.prototype.SerializeForNetwork = function(scene) {
     var pair = this.SerializeForLocal(scene);
     return pair.packedModels;
   };
 
-  // Load stringified array of strings, each string representing a serialized model instance
+  // Load array of stringified JSON models
   PackedModelsSceneLoader.prototype.LoadFromNetworkSerialized = function(scene, serialized, assman, callback) {
     var pair = { packedModels: serialized };
     this.LoadFromLocalSerialized(scene, pair, assman, callback);

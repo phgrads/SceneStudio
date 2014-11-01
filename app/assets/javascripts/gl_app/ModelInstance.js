@@ -54,6 +54,30 @@ function ModelInstance(model, parentInst)
 // EXTEND PUBSUB: Inherit PubSub prototype
 ModelInstance.prototype = Object.create(PubSub.prototype);
 
+// This gets called by JSON.stringify()
+ModelInstance.prototype.toJSON = function() {
+  this.UpdateTransform();
+  var obj = {};
+  obj.index = this.index;
+  obj.modelID = this.model.id;
+  obj.parentIndex = (this.parent) ? this.parent.index : -1;
+  obj.renderStateArr = [this.renderState.isPickable,
+                        this.renderState.isInserting,
+                        this.renderState.isSelected,
+                        this.renderState.isSelectable];
+  obj.cu = this.coordFrame.u;
+  obj.cv = this.coordFrame.v;
+  obj.cw = this.coordFrame.w;
+  obj.parentMeshI = this.parentMeshI;
+  obj.parentTriI = this.parentTriI;
+  obj.parentUV = this.parentUV;
+  obj.cubeFace = this.cubeFace;
+  obj.scale = this.scale;
+  obj.rotation = this.rotation;
+  obj.transform = this.transform;
+  return obj;
+};
+  
 ModelInstance.prototype.toJSONString = function()
 {
     this.modelID = this.model.id;
@@ -67,60 +91,64 @@ ModelInstance.prototype.toJSONString = function()
     return JSON.stringify(this, fieldsToSave);
 };
 
-ModelInstance.fromJSONString = function(string, assman, modelMap, callback)
-{
-    var json = JSON.parse(string);
-    
-    (function(remaining) {
-        if(modelMap) {
-            var model = modelMap[json.modelID];
-            remaining(model);
-        } else {
-            assman.GetModel(json.modelID, function(model) {
-                remaining(model);
-            }.bind(this));
-        }
-    })(function(model) {
-        var newMinst = new ModelInstance(model, null);
-        newMinst.index = json.index;
-        newMinst.parentMeshI = json.parentMeshI;
-        newMinst.parentTriI = json.parentTriI;
-        newMinst.parentUV = new Float32Array(json.parentUV);
-        newMinst.cubeFace = json.cubeFace;
-        newMinst.scale = json.scale;
-        newMinst.rotation = json.rotation;
-        if (json.renderStateArr) {
-          newMinst.renderState = {
-              isPickable: json.renderStateArr[0],
-              isInserting: json.renderStateArr[1],
-              isSelected: json.renderStateArr[2],
-              isSelectable: json.renderStateArr[3]
-          };
-        } else {
-          newMinst.renderState = {
-            isPickable: false,
-            isInserting: false,
-            isSelected: false,
-            isSelectable: false
-          };
-        }
-        newMinst.coordFrame = new CoordinateFrame(json.cu, json.cv, json.cw);
+// Recreates ModelInstance from given stringified JSON object and calls callback on it
+ModelInstance.fromJSONString = function(string, assman, modelMap, callback) {
+  var json = JSON.parse(string);
+  ModelInstance.fromJSON(json, assman, modelMap, callback);
+};
 
-        // If transform was stored in json, re-instate it here
-        if (json.transform) {
-            newMinst.parentMeshI = -1;
-            newMinst.transform = mat4.create(json.transform);
-            mat4.toRotationMat(newMinst.transform, newMinst.normalTransform);
-            newMinst.bakedTransform = true;
-        }
-    
-        // Copy over parent index.
-        // Actual model will need to be re-instated at a later time
-        // by the logic that has requested deserialization
-        newMinst.parentIndex = json.parentIndex;
+// Recreates ModelInstance from given JSON object and calls callback on it
+ModelInstance.fromJSON = function(json, assman, modelMap, callback) {
+  (function(remaining) {
+      if(modelMap) {
+          var model = modelMap[json.modelID];
+          remaining(model);
+      } else {
+          assman.GetModel(json.modelID, function(model) {
+              remaining(model);
+          }.bind(this));
+      }
+  })(function(model) {
+      var newMinst = new ModelInstance(model, null);
+      newMinst.index = json.index;
+      newMinst.parentMeshI = json.parentMeshI;
+      newMinst.parentTriI = json.parentTriI;
+      newMinst.parentUV = new Float32Array(json.parentUV);
+      newMinst.cubeFace = json.cubeFace;
+      newMinst.scale = json.scale;
+      newMinst.rotation = json.rotation;
+      if (json.renderStateArr) {
+        newMinst.renderState = {
+            isPickable: json.renderStateArr[0],
+            isInserting: json.renderStateArr[1],
+            isSelected: json.renderStateArr[2],
+            isSelectable: json.renderStateArr[3]
+        };
+      } else {
+        newMinst.renderState = {
+          isPickable: false,
+          isInserting: false,
+          isSelected: false,
+          isSelectable: false
+        };
+      }
+      newMinst.coordFrame = new CoordinateFrame(json.cu, json.cv, json.cw);
 
-        callback(newMinst);
-    });
+      // If transform was stored in json, re-instate it here
+      if (json.transform) {
+          newMinst.parentMeshI = -1;
+          newMinst.transform = mat4.create(json.transform);
+          mat4.toRotationMat(newMinst.transform, newMinst.normalTransform);
+          newMinst.bakedTransform = true;
+      }
+
+      // Copy over parent index.
+      // Actual model will need to be re-instated at a later time
+      // by the logic that has requested deserialization
+      newMinst.parentIndex = json.parentIndex;
+
+      callback(newMinst);
+  });
 };
 
 ModelInstance.prototype.Clone = function()

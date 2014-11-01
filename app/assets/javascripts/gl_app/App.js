@@ -73,6 +73,7 @@ define([
       $.extend(this.camera, cameraData);
 
       this.scene = new Scene();
+      this.scene.camera = this.camera;
       this.loader = new SceneLoader();
       this.renderer = new Renderer(this.canvas, this.scene, undefined, this.camera);
       this.assman = new AssetManager(this.renderer.gl_);
@@ -200,8 +201,8 @@ define([
         function() { // on success finish up some setup
           this.camera.SaveStateForReset();
           this.camera.UpdateSceneBounds(this.scene.Bounds());
-          this.camera.InitToSceneBounds();
-          this.undoStack.clear();
+//          this.camera.InitToSceneBounds();
+          //this.undoStack.clear();
           this.renderer.resizeEnd();
           this.renderer.UpdateView();
         }.bind(this),

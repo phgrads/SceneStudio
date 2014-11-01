@@ -12,6 +12,7 @@ function Scene() {
   this.root = null;
 	this.modelList = [];
 	this.manipulators = [];
+  this.camera = undefined;
 }
 
 Scene.prototype.Reset = function (root) {

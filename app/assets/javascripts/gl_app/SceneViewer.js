@@ -44,6 +44,7 @@ define([
     this.scene = new Scene();
     this.loader = new SceneLoader();
     this.camera = new FPCamera(this.scene);
+    this.scene.camera = this.camera;
     this.renderer = new Renderer(this.canvas, this.scene, undefined, this.camera);
     this.assman = new AssetManager(this.renderer.gl_);
     this.uilog = new UILog.UILog();
