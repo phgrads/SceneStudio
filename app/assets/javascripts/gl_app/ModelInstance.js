@@ -94,11 +94,11 @@ ModelInstance.prototype.toJSONString = function()
 // Recreates ModelInstance from given stringified JSON object and calls callback on it
 ModelInstance.fromJSONString = function(string, assman, modelMap, callback) {
   var json = JSON.parse(string);
-  ModelInstance.fromJSON(json, assman, modelMap, callback);
+  ModelInstance.fromJSON(json, assman, modelMap, callback, true);
 };
 
 // Recreates ModelInstance from given JSON object and calls callback on it
-ModelInstance.fromJSON = function(json, assman, modelMap, callback) {
+ModelInstance.fromJSON = function(json, assman, modelMap, callback, unsetParentMeshI) {
   (function(remaining) {
       if(modelMap) {
           var model = modelMap[json.modelID];
@@ -136,7 +136,11 @@ ModelInstance.fromJSON = function(json, assman, modelMap, callback) {
 
       // If transform was stored in json, re-instate it here
       if (json.transform) {
-          //newMinst.parentMeshI = -1;
+          if (unsetParentMeshI) {
+            // Do this for SceneStudio scenes with wrong parentMeshI's
+            // TODO: Remove this hacky logic
+            newMinst.parentMeshI = -1;
+          }
           newMinst.transform = mat4.create(json.transform);
           mat4.toRotationMat(newMinst.transform, newMinst.normalTransform);
           newMinst.bakedTransform = true;
