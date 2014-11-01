@@ -2,7 +2,7 @@
   <div class="thumbnail">
     <div class="scene-item">
       <% if scene.preview %>
-        <% preview_url = scene.preview.url %>
+        <% preview_url = get_path(scene.preview.url) %>
         <% if preview_url %>
           <%= image_tag 'scenePreview.jpg', { 'data-original' => preview_url, 'class' => 'img-responsive lazy' } %>
         <% end %>
