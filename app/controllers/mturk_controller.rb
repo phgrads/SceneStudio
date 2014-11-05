@@ -174,6 +174,33 @@ class MturkController < ApplicationController
     end
   end
 
+  def stats
+    stats_name = params[:name]
+    counts = nil
+    case stats_name
+      when "item_count"
+        list_items
+        counts = count(@items, 'item', 'count_desc')
+    end
+    respond_to do |format|
+      format.html {
+        if counts
+          @counts = counts
+          render 'mturk/stats'
+        else
+          raise StandardError.new('Error getting counts')
+        end
+      }
+      format.csv {
+        if counts
+            send_data as_csv(counts, ['name', 'count'])
+        else
+            fail_JSON_response
+        end
+      }
+    end
+  end
+
   def destroy_item
     @item.destroy
     flash[:success] = 'Item deleted.'
@@ -215,4 +242,27 @@ class MturkController < ApplicationController
     def generate_hash(length)
       (36**(length-1) + rand(36**length - 36**(length-1))).to_s(36)
     end
+
+    def counts_as_hash(array, field)
+      counts = array.group_by{ |x| x[field]}.map{ |k,v| [k,v.count] }
+      Hash[*counts.flatten]
+    end
+
+    def count(array, field, sort = 'none')
+      counts = array.group_by{ |x| x[field]}.map{ |k,v| {
+          "name" => k,
+          "count" => v.count
+      } }
+      logger.debug(counts)
+      case sort
+        when "count_desc"
+          counts = counts.sort_by{ |x| -x.count}
+        when "count_asc"
+          counts = counts.sort_by{ |x| x.count}
+        when "name"
+          counts = counts.sort_by{ |x| x.name}
+      end
+      counts
+    end
+
 end
