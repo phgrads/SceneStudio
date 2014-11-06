@@ -1,5 +1,14 @@
 <div id="wrapper">
 </div>
+<style>
+    #xaxis .domain {
+        fill:none;
+        stroke:#000;
+    }
+    #xaxis text, #yaxis text {
+        font-size: 12px;
+    }
+</style>
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script>
     var namedCounts = <%= raw(@counts.to_json) %>;

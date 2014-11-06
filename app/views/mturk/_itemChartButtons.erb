@@ -1,0 +1,18 @@
+<!-- Single button -->
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    Charts <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <% if @task %>
+        <% taskName = @task.name %>
+        <li><%= link_to 'Items', params.merge({ controller: '/mturk', action: 'stats', name: 'item_count', taskName: taskName}) %></li>
+        <li><%= link_to 'Workers', params.merge({ controller: '/mturk', action: 'stats', name: 'worker_item_count', taskName: taskName }) %></li>
+        <li><%= link_to 'Conditions', params.merge({ controller: '/mturk', action: 'stats', name: 'condition_item_count', taskName: taskName }) %></li>
+    <% else %>
+        <li><%= link_to 'Items', params.merge({ controller: '/mturk', action: 'stats', name: 'item_count'}) %></li>
+        <li><%= link_to 'Workers', params.merge({ controller: '/mturk', action: 'stats', name: 'worker_item_count'}) %></li>
+        <li><%= link_to 'Conditions', params.merge({ controller: '/mturk', action: 'stats', name: 'condition_item_count'}) %></li>
+    <% end %>
+  </ul>
+</div>

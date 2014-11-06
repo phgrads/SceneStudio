@@ -1,2 +1,5 @@
 <h3><%= @title %></h3>
+<div class="btn-group">
+  <button type="button" class="btn btn-default"><%= link_to 'CSV', params.merge({ action: 'stats', format: 'csv' }) %></button>
+</div>
 <%= render 'barchart' %>
