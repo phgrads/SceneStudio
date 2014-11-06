@@ -27,12 +27,11 @@ define([
       this.completeTaskButton.click(this.showCoupon.bind(this));
     }
 
-    DescribeImageTask.prototype.save = function(on_success, on_error) {
-      on_success = on_success || function(response) {
-        console.log("Going to next");
+    DescribeImageTask.prototype.save = function() {
+      var on_success = function(response) {
         this.next();
       }.bind(this);
-      on_error = on_error || function() {
+      var on_error = function() {
         showAlert("Error saving results. Please close tab and do task again.");
       };
 
