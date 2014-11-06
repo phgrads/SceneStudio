@@ -15,17 +15,21 @@
     var categories = namedCounts.map( function(x) { return x.name; });
     var paddedCategories = [''].concat(categories);
 
+    var maxX = 722;
+    var maxY = categories.length*30;
+
     var counts = namedCounts.map( function(x) { return x.count; });
     var maxCount =  Math.max.apply(Math, counts);
     var minCount = Math.min.apply(Math, counts);
     var tickInterval = Math.pow(10, maxCount.toString().length-1);
-    var maxDomainX = (Math.round(maxCount/tickInterval)+1)*tickInterval;
-
-    var maxY = categories.length*30;
+    var tickCount = Math.ceil(maxCount/tickInterval);
+    var maxDomainX = tickCount*tickInterval;
+    var gridXCount = tickCount*4;
+    var gridX = maxX/gridXCount;
 
     var colors = namedCounts.map( function(x) { return '#0082ca'; });
 
-    var grid = d3.range(25).map(function(i){
+    var grid = d3.range(gridXCount+1).map(function(i){
         return {'x1':0,'y1':0,'x2':0,'y2':maxY};
     });
 
@@ -36,7 +40,7 @@
 
     var xscale = d3.scale.linear()
             .domain([0,maxDomainX])
-            .range([0,722]);
+            .range([0,maxX]);
 
     var yscale = d3.scale.linear()
             .domain([0,paddedCategories.length])
@@ -57,10 +61,10 @@
             .data(grid)
             .enter()
             .append('line')
-            .attr({'x1':function(d,i){ return i*30; },
+            .attr({'x1':function(d,i){ return i*gridX; },
                 'y1':function(d){ return d.y1; },
-                'x2':function(d,i){ return i*30; },
-                'y2':function(d){ return d.y2; },
+                'x2':function(d,i){ return i*gridX; },
+                'y2':function(d){ return d.y2; }
             })
             .style({'stroke':'#adadad','stroke-width':'1px'});
 
