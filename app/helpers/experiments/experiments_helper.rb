@@ -193,9 +193,9 @@ module Experiments::ExperimentsHelper
 
   def get_preview_for_scene_url(url)
     if url =~ /^(.*)\/experiments\/(.*)\/(\d+)\/load$/
-      "#{$1}/mturk/results/#{$3}/preview"
+      get_path("#{$1}/mturk/results/#{$3}/preview")
     elsif url =~ /^(.*)\/scenes\/(\d+)\/load$/
-      "#{$1}/scenes/#{$2}/preview"
+      get_path("#{$1}/scenes/#{$2}/preview")
     else
       nil
     end
