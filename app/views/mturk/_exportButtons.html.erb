@@ -1,0 +1,13 @@
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    Export <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <% if @task %>
+        <% taskName = @task.name %>
+        <li><%= link_to 'CSV', params.merge({ controller: '/mturk', action: 'items', format: 'csv', taskName: taskName}) %></li>
+    <% else %>
+        <li><%= link_to 'CSV', params.merge({ controller: '/mturk', action: 'items', format: 'csv'}) %></li>
+    <% end %>
+  </ul>
+</div>
