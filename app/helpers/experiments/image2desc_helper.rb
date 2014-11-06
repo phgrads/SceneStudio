@@ -1,0 +1,2 @@
+module Experiments::Image2descHelper
+end

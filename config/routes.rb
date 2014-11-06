@@ -6,6 +6,9 @@ SceneStudio::Application.routes.draw do
   match 'experiments/enrich_scene/:id/load',         to: 'experiments/enrich_scene#load'
   match 'experiments/enrich_scene/:id/view',         to: 'experiments/enrich_scene#view'
 
+  get 'experiments/image2desc', to: 'experiments/image2desc#index'
+  get 'experiments/image2desc/results', to: 'experiments/image2desc#results'
+
   get 'experiments/scene2desc', to: 'experiments/scene2desc#index'
   get 'experiments/scene2desc/results', to: 'experiments/scene2desc#results'
   match 'experiments/scene2desc/:id/load',         to: 'experiments/scene2desc#load'

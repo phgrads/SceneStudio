@@ -1,0 +1,29 @@
+<%= render 'experiments/datatables' %>
+
+<% provide(:title, "Results") %>
+<div class="row">
+  <div class="span8 offset2">
+    <h3>Results (<%= @completed.count %>)</h3>
+    <%= render 'mturk/exprResultButtons' %>
+    <!-- completed -->
+    <% if @completed.any? %>
+        <table id="resultsTable" class="table table-striped table-bordered">
+          <thead>
+          <tr>
+            <th>Time</th>
+            <th>Item</th>
+            <th>Condition</th>
+            <th>Worker</th>
+            <th>Image</th>
+            <th>Description</th>
+            <th>Status</th>
+          </tr>
+          </thead>
+          <tbody>
+          <%= render :partial => 'result', :collection => @completed  %>
+          </tbody>
+        </table>
+    <% end %>
+  </div>
+</div>
+<%= requirejs_include_tag('experiments/results') %>
