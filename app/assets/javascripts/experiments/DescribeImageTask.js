@@ -2,15 +2,17 @@
 
 define([
   'bootbox',
-  'jquery'
+  'jquery',
+  'base'
 ],
-  function (App,bootbox)
+  function (bootbox)
   {
     function DescribeImageTask(params)
     {
       this.entryIndex = 0;
       this.entries = params.entries;
       this.condition = params.conf['condition'];
+      this.base_url = params.base_url;
       this.sceneSummary = [];
       // TODO: Be flexible about binding actions to buttons...
       this.taskInstructions = $('#taskInstructions');
@@ -18,13 +20,16 @@ define([
       this.sceneImageElem = $('#sceneImage');
       this.mturkOverlay = $('#mturkOverlay');
       this.startButton = $('#startButton');
+      this.nextButton = $('#nextButton');
       this.completeTaskButton = $('#completeTaskButton');
       this.startButton.click(this.start.bind(this));
+      this.nextButton.click(this.save.bind(this));
       this.completeTaskButton.click(this.showCoupon.bind(this));
     }
 
     DescribeImageTask.prototype.save = function(on_success, on_error) {
       on_success = on_success || function(response) {
+        console.log("Going to next");
         this.next();
       }.bind(this);
       on_error = on_error || function() {
@@ -35,8 +40,6 @@ define([
       var desc = this.sceneDescriptionElem.val().trim();
       if(desc.length > 1){
         var currentEntry = this.entries[this.entryIndex];
-        // Get scene description
-        var desc = this.sceneDescriptionElem.val().trim();
         var results = {
           description: desc,
           entry: currentEntry
@@ -46,12 +49,10 @@ define([
           description: desc
         };
         // This is included somewhere...
-        submit_mturk_report_item(this.condition, currentEntry.id, results, null).error(on_error).success(on_success);
+        submit_mturk_report_item(this.condition, currentEntry.id, results, undefined).error(on_error).success(on_success);
       }
       else{
         bootbox.alert("Please write a sentence describing what you see!");
-        // Indicates to app that the save is done (without doing error callback)
-        app.SaveDone();
       }
     };
 

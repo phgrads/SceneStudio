@@ -14,9 +14,9 @@
   </td>
   <td>
     <% if entry %>
-        <%= link_to entry['description'], { action: 'view', id: result.id } %>
+        <%= entry['description'] %>
     <% else %>
-        <%= link_to result.item, { action: 'view', id: result.id } %>
+        <%= result.item %>
     <% end %>
   </td>
   <td>

@@ -50,6 +50,9 @@
   </div>
 </div>
 
+<div>
+  <img id="sceneImage"/>
+</div>
 <div id="mturkOverlay" class="mturkOverlay" style="display:none">
   <div id="editInstructions" class="editInstructions">
     <div class="textDescription center">
@@ -58,9 +61,9 @@
     <div class='row'>
     <%= text_area_tag('sceneDescription', nil, {class: 'col-md-6 col-md-offset-3', rows: 4}) %>
     </div>
-    <p>Click the "Done" button when you're done to go on to the next scene.</p>
+    <p>Click the "Next" button when you're done to go on to the next scene.</p>
+      <input type="button" id="nextButton" class="largeButton" value="Next"/>
     </div>
   </div>
 </div>
 
-<%= render 'entryOverlay' %>

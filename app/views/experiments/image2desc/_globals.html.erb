@@ -1,5 +1,6 @@
 <script type='text/javascript'>
     window.globals = {
+        base_url: "<%= @base_url %>",
         entries: <%= raw(@entries.to_json) %>,
         conf: <%= raw(@conf.to_json) %>,
         <% if @via_turk %>
