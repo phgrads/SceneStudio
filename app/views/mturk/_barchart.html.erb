@@ -4,40 +4,42 @@
 <script>
     var namedCounts = <%= raw(@counts.to_json) %>;
     var categories = namedCounts.map( function(x) { return x.name; });
+    var paddedCategories = [''].concat(categories);
 
     var counts = namedCounts.map( function(x) { return x.count; });
     var maxCount =  Math.max.apply(Math, counts);
     var minCount = Math.min.apply(Math, counts);
+    var tickInterval = Math.pow(10, maxCount.toString().length-1);
+    var maxDomainX = (Math.round(maxCount/tickInterval)+1)*tickInterval;
 
-    var maxY = (categories.length*25+20);
+    var maxY = categories.length*30;
 
     var colors = namedCounts.map( function(x) { return '#0082ca'; });
-//    ['#0000b4','#0082ca','#0094ff','#0d4bcf','#0066AE','#074285','#00187B','#285964','#405F83','#416545','#4D7069','#6E9985','#7EBC89','#0283AF','#79BCBF','#99C19E'];
 
     var grid = d3.range(25).map(function(i){
         return {'x1':0,'y1':0,'x2':0,'y2':maxY};
     });
 
     var tickVals = grid.map(function(d,i){
-        if(i>0){ return i*10; }
-        else if(i===0){ return "100";}
+        if(i>0){ return i*tickInterval; }
+        else if(i===0){ return "0";}
     });
 
     var xscale = d3.scale.linear()
-            .domain([0,maxCount])
+            .domain([0,maxDomainX])
             .range([0,722]);
 
     var yscale = d3.scale.linear()
-            .domain([0,categories.length])
-            .range([0,categories.length*25]);
+            .domain([0,paddedCategories.length])
+            .range([0,maxY]);
 
     var colorScale = d3.scale.quantize()
-            .domain([0,categories.length])
+            .domain([0,paddedCategories.length])
             .range(colors);
 
     var canvas = d3.select('#wrapper')
             .append('svg')
-            .attr({'width':900,'height':categories.length*25 + 25});
+            .attr({'width':900,'height':maxY + 70});
 
     var grids = canvas.append('g')
             .attr('id','grid')
@@ -64,8 +66,8 @@
             .orient('left')
             .scale(yscale)
             .tickSize(2)
-            .tickFormat(function(d,i){ return categories[i]; })
-            .tickValues(d3.range(125));
+            .tickFormat(function(d,i){ return paddedCategories[i]; })
+            .tickValues(d3.range(paddedCategories.length));
 
     var y_xis = canvas.append('g')
             .attr("transform", "translate(150,0)")

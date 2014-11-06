@@ -181,6 +181,19 @@ class MturkController < ApplicationController
       when "item_count"
         list_items
         counts = count(@items, 'item', 'count_desc')
+        @title = "Item counts"
+      when "worker_item_count"
+        list_items
+        counts = count(@items, 'workerId', 'count_desc')
+        @title = "Worker item counts"
+      when "condition_item_count"
+        list_items
+        counts = count(@items, 'condition', 'count_desc')
+        @title = "Condition item counts"
+      when "task_item_count"
+        list_items
+        counts = count(@items, 'taskName', 'count_desc')
+        @title = "Task item counts"
     end
     respond_to do |format|
       format.html {
@@ -253,14 +266,13 @@ class MturkController < ApplicationController
           "name" => k,
           "count" => v.count
       } }
-      logger.debug(counts)
       case sort
         when "count_desc"
-          counts = counts.sort_by{ |x| -x.count}
+          counts.sort_by!{ |x| [-x["count"], x["name"]] }
         when "count_asc"
-          counts = counts.sort_by{ |x| x.count}
+          counts.sort_by!{ |x| [x["count"], x["name"]] }
         when "name"
-          counts = counts.sort_by{ |x| x.name}
+          counts.sort_by!{ |x| x["name"] }
       end
       counts
     end
