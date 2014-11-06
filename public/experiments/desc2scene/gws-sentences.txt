@@ -1,0 +1,26 @@
+id	description	minObjects
+gws1	There is a room with a piano keyboard.	1
+gws2	There is a room with a piano.	1
+gws5	There is a room with a table.	1
+gws6	There is a room with a coffee table.	1
+gws7	There is a room with a game table.	1
+gws8	There is a room with a refrigerator.	1
+gws9	There is a room with a candle.	2
+gws13	There is a room with a plate and a piano. The plate is on top of the piano.	2
+gws16	There is a room with a table and a piano.	2
+gws17	There is a room with a table and a piano. The table is outside the piano.	2
+gws18	There is a room with 2 coffee tables.	2
+gws19	There is a room with 2 coffee tables. One of the coffee table is behind the other.	2
+gws20	There is a room with a coffee table and a refrigerator.	2
+gws21	There is a room with a coffee table and a refrigerator. The refrigerator is on top of the coffee table.	2
+gws22	There is a room with a coffee table and a refrigerator.	2
+gws23	There is a room with a coffee table and a refrigerator. The coffee table is behind the refrigerator.	2
+gws26	There is a room with a table and a coffee table.	2
+gws27	There is a room with a table and a coffee table. The table is toward the front of the coffee table.	2
+gws28	There is a room with a coffee table and a candle.	2
+gws30	There is a room with a coffee table and a game table.	2
+gws31	There is a room with a coffee table and a game table. The coffee table is on top of the game table.	2
+gws32	There is a room with a table and a phone.	2
+gws33	There is a room with a table and a phone. The phone is on the right side of the table.	2
+gws34	There is a room with 2 candles.	2
+gws35	There is a room with 2 candles. One of the candle is supported by the other.	2
