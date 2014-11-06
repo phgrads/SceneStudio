@@ -1,0 +1,66 @@
+<%= render '/experiments/largeimg' %>
+<div id="taskInstructions" class="wholescreenOverlay">
+  <div align="center" class="taskInstructions">
+    <div style='text-align:left'>
+      <p>You will be shown <%=@entries.length%> simple indoor scenes.
+        For each scene, you will be asked to provide a description
+        that matches the scene.
+      </p>
+      <p>
+        Each scene should take about <%=@taskTime['sceneTime'] %> to complete.
+        The task should take about <%=@taskTime['taskTime'] %> in total.
+      </p>
+     </div>
+  <div align="center">
+    <table class="exampleTable">
+      <thead>
+      <th></th>
+      <th>Example 1</th>
+      <th>Example 2</th>
+      </thead>
+      <tbody>
+      <tr>
+        <th>Scene</th>
+        <td>
+          <div align="center" class="mturkExample">
+            <%= image_tag( @conf['exampleImagesPath'] + 'example1.png', { width: 400, class: "enlarge" } ) %>
+          </div>
+        </td>
+        <td>
+          <div align="center" class="mturkExample">
+            <%= image_tag( @conf['exampleImagesPath'] + 'example2.png', { width: 400, class: "enlarge" } ) %>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>Description</th>
+        <td>
+          There is a bed in the corner of the room.
+        </td>
+        <td>
+          There is a round table with a green table cloth and two plates.
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div  class="center">
+    <input type="button" id="startButton" class="largeButton" value="Start"/>
+  </div>
+  </div>
+</div>
+
+<div id="mturkOverlay" class="mturkOverlay" style="display:none">
+  <div id="editInstructions" class="editInstructions">
+    <div class="textDescription center">
+    <p>Please write a couple of sentences that describe the scene.
+      Please try to provide concrete details about the appearance and location of the objects in the scene.</p>
+    <div class='row'>
+    <%= text_area_tag('sceneDescription', nil, {class: 'col-md-6 col-md-offset-3', rows: 4}) %>
+    </div>
+    <p>Click the "Done" button when you're done to go on to the next scene.</p>
+    </div>
+  </div>
+</div>
+
+<%= render 'entryOverlay' %>
