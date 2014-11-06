@@ -7,12 +7,25 @@ define([
 ],
   function (bootbox)
   {
+    /**
+     * Scene description task
+     * - User is show a series of images
+     *   and asked to describe the scene in words
+     */
     function DescribeImageTask(params)
     {
       this.entryIndex = 0;
+
+      // Initialize from parameters
+
+      // List of entries (i.e. images)
+      // The url of where to load the image from is specified in the 'url' field of each entry
       this.entries = params.entries;
+      // Experiment condition
       this.condition = params.conf['condition'];
       this.base_url = params.base_url;
+
+      // Summary to post for the overall task
       this.sceneSummary = [];
       // TODO: Be flexible about binding actions to buttons...
       this.taskInstructions = $('#taskInstructions');

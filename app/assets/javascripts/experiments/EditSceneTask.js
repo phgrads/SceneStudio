@@ -7,17 +7,34 @@ define([
 ],
   function (App,bootbox)
   {
+    /**
+     * Scene editing task
+     * - User is show a series of prompts (descriptions or images)
+     *   and asked to create (or refine) a scene to match the prompt
+     */
     function EditSceneTask(params)
     {
       this.entryIndex = 0;
       this.savedItemInfo = undefined;
+
+      // Initialize from parameters
+      // Scene Editing App (see gl_app/App.js)
       this.app = params.app;
+      // Whether an existing scene should be loaded (for scene enrichment)
+      // The url of where to load the scene from is specified in the 'url' field of each entry
       this.loadSceneFromUrl = params.loadSceneFromUrl;
+      // List of entries (i.e. prompts)
       this.entries = params.entries;
+      // Experiment condition
       this.condition = params.conf['condition'];
+      // Whether a scene preview should be saved (typically should be set to true)
       this.savePreview = params.conf['savePreview'];
+      // Task specific callback indicating how each entry should be displayed
       this.showEntryCallback = params.showEntryCallback;
+
+      // Summary to post for the overall task
       this.sceneSummary = [];
+
       // TODO: Be flexible about binding actions to buttons...
       this.taskInstructions = $('#taskInstructions');
       this.mturkOverlay = $('#mturkOverlay');

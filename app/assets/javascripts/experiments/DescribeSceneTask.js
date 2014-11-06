@@ -7,13 +7,27 @@ define([
 ],
   function (App,bootbox)
   {
+    /**
+     * Scene description task
+     * - User is show a series of 3D scenes
+     *   and asked to describe the scene in words
+     */
     function DescribeSceneTask(params)
     {
       this.entryIndex = 0;
+
+      // Initialize from parameters
+      // Scene viewing App (see gl_app/App.js)
       this.app = params.app;
+      // List of entries (i.e. scenes)
+      // The url of where to load the scene from is specified in the 'url' field of each entry
       this.entries = params.entries;
+      // Experiment condition
       this.condition = params.conf['condition'];
+      // Whether a scene preview should be saved
       this.savePreview = params.conf['savePreview'];
+
+      // Summary to post for the overall task
       this.sceneSummary = [];
       // TODO: Be flexible about binding actions to buttons...
       this.taskInstructions = $('#taskInstructions');
