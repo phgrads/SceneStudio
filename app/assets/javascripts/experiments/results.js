@@ -10,6 +10,15 @@ define(function(require) {
       });
       var tt = new $.fn.dataTable.TableTools( $('#resultsTable') );
       $( tt.fnContainer() ).insertBefore('div.dataTables_wrapper');
+
+      $('#resultsTable').on( 'draw.dt', function () {
+        // Trigger window scroll event so images lazily load
+        //$(window).trigger("scroll")
+        $('body,html').animate({
+          scrollTop: $(window).scrollTop() + 1
+        }, 300);
+      } );
     } );
+
   })
 });
