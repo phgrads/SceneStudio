@@ -41,6 +41,6 @@ conf:
   selectPolicy: mincount_random
 #  allRooms: [ "room00", "room01", "room02", "room03", "room04", "room05", "room06", "room07", "room08", "room09", "room10", "room11", "room12", "room13", "room14", "room15", "room16", "room17" ]
 # Rooms without roofs
-  rootModelIds: [ "room00", "room01", "room02", "room04", "room05", "room06", "room07", "room09", "room10", "room17" ]
+  rootModelIds: [ "room00", "room01", "room02", "room04", "room05", "room07", "room08", "room09", "room10", "room17" ]
   useRandomRootModel: true
 
