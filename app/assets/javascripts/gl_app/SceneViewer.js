@@ -47,7 +47,7 @@ define([
     this.scene.camera = this.camera;
     this.renderer = new Renderer(this.canvas, this.scene, undefined, this.camera);
     this.assman = new AssetManager(this.renderer.gl_);
-    this.uilog = new UILog.UILog();
+    this.uilog = new UILog();
 
     if (window.globals) {
       this.onCloseCallback = window.globals.onCloseCallback;

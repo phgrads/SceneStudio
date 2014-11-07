@@ -4,6 +4,9 @@ define([
 ],
 function() {
 
+// NOTE: Compiled templates have functions with names "on[outputState]" which can be hooked up for
+//       handling events.  These take a callback function of the form function(data)
+
 /*
     ENVISIONED USAGE
     

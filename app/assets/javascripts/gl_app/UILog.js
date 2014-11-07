@@ -2,7 +2,7 @@
 
 define([], function() {
 
-    var EVENT = Object.freeze({
+    UILog.EVENT = Object.freeze({
         RAW_MOUSE       : "RAW_MOUSE",
         RAW_KEY         : "RAW_KEY",
 
@@ -71,8 +71,5 @@ define([], function() {
         this.log_buffer = [];
     };
 
-    return {
-        UILog: UILog,
-        EVENT: EVENT
-    };
+    return UILog;
 });

@@ -78,7 +78,7 @@ define([
       this.renderer = new Renderer(this.canvas, this.scene, undefined, this.camera);
       this.assman = new AssetManager(this.renderer.gl_);
       this.uistate = new UIState(this.renderer.gl_);
-      this.uilog = new UILog.UILog();
+      this.uilog = new UILog();
 
       // Initialize text2scene
       if (this.allowEdit) {
