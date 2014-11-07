@@ -33,9 +33,14 @@ keywords: 3D models, scenes, pictures, scene design
 conf:
   nScenes: 4
   sceneEditSecs: 60
-  inputFile: public/experiments/desc2scene/size-sentences.txt
-  condition: size-pilot
+  inputFile: public/experiments/desc2scene/sentences.txt
+  condition: random-room
   savePreview: true
   uploadSummary: true
   exampleImagesPath: /experiments/desc2scene/examples/
   selectPolicy: mincount_random
+#  allRooms: [ "room00", "room01", "room02", "room03", "room04", "room05", "room06", "room07", "room08", "room09", "room10", "room11", "room12", "room13", "room14", "room15", "room16", "room17" ]
+# Rooms without roofs
+  rootModelIds: [ "room00", "room01", "room02", "room04", "room05", "room06", "room07", "room09", "room10", "room17" ]
+  useRandomRootModel: true
+

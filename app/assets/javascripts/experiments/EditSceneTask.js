@@ -24,11 +24,19 @@ define([
       // The url of where to load the scene from is specified in the 'url' field of each entry
       this.loadSceneFromUrl = params.loadSceneFromUrl;
       // List of entries (i.e. prompts)
+      // The room model to use (i.e. room) is specified by the 'rootModelId" field of each entry
+      // - if not specified (then room model is a default) or
+      //     useRandomRootModel is specified in the config, a random room is used
       this.entries = params.entries;
       // Experiment condition
       this.condition = params.conf['condition'];
       // Whether a scene preview should be saved (typically should be set to true)
       this.savePreview = params.conf['savePreview'];
+      // Whether to use a random root model for each entry
+      this.useRandomRootModel = params.conf['useRandomRootModel'];
+      if (this.useRandomRootModel) {
+        this.rootModelIds = params.conf['rootModelIds'];
+      }
       // Task specific callback indicating how each entry should be displayed
       this.showEntryCallback = params.showEntryCallback;
 
@@ -155,7 +163,11 @@ define([
         this.app.Launch();
       } else {
         // New scene
-        if (entry.rootModelId) {
+        if (this.useRandomRootModel) {
+          var i = Math.floor(Math.random()*this.rootModelIds.length);
+          var rootModelId = this.rootModelIds[i];
+          this.app.rootModelId = rootModelId;
+        } else if (entry.rootModelId) {
           this.app.rootModelId = entry.rootModelId;
         }
         this.app.CreateEmpty();
