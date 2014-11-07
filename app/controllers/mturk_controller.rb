@@ -181,19 +181,19 @@ class MturkController < ApplicationController
       when "item_count"
         list_items
         counts = count(@items, 'item', 'count_desc')
-        @title = "Item counts (#{counts.length})"
+        @title = "Item counts (#{@items.length} over #{counts.length} items)"
       when "worker_item_count"
         list_items
         counts = count(@items, 'workerId', 'count_desc')
-        @title = "Worker item counts (#{counts.length})"
+        @title = "Worker item counts (#{@items.length} over #{counts.length} workers)"
       when "condition_item_count"
         list_items
         counts = count(@items, 'condition', 'count_desc')
-        @title = "Condition item counts (#{counts.length})"
+        @title = "Condition item counts (#{@items.length} over #{counts.length} conditions)"
       when "task_item_count"
         list_items
         counts = count(@items, 'taskName', 'count_desc')
-        @title = "Task item counts (#{counts.length})"
+        @title = "Task item counts (#{@items.length} over #{counts.length} tasks)"
     end
     respond_to do |format|
       format.html {
