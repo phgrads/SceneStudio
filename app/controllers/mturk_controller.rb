@@ -181,19 +181,19 @@ class MturkController < ApplicationController
       when "item_count"
         list_items
         counts = count(@items, 'item', 'count_desc')
-        @title = "Item counts"
+        @title = "Item counts (#{counts.length})"
       when "worker_item_count"
         list_items
         counts = count(@items, 'workerId', 'count_desc')
-        @title = "Worker item counts"
+        @title = "Worker item counts (#{counts.length})"
       when "condition_item_count"
         list_items
         counts = count(@items, 'condition', 'count_desc')
-        @title = "Condition item counts"
+        @title = "Condition item counts (#{counts.length})"
       when "task_item_count"
         list_items
         counts = count(@items, 'taskName', 'count_desc')
-        @title = "Task item counts"
+        @title = "Task item counts (#{counts.length})"
     end
     respond_to do |format|
       format.html {
@@ -242,7 +242,7 @@ class MturkController < ApplicationController
     end
 
     def list_assignments
-      @assignments = AssignmentsView.filter(params.slice(:hitId, :workerId, :taskName))
+      @assignments = AssignmentsView.filter(params.slice(:hitId, :workerId, :taskName, :assignmentId))
     end
 
     def list_items
