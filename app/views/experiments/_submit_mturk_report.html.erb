@@ -17,7 +17,7 @@
           url: "<%= mturk_report_item_url %>",
           data: data,
           dataType: 'json',
-          timeout: 10000
+          timeout: 30000
       });
   }
 
@@ -30,7 +30,7 @@
         data: JSON.stringify(submission_data)
       },
       dataType: 'json',
-      timeout: 10000
+      timeout: 30000
     });
   }
 </script>

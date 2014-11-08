@@ -27,6 +27,7 @@ define(function(require) {
       app.onSaveCallback = editSceneTask.saveSceneCallback.bind(editSceneTask);
       app.onCloseCallback = editSceneTask.closeSceneCallback.bind(editSceneTask);
       app.toolbar.HideButton("Edit Meta");
+      app.toolbar.HideButton("Save");
       app.toolbar.LabelButton("Close", "Done", "Done with scene", "done");
 
       editSceneTask.Launch();
