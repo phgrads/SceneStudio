@@ -2,11 +2,11 @@ class MturkController < ApplicationController
   include MturkHelper
 
   before_filter :load_iframe_params, only: [:task]
-  before_filter :require_assignment, only: [:report, :coupon, :report_item]
+  before_filter :require_assignment, only: [:report, :coupon, :report_item, :approve_assignment, :reject_assignment]
   before_filter :load_task_conf, only: [:coupon]
 
   before_filter :can_manage_tasks_filter,
-                only: [:tasks, :assignments, :items, :preview_item, :destroy_item]
+                only: [:tasks, :assignments, :items, :preview_item, :destroy_item, :approve_assignment, :reject_assignment]
   before_filter :list_tasks, only: [:tasks]
   before_filter :list_assignments, only: [:assignments]
   before_filter :list_items, only: [:items]
@@ -214,6 +214,18 @@ class MturkController < ApplicationController
     end
   end
 
+  def approve_assignment
+    @assignment.approve!(params['feedback'])
+    flash[:success] = 'Assignment accepted.'
+    redirect_to request.referer
+  end
+
+  def reject_assignment
+    @assignment.reject!(params['reason'])
+    flash[:success] = 'Assignment rejected.'
+    redirect_to request.referer
+  end
+
   def destroy_item
     @item.destroy
     flash[:success] = 'Item deleted.'
@@ -243,6 +255,9 @@ class MturkController < ApplicationController
 
     def list_assignments
       @assignments = AssignmentsView.filter(params.slice(:hitId, :workerId, :taskName, :assignmentId))
+      if params[:completed]
+        @assignments = @assignments.select{ |a| a.completed? }
+      end
     end
 
     def list_items
