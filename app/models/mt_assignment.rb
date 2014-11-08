@@ -35,6 +35,19 @@ class MtAssignment < ActiveRecord::Base
     (completed_at.to_f - created_at.to_f) if completed_at
   end
 
+  def live?
+    self.mt_hit.live?
+  end
+
+  def approve!(feedback)
+    rAssignment = RTurk::Assignment.new(self.mtId)
+    rAssignment.approve!(feedback)
+  end
+
+  def reject!(reason)
+    rAssignment = RTurk::Assignment.new(self.mtId)
+    rAssignment.reject!(reason)
+  end
 
   def complete!(data)
     self.data = data

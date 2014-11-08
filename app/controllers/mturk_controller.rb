@@ -2,11 +2,11 @@ class MturkController < ApplicationController
   include MturkHelper
 
   before_filter :load_iframe_params, only: [:task]
-  before_filter :require_assignment, only: [:report, :coupon, :report_item]
+  before_filter :require_assignment, only: [:report, :coupon, :report_item, :approve_assignment, :reject_assignment]
   before_filter :load_task_conf, only: [:coupon]
 
   before_filter :can_manage_tasks_filter,
-                only: [:tasks, :assignments, :items, :preview_item, :destroy_item]
+                except: [:task, :report_item, :report, :coupon]
   before_filter :list_tasks, only: [:tasks]
   before_filter :list_assignments, only: [:assignments]
   before_filter :list_items, only: [:items]
@@ -128,6 +128,8 @@ class MturkController < ApplicationController
     end
   end
 
+  # Below are for mturk managers
+
   # Shows the tasks we have
   # For developers to check task results and debug/develop task
   def tasks
@@ -181,19 +183,19 @@ class MturkController < ApplicationController
       when "item_count"
         list_items
         counts = count(@items, 'item', 'count_desc')
-        @title = "Item counts (#{counts.length})"
+        @title = "Item counts (#{@items.length} over #{counts.length} items)"
       when "worker_item_count"
         list_items
         counts = count(@items, 'workerId', 'count_desc')
-        @title = "Worker item counts (#{counts.length})"
+        @title = "Worker item counts (#{@items.length} over #{counts.length} workers)"
       when "condition_item_count"
         list_items
         counts = count(@items, 'condition', 'count_desc')
-        @title = "Condition item counts (#{counts.length})"
+        @title = "Condition item counts (#{@items.length} over #{counts.length} conditions)"
       when "task_item_count"
         list_items
         counts = count(@items, 'taskName', 'count_desc')
-        @title = "Task item counts (#{counts.length})"
+        @title = "Task item counts (#{@items.length} over #{counts.length} tasks)"
     end
     respond_to do |format|
       format.html {
@@ -212,6 +214,18 @@ class MturkController < ApplicationController
         end
       }
     end
+  end
+
+  def approve_assignment
+    @assignment.approve!(params['feedback'])
+    flash[:success] = 'Assignment accepted.'
+    redirect_to request.referer
+  end
+
+  def reject_assignment
+    @assignment.reject!(params['reason'])
+    flash[:success] = 'Assignment rejected.'
+    redirect_to request.referer
   end
 
   def destroy_item
@@ -243,6 +257,12 @@ class MturkController < ApplicationController
 
     def list_assignments
       @assignments = AssignmentsView.filter(params.slice(:hitId, :workerId, :taskName, :assignmentId))
+      if params[:completed]
+        @assignments = @assignments.select{ |a| a.completed? == params[:completed].to_bool }
+      end
+      if params[:live]
+        @assignments = @assignments.select{ |a| a.live? == params[:live].to_bool }
+      end
     end
 
     def list_items

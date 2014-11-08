@@ -20,4 +20,9 @@ class AssignmentsView < ActiveRecord::Base
     (completed_at.to_f - created_at.to_f) if completed_at
   end
 
+  def live?
+    hit = MtHit.find_by_mtId(self.hitId)
+    hit && hit.live?
+  end
+
 end

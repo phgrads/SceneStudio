@@ -61,6 +61,8 @@ SceneStudio::Application.routes.draw do
   post '/mturk/coupon',             to: 'mturk#coupon'
   post '/mturk/report_item',        to: 'mturk#report_item'
   post '/mturk/destroy_item',       to: 'mturk#destroy_item'
+  post '/mturk/approve_assignment', to: 'mturk#approve_assignment'
+  post '/mturk/reject_assignment',  to: 'mturk#reject_assignment'
 
 
   #resources :identities
