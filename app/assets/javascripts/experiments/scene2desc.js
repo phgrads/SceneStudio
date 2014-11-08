@@ -27,6 +27,8 @@ define(function(require) {
       app.onCloseCallback = describeSceneTask.closeSceneCallback.bind(describeSceneTask);
       app.toolbar.LabelButton("Close", "Done", "Done with scene", "done");
 
+      $( '#instructionsToggle' ).click(function() { $( '#instructionsTextDiv' ).toggle(); });
+
       describeSceneTask.Launch();
       app.Launch();
     } );

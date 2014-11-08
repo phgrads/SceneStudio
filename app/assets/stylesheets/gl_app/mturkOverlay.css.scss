@@ -68,6 +68,8 @@ $overlaybg: rgba(150,200,150,0.75);
 .editInstructions {
   z-index:2;
   position:absolute;
+  left: 10%;
+  right: 10%;
   bottom:0;
   background-color: $overlaybg;
   padding: 10px 10px 0;
@@ -89,6 +91,9 @@ $overlaybg: rgba(150,200,150,0.75);
   .prompt {
     font-size: 14pt;
     text-align: center;
+  }
+  #instructionsToggle {
+    cursor: pointer;
   }
 }
 
