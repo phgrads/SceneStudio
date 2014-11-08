@@ -256,7 +256,7 @@ class MturkController < ApplicationController
     def list_assignments
       @assignments = AssignmentsView.filter(params.slice(:hitId, :workerId, :taskName, :assignmentId))
       if params[:completed]
-        @assignments = @assignments.select{ |a| a.completed? }
+        @assignments = @assignments.select{ |a| a.completed? == params[:completed].to_bool }
       end
     end
 
