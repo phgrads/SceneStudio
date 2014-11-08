@@ -258,6 +258,9 @@ class MturkController < ApplicationController
       if params[:completed]
         @assignments = @assignments.select{ |a| a.completed? == params[:completed].to_bool }
       end
+      if params[:live]
+        @assignments = @assignments.select{ |a| a.live? == params[:live].to_bool }
+      end
     end
 
     def list_items

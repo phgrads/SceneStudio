@@ -15,13 +15,15 @@
     <%= link_to assignment.data, { controller: 'experiments/' + assignment.taskName, action: 'results', workerId: assignment.workerId }  rescue assignment.data %>
   </td>
   <td>
-    <%= link_to 'Approve',
+    <% if assignment.live? %>
+      <%= link_to 'Approve',
                 { controller: '/mturk', action: 'approve_assignment', assignmentId: assignment.assignmentId },
                 confirm: 'Are you sure?', method: :post,
                 class: 'btn btn-success' %>
-    <%= link_to 'Reject',
+      <%= link_to 'Reject',
                 { controller: '/mturk', action: 'reject_assignment', assignmentId: assignment.assignmentId },
                 confirm: 'Are you sure?', method: :post,
                 class: 'btn btn-danger' %>
+    <% end %>
   </td>
 </tr>
