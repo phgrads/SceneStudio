@@ -6,7 +6,7 @@ class MturkController < ApplicationController
   before_filter :load_task_conf, only: [:coupon]
 
   before_filter :can_manage_tasks_filter,
-                only: [:tasks, :assignments, :items, :preview_item, :destroy_item, :approve_assignment, :reject_assignment]
+                except: [:task, :report_item, :report, :coupon]
   before_filter :list_tasks, only: [:tasks]
   before_filter :list_assignments, only: [:assignments]
   before_filter :list_items, only: [:items]
@@ -127,6 +127,8 @@ class MturkController < ApplicationController
       fail_JSON_response
     end
   end
+
+  # Below are for mturk managers
 
   # Shows the tasks we have
   # For developers to check task results and debug/develop task

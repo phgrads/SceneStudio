@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141012222918) do
+ActiveRecord::Schema.define(:version => 20141108193604) do
 
   create_table "identities", :force => true do |t|
     t.string   "name"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20141012222918) do
     t.datetime "completed_at"
     t.text     "data"
     t.string   "coupon_code"
+    t.string   "status"
   end
 
   add_index "mt_assignments", ["mtId", "mt_hit_id", "mt_worker_id"], :name => "index_mt_assignments_on_mtId_and_mt_hit_id_and_mt_worker_id"
