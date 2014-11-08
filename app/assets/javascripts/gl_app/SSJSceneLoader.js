@@ -9,13 +9,17 @@ function(ModelInstance){
   function SSJSceneLoader() {
   }
 
+  SSJSceneLoader.prototype.vec3ToArray = function(v) {
+    return [ v[0], v[1], v[2] ];
+  };
+
   // Return scene as simple JSON object
   SSJSceneLoader.prototype.SerializeForNetwork = function(scene) {
     var camera = {
       name:     "current",
-      eye:      scene.camera.eyePos,
-      lookAt:   scene.camera.lookAtPoint,
-      up:       scene.camera.upVec
+      eye:      this.vec3ToArray(scene.camera.eyePos),
+      lookAt:   this.vec3ToArray(scene.camera.lookAtPoint),
+      up:       this.vec3ToArray(scene.camera.upVec)
     };
     var cameras = [ camera ];
     var objectToSerialize = {
