@@ -182,25 +182,39 @@ class MturkController < ApplicationController
     case stats_name
       when "item_count"
         list_items
-        counts = count(@items, 'item', 'count_desc')
+        field = 'item'
+        counts = count(@items, field, 'count_desc')
         @title = "Item counts (#{@items.length} over #{counts.length} items)"
       when "worker_item_count"
         list_items
-        counts = count(@items, 'workerId', 'count_desc')
+        field = 'workerId'
+        counts = count(@items, field, 'count_desc')
         @title = "Worker item counts (#{@items.length} over #{counts.length} workers)"
       when "condition_item_count"
         list_items
-        counts = count(@items, 'condition', 'count_desc')
+        field = 'condition'
+        counts = count(@items, field, 'count_desc')
         @title = "Condition item counts (#{@items.length} over #{counts.length} conditions)"
       when "task_item_count"
         list_items
-        counts = count(@items, 'taskName', 'count_desc')
+        field = 'taskName'
+        counts = count(@items, field, 'count_desc')
         @title = "Task item counts (#{@items.length} over #{counts.length} tasks)"
     end
     respond_to do |format|
       format.html {
         if counts
           @counts = counts
+          if params[:taskName]
+            taskName = params[:taskName]
+            @counts.each{ |x|
+              # path with current params and additional filter based on field + x.name
+              x['link'] = url_for(params.merge(
+                                      {:controller => "experiments/#{taskName}",
+                                       :action => 'results',
+                                        field => x['name']}))
+            }
+          end
           render 'mturk/stats'
         else
           raise StandardError.new('Error getting counts')
