@@ -348,11 +348,17 @@ define([
             .onhold(ensureInstance(function(opts) {
               opts.instance.CascadingRotate(rotateIncrement);
               this.renderer.postRedisplay();
+              var targetModelIndex = this.scene.ObjectToIndex(opts.instance);
+              this.uilog.log(UILog.EVENT.MODEL_ROTATE,
+                opts,
+                {rotateBy: rotateIncrement,
+                 modelIndex: targetModelIndex});
             }.bind(this)))
             .onfinish(ensureInstance(function(opts) {
-              if(opts.saveUndo)
+              if(opts.saveUndo) {
                 this.undoStack.pushCurrentState(Constants.CMDTYPE.ROTATE,
                   opts.instance);
+              }
             }.bind(this)));
 
         var rotate_right_behavior =
@@ -360,11 +366,17 @@ define([
             .onhold(ensureInstance(function(opts) {
               opts.instance.CascadingRotate(-rotateIncrement);
               this.renderer.postRedisplay();
+              var targetModelIndex = this.scene.ObjectToIndex(opts.instance);
+              this.uilog.log(UILog.EVENT.MODEL_ROTATE,
+                opts,
+                {rotateBy: -rotateIncrement,
+                 modelIndex: targetModelIndex});
             }.bind(this)))
             .onfinish(ensureInstance(function(opts) {
-              if(opts.saveUndo)
+              if(opts.saveUndo) {
                 this.undoStack.pushCurrentState(Constants.CMDTYPE.ROTATE,
                   opts.instance);
+              }
             }.bind(this)));
 
         var scale_up_behavior =
@@ -372,11 +384,17 @@ define([
             .onhold(ensureInstance(function(opts) {
               opts.instance.CascadingScale(scaleIncrement);
               this.renderer.postRedisplay();
+              var targetModelIndex = this.scene.ObjectToIndex(opts.instance);
+              this.uilog.log(UILog.EVENT.MODEL_SCALE,
+                opts,
+                {scaleBy: scaleIncrement,
+                 modelIndex: targetModelIndex});
             }.bind(this)))
             .onfinish(ensureInstance(function(opts) {
-              if(opts.saveUndo)
+              if(opts.saveUndo) {
                 this.undoStack.pushCurrentState(Constants.CMDTYPE.SCALE,
                   opts.instance);
+              }
             }.bind(this)));
 
         var scale_down_behavior =
@@ -384,11 +402,17 @@ define([
             .onhold(ensureInstance(function(opts) {
               opts.instance.CascadingScale(1.0 / scaleIncrement);
               this.renderer.postRedisplay();
+              var targetModelIndex = this.scene.ObjectToIndex(opts.instance);
+              this.uilog.log(UILog.EVENT.MODEL_SCALE,
+                opts,
+                {scaleBy: 1.0/scaleIncrement,
+                 modelIndex: targetModelIndex});
             }.bind(this)))
             .onfinish(ensureInstance(function(opts) {
-              if(opts.saveUndo)
+              if(opts.saveUndo) {
                 this.undoStack.pushCurrentState(Constants.CMDTYPE.SCALE,
                   opts.instance);
+              }
             }.bind(this)));
 
         // Keyboard Tumble
@@ -396,23 +420,40 @@ define([
           .onhold(ensureInstance(function(opts) {
             this.Tumble(opts.instance, false);
             this.renderer.postRedisplay();
+            var targetModelIndex = this.scene.ObjectToIndex(opts.instance);
+            this.uilog.log(UILog.EVENT.MODEL_TUMBLE,
+              opts,
+              {modelIndex: targetModelIndex});
           }.bind(this)))
           .onfinish(ensureInstance(function(opts) {
-            if(opts.saveUndo)
+            if(opts.saveUndo) {
               this.undoStack.pushCurrentState(
                 Constants.CMDTYPE.SWITCHFACE, opts.instance);
+            }
           }.bind(this)));
 
         // Copy/Paste
         Behaviors.keypress(this.uimap, 'ctrl+C')
           .onpress(function(data) {
             data.preventDefault();
+            if (this.uistate.selectedInstance) {
+              var targetModelIndex = this.scene.ObjectToIndex(this.uistate.selectedInstance);
+              this.uilog.log(UILog.EVENT.MODEL_COPY,
+                data,
+                {modelIndex: targetModelIndex});
+            }
             this.Copy();
             this.renderer.postRedisplay();
           }.bind(this));
         Behaviors.keypress(this.uimap, 'ctrl+V')
           .onpress(function(data) {
             data.preventDefault();
+            if (this.uistate.selectedInstance) {
+              var targetModelIndex = this.scene.ObjectToIndex(this.uistate.selectedInstance);
+              this.uilog.log(UILog.EVENT.MODEL_PASTE,
+                data,
+                {modelIndex: targetModelIndex});
+            }
             this.Paste(data);
             this.renderer.postRedisplay();
           }.bind(this));
@@ -421,6 +462,7 @@ define([
         Behaviors.keypress(this.uimap, 'ctrl+Z')
           .onpress(function(data) {
             data.preventDefault();
+            this.uilog.log(UILog.EVENT.UNDOSTACK_UNDO, data, {});
             this.insertion_behavior.cancel();
             this.Undo();
             this.renderer.postRedisplay();
@@ -428,6 +470,7 @@ define([
         Behaviors.keypress(this.uimap, 'ctrl+Y')
           .onpress(function(data) {
             data.preventDefault();
+            this.uilog.log(UILog.EVENT.UNDOSTACK_REDO, data, {});
             this.insertion_behavior.cancel();
             this.Redo();
             this.renderer.postRedisplay();
@@ -436,6 +479,7 @@ define([
         // Save
         Behaviors.keypress(this.uimap, 'ctrl+S')
           .onpress(function(data) {
+            this.uilog.log(UILog.EVENT.SCENE_SAVE, data, {});
             data.preventDefault();
             this.SaveScene();
           }.bind(this));
@@ -444,11 +488,23 @@ define([
         Behaviors.keypress(this.uimap, 'delete, backspace')
           .onpress(function(data) {
             data.preventDefault();
+            if (this.uistate.selectedInstance) {
+              var targetModelIndex = this.scene.ObjectToIndex(this.uistate.selectedInstance);
+              this.uilog.log(UILog.EVENT.MODEL_DELETE,
+                data,
+                {modelIndex: targetModelIndex});
+            }
             this.Delete();
             this.renderer.postRedisplay();
           }.bind(this));
         Behaviors.keypress(this.uimap, 'escape')
           .onpress(function(data) {
+            if (this.uistate.selectedInstance) {
+              var targetModelIndex = this.scene.ObjectToIndex(this.uistate.selectedInstance);
+              this.uilog.log(UILog.EVENT.MODEL_DESELECT,
+                data,
+                {modelIndex: targetModelIndex});
+            }
             data.preventDefault();
             this.insertion_behavior.cancel();
             this.SelectInstance(null);

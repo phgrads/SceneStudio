@@ -41,21 +41,32 @@ define([], function() {
         MISC            : "MISC"
     });
 
-    function UIEvent(type, data, time) {
+    function UIEvent(type, input, data, time) {
+        // Event type (see UILog.EVENT)
         this.type = type;
+        // Actual user input (keypress, mouse movement, etc)
+        this.input = input;
+        // Additional data associated with the event
+        // modelIndex, scale, rotation, etc
         this.data = data;
+        // Event timestamp
         this.time = time;
     }
 
     function UILog() {
         this.log_buffer = [];
+        this.saveToBuffer = false;
     }
 
-    UILog.prototype.log = function(type, data) {
+    UILog.prototype.log = function(type, rawinput, data) {
+      if (this.saveToBuffer) {
         var time = new Date().getTime();
         data = data || "";
-        var evt = new UIEvent(type, data, time);
+        // TODO: Filter important fields from rawinput
+        var input = rawinput;
+        var evt = new UIEvent(type, input, data, time);
         this.log_buffer.push(evt);
+      }
     };
 
     UILog.prototype.stringify = function() {
