@@ -28,7 +28,7 @@ define(function(require) {
       app.toolbar.LabelButton("Close", "Done", "Done with scene", "done");
 
       $( '#instructionsToggle' ).click(function() { $( '#instructionsTextDiv' ).toggle(); });
-
+      $('#help').show();
       describeSceneTask.Launch();
       app.Launch();
     } );
