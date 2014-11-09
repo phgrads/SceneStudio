@@ -258,7 +258,7 @@ function roughSizeOfObject( object ) {
         }
 
         return bytes;
-    }
+    };
 
     return recurse( object );
 }
