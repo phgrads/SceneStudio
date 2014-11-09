@@ -33,6 +33,11 @@ Camera.prototype.UpdateSceneBounds = function(bbox)
 };
 
 Camera.prototype.InitToSceneBounds = function() {
+  var view = this.GetDefaultView();
+  this.Reset(view.eye, view.lookAt, view.up);
+};
+
+Camera.prototype.GetDefaultView = function() {
   // Find a good view point based on the scene bounds
   var bbox = this.sceneBounds;
   var centroid = bbox.Centroid();
@@ -44,10 +49,24 @@ Camera.prototype.InitToSceneBounds = function() {
   var eye = vec3.create([centroid[0], bbMin[1] - dims[1]*0.25, bbMax[2] + maxDim] );
   var lookAt = centroid;
   var up = vec3.create([0,0,1]);
-  this.Reset(eye, lookAt, up);
+  return {
+    name: "default",
+    eye: eye,
+    lookAt: lookAt,
+    up: up
+  };
 };
 
 Camera.prototype.GenerateViews = function() {
+  var basicViews = this.GenerateBasicViews();
+  var defaultView = this.GetDefaultView();
+  var views = [];
+  views.push(defaultView);
+  views = views.concat(basicViews);
+  return views;
+};
+
+Camera.prototype.GenerateBasicViews = function() {
   // Find a good view point based on the scene bounds
   var bbox = this.sceneBounds;
   var centroid = bbox.Centroid();
@@ -66,8 +85,17 @@ Camera.prototype.GenerateViews = function() {
     vec3.create([centroid[0], centroid[1], bbMin[2] - maxDim*1.0] ),
     vec3.create([centroid[0], centroid[1], bbMax[2] + maxDim*1.0] )
   ];
-  var views = camPositions.map( function(x) {
+  var camNames = [
+    "left",
+    "right",
+    "front",
+    "back",
+    "bottom",
+    "top"
+  ];
+  var views = camPositions.map( function(x, index) {
     return {
+      name: camNames[index],
       eye: x,
       lookAt: lookAt,
       up: up

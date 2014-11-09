@@ -69,8 +69,8 @@ define([
       this.uimap = uimap.create(this.canvas);
 
       this.camera = new Camera();
-      var cameraData = JSON.parse("{\"eyePos\":{\"0\":3.776055335998535,\"1\":-187.77793884277344,\"2\":164.77069091796875,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"lookAtPoint\":{\"0\":0,\"1\":1,\"2\":0,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"upVec\":{\"0\":-0.01314918976277113,\"1\":0.6573730707168579,\"2\":0.7534525990486145,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"lookVec\":{\"0\":-0.015068011358380318,\"1\":0.7533015012741089,\"2\":-0.6575027108192444,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12},\"leftVec\":{\"0\":-0.9998010993003845,\"1\":-0.019998691976070404,\"2\":0,\"buffer\":{\"byteLength\":12},\"length\":3,\"byteOffset\":0,\"byteLength\":12}}");
-      $.extend(this.camera, cameraData);
+      this.predefinedViews = null;
+      this.currentViewIndex = 0;
 
       this.scene = new Scene();
       this.scene.camera = this.camera;
@@ -202,6 +202,8 @@ define([
           if (!this.scene.cameraInitialized) {
             this.camera.InitToSceneBounds();
           }
+          this.predefinedViews = this.camera.GenerateViews();
+          this.currentCameraIndex = 0;
           this.undoStack.clear();
           this.renderer.resizeEnd();
           this.renderer.UpdateView();
@@ -219,12 +221,21 @@ define([
           this.scene.Reset(new ModelInstance(model, null));
           this.camera.UpdateSceneBounds(this.scene.Bounds());
           this.camera.InitToSceneBounds();
+          this.predefinedViews = this.camera.GenerateViews();
+          this.currentCameraIndex = 0;
           this.undoStack.clear();
           this.renderer.resizeEnd();
           this.renderer.UpdateView();
           this.SelectInstance(null);
         }.bind(this));
       }
+    };
+
+    App.prototype.setView = function(view) {
+      console.log("Set view to ");
+      console.log(view);
+      this.camera.Reset(view.eye, view.lookAt, view.up);
+      this.renderer.UpdateView();
     };
 
     App.prototype.AttachEventHandlers = function ()
@@ -267,6 +278,23 @@ define([
 
       // mouse wheel scrolls
       addWheelHandler(this.canvas, this.MouseWheel.bind(this));
+
+      // change views
+      var inc_view_behavior =
+        Behaviors.keypress(this.uimap, '.')
+          .onpress(function(data) {
+            data.preventDefault();
+            this.currentViewIndex = (this.currentViewIndex + 1) % this.predefinedViews.length;
+            this.setView(this.predefinedViews[this.currentViewIndex]);
+          }.bind(this));
+
+      var dec_view_behavior =
+        Behaviors.keypress(this.uimap, ',')
+          .onpress(function(data) {
+            data.preventDefault();
+            this.currentViewIndex = (this.currentViewIndex - 1) % this.predefinedViews.length;
+            this.setView(this.predefinedViews[this.currentViewIndex]);
+          }.bind(this));
 
       if (this.allowEdit) {
         // also make sure insertion inhibits focusing
