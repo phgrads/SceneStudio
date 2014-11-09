@@ -5,8 +5,9 @@ define([
 function() {
 
 // NOTE: Compiled templates have functions with names "on[outputState]" which can be hooked up for
-//       handling events.  These take a callback function of the form function(data)
-
+//       handling events.
+// These take a callback function of the form function(data).
+// The data is the DOM event corresponding to the input (i.e. keyboard event, mouse event).
 /*
     ENVISIONED USAGE
     
