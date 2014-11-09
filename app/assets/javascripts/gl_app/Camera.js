@@ -66,24 +66,27 @@ Camera.prototype.GenerateViews = function() {
   return views;
 };
 
-Camera.prototype.GenerateBasicViews = function() {
+Camera.prototype.GenerateBasicViews = function(distScale) {
+  if (!distScale) {
+    distScale = 1.2;
+  }
   // Find a good view point based on the scene bounds
   var bbox = this.sceneBounds;
   var centroid = bbox.Centroid();
   var dims = bbox.Dimensions();
   var bbMin = bbox.mins;
-  var bbMax = bbox.mins;
+  var bbMax = bbox.maxs;
   var maxDim = Math.max( Math.max(dims[0], dims[1]), dims[2] );
 
   var lookAt = centroid;
   var up = vec3.create([0,0,1]);
   var camPositions = [
-    vec3.create([bbMin[0] - maxDim*1.0, centroid[1], centroid[2]] ),
-    vec3.create([bbMax[0] + maxDim*1.0, centroid[1], centroid[2]] ),
-    vec3.create([centroid[0], bbMin[1] - maxDim*1.0, centroid[2]] ),
-    vec3.create([centroid[0], bbMax[1] + maxDim*1.0, centroid[2]] ),
-    vec3.create([centroid[0], centroid[1], bbMin[2] - maxDim*1.0] ),
-    vec3.create([centroid[0], centroid[1], bbMax[2] + maxDim*1.0] )
+    vec3.create([bbMin[0] - maxDim*distScale, centroid[1], centroid[2]] ),
+    vec3.create([bbMax[0] + maxDim*distScale, centroid[1], centroid[2]] ),
+    vec3.create([centroid[0], bbMin[1] - maxDim*distScale, centroid[2]] ),
+    vec3.create([centroid[0], bbMax[1] + maxDim*distScale, centroid[2]] ),
+    vec3.create([centroid[0], centroid[1], bbMin[2] - maxDim*distScale] ),
+    vec3.create([centroid[0], centroid[1], bbMax[2] + maxDim*distScale] )
   ];
   var camNames = [
     "left",
@@ -93,12 +96,20 @@ Camera.prototype.GenerateBasicViews = function() {
     "bottom",
     "top"
   ];
+  var camUps = [
+    up,
+    up,
+    up,
+    up,
+    vec3.create([0,1,0]),
+    vec3.create([0,1,0])
+  ];
   var views = camPositions.map( function(x, index) {
     return {
       name: camNames[index],
       eye: x,
       lookAt: lookAt,
-      up: up
+      up: camUps[index]
     }
   });
   return views;
