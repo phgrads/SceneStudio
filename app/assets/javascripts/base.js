@@ -46,6 +46,11 @@ Float32Array.fromJSON = function(json) {
     return new Float32Array(JSON.parse(json));
 };
 
+// Javascript mod on negative numbers keep number negative
+if (typeof Number.prototype.mod != 'function') {
+  Number.prototype.mod = function(n) { return ((this%n)+n)%n; };
+}
+
 function stringToArrayBuffer(string, callback) {
     var bb = new Blob([string]);
     var f = new FileReader();

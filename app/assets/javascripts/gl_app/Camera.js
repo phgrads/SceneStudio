@@ -58,7 +58,7 @@ Camera.prototype.GetDefaultView = function() {
 };
 
 Camera.prototype.GenerateViews = function() {
-  var basicViews = this.GenerateBasicViews();
+  var basicViews = this.GenerateBasicViewsToFit();
   var defaultView = this.GetDefaultView();
   var views = [];
   views.push(defaultView);
@@ -68,25 +68,48 @@ Camera.prototype.GenerateViews = function() {
 
 Camera.prototype.GenerateBasicViews = function(distScale) {
   if (!distScale) {
+    // Some default distance scale
     distScale = 1.2;
   }
   // Find a good view point based on the scene bounds
   var bbox = this.sceneBounds;
-  var centroid = bbox.Centroid();
+  var maxDim = Math.max( Math.max(dims[0], dims[1]), dims[2] );
+  var dists = [ maxDim*distScale, maxDim*distScale, maxDim*distScale ];
+  return this.GenerateBasicViewsWithDists(dists);
+};
+
+Camera.prototype.GenerateBasicViewsToFit = function() {
+  // Find a good view point based on the scene bounds
+  var bbox = this.sceneBounds;
   var dims = bbox.Dimensions();
+  var maxDims = [
+    Math.max( dims[1], dims[2]),
+    Math.max( dims[0], dims[2]),
+    Math.max( dims[0], dims[1])
+  ];
+  var tanFov = Math.tan((Math.PI/180)*Constants.fovy/2);
+  var dists = maxDims.map( function(m) {
+    return 0.5*m/tanFov;
+  });
+  return this.GenerateBasicViewsWithDists(dists);
+};
+
+Camera.prototype.GenerateBasicViewsWithDists = function(dists) {
+  // Find a good view point based on the scene bounds
+  var bbox = this.sceneBounds;
+  var centroid = bbox.Centroid();
   var bbMin = bbox.mins;
   var bbMax = bbox.maxs;
-  var maxDim = Math.max( Math.max(dims[0], dims[1]), dims[2] );
 
   var lookAt = centroid;
   var up = vec3.create([0,0,1]);
   var camPositions = [
-    vec3.create([bbMin[0] - maxDim*distScale, centroid[1], centroid[2]] ),
-    vec3.create([bbMax[0] + maxDim*distScale, centroid[1], centroid[2]] ),
-    vec3.create([centroid[0], bbMin[1] - maxDim*distScale, centroid[2]] ),
-    vec3.create([centroid[0], bbMax[1] + maxDim*distScale, centroid[2]] ),
-    vec3.create([centroid[0], centroid[1], bbMin[2] - maxDim*distScale] ),
-    vec3.create([centroid[0], centroid[1], bbMax[2] + maxDim*distScale] )
+    vec3.create([bbMin[0] - dists[0], centroid[1], centroid[2]] ),
+    vec3.create([bbMax[0] + dists[0], centroid[1], centroid[2]] ),
+    vec3.create([centroid[0], bbMin[1] - dists[1], centroid[2]] ),
+    vec3.create([centroid[0], bbMax[1] + dists[1], centroid[2]] ),
+    vec3.create([centroid[0], centroid[1], bbMin[2] - dists[2]] ),
+    vec3.create([centroid[0], centroid[1], bbMax[2] + dists[2]] )
   ];
   var camNames = [
     "left",
@@ -114,6 +137,7 @@ Camera.prototype.GenerateBasicViews = function(distScale) {
   });
   return views;
 };
+
 
 Camera.prototype.CalculatePitchYaw = function()
 {

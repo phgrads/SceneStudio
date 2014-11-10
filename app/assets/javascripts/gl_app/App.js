@@ -300,7 +300,7 @@ define([
         Behaviors.keypress(this.uimap, '.')
           .onpress(function(data) {
             data.preventDefault();
-            this.currentViewIndex = (this.currentViewIndex + 1) % this.predefinedViews.length;
+            this.currentViewIndex = (this.currentViewIndex + 1).mod(this.predefinedViews.length);
             this.setView(this.predefinedViews[this.currentViewIndex]);
           }.bind(this));
 
@@ -308,7 +308,7 @@ define([
         Behaviors.keypress(this.uimap, ',')
           .onpress(function(data) {
             data.preventDefault();
-            this.currentViewIndex = (this.currentViewIndex - 1) % this.predefinedViews.length;
+            this.currentViewIndex = (this.currentViewIndex - 1).mod(this.predefinedViews.length);
             this.setView(this.predefinedViews[this.currentViewIndex]);
           }.bind(this));
 
@@ -604,11 +604,8 @@ define([
     {
       var zoom = dy * Constants.cameraZoomSpeed;
       this.camera.Zoom(zoom);
+      this.uilog.log(UILog.EVENT.CAMERA_ZOOM, evt, {zoom: zoom});
       this.renderer.UpdateView();
-      this.uilog.log(UILog.EVENT.CAMERA_ZOOM, evt,
-        {
-          zoom: zoom
-        });
     };
 
     App.prototype.Undo = function(evt)
