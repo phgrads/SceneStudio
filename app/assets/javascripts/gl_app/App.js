@@ -251,18 +251,34 @@ define([
       var orbiting_behavior =
         Behaviors.mousedrag(this.uimap, 'right')
           .ondrag(function(data) {
-            this.camera.OrbitLeft(-data.dx * Constants.cameraOrbitSpeed);
-            this.camera.OrbitUp(data.dy * Constants.cameraOrbitSpeed);
+            var left = -data.dx * Constants.cameraOrbitSpeed;
+            var up = data.dy * Constants.cameraOrbitSpeed;
+            this.camera.OrbitLeft(left);
+            this.camera.OrbitUp(up);
             this.renderer.UpdateView();
+            this.uilog.log(UILog.EVENT.CAMERA_ORBIT,
+              data,
+              {
+                orbitLeft: left,
+                orbitUp: up
+              });
           }.bind(this));
 
       // dollying
       var dollying_behavior =
         Behaviors.mousedrag(this.uimap, 'middle, shift+right')
           .ondrag(function(data) {
-            this.camera.DollyLeft(data.dx * Constants.cameraDollySpeed);
-            this.camera.DollyUp(data.dy * Constants.cameraDollySpeed);
+            var left = data.dx * Constants.cameraDollySpeed;
+            var up = data.dy * Constants.cameraDollySpeed;
+            this.camera.DollyLeft(left);
+            this.camera.DollyUp(up);
             this.renderer.UpdateView();
+            this.uilog.log(UILog.EVENT.CAMERA_DOLLY,
+              data,
+              {
+                dollyLeft: left,
+                dollyUp: up
+              });
           }.bind(this));
 
       // no need to install handlers, as events are
@@ -418,12 +434,8 @@ define([
         // Keyboard Tumble
         Behaviors.keyhold(this.uimap, 'ctrl+M')
           .onhold(ensureInstance(function(opts) {
-            this.Tumble(opts.instance, false);
+            this.Tumble(opts, opts.instance, false);
             this.renderer.postRedisplay();
-            var targetModelIndex = this.scene.ObjectToIndex(opts.instance);
-            this.uilog.log(UILog.EVENT.MODEL_TUMBLE,
-              opts,
-              {modelIndex: targetModelIndex});
           }.bind(this)))
           .onfinish(ensureInstance(function(opts) {
             if(opts.saveUndo) {
@@ -436,24 +448,12 @@ define([
         Behaviors.keypress(this.uimap, 'ctrl+C')
           .onpress(function(data) {
             data.preventDefault();
-            if (this.uistate.selectedInstance) {
-              var targetModelIndex = this.scene.ObjectToIndex(this.uistate.selectedInstance);
-              this.uilog.log(UILog.EVENT.MODEL_COPY,
-                data,
-                {modelIndex: targetModelIndex});
-            }
-            this.Copy();
+            this.Copy(data);
             this.renderer.postRedisplay();
           }.bind(this));
         Behaviors.keypress(this.uimap, 'ctrl+V')
           .onpress(function(data) {
             data.preventDefault();
-            if (this.uistate.selectedInstance) {
-              var targetModelIndex = this.scene.ObjectToIndex(this.uistate.selectedInstance);
-              this.uilog.log(UILog.EVENT.MODEL_PASTE,
-                data,
-                {modelIndex: targetModelIndex});
-            }
             this.Paste(data);
             this.renderer.postRedisplay();
           }.bind(this));
@@ -462,17 +462,15 @@ define([
         Behaviors.keypress(this.uimap, 'ctrl+Z')
           .onpress(function(data) {
             data.preventDefault();
-            this.uilog.log(UILog.EVENT.UNDOSTACK_UNDO, data, {});
             this.insertion_behavior.cancel();
-            this.Undo();
+            this.Undo(data);
             this.renderer.postRedisplay();
           }.bind(this));
         Behaviors.keypress(this.uimap, 'ctrl+Y')
           .onpress(function(data) {
             data.preventDefault();
-            this.uilog.log(UILog.EVENT.UNDOSTACK_REDO, data, {});
             this.insertion_behavior.cancel();
-            this.Redo();
+            this.Redo(data);
             this.renderer.postRedisplay();
           }.bind(this));
 
@@ -488,13 +486,7 @@ define([
         Behaviors.keypress(this.uimap, 'delete, backspace')
           .onpress(function(data) {
             data.preventDefault();
-            if (this.uistate.selectedInstance) {
-              var targetModelIndex = this.scene.ObjectToIndex(this.uistate.selectedInstance);
-              this.uilog.log(UILog.EVENT.MODEL_DELETE,
-                data,
-                {modelIndex: targetModelIndex});
-            }
-            this.Delete();
+            this.Delete(data);
             this.renderer.postRedisplay();
           }.bind(this));
         Behaviors.keypress(this.uimap, 'escape')
@@ -608,25 +600,32 @@ define([
         $('#ui').removeClass('busy');
     };
 
-    App.prototype.MouseWheel = function (dx, dy)
+    App.prototype.MouseWheel = function (dx, dy, evt)
     {
-      this.camera.Zoom(dy * Constants.cameraZoomSpeed);
+      var zoom = dy * Constants.cameraZoomSpeed;
+      this.camera.Zoom(zoom);
       this.renderer.UpdateView();
+      this.uilog.log(UILog.EVENT.CAMERA_ZOOM, evt,
+        {
+          zoom: zoom
+        });
     };
 
-    App.prototype.Undo = function()
+    App.prototype.Undo = function(evt)
     {
       this.undoStack.undo();
+      this.uilog.log(UILog.EVENT.UNDOSTACK_UNDO, evt, {});
       this.renderer.postRedisplay();
     };
 
-    App.prototype.Redo = function()
+    App.prototype.Redo = function(evt)
     {
       this.undoStack.redo();
+      this.uilog.log(UILog.EVENT.UNDOSTACK_REDO, evt, {});
       this.renderer.postRedisplay();
     };
 
-    App.prototype.Copy = function()
+    App.prototype.Copy = function(evt)
     {
       if (this.uistate.selectedInstance)
       {
@@ -635,6 +634,10 @@ define([
           this.uistate.copyInstance.Remove();
         // Set up the new copied instance.
         this.uistate.copyInstance = this.uistate.selectedInstance.Clone();
+
+        var targetModelIndex = this.scene.ObjectToIndex(this.uistate.selectedInstance);
+        this.uilog.log(UILog.EVENT.MODEL_COPY, evt,
+          {modelIndex: targetModelIndex});
 
         this.Publish('CopyCompleted');
       }
@@ -663,23 +666,34 @@ define([
         // assume that we can wait until the mouse starts moving
         if(opts)
           this.ContinueModelInsertion(opts.x, opts.y);
+
+        var targetModelIndex = this.scene.ObjectToIndex(this.uistate.copyInstance);
+        this.uilog.log(UILog.EVENT.MODEL_PASTE, opts,
+          {modelIndex: targetModelIndex});
       }
     };
 
-    App.prototype.Delete = function()
+    App.prototype.Delete = function(evt)
     {
       var selectedMinst = this.uistate.selectedInstance;
       if (selectedMinst)
       {
+        var targetModelIndex = this.scene.ObjectToIndex(selectedMinst);
+        this.uilog.log(UILog.EVENT.MODEL_DELETE, evt,
+            {modelIndex: targetModelIndex});
+
         this.RemoveModelInstance(selectedMinst);
         this.undoStack.pushCurrentState(Constants.CMDTYPE.DELETE, null);
       }
     };
 
-    App.prototype.Tumble = function(mInst, doRecordUndoEvent)
+    App.prototype.Tumble = function(evt, mInst, doRecordUndoEvent)
     {
       mInst.Tumble();
       doRecordUndoEvent && this.undoStack.pushCurrentState(Constants.CMDTYPE.SWITCHFACE, mInst);
+      var targetModelIndex = this.scene.ObjectToIndex(mInst);
+      this.uilog.log(UILog.EVENT.MODEL_TUMBLE, evt,
+        {modelIndex: targetModelIndex});
       this.renderer.postRedisplay();
     };
 

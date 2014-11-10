@@ -24,31 +24,31 @@ function Toolbar(app, allowEdit)
   });
 
   this.AddButton('Undo', 'Undo (Ctrl+Z)',
-	               'undo', function() {
-		app.Undo();
+	               'undo', function(evt) {
+		app.Undo(evt);
 	});
 	this.AddButton('Redo', 'Redo (Ctrl+Y)',
-	               'redo', function() {
-		app.Redo();
+	               'redo', function(evt) {
+		app.Redo(evt);
 	});
 	
 	this.AddSpacer();
 	
 	this.AddButton('Copy', 'Copy selected model (Ctrl+C)',
-	               'copy', function() {
-		app.Copy();
+	               'copy', function(evt) {
+		app.Copy(evt);
 	});
 	this.AddButton('Paste', 'Paste copied model (Ctrl+V)',
-	               'paste', function() {
-		app.Paste();
+	               'paste', function(evt) {
+		app.Paste(evt);
 	});
 	this.AddButton('Delete', 'Delete selected model (Delete)',
-	               'delete', function() {
-		app.Delete();
+	               'delete', function(evt) {
+		app.Delete(evt);
 	});
 	this.AddButton('Tumble', 'Tumble selected model (Ctrl+M)',
-	               'tumble', function() {
-		app.Tumble(this.app.uistate.selectedInstance, true);
+	               'tumble', function(evt) {
+		app.Tumble(evt, this.app.uistate.selectedInstance, true);
 	}.bind(this));
 	
 	this.AddSpacer();
@@ -149,8 +149,9 @@ Toolbar.prototype.AddButton = function(name, tooltip, iconName, callback)
 	
 	// Click callback
 	button.click(function(event) {
-		if (!button.hasClass('disabled'))
-			callback(event);
+		if (!button.hasClass('disabled')) {
+      callback(event);
+    }
 	});
 	
 	this.elem.append(button);
