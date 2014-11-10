@@ -26,6 +26,11 @@ define(function(require) {
       app.onSaveCallback = describeSceneTask.saveSceneCallback.bind(describeSceneTask);
       app.onCloseCallback = describeSceneTask.closeSceneCallback.bind(describeSceneTask);
       app.toolbar.LabelButton("Close", "Done", "Done with scene", "done");
+      if (window.globals.conf['loadViewIndex']) {
+        app.onLoadViewIndex = window.globals.conf['loadViewIndex'];
+      } else {
+        app.onLoadViewIndex = 0;
+      }
 
       $( '#instructionsToggle' ).click(function() { $( '#instructionsTextDiv' ).toggle(); });
       $('#help').show();

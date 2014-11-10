@@ -69,8 +69,12 @@ define([
       this.uimap = uimap.create(this.canvas);
 
       this.camera = new Camera();
+      // Set of predefined views
       this.predefinedViews = null;
+      // The current view index
       this.currentViewIndex = 0;
+      // What view to use for loaded scenes
+      this.onLoadViewIndex = -1;
 
       this.scene = new Scene();
       this.scene.camera = this.camera;
@@ -199,11 +203,16 @@ define([
         function() { // on success finish up some setup
           this.camera.SaveStateForReset();
           this.camera.UpdateSceneBounds(this.scene.Bounds());
-          if (!this.scene.cameraInitialized) {
-            this.camera.InitToSceneBounds();
-          }
           this.predefinedViews = this.camera.GenerateViews();
-          this.currentCameraIndex = 0;
+          if (this.onLoadViewIndex >= 0) {
+            this.currentCameraIndex = this.onLoadViewIndex;
+            this.setView(this.predefinedViews[this.currentCameraIndex]);
+          } else {
+            this.currentCameraIndex = 0;
+            if (!this.scene.cameraInitialized) {
+              this.setView(this.predefinedViews[this.currentCameraIndex]);
+            }
+          }
           this.undoStack.clear();
           this.renderer.resizeEnd();
           this.renderer.UpdateView();
@@ -220,9 +229,13 @@ define([
         {
           this.scene.Reset(new ModelInstance(model, null));
           this.camera.UpdateSceneBounds(this.scene.Bounds());
-          this.camera.InitToSceneBounds();
           this.predefinedViews = this.camera.GenerateViews();
-          this.currentCameraIndex = 0;
+          if (this.onLoadViewIndex >= 0) {
+            this.currentCameraIndex = this.onLoadViewIndex;
+          } else {
+            this.currentCameraIndex = 0;
+          }
+          this.setView(this.predefinedViews[this.currentCameraIndex]);
           this.undoStack.clear();
           this.renderer.resizeEnd();
           this.renderer.UpdateView();
@@ -297,7 +310,7 @@ define([
 
       // change views
       var inc_view_behavior =
-        Behaviors.keypress(this.uimap, '.')
+        Behaviors.keypress(this.uimap, 'ctrl+.')
           .onpress(function(data) {
             data.preventDefault();
             this.currentViewIndex = (this.currentViewIndex + 1).mod(this.predefinedViews.length);
@@ -305,7 +318,7 @@ define([
           }.bind(this));
 
       var dec_view_behavior =
-        Behaviors.keypress(this.uimap, ',')
+        Behaviors.keypress(this.uimap, 'ctrl+,')
           .onpress(function(data) {
             data.preventDefault();
             this.currentViewIndex = (this.currentViewIndex - 1).mod(this.predefinedViews.length);
