@@ -57,8 +57,8 @@ Camera.prototype.GetDefaultView = function() {
   };
 };
 
-Camera.prototype.GenerateViews = function() {
-  var basicViews = this.GenerateBasicViewsToFit();
+Camera.prototype.GenerateViews = function(width, height) {
+  var basicViews = this.GenerateBasicViewsToFit(width, height);
   var defaultView = this.GetDefaultView();
   var views = [];
   views.push(defaultView);
@@ -78,14 +78,15 @@ Camera.prototype.GenerateBasicViews = function(distScale) {
   return this.GenerateBasicViewsWithDists(dists);
 };
 
-Camera.prototype.GenerateBasicViewsToFit = function() {
+Camera.prototype.GenerateBasicViewsToFit = function(width, height) {
   // Find a good view point based on the scene bounds
   var bbox = this.sceneBounds;
   var dims = bbox.Dimensions();
+  var aspectRatio = (width >0 && height > 0)? width/height:1;
   var maxDims = [
-    Math.max( dims[1], dims[2]),
-    Math.max( dims[0], dims[2]),
-    Math.max( dims[0], dims[1])
+    Math.max( dims[1]/aspectRatio, dims[2]),
+    Math.max( dims[0]/aspectRatio, dims[2]),
+    Math.max( dims[0]/aspectRatio, dims[1])
   ];
   var tanFov = Math.tan((Math.PI/180)*Constants.fovy/2);
   var dists = maxDims.map( function(m) {

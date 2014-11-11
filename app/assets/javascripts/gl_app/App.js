@@ -203,7 +203,7 @@ define([
         function() { // on success finish up some setup
           this.camera.SaveStateForReset();
           this.camera.UpdateSceneBounds(this.scene.Bounds());
-          this.predefinedViews = this.camera.GenerateViews();
+          this.predefinedViews = this.camera.GenerateViews(this.canvas.width, this.canvas.height);
           if (this.onLoadViewIndex >= 0) {
             this.currentCameraIndex = this.onLoadViewIndex;
             this.setView(this.predefinedViews[this.currentCameraIndex]);
@@ -229,7 +229,7 @@ define([
         {
           this.scene.Reset(new ModelInstance(model, null));
           this.camera.UpdateSceneBounds(this.scene.Bounds());
-          this.predefinedViews = this.camera.GenerateViews();
+          this.predefinedViews = this.camera.GenerateViews(this.canvas.width, this.canvas.height);
           if (this.onLoadViewIndex >= 0) {
             this.currentCameraIndex = this.onLoadViewIndex;
           } else {
