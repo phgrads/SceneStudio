@@ -88,7 +88,7 @@ The following assumes that we are running in development mode on a local machine
 Existing Mechanical Turk Tasks
 --------------
 
-We currently have the following mechanical turk tasks.  You can find which tasks you have in your database by going to `mturk/tasks`.  In production mode, in order to manage the mturk tasks from the web interface, you will need to make sure that you are logged in and that the user's role is "mturk" (you can run `rake mturk:allow[user's name]` to give a user access to the mturk role. 
+We currently have the following mechanical turk tasks.  You can find which tasks you have in your database by going to `mturk/tasks`.  In production mode, in order to manage the mturk tasks from the web interface, you will need to make sure that you are logged in and that the user's role is "mturk" (you can run `rake mturk:allow[user's name]` to give a user access to the mturk role. In development mode, there is a link to test your task.
 
 ### desc2scene
 Ask users to create a scene based on a textual description.
@@ -105,10 +105,15 @@ Ask users to create a scene based on a scanned reconstruction.
 
 After running task, go to `experiments/recon2scene/results` to view results.
 
-### scene2desc (need refinement)
+### scene2desc 
 Ask users to provide a textual description of a scene.
 
 After running task, go to `experiments/scene2desc/results` to view results.
+
+### image2desc 
+Ask users to provide a textual description of a image.
+
+After running task, go to `experiments/image2desc/results` to view results.
 
 ### enrich_scene (need refinement)
 Ask users to enrich an existing scene by placing additional items to the scene.
