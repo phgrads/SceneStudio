@@ -141,12 +141,12 @@ namespace :mturk do
 
     def update_scene_data(item)
       old_data = JSON.parse(item.data)
-      puts("Got item #{old_data}")
+      #puts("Got item #{old_data}")
       if old_data.include?('scene') then
         # Potentially a old scene
         scene_data = old_data['scene']
         unless scene_data.include?('format') then
-          puts("Converting old scene #{item.id}")
+          #puts("Converting old scene #{item.id}")
           # Yes, this is a old scene (no format)
 
           # 1. Convert scene into ssj format
@@ -181,13 +181,14 @@ namespace :mturk do
           new_data = old_data
           new_data['scene'] = JSON.dump(new_scene_data)
           new_data['ui_log'] = JSON.dump(new_uilog_data)
-          puts("Converted to new data #{new_data}")
+          item.update_column('data', JSON.dump(new_data))
+          #puts("Converted to new data #{new_data}")
         else
           # 3. Trim cameras in scene string
           scene_data = JSON.parse(scene_data)
           scene_cameras = scene_data['cameras']
           scene_cameras.map!{ |x|
-            puts("camera is #{x}")
+            #puts("camera is #{x}")
             eye = to_array(x['eye'])
             lookAt = to_array(x['lookAt'])
             up = to_array(x['up'])
@@ -201,7 +202,8 @@ namespace :mturk do
 
           new_data = old_data
           new_data['scene'] = JSON.dump(scene_data)
-          puts("Converted to new data #{new_data}")
+          item.update_column('data', JSON.dump(new_data))
+          #puts("Converted to new data #{new_data}")
         end
       end
     end
