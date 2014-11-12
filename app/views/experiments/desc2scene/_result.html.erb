@@ -21,6 +21,8 @@
     <% end %>
   </td>
   <td>
+    <%= link_to 'scene2desc',
+                { controller: '/experiments/scene2desc', action: 'results', item: "desc2scene-#{result.id}" } rescue ""%>
     <%= link_to '×',
         { controller: '/mturk', action: 'destroy_item', itemId: result.id },
         confirm: 'Are you sure?', method: :post,
