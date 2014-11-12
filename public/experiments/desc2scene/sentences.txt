@@ -49,3 +49,13 @@ id	description	minObjects
 48	There is a coffee table and there is a lamp behind the coffee table. There is a chair in front of the coffee table.	3
 49	There is a desk and there is a lamp next to the desk.  There is a chair in front of the desk.	3
 50	There is a desk and there is a lamp next to the desk.  There is a chair in front of the desk.  There is a trash bin next to the desk.	4
+51	There is a bookcase and a couch.	2
+52	There is a bookcase and a desk.	2
+53	There is a bookcase and a vase on the bookcase. There is also a desk next to the bookcase.	3
+54	There is a bookcase and a couch. There is a plant by the couch.	3
+55	There is a couch and a coffee table. There is a cup on the coffee table.	3
+56	There is a bookcase and a couch and a coffee table.  There is a cup on the bookcase.	4
+57	There is a table with candles and a bowl of fruit.	3
+58	There is a couch and a coffee table. There is a bowl of fruit on the coffee table.	3
+59	There is a couch and a coffee table. There is a trash bin next to the couch.	3
+60	There is a desk with a lamp and a bowl of fruit.	3
