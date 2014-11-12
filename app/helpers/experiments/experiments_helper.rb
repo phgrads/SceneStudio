@@ -6,7 +6,7 @@ module Experiments::ExperimentsHelper
     @conf = YAML.load_file("config/experiments/#{controller_name}.yml")['conf']
     @entries = load_and_select_random(@conf['inputFile'], @conf['doneFile'],
                                       @conf['doneThreshold'], @conf['perWorkerItemCompletedThreshold'],
-                                      @conf['selectPolicy'], @conf['nScenes'])
+                                      @conf['selectPolicy'], @conf['selectCondition'], @conf['nScenes'])
     @no_entries_message = "You already completed all items in this task!  There are no more items for you to complete."
   end
 
@@ -21,7 +21,7 @@ module Experiments::ExperimentsHelper
     }
   end
 
-  def load_and_select_random(inputFile, doneFile, doneThreshold, itemCompletedThreshold, select_policy, n)
+  def load_and_select_random(inputFile, doneFile, doneThreshold, itemCompletedThreshold, select_policy, select_condition, n)
     # Figure out task and worker id
     taskId = @task.id
     workerId = @worker ? @worker.mtId : ''
@@ -48,7 +48,7 @@ module Experiments::ExperimentsHelper
       if (doneThreshold != nil && doneThreshold > 0)
         # Figure out count of done items from database
         # done_entries is a hash of item id to count
-        done_entries = count_completed_entries(taskId)
+        done_entries = count_completed_entries(taskId, select_condition)
 
         # Only consider those items with a count greater than the threshold to be done
         all_done_count = done_entries.size
@@ -76,11 +76,11 @@ module Experiments::ExperimentsHelper
       select_random(entries, n)
     elsif select_policy == "mincount"
       # Select entries that were completed least
-      entries_counts = count_completed_entries_for(taskId, entries)
+      entries_counts = count_completed_entries_for(taskId, select_condition, entries)
       select_by_count_min(entries_counts, n)
     elsif select_policy == "mincount_random"
       # Select entries randomly, favoring those with minimum completed count
-      entries_counts = count_completed_entries_for(taskId, entries)
+      entries_counts = count_completed_entries_for(taskId, select_condition, entries)
       select_random_grouped(entries_counts, n)
     else
       raise "Invalid selection policy #{select_policy}"
@@ -111,14 +111,18 @@ module Experiments::ExperimentsHelper
     CompletedItemsView.where('taskId = ?', taskId)
   end
 
-  def count_completed_entries(taskId)
+  def count_completed_entries(taskId, condition)
     # Count entries already done for this task
     # TODO: Only count approved
-    CompletedItemsView.group(:item).where('taskId = ?', taskId).count()
+    if condition == 'all' || condition == nil then
+      CompletedItemsView.group(:item).where('taskId = ?', taskId).count()
+    else
+      CompletedItemsView.group(:item).where('taskId = ? AND condition = ?', taskId, condition).count()
+    end
   end
 
-  def count_completed_entries_for(taskId, entries)
-    completed_counts = count_completed_entries(taskId)
+  def count_completed_entries_for(taskId, condition, entries)
+    completed_counts = count_completed_entries(taskId, condition)
     entries.each { |x| x[:count] = completed_counts[x[:id]]? completed_counts[x[:id]]:0 }
   end
 
