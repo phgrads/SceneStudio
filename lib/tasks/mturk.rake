@@ -135,6 +135,10 @@ namespace :mturk do
 
 
     # Convert old scene data into updated scene format with camera
+    def to_array(v)
+      v.include?('0')? [ v['0'], v['1'], v['2']]:v
+    end
+
     def update_scene_data(item)
       old_data = JSON.parse(item.data)
       puts("Got item #{old_data}")
@@ -184,13 +188,18 @@ namespace :mturk do
           scene_cameras = scene_data['cameras']
           scene_cameras.map!{ |x|
             puts("camera is #{x}")
+            eye = to_array(x['eye'])
+            lookAt = to_array(x['lookAt'])
+            up = to_array(x['up'])
             {
                 'name' => x['name'],
-                'eye' => [ x['eye'][0], x['eye'][1], x['eye'][2] ],
-                'lookAt' => [ x['lookAt'][0], x['lookAt'][1], x['lookAt'][2] ],
-                'up' => [ x['up'][0], x['up'][1], x['up'][2] ]
+                'eye' => eye,
+                'lookAt' => lookAt,
+                'up' => up
             }
           }
+
+          new_data = old_data
           new_data['scene'] = JSON.dump(scene_data)
           puts("Converted to new data #{new_data}")
         end
