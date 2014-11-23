@@ -29,9 +29,6 @@
     <% end %>
   </td>
   <td>
-    <%= link_to '×',
-        { controller: '/mturk', action: 'destroy_item', itemId: result.id },
-        confirm: 'Are you sure?', method: :post,
-        class: 'btn btn-danger scene-delete' %>
+    <%= render 'mturk/itemStatusButtons', :result => result %>
   </td>
 </tr>
