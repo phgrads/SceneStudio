@@ -320,8 +320,9 @@ RotationManipulator.prototype.ContinueMouseInteract = function(data)
 	this.actualAbsoluteAng += ang;
 	this.SnapAbsoluteAng();
 	ang = this.AbsoluteAngToRelativeAng(this.snappedAbsoluteAng);
-	this.ownerInstance.CascadingRotate(ang);
-	
+  data['inputType'] = 'manipulator';
+  data.app.RotateBy(data, this.ownerInstance, ang);
+
 	vec3.set(this.currVector, this.prevVector);
 };
 
@@ -419,7 +420,7 @@ ScaleManipulator.prototype.RegenGeometry = function(newR)
 	var c0 = 0.25 * Math.PI;
 	var c1 = 0.75 * Math.PI;
 	var c2 = 1.25 * Math.PI;
-	var c3 = 1.75 * Math.PI
+	var c3 = 1.75 * Math.PI;
 	var hw = 0.5 * Constants.scaleWidth;
 	var slices = Constants.scaleSlices;
 	var attr = {bothFaces: true};
@@ -467,15 +468,16 @@ ScaleManipulator.prototype.ContinueMouseInteract = function(data)
 	vec3.subtract(isect.position, this.ownerInstance.parentPos, this.currVector);
 	
 	var ldiff = vec3.length(this.currVector) / vec3.length(this.prevVector);
-	this.ownerInstance.CascadingScale(ldiff * Constants.scaleMagnitudeMultiplier);
+	var scaleIncrement = ldiff * Constants.scaleMagnitudeMultiplier;
+  data['inputType'] = 'manipulator';
+  data.app.ScaleBy(data, this.ownerInstance, scaleIncrement);
 
 	vec3.set(this.currVector, this.prevVector);
 };
 
 ScaleManipulator.prototype.EndMouseInteract = function(data)
 {
-    data.app.undoStack.pushCurrentState(Constants.CMDTYPE.SCALE,
-                                        this.ownerInstance);
+  data.app.undoStack.pushCurrentState(Constants.CMDTYPE.SCALE, this.ownerInstance);
 };
 
 

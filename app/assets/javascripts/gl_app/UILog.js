@@ -62,11 +62,23 @@ define([], function() {
       if (this.saveToBuffer) {
         var time = new Date().getTime();
         data = data || "";
-        // TODO: Filter important fields from rawinput
-        var input = rawinput;
+        var input = this.filterInput(rawinput);
         var evt = new UIEvent(type, input, data, time);
         this.log_buffer.push(evt);
       }
+    };
+
+    UILog.prototype.filterInput = function(rawinput) {
+      var input = rawinput;
+      // TODO: Decide on the import fields and filter from rawinput
+      var keepFields = [];
+      for (var i = 0; i < keepFields.length; i++) {
+        var field = keepFields[i];
+        if (rawinput[i] !== undefined) {
+          input[field] = rawinput[i];
+        }
+      }
+      return input;
     };
 
     UILog.prototype.stringify = function() {

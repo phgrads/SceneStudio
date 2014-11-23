@@ -150,6 +150,7 @@ Toolbar.prototype.AddButton = function(name, tooltip, iconName, callback)
 	// Click callback
 	button.click(function(event) {
 		if (!button.hasClass('disabled')) {
+      event['inputType'] = 'toolbar';
       callback(event);
     }
 	});

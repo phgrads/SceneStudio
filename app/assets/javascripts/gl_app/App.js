@@ -375,13 +375,8 @@ define([
         var rotate_left_behavior =
           Behaviors.keyhold(this.uimap, 'left')
             .onhold(ensureInstance(function(opts) {
-              opts.instance.CascadingRotate(rotateIncrement);
+              this.RotateBy(opts, opts.instance, rotateIncrement);
               this.renderer.postRedisplay();
-              var targetModelIndex = this.scene.ObjectToIndex(opts.instance);
-              this.uilog.log(UILog.EVENT.MODEL_ROTATE,
-                opts,
-                {rotateBy: rotateIncrement,
-                 modelIndex: targetModelIndex});
             }.bind(this)))
             .onfinish(ensureInstance(function(opts) {
               if(opts.saveUndo) {
@@ -393,13 +388,8 @@ define([
         var rotate_right_behavior =
           Behaviors.keyhold(this.uimap, 'right')
             .onhold(ensureInstance(function(opts) {
-              opts.instance.CascadingRotate(-rotateIncrement);
+              this.RotateBy(opts, opts.instance, -rotateIncrement);
               this.renderer.postRedisplay();
-              var targetModelIndex = this.scene.ObjectToIndex(opts.instance);
-              this.uilog.log(UILog.EVENT.MODEL_ROTATE,
-                opts,
-                {rotateBy: -rotateIncrement,
-                 modelIndex: targetModelIndex});
             }.bind(this)))
             .onfinish(ensureInstance(function(opts) {
               if(opts.saveUndo) {
@@ -411,13 +401,8 @@ define([
         var scale_up_behavior =
           Behaviors.keyhold(this.uimap, 'up')
             .onhold(ensureInstance(function(opts) {
-              opts.instance.CascadingScale(scaleIncrement);
+              this.ScaleBy(opts, opts.instance, scaleIncrement);
               this.renderer.postRedisplay();
-              var targetModelIndex = this.scene.ObjectToIndex(opts.instance);
-              this.uilog.log(UILog.EVENT.MODEL_SCALE,
-                opts,
-                {scaleBy: scaleIncrement,
-                 modelIndex: targetModelIndex});
             }.bind(this)))
             .onfinish(ensureInstance(function(opts) {
               if(opts.saveUndo) {
@@ -429,13 +414,8 @@ define([
         var scale_down_behavior =
           Behaviors.keyhold(this.uimap, 'down')
             .onhold(ensureInstance(function(opts) {
-              opts.instance.CascadingScale(1.0 / scaleIncrement);
+              this.ScaleBy(opts, opts.instance, 1.0 / scaleIncrement);
               this.renderer.postRedisplay();
-              var targetModelIndex = this.scene.ObjectToIndex(opts.instance);
-              this.uilog.log(UILog.EVENT.MODEL_SCALE,
-                opts,
-                {scaleBy: 1.0/scaleIncrement,
-                 modelIndex: targetModelIndex});
             }.bind(this)))
             .onfinish(ensureInstance(function(opts) {
               if(opts.saveUndo) {
@@ -705,6 +685,26 @@ define([
       this.uilog.log(UILog.EVENT.MODEL_TUMBLE, evt,
         {modelIndex: targetModelIndex});
       this.renderer.postRedisplay();
+    };
+
+    App.prototype.ScaleBy = function(evt, mInst, scaleBy) {
+      mInst.CascadingScale(scaleBy);
+      var targetModelIndex = this.scene.ObjectToIndex(mInst);
+      this.uilog.log(UILog.EVENT.MODEL_SCALE,
+        evt,
+        {
+          scaleBy: scaleBy,
+          modelIndex: targetModelIndex
+        });
+    };
+
+    App.prototype.RotateBy = function(evt, mInst, rotateBy) {
+      mInst.CascadingRotate(rotateBy);
+      var targetModelIndex = this.scene.ObjectToIndex(mInst);
+      this.uilog.log(UILog.EVENT.MODEL_ROTATE,
+        evt,
+        { rotateBy: rotateBy,
+          modelIndex: targetModelIndex});
     };
 
     App.prototype.LoadScene = function(on_success, on_error)
