@@ -28,7 +28,7 @@ define([
       this.startButton = $('#startButton');
       this.startButton.click(this.start.bind(this));
       this.mturkOverlay = $('#mturkOverlay');
-      this.testMode = true;
+      this.testMode = false;
     }
 
     UpdateScenesApp.prototype.loadSceneCallback = function(app, on_success, on_error) {
@@ -56,7 +56,7 @@ define([
 
     UpdateScenesApp.prototype.updateDb = function(entry) {
       var data = {
-        id: entry['id'],
+        itemId: entry['id'],
         data: JSON.stringify(entry['data'])
       };
       console.log(data);

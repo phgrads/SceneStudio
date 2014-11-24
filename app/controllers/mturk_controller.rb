@@ -245,10 +245,11 @@ class MturkController < ApplicationController
 
   # Updates item (for management purposes, without updating the update time)
   def update_item
-    if (params['id']) then
+    if @item then
       if (params['data']) then
         @item.update_column('data', params['data'])
       end
+      ok_JSON_response
     else
       fail_JSON_response
     end
