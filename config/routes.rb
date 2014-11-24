@@ -64,6 +64,9 @@ SceneStudio::Application.routes.draw do
   post '/mturk/approve_assignment', to: 'mturk#approve_assignment'
   post '/mturk/reject_assignment',  to: 'mturk#reject_assignment'
 
+  # scene conversion (disable after done)
+  get '/mturk/update_scenes',       to: 'mturk#update_scenes'
+  post '/mturk/update_item',        to: 'mturk#update_item'
 
   #resources :identities
 

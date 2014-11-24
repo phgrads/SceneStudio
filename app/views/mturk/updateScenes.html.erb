@@ -1,0 +1,21 @@
+<div id="ui">
+  <%= render '/scenes/graphicsArea' %>
+  <%= render '/scenes/graphicsOverlay', :allowEdit => false %>
+  <script type='text/javascript'>
+      window.globals = {
+          updateUrl: '<%= mturk_update_item_url %>',
+          entries: <%= raw(@entries.to_json) %>
+      };
+  </script>
+  <div id="entryOverlay" class="entryOverlay topOverlay center">
+    <p id="sentence" class="textDescription"><%= @entries.size %></p>
+  </div>
+</div>
+
+<div id="mturkOverlay" class="mturkOverlay">
+  <div class="center">
+    <input type="button" id="startButton" class="largeButton" value="Start"/>
+  </div>
+</div>
+
+<%= requirejs_include_tag('experiments/update-mturk-scenes') %>

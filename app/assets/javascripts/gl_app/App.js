@@ -113,6 +113,7 @@ define([
       }
 
       if (window.globals) {
+        this.onLoadCallback = window.globals.onLoadCallback;
         this.onSaveCallback = window.globals.onSaveCallback;
         this.onCloseCallback = window.globals.onCloseCallback;
         this.onLoadUrl = window.globals.onLoadUrl;
@@ -216,6 +217,9 @@ define([
           this.undoStack.clear();
           this.renderer.resizeEnd();
           this.renderer.UpdateView();
+          if (this.onLoadCallback) {
+            this.onLoadCallback(this);
+          }
         }.bind(this),
         function() { // on failure create an empty room
           this.CreateEmpty();
@@ -946,6 +950,7 @@ define([
 
     App.prototype.SaveImage = function(maxWidth,maxHeight) {
       var dataUrl = this.GetImageData(maxWidth,maxHeight);
+      // NOTE: This may crash if dataUrl is too long...
       window.open(dataUrl);
     };
 

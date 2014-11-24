@@ -10,7 +10,8 @@ class MturkController < ApplicationController
   before_filter :list_tasks, only: [:tasks]
   before_filter :list_assignments, only: [:assignments]
   before_filter :list_items, only: [:items]
-  before_filter :retrieve_item, only: [:preview_item, :destroy_item]
+  before_filter :retrieve_item, only: [:preview_item, :destroy_item, :update_item]
+  layout 'webgl_viewport', only: [:update_scenes]
 
   # IFrame to be displayed in Amazon MTurk redirecting workers to actual task
   def task
@@ -164,7 +165,7 @@ class MturkController < ApplicationController
           # Remap the items
           mapped = @items.map{ |item| {
               id: "#{item.taskName}-#{item.id}",
-              url: "/experiments/#{item.taskName}/#{item.id}/load"
+              url: get_item_load_scene_url(item)
 #              url: item.preview.url
           }}
           send_data as_csv(mapped, columns, :col_sep => "\t")
@@ -242,6 +243,47 @@ class MturkController < ApplicationController
     redirect_to request.referer
   end
 
+  # Updates item (for management purposes, without updating the update time)
+  def update_item
+    if (params['id']) then
+      if (params['data']) then
+        @item.update_column('data', params['data'])
+      end
+    else
+      fail_JSON_response
+    end
+  end
+
+  # Convert old scene format into new scene format with transforms
+  def update_scenes
+    @title = "Update MTurk scenes..."
+    add_transforms_to_scenes
+  end
+
+  def add_transforms_to_scenes
+    allItems = CompletedItemsView.all
+    @items = allItems.select{ |item|
+      data = JSON.parse(item.data)
+      if data.include?('scene') then
+        # Check if the scene data has transforms
+        scene_data = JSON.parse(data['scene'])
+        objects = scene_data['objects']
+        objects.any?{ |obj| !obj.include?('transform')}
+      else
+        false
+      end
+    }
+    @entries = @items.map{
+        |item|
+      {
+          'id' => item.id,
+          'data' => JSON.parse(item.data),
+          'url' => get_item_load_scene_url(item)
+      }
+    }
+    render 'mturk/updateScenes'
+  end
+
   def destroy_item
     @item.destroy
     flash[:success] = 'Item deleted.'
@@ -281,6 +323,10 @@ class MturkController < ApplicationController
 
     def list_items
       @items = CompletedItemsView.filter(params.slice(:workerId, :taskName, :condition, :item))
+    end
+
+    def get_item_load_scene_url(item)
+      "/experiments/#{item.taskName}/#{item.id}/load"
     end
 
     def retrieve_item
