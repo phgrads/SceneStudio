@@ -384,17 +384,22 @@ function trimCanvas(c) {
     }
   }
 
-  var trimHeight = bound.bottom - bound.top;
-  var trimWidth = bound.right - bound.left;
+  var trimHeight = bound.bottom - bound.top + 1;
+  var trimWidth = bound.right - bound.left + 1;
   if (trimHeight > 0 && trimWidth > 0) {
-    var trimmed = ctx.getImageData(bound.left, bound.top, trimWidth, trimHeight);
+    if (trimHeight === c.height && trimWidth === c.width) {
+      // No need to trim, just return original
+      return c;
+    } else {
+      var trimmed = ctx.getImageData(bound.left, bound.top, trimWidth, trimHeight);
 
-    copy.canvas.width = trimWidth;
-    copy.canvas.height = trimHeight;
-    copy.putImageData(trimmed, 0, 0);
+      copy.canvas.width = trimWidth;
+      copy.canvas.height = trimHeight;
+      copy.putImageData(trimmed, 0, 0);
 
-    // open new window with trimmed image:
-    return copy.canvas;
+      // open new window with trimmed image:
+      return copy.canvas;
+    }
   } else {
     console.error("Invalid trimmed height or width, returning original canvas");
     return c;
