@@ -11,11 +11,9 @@
         $('#alert').hide();
     }
     function _select_all() {
-        console.log("select_all");
         $('.item-checkbox').prop("checked", true);
     }
     function _deselect_all() {
-        console.log("deselect_all");
         $('.item-checkbox').prop("checked", false);
     }
     function _approve_checked() {
@@ -34,6 +32,13 @@
         };
 
         var checked = $('.item-checkbox:checked');
+        var token = $( 'meta[name="csrf-token"]' ).attr( 'content' );
+
+        $.ajaxSetup( {
+            beforeSend: function ( xhr ) {
+                xhr.setRequestHeader( 'X-CSRF-Token', token );
+            }
+        });
         if (checked.length > 0) {
             var items = [];
             for (var i = 0; i < checked.length; i++) {
@@ -43,7 +48,6 @@
                     status: status
                 })
             }
-            console.log(items);
             var ajaxCall = $.ajax({
                 type: 'POST',
                 url: "<%= mturk_update_items_url %>",
@@ -57,7 +61,7 @@
         } else {
             showAlert("No items selected.", 'alert-danger');
         }
-    };
+    }
 </script>
 <div class="btn-group">
   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
