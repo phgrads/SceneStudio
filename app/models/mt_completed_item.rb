@@ -12,4 +12,8 @@ class MtCompletedItem < ActiveRecord::Base
   validates :data, presence: true
   validates :mt_assignment_id, presence: true
   validates :mt_item, presence: true
+
+  def ok?
+    status != 'REJ'
+  end
 end

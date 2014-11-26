@@ -10,6 +10,10 @@ class CompletedItemsView < ActiveRecord::Base
   belongs_to :mt_task, :foreign_key => 'taskId'
   default_scope order: 'completed_items_view.created_at DESC'
 
+  def ok?
+    status != 'REJ'
+  end
+
   scope :workerId, lambda { |workerId| where(workerId: workerId) }
   scope :hitId, lambda { |hitId| where(hitId: hitId) }
   scope :assignmentId, lambda { |assignmentId| where(assignmentId: assignmentId) }

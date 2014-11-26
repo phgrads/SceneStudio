@@ -326,6 +326,7 @@ class MturkController < ApplicationController
     def list_tasks
       @tasks = MtTask.all()
       @completed_items_count = CompletedItemsView.group(:taskId).count()
+      @ok_items_count = CompletedItemsView.group(:taskId).where("status <> 'REJ' or status is null").count()
       @assignments_count = AssignmentsView.group(:taskName).count()
     end
 
@@ -337,10 +338,15 @@ class MturkController < ApplicationController
       if params[:live]
         @assignments = @assignments.select{ |a| a.live? == params[:live].to_bool }
       end
+      @assignments
     end
 
     def list_items
       @items = CompletedItemsView.filter(params.slice(:workerId, :taskName, :condition, :item, :status, :hitId, :assignmentId))
+      if params[:ok]
+        @items = @items.select{ |item| item.ok? == params[:ok].to_bool }
+      end
+      @items
     end
 
     def get_item_load_scene_url(item)

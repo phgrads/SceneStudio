@@ -97,27 +97,29 @@ module Experiments::ExperimentsHelper
 
   def load_worker_completed_entries(taskId, workerId)
     # Load entries that were already done by the worker for this task
-    CompletedItemsView.where('taskId = ? AND workerId = ?', taskId, workerId)
+    # We only count items that are not rejected (status != 'REJ')
+    CompletedItemsView.where("taskId = ? AND workerId = ? AND #{check_status}", taskId, workerId)
   end
 
   def count_worker_completed_entries(taskId, workerId)
     # Count entries that were already done by the worker for this task
-    # TODO: Only count approved
-    CompletedItemsView.group(:item).where('taskId = ? AND workerId = ?', taskId, workerId).count()
+    # We only count items that are not rejected (status != 'REJ')
+    CompletedItemsView.group(:item).where("taskId = ? AND workerId = ? AND #{check_status}", taskId, workerId).count()
   end
 
   def load_completed_entries(taskId)
     # Load entries that were already done for this task
-    CompletedItemsView.where('taskId = ?', taskId)
+    # We only count items that are not rejected (status != 'REJ')
+    CompletedItemsView.where("taskId = ? AND #{check_status}", taskId)
   end
 
   def count_completed_entries(taskId, condition)
     # Count entries already done for this task
-    # TODO: Only count approved
+    # We only count items that are not rejected (status != 'REJ')
     if condition == 'all' || condition == nil then
-      CompletedItemsView.group(:item).where('taskId = ?', taskId).count()
+      CompletedItemsView.group(:item).where("taskId = ? AND #{check_status}", taskId).count()
     else
-      CompletedItemsView.group(:item).where('taskId = ? AND condition = ?', taskId, condition).count()
+      CompletedItemsView.group(:item).where("taskId = ? AND condition = ? AND #{check_status}", taskId, condition).count()
     end
   end
 
@@ -185,6 +187,10 @@ module Experiments::ExperimentsHelper
 
   def get_completed_items(taskId)
     @completed = CompletedItemsView.filter(params.slice(:workerId, :item, :condition, :status, :hitId, :assignmentId)).where('taskId = ?', taskId)
+    if params[:ok]
+      @completed = @completed.select{ |item| item.ok? == params[:ok].to_bool }
+    end
+    @completed
   end
 
   def retrieve_item
@@ -205,4 +211,10 @@ module Experiments::ExperimentsHelper
     end
   end
 
+  private
+    # We only count items that are not rejected (status != 'REJ')
+    # TODO: Make this more efficient
+    def check_status
+      "(status <> 'REJ' or status is null)"
+    end
 end

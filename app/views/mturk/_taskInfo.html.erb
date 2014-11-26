@@ -8,7 +8,13 @@
   </td>
   <td>
     <% completed_count = @completed_items_count[task.id] %>
-    <%= link_to "results(#{completed_count})", { controller: 'experiments/' + task.name, action: 'results' }  rescue "" %>
+    <% ok_count = @ok_items_count[task.id] %>
+    <% if completed_count %>
+        <%= link_to "all(#{completed_count})", { controller: 'experiments/' + task.name, action: 'results' }  rescue "" %>
+    <% end %>
+    <% if ok_count %>
+        <%= link_to "ok(#{ok_count})", { controller: 'experiments/' + task.name, action: 'results', ok: 'true' }  rescue "" %>
+    <% end %>
   </td>
   <% if Rails.env.development? %>
   <td><%= link_to 'test', { action: 'task',
