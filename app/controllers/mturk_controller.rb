@@ -340,7 +340,7 @@ class MturkController < ApplicationController
     end
 
     def list_items
-      @items = CompletedItemsView.filter(params.slice(:workerId, :taskName, :condition, :item))
+      @items = CompletedItemsView.filter(params.slice(:workerId, :taskName, :condition, :item, :status, :hitId, :assignmentId))
     end
 
     def get_item_load_scene_url(item)

@@ -184,7 +184,7 @@ module Experiments::ExperimentsHelper
   end
 
   def get_completed_items(taskId)
-    @completed = CompletedItemsView.filter(params.slice(:workerId, :item, :condition)).where('taskId = ?', taskId)
+    @completed = CompletedItemsView.filter(params.slice(:workerId, :item, :condition, :status, :hitId, :assignmentId)).where('taskId = ?', taskId)
   end
 
   def retrieve_item
