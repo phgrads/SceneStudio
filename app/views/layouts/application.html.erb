@@ -26,6 +26,10 @@
   <% flash.each do |key, value| %>
     <%= content_tag(:div, value, class: "alert alert-#{key}") %>
   <% end %>
+  <div id="alert" class="alert" style='display:none'>
+    <button type="button" class="close" onclick="hideAlert()">&times;</button>
+    <span id="alertMessage"></span>
+  </div>
   <%= yield %>
   <%= render 'layouts/footer' %>
   <%= debug(params) if Rails.env.development? %>

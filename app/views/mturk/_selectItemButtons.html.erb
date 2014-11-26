@@ -1,0 +1,72 @@
+<script type="text/javascript">
+    function showAlert(message, style) {
+        window.setTimeout(function() { hideAlert(); }, 5000);
+        $('#alertMessage').text(message);
+        $('#alert').attr('class', 'alert');
+        $('#alert').addClass(style);
+        $('#alert').show();
+    }
+
+    function hideAlert() {
+        $('#alert').hide();
+    }
+    function _select_all() {
+        console.log("select_all");
+        $('.item-checkbox').prop("checked", true);
+    }
+    function _deselect_all() {
+        console.log("deselect_all");
+        $('.item-checkbox').prop("checked", false);
+    }
+    function _approve_checked() {
+        _update_checked('APP')
+    }
+    function _reject_checked() {
+        _update_checked('REJ')
+    }
+    function _update_checked(status, on_success, on_error) {
+        on_success = on_success || function() {
+            _deselect_all();
+            showAlert("Items updated!", 'alert-success');
+        };
+        on_error = on_error || function() {
+            showAlert("Error updating items.", 'alert-danger');
+        };
+
+        var checked = $('.item-checkbox:checked');
+        if (checked.length > 0) {
+            var items = [];
+            for (var i = 0; i < checked.length; i++) {
+                var id = $(checked[i]).attr('id').replace('check-','');
+                items.push({
+                    id: id,
+                    status: status
+                })
+            }
+            console.log(items);
+            var ajaxCall = $.ajax({
+                type: 'POST',
+                url: "<%= mturk_update_items_url %>",
+                data: {
+                    items: JSON.stringify(items)
+                },
+                dataType: 'json',
+                timeout: 30000
+            });
+            ajaxCall.error(on_error).success(on_success);
+        } else {
+            showAlert("No items selected.", 'alert-danger');
+        }
+    };
+</script>
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    Items <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><%= link_to 'Select All', '#', :onclick => '_select_all()' %></li>
+    <li><%= link_to 'Deselect All', '#', :onclick => '_deselect_all()' %></li>
+    <li><%= link_to 'Approve', '#', :onclick => '_approve_checked()' %></li>
+    <li><%= link_to 'Reject', '#', :onclick => '_reject_checked()' %></li>
+  </ul>
+</div>

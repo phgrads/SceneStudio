@@ -2,6 +2,5 @@
             { controller: '/mturk', action: 'destroy_item', itemId: result.id },
             confirm: 'Are you sure?', method: :post,
             class: 'btn btn-danger scene-delete' %>
-<% if false %>
-<%= check_box_tag "check-#{result.id}" %>
-<% end %>
+<%= check_box_tag "check-#{result.id}", 'yes', false, :class => 'item-checkbox' %>
+<%= result.status %>

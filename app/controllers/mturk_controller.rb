@@ -243,11 +243,28 @@ class MturkController < ApplicationController
     redirect_to request.referer
   end
 
+  # Updates status for multiple items (for management purposes, without updating the update time)
+  def update_items
+    if (params['items']) then
+      items = JSON.parse(params['items'])
+      items.each { |x|
+        item = MtCompletedItem.find(x['id'].to_i)
+        item.update_column('status', x['status'])
+      }
+      ok_JSON_response
+    else
+      fail_JSON_response
+    end
+  end
+
   # Updates item (for management purposes, without updating the update time)
   def update_item
     if @item then
       if (params['data']) then
         @item.update_column('data', params['data'])
+      end
+      if (params['status']) then
+        @item.update_column('status', params['status'])
       end
       ok_JSON_response
     else

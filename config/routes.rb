@@ -67,6 +67,7 @@ SceneStudio::Application.routes.draw do
   # scene conversion (disable after done)
   #get '/mturk/update_scenes',       to: 'mturk#update_scenes'
   #post '/mturk/update_item',        to: 'mturk#update_item'
+  post '/mturk/update_items',        to: 'mturk#update_items'
 
   #resources :identities
 
