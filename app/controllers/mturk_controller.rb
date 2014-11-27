@@ -342,11 +342,7 @@ class MturkController < ApplicationController
     end
 
     def list_items
-      @items = CompletedItemsView.filter(params.slice(:workerId, :taskName, :condition, :item, :status, :hitId, :assignmentId))
-      if params[:ok]
-        @items = @items.select{ |item| item.ok? == params[:ok].to_bool }
-      end
-      @items
+      @items = CompletedItemsView.filter(params.slice(:workerId, :taskName, :condition, :item, :status, :hitId, :assignmentId, :ok))
     end
 
     def get_item_load_scene_url(item)

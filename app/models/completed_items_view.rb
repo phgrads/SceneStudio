@@ -18,8 +18,15 @@ class CompletedItemsView < ActiveRecord::Base
   scope :hitId, lambda { |hitId| where(hitId: hitId) }
   scope :assignmentId, lambda { |assignmentId| where(assignmentId: assignmentId) }
   scope :taskName, lambda { |taskName| where(taskName: taskName) }
-  scope :taskId, lambda { |taskName| where(taskId: taskId) }
+  scope :taskId, lambda { |taskId| where(taskId: taskId) }
   scope :item, lambda { |item| where(item: item) }
   scope :status, lambda { |status| where(status: status) }
   scope :condition, lambda { |condition| where(condition: condition) }
+  scope :ok, lambda { |ok|
+             if ok
+               where("status <> 'REJ' or status is null")
+             else
+               where("status = 'REJ'")
+             end
+           }
 end
