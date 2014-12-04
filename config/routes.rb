@@ -1,5 +1,7 @@
 SceneStudio::Application.routes.draw do
 
+  get 'experiments/align_text2scene', to: 'experiments/align_text2scene#index'
+
   # Mturk tasks
   get 'experiments/enrich_scene', to: 'experiments/enrich_scene#index'
   get 'experiments/enrich_scene/results', to: 'experiments/enrich_scene#results'
