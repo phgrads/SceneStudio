@@ -1,0 +1,15 @@
+<div id="ui">
+  <%= render '/scenes/graphicsArea' %>
+  <%= render '/scenes/graphicsOverlay', :allowEdit => false %>
+  <%= render 'entryOverlay' %>
+  <script type='text/javascript'>
+      var itemId = "<%= @item.id %>";
+      window.globals = {
+          onLoadUrl: window.globalViewData.base_url + '/experiments/scene2desc/' + itemId + '/load'
+     };
+     var entry = <%= raw(@data.to_json) %>;
+     document.getElementById('sentence').textContent = entry['description'];
+     //$('#sentence').text(entry['description']);
+   </script>
+</div>
+<%= requirejs_include_tag('gl_app/viewer-main') %>

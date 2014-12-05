@@ -7,8 +7,8 @@
 # REQUIRED FIELDS
 
 # appearance on the Mechanical Turk interface
-title: a title goes here
-description: a description goes here
+title: Match phrases to objects in scenes
+description: ???k
 # pay per HIT in US cents
 reward: 5
 # number of assignments to be issued in this task/experiment
@@ -27,3 +27,14 @@ num_assignments: 3
 #lifetime:  # defaults to 3 days
 # maximum time in seconds for a worker to complete a HIT after accepting
 #max_task_time:  # defaults to 1 hour
+
+# EXPERIMENT CONFIGURATION
+conf:
+  nScenes: 4
+  sceneEditSecs: 60
+  inputFile: public/experiments/align_text2scene/desc2scene-input.txt
+  condition: random-room
+  uploadSummary: true
+  exampleImagesPath: /experiments/desc2scene/examples/
+  selectPolicy: mincount_random
+  selectCondition: random-room
