@@ -35,5 +35,9 @@ conf:
   sceneEditSecs: 20
   inputFile: public/experiments/scene2desc/scenes.txt
   condition: pilot
+  # If nonzero, include maximum suggested character length text and
+  # a character counter. Don't forget to change the condition to
+  # "char-limited" to keep track of which assignments used this setting!
+  characterLimit: 0
   uploadSummary: true
   exampleImagesPath: /experiments/scene2desc/examples/
