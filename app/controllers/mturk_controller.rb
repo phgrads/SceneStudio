@@ -156,6 +156,13 @@ class MturkController < ApplicationController
     respond_to do |format|
       format.csv {
         columns = params[:columns]
+        if params[:filename]
+          filename = params[:filename]
+        elsif params[:taskName]
+          filename = "#{taskName}-items.csv"
+        else
+          filename = 'items.csv'
+        end
         if columns
           columns = columns.split(',')
         end
@@ -166,12 +173,27 @@ class MturkController < ApplicationController
           mapped = @items.map{ |item| {
               id: "#{item.taskName}-#{item.id}",
               url: get_item_load_scene_url(item)
-#              url: item.preview.url
+              #              url: item.preview.url
           }}
-          send_data as_csv(mapped, columns, :col_sep => "\t")
+          # Special remappings
+          if params[:taskName]
+            taskName = params[:taskName]
+            case taskName
+              when "scene2desc", "image2desc"
+                mapped = @items.map{ |item|
+                  entry = JSON.parse(item.data)
+                  {
+                    id: "#{item.taskName}-#{item.id}",
+                    url: get_item_load_scene_url(item),
+                    description: entry['description']
+                  }
+                }
+            end
+          end
+          send_data as_csv(mapped, columns, :col_sep => "\t"), :filename => filename
         else
           # Normal export as csv
-          send_data @items.as_csv(columns)
+          send_data @items.as_csv(columns), :filename => filename
         end
       }
     end
