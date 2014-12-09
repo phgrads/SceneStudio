@@ -1,12 +1,15 @@
 SceneStudio::Application.routes.draw do
 
-  get 'experiments/select_scene', to: 'experiments/select_scene#index'
-
   # Mturk tasks
   get 'experiments/align_text2scene', to: 'experiments/align_text2scene#index'
   get 'experiments/align_text2scene/results', to: 'experiments/align_text2scene#results'
   match 'experiments/align_text2scene/:id/load',         to: 'experiments/align_text2scene#load'
   match 'experiments/align_text2scene/:id/view',         to: 'experiments/align_text2scene#view'
+
+  get 'experiments/select_scene', to: 'experiments/select_scene#index'
+  get 'experiments/select_scene/results', to: 'experiments/select_scene#results'
+  match 'experiments/select_scene/:id/load',         to: 'experiments/select_scene#load'
+  match 'experiments/select_scene/:id/view',         to: 'experiments/select_scene#view'
 
   get 'experiments/enrich_scene', to: 'experiments/enrich_scene#index'
   get 'experiments/enrich_scene/results', to: 'experiments/enrich_scene#results'

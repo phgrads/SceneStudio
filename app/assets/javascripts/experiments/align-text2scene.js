@@ -2,7 +2,7 @@
 
 // TODO: Global scope for runtime debugging, pull declaration into scope below
 define(function(require) {
-  require(['./AlignTextTask','./../gl_app/App'], function(AlignTextTask, SceneViewer) {
+  require(['./AlignTextToSceneTask','./../gl_app/App'], function(AlignTextTask, SceneViewer) {
     $(document).ready(function() {
       $("img.enlarge").hover(function(){
         showLarge($(this));

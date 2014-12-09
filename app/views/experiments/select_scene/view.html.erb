@@ -5,7 +5,7 @@
   <script type='text/javascript'>
       var itemId = "<%= @item.id %>";
       window.globals = {
-          onLoadUrl: window.globalViewData.base_url + '/experiments/scene2desc/' + itemId + '/load'
+          onLoadUrl: window.globalViewData.base_url + '/experiments/select-scene/' + itemId + '/load'
      };
      var entry = <%= raw(@data.to_json) %>;
      document.getElementById('sentence').textContent = entry['description'];
