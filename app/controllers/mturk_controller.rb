@@ -159,6 +159,7 @@ class MturkController < ApplicationController
         if params[:filename]
           filename = params[:filename]
         elsif params[:taskName]
+          taskName = params[:taskName]
           filename = "#{taskName}-items.csv"
         else
           filename = 'items.csv'
@@ -177,7 +178,6 @@ class MturkController < ApplicationController
           }}
           # Special remappings
           if params[:taskName]
-            taskName = params[:taskName]
             case taskName
               when "scene2desc", "image2desc"
                 mapped = @items.map{ |item|
