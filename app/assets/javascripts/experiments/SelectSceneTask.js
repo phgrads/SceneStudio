@@ -9,8 +9,8 @@ define([
   {
     /**
      * Select scene task
-     * - User is show a series of text descriptions along with several 3D scenes
-     * - For each description, they are asked to select the correct scene
+     * - User is shown a series of text descriptions along with several 3D scenes
+     * - For each descjription, they are asked to select the correct scene
      */
     function SelectSceneTask(params)
     {
@@ -32,52 +32,42 @@ define([
       // TODO: Be flexible about binding actions to buttons...
       this.taskInstructions = $('#taskInstructions');
       this.sceneDescriptionElem = $('#sceneDescription');
+      this.sceneImageElem = $('#sceneImage');
       this.mturkOverlay = $('#mturkOverlay');
       this.startButton = $('#startButton');
+      this.nextButton = $('#nextButton');
       this.completeTaskButton = $('#completeTaskButton');
       this.startButton.click(this.start.bind(this));
+      this.nextButton.click(this.save.bind(this));
       this.completeTaskButton.click(this.showCoupon.bind(this));
     }
 
-    SelectSceneTask.prototype.saveSceneCallback = function(app, on_success, on_error) {
+    SelectSceneTask.prototype.save = function() {
+      var on_success = function(response) {
+        this.next();
+      }.bind(this);
+      var on_error = function() {
+        showAlert("Error saving results. Please close tab and do task again.");
+      };
+
       // TODO: Check if the description is acceptable...
       var desc = this.sceneDescriptionElem.val().trim();
       if(desc.length > 1){
-        this.saveScene(app, on_success, on_error);
+        var currentEntry = this.entries[this.entryIndex];
+        var results = {
+          description: desc,
+          entry: currentEntry
+        };
+        this.sceneSummary[this.entryIndex] = {
+          entryId: currentEntry.id,
+          description: desc
+        };
+        // This is included somewhere...
+        submit_mturk_report_item(this.condition, currentEntry.id, results, undefined).error(on_error).success(on_success);
       }
       else{
         bootbox.alert("Please write a sentence describing what you see!");
-        // Indicates to app that the save is done (without doing error callback)
-        app.SaveDone();
       }
-    };
-
-    SelectSceneTask.prototype.closeSceneCallback = function(app) {
-      this.next();
-    };
-
-    SelectSceneTask.prototype.saveScene = function(app, on_success, on_error) {
-      on_success = on_success || function(response) {
-        this.next();
-      }.bind(this);
-      on_error = on_error || function() {
-        showAlert("Error saving results. Please close tab and do task again.");
-      };
-      var preview = (this.savePreview)? app.GetPreviewImageData():undefined;
-      var currentEntry = this.entries[this.entryIndex];
-      // Get scene description
-      var desc = this.sceneDescriptionElem.val().trim();
-      var results = {
-        description: desc,
-        entry: currentEntry
-      };
-      this.sceneSummary[this.entryIndex] = {
-        entryId: currentEntry.id,
-        description: desc,
-        nSceneObjects: app.scene.modelList.length
-      };
-      // This is included somewhere...
-      submit_mturk_report_item(this.condition, currentEntry.id, results, preview).error(on_error).success(on_success);
     };
 
     SelectSceneTask.prototype.showComments = function() {
@@ -93,8 +83,8 @@ define([
       // TODO: Improve coupon
       var on_success = function(response) {
         document.body.innerHTML = "<p>Thanks for participating!</p>" +
-          "<p>Your coupon code is: " + response.coupon_code + "</p>" +
-          "Copy your code back to the first tab and close this tab when done.";
+        "<p>Your coupon code is: " + response.coupon_code + "</p>" +
+        "Copy your code back to the first tab and close this tab when done.";
       };
       var on_error = function() { bootbox.alert("Error saving results. Please close tab and do task again.");};
 
@@ -122,10 +112,9 @@ define([
       var entry = this.entries[i];
       var url = entry['url'];
       if (url.startsWith('/')) {
-        url = this.app.base_url + url;
+        url = this.base_url + url;
       }
-      this.app.onLoadUrl = url;
-      this.app.Launch();
+      this.sceneImageElem.attr('src', url);
     };
 
     SelectSceneTask.prototype.start = function() {
@@ -141,6 +130,7 @@ define([
     SelectSceneTask.prototype.Launch = function() {
       this.showInstructions();
     };
+
 
     // Exports
     return SelectSceneTask;

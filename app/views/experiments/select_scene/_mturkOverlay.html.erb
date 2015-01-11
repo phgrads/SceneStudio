@@ -2,13 +2,12 @@
 <div id="taskInstructions" class="wholescreenOverlay">
   <div align="center" class="taskInstructions">
     <div style='text-align:left'>
-      <p>You will be shown <%=@entries.length%> simple indoor scenes.
-        For each scene, you will be show a description of the scene and
-        asked to match objects in the scene to words in the description that
-        refers to those objects.
+      <p>You will be shown <%=@entries.length%> sentences.  For each sentence,
+        you will be shown <%=@conf['nChoices']%> images.  Please select
+        the image that best matches the sentence.
       </p>
       <p>
-        Each scene should take about <%=@taskTime['sceneTime'] %> to complete.
+        Each sentence should take about <%=@taskTime['sceneTime'] %> to complete.
         The task should take about <%=@taskTime['taskTime'] %> in total.
       </p>
      </div>
@@ -45,9 +44,6 @@
       </tbody>
     </table>
   </div>
-  <div>
-    <%= render 'experiments/interface_help_view_only' %>
-  </div>
   <div  class="center">
     <input type="button" id="startButton" class="largeButton" value="Start"/>
   </div>
@@ -57,14 +53,21 @@
 <div id="mturkOverlay" class="mturkOverlay" style="display:none">
   <div id="editInstructions" class="editInstructions">
     <div id="instructionsTextDiv" class="textDescription center">
-    <p>Write a couple of sentences describing the scene.
-      Try to give details about the appearance and location of objects in the scene.</p>
-    <div class='row'>
-    <%= text_area_tag('sceneDescription', nil, {class: 'col-md-10 col-md-offset-1', rows: 2}) %>
+    <p>Please select the scene that is most similar to the following description</p>
     </div>
-    <p>Click "Done" when you're finished to go on to the next scene.</p>
+    <div id="sentence" class='textDescription'>
     </div>
-    <p id="instructionsToggle" class="textDescription center">Click here to hide/show instructions and input box.</p>
+    <div>
+      <table>
+        <tr>
+          <%for i in 0...conf['nChoices']%>
+          <td><%= image_tag '', id: "sceneImage#{i}" %></td>
+          <%end%>
+        </tr>
+      </table>
+    </div>
+    <p>Click the "Next" button when you're ready to continue.</p>
+    <input type="button" id="nextButton" class="largeButton" value="Next"/>
   </div>
 </div>
 
