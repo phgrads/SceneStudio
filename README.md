@@ -133,6 +133,14 @@ Troubleshooting
 * Error during `bundle install`.
 
   Try removing your `Gemfile.lock`
+  
+* SSL error during `bundle install`
+
+    Gem::RemoteFetcher::FetchError: SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B 
+
+  Try modifying Gemfile to use http instead of https
+    source 'http://rubygems.org'
+  See http://railsapps.github.io/openssl-certificate-verify-failed.html 
 
 * Error precompiling assets.
 
