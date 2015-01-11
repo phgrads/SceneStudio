@@ -22,21 +22,21 @@ if Rails.env.development? || Rails.env.test?
 end
 
 # launch solr server
-solrlog = File.open('log/solr.log','w')
-solrpid = spawn('python StartServer.py', [:out, :err]=>solrlog, :chdir=>'vendor/solr')
+#solrlog = File.open('log/solr.log','w')
+#solrpid = spawn('python StartServer.py', [:out, :err]=>solrlog, :chdir=>'vendor/solr')
 
 # When the ruby/rails process exits, take down all the forked
 # processes with it.
 at_exit do
   #getpgrp is unavailable on Windows but kill works there anyway so not a problem
-  if RUBY_PLATFORM == 'i386-mingw32'
-    Process.kill('INT', solrpid)
-  else
-    begin
-      Process.kill('INT', -Process.getpgrp)
-    rescue Interrupt
-      # do nothing, but suppress senseless message by doing this
-    end
-  end
+  # if RUBY_PLATFORM == 'i386-mingw32'
+  #   Process.kill('INT', solrpid)
+  # else
+  #   begin
+  #     Process.kill('INT', -Process.getpgrp)
+  #   rescue Interrupt
+  #     # do nothing, but suppress senseless message by doing this
+  #   end
+  # end
 end
 
