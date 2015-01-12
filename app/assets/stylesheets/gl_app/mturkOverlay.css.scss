@@ -118,6 +118,10 @@ $overlaybg: rgba(150,200,150,0.75);
   font-size: 14pt;
 }
 
+.largeFont {
+  font-size: 30pt;
+}
+
 .exampleTable {
   td, th {
     padding: 20px;
@@ -138,6 +142,11 @@ $overlaybg: rgba(150,200,150,0.75);
   max-width: 80%;
   max-height: 90%;
   width: 700px;
+}
+
+.selected {
+  border-color: #0088cc;
+  border-width: 10px;
 }
 
 #large img {

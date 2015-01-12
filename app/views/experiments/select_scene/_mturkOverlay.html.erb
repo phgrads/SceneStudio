@@ -14,31 +14,22 @@
   <div align="center">
     <table class="exampleTable">
       <thead>
-      <th></th>
-      <th>Example 1</th>
-      <th>Example 2</th>
+      <th>Example</th>
       </thead>
       <tbody>
       <tr>
-        <th>Scene</th>
         <td>
-          <div align="center" class="mturkExample">
-            <%= image_tag( @conf['exampleImagesPath'] + 'example1.png', { width: 400, class: "enlarge" } ) %>
-          </div>
-        </td>
-        <td>
-          <div align="center" class="mturkExample">
-            <%= image_tag( @conf['exampleImagesPath'] + 'example2.png', { width: 400, class: "enlarge" } ) %>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <th>Description</th>
-        <td>
-          There is a bed in the corner of the room.
-        </td>
-        <td>
-          There is a round table with a green table cloth and two plates.
+            <div class="container">
+                <div class="row">
+                    <%for i in 0...@conf['nChoices']%>
+                        <div class="col-md-2 col-sm-2 col-xs-2">
+                            <div class="thumbnail" id='<%="exSceneImageFrame#{i}"%>' >
+                                <%= image_tag '', id: "exSceneImage#{i}" %>
+                            </div>
+                        </div>
+                    <%end%>
+                </div>
+            </div>
         </td>
       </tr>
       </tbody>
@@ -50,21 +41,25 @@
   </div>
 </div>
 
-<div id="mturkOverlay" class="wholescreenOverlay" style="display:none">
-    <div id="instructionsTextDiv" class="textDescription center">
+<div id="mturkOverlay" class="wholescreenOverlay largeFont" style="display:none">
+    <div id="instructionsTextDiv" class="center">
     <p>Please select the scene that is most similar to the following description</p>
     </div>
     <div id="sceneDescription" class='textDescription'>
     </div>
-    <div>
-      <table>
-        <tr>
+    <div class="container">
+        <div class="row">
           <%for i in 0...@conf['nChoices']%>
-          <td><%= image_tag '', id: "sceneImage#{i}" %></td>
+            <div class="col-md-2 col-sm-2 col-xs-2">
+              <div class="thumbnail" id='<%="sceneImageFrame#{i}"%>' >
+                <%= image_tag '', id: "sceneImage#{i}" %>
+              </div>
+            </div>
           <%end%>
-        </tr>
-      </table>
+        </div>
     </div>
+    <div class="center">
     <p>Click the "Next" button when you're ready to continue.</p>
     <input type="button" id="nextButton" class="largeButton" value="Next"/>
+    </div>
 </div>
