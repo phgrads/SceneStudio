@@ -159,14 +159,26 @@ module Experiments::ExperimentsHelper
     # Loads entries from file
     csv_file = File.join(Rails.root,file)
     csv = CSV.read(csv_file, { :headers => true, :col_sep => "\t", :skip_blanks => true})
-    csv.map{ |row| row }
+    csv.map{ |row|
+      map = {}
+      row.each{ |pair|
+        map[pair.first] = pair.second
+      }
+      map
+    }
   end
 
   def load_generic_entries_csv(file)
     # Loads entries from file
     csv_file = File.join(Rails.root,file)
     csv = CSV.read(csv_file, { :headers => true, :col_sep => ",", :skip_blanks => true})
-    csv.map{ |row| row }
+    csv.map{ |row|
+      map = {}
+      row.each{ |pair|
+        map[pair.first] = pair.second
+      }
+      map
+    }
   end
 
   def load_entries_done(file)

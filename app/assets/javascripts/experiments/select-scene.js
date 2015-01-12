@@ -9,33 +9,15 @@ define(function(require) {
       },function() {
       } );
 
-      var app = new SceneViewer({
-        canvas: id('canvas'),
-        allowEdit: false
-      });
-
-      var showEntryCallback = function(entry) {
-        $('#sentence').text(entry['description']);
-      };
       var selectSceneTask = new SelectSceneTask({
-        app: app,
+        base_url: window.globals.base_url,
         entries: window.globals.entries,
         conf: window.globals.conf
       });
-      app.autoSaveOnClose = true;
-      app.onSaveCallback = selectSceneTask.saveSceneCallback.bind(selectSceneTask);
-      app.onCloseCallback = selectSceneTask.closeSceneCallback.bind(selectSceneTask);
-      app.toolbar.LabelButton("Close", "Done", "Done with scene", "done");
-      if (window.globals.conf['loadViewIndex']) {
-        app.onLoadViewIndex = window.globals.conf['loadViewIndex'];
-      } else {
-        app.onLoadViewIndex = 0;
-      }
 
       $( '#instructionsToggle' ).click(function() { $( '#instructionsTextDiv' ).toggle(); });
       $('#help').show();
       selectSceneTask.Launch();
-      app.Launch();
     } );
   })
 });

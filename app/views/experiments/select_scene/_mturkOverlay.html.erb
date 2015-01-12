@@ -50,12 +50,11 @@
   </div>
 </div>
 
-<div id="mturkOverlay" class="mturkOverlay" style="display:none">
-  <div id="editInstructions" class="editInstructions">
+<div id="mturkOverlay" class="wholescreenOverlay" style="display:none">
     <div id="instructionsTextDiv" class="textDescription center">
     <p>Please select the scene that is most similar to the following description</p>
     </div>
-    <div id="sentence" class='textDescription'>
+    <div id="sceneDescription" class='textDescription'>
     </div>
     <div>
       <table>
@@ -68,7 +67,4 @@
     </div>
     <p>Click the "Next" button when you're ready to continue.</p>
     <input type="button" id="nextButton" class="largeButton" value="Next"/>
-  </div>
 </div>
-
-<%= render 'entryOverlay' %>

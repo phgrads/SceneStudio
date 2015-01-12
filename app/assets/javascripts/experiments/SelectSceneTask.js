@@ -10,15 +10,13 @@ define([
     /**
      * Select scene task
      * - User is shown a series of text descriptions along with several 3D scenes
-     * - For each descjription, they are asked to select the correct scene
+     * - For each description, they are asked to select the correct scene
      */
     function SelectSceneTask(params)
     {
       this.entryIndex = 0;
 
       // Initialize from parameters
-      // Scene viewing App (see gl_app/App.js)
-      this.app = params.app;
       // List of entries (i.e. scenes)
       // The url of where to load the scene from is specified in the 'url' field of each entry
       this.entries = params.entries;
@@ -27,12 +25,14 @@ define([
       // Whether a scene preview should be saved
       this.savePreview = params.conf['savePreview'];
 
+      this.nChoices = params.conf['nChoices'];
+      this.base_url = params.base_url;
+
       // Summary to post for the overall task
       this.sceneSummary = [];
       // TODO: Be flexible about binding actions to buttons...
       this.taskInstructions = $('#taskInstructions');
       this.sceneDescriptionElem = $('#sceneDescription');
-      this.sceneImageElem = $('#sceneImage');
       this.mturkOverlay = $('#mturkOverlay');
       this.startButton = $('#startButton');
       this.nextButton = $('#nextButton');
@@ -107,14 +107,22 @@ define([
       }
     };
 
+    SelectSceneTask.prototype.getImageUrl = function(fullId) {
+      var parts = fullId.split('.');
+      var source = parts[0];
+      var sceneId = parts[1];
+      return "https://dovahkiin.stanford.edu/text2scene/screenshots/scenes/"
+            + source + "/" + sceneId + "/" + sceneId + "-0.png";
+    };
+
     SelectSceneTask.prototype.showEntry = function(i) {
-      this.sceneDescriptionElem.val('');
       var entry = this.entries[i];
-      var url = entry['url'];
-      if (url.startsWith('/')) {
-        url = this.base_url + url;
+      this.sceneDescriptionElem.text(entry['text']);
+      for (var i = 0; i < this.nChoices; i++) {
+          var sceneId = entry['scene' + i];
+          var url = this.getImageUrl(sceneId);
+          $('#sceneImage' + i).attr('src', url);
       }
-      this.sceneImageElem.attr('src', url);
     };
 
     SelectSceneTask.prototype.start = function() {
