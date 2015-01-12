@@ -1,0 +1,45 @@
+<%= render '/experiments/largeimg' %>
+<div id="taskInstructions" class="wholescreenOverlay">
+  <div align="center" class="taskInstructions">
+    <div style='text-align:left'>
+      <p>You will be shown <%=@entries.length%> scenes along with a description of the scene.
+          Please indicate how well the generated scene matches the description.
+      </p>
+      <p>
+        Each scene should take about <%=@taskTime['sceneTime'] %> to complete.
+        The task should take about <%=@taskTime['taskTime'] %> in total.
+      </p>
+     </div>
+  <div align="center">
+    <table class="exampleTable">
+      <thead>
+      <th>Example</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div  class="center">
+    <input type="button" id="startButton" class="largeButton" value="Start"/>
+  </div>
+  </div>
+</div>
+
+<div id="mturkOverlay" class="wholescreenOverlay largeFont" style="display:none">
+    <div id="instructionsTextDiv" class="center">
+    <p>Please rate on a scale of 1 to 7 how well the scene matches the description</p>
+    </div>
+    <div id="sceneDescription" class='textDescription'>
+    </div>
+    <div class="container">
+        <%= image_tag '', id: "sceneImage" %>
+    </div>
+    <div class="center">
+    <p>Click the "Next" button when you're ready to continue.</p>
+    <input type="button" id="nextButton" class="largeButton" value="Next"/>
+    </div>
+</div>

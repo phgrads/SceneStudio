@@ -6,6 +6,11 @@ SceneStudio::Application.routes.draw do
   match 'experiments/align_text2scene/:id/load',         to: 'experiments/align_text2scene#load'
   match 'experiments/align_text2scene/:id/view',         to: 'experiments/align_text2scene#view'
 
+  get 'experiments/rate_scene', to: 'experiments/rate_scene#index'
+  get 'experiments/rate_scene/results', to: 'experiments/rate_scene#results'
+  match 'experiments/rate_scene/:id/load',         to: 'experiments/rate_scene#load'
+  match 'experiments/rate_scene/:id/view',         to: 'experiments/rate_scene#view'
+
   get 'experiments/select_scene', to: 'experiments/select_scene#index'
   get 'experiments/select_scene/results', to: 'experiments/select_scene#results'
   match 'experiments/select_scene/:id/load',         to: 'experiments/select_scene#load'

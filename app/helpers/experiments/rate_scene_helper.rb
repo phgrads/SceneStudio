@@ -1,0 +1,2 @@
+module Experiments::RateSceneHelper
+end

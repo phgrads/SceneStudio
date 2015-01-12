@@ -2,7 +2,7 @@
 
 // TODO: Global scope for runtime debugging, pull declaration into scope below
 define(function(require) {
-  require(['./SelectSceneTask'], function(SelectSceneTask) {
+  require(['./RateSceneTask'], function(RateSceneTask) {
     $(document).ready(function() {
       $("img.enlarge").hover(function(){
         showLarge($(this));

@@ -7,11 +7,10 @@ define([
   function (bootbox)
   {
     /**
-     * Select scene task
-     * - User is shown a series of text descriptions along with several 3D scenes
-     * - For each description, they are asked to select the correct scene
+     * Rate scene task
+     * - User is shown a series of scenes and asked to rate how good they are
      */
-    function SelectSceneTask(params)
+    function RateSceneTask(params)
     {
       this.entryIndex = 0;
 
@@ -40,29 +39,10 @@ define([
       this.nextButton.click(this.save.bind(this));
       this.completeTaskButton.click(this.showCoupon.bind(this));
 
-      this.sceneImageElems = [];
-      this.sceneImageFrameElems = [];
-      for (var i = 0; i < this.nChoices; i++) {
-        this.sceneImageElems[i] = $('#sceneImage' + i);
-        this.sceneImageFrameElems[i] = $('#sceneImageFrame' + i);
-        this.sceneImageFrameElems[i].click(this.select.bind(this,i));
-      }
-      this.selected = -1;
+      this.sceneImageElem = $('#sceneImage');
     }
 
-    SelectSceneTask.prototype.select = function(idx) {
-      if (this.selected != idx) {
-        if (this.selected >= 0) {
-          this.sceneImageFrameElems[this.selected].removeClass("selected");
-        }
-        this.selected = idx;
-        if (idx >= 0) {
-          this.sceneImageFrameElems[idx].addClass("selected");
-        }
-      }
-    }
-
-    SelectSceneTask.prototype.save = function() {
+    RateSceneTask.prototype.save = function() {
       var on_success = function(response) {
         this.next();
       }.bind(this);
@@ -70,32 +50,28 @@ define([
         showAlert("Error saving results. Please close tab and do task again.");
       };
 
-      // Check if a scene was selected
-      var ok = (this.selected >= 0 && this.selected < this.nChoices);
+      // Check if a rating was given
+      var ok = true;
       if(ok){
         var currentEntry = this.entries[this.entryIndex];
-        var correct = this.selected == currentEntry["correctIndex"];
+        var rating = 0;
         var results = {
-          selectedIndex: this.selected,
-          selectedSceneId: currentEntry['scene' + this.selected],
-          correct: correct,
+          rating: rating,
           entry: currentEntry
         };
         this.sceneSummary[this.entryIndex] = {
           entryId: currentEntry.id,
-          selectedIndex: this.selected,
-          selectedSceneId: currentEntry['scene' + this.selected],
-          correct: correct
+          rating: rating
         };
         // This is included somewhere...
         submit_mturk_report_item(this.condition, currentEntry.id, results, undefined).error(on_error).success(on_success);
       }
       else{
-        bootbox.alert("Please select a scene!");
+        bootbox.alert("Please rate this scene!");
       }
     };
 
-    SelectSceneTask.prototype.showComments = function() {
+    RateSceneTask.prototype.showComments = function() {
       // Hide rest of UI
       $('#ui').hide();
       // Show comment area
@@ -104,7 +80,7 @@ define([
       $('#comments').focus();
     };
 
-    SelectSceneTask.prototype.showCoupon = function() {
+    RateSceneTask.prototype.showCoupon = function() {
       // TODO: Improve coupon
       var on_success = function(response) {
         document.body.innerHTML = "<p>Thanks for participating!</p>" +
@@ -122,7 +98,7 @@ define([
       submit_mturk_report(results).error(on_error).success(on_success);
     };
 
-    SelectSceneTask.prototype.next = function() {
+    RateSceneTask.prototype.next = function() {
       this.entryIndex++;
       if (this.entryIndex < this.entries.length) {
         // Launch next scene
@@ -132,7 +108,7 @@ define([
       }
     };
 
-    SelectSceneTask.prototype.getImageUrl = function(fullId) {
+    RateSceneTask.prototype.getImageUrl = function(fullId) {
       var parts = fullId.split('.');
       var source = parts[0];
       var sceneId = parts[1];
@@ -140,32 +116,29 @@ define([
             + source + "/" + sceneId + "/" + sceneId + "-0.png";
     };
 
-    SelectSceneTask.prototype.showEntry = function(i) {
+    RateSceneTask.prototype.showEntry = function(i) {
       var entry = this.entries[i];
       this.sceneDescriptionElem.text(entry['text']);
-      for (var i = 0; i < this.nChoices; i++) {
-        var sceneId = entry['scene' + i];
-        var url = this.getImageUrl(sceneId);
-        this.sceneImageElems[i].attr('src', url);
-      }
-      this.select(-1);
+      var sceneId = entry['scene'];
+      var url = this.getImageUrl(sceneId);
+      this.sceneImageElem.attr('src', url);
     };
 
-    SelectSceneTask.prototype.start = function() {
+    RateSceneTask.prototype.start = function() {
       this.taskInstructions.hide();
       this.mturkOverlay.show();
       this.showEntry(this.entryIndex);
     };
 
-    SelectSceneTask.prototype.showInstructions = function() {
+    RateSceneTask.prototype.showInstructions = function() {
       // TODO: Show instructions
     };
 
-    SelectSceneTask.prototype.Launch = function() {
+    RateSceneTask.prototype.Launch = function() {
       this.showInstructions();
     };
 
 
     // Exports
-    return SelectSceneTask;
+    return RateSceneTask;
 });
