@@ -60,7 +60,7 @@
     <div>
       <table>
         <tr>
-          <%for i in 0...conf['nChoices']%>
+          <%for i in 0...@conf['nChoices']%>
           <td><%= image_tag '', id: "sceneImage#{i}" %></td>
           <%end%>
         </tr>

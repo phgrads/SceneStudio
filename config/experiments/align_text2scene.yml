@@ -8,7 +8,7 @@
 
 # appearance on the Mechanical Turk interface
 title: Match phrases to objects in scenes
-description: ???k
+description: Given simple indoor scene with some common household objects and a description of the scene, you will be asked to match phrases describes the objects to the objects in the scene.
 # pay per HIT in US cents
 reward: 5
 # number of assignments to be issued in this task/experiment

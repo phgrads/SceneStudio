@@ -2,11 +2,20 @@ module Experiments::ExperimentsHelper
   require 'csv'
   require 'set'
 
-  def load_data
+  def load_data_generic_tsv
+    load_data(method(:load_generic_entries_tsv))
+  end
+
+  def load_data_generic_csv
+    load_data(method(:load_generic_entries_csv))
+  end
+
+  def load_data(load_entries_func = method(:load_entries))
     @conf = YAML.load_file("config/experiments/#{controller_name}.yml")['conf']
     @entries = load_and_select_random(@conf['inputFile'], @conf['doneFile'],
                                       @conf['doneThreshold'], @conf['perWorkerItemCompletedThreshold'],
-                                      @conf['selectPolicy'], @conf['selectCondition'], @conf['nScenes'])
+                                      @conf['selectPolicy'], @conf['selectCondition'], @conf['nScenes'],
+                                      load_entries_func)
     @no_entries_message = "You already completed all items in this task!  There are no more items for you to complete."
   end
 
@@ -21,12 +30,13 @@ module Experiments::ExperimentsHelper
     }
   end
 
-  def load_and_select_random(inputFile, doneFile, doneThreshold, itemCompletedThreshold, select_policy, select_condition, n)
+  def load_and_select_random(inputFile, doneFile, doneThreshold, itemCompletedThreshold, select_policy, select_condition, n,
+                             load_entries_func = method(:load_entries))
     # Figure out task and worker id
     taskId = @task.id
     workerId = @worker ? @worker.mtId : ''
     # Load entries from file
-    all_entries = load_entries(inputFile)
+    all_entries = load_entries_func.call(inputFile)
     # Filter all entries by entries that were deemed overall "DONE"
     if (doneFile != nil && doneFile != "")
       # Use file to figure out what items are done
@@ -143,6 +153,20 @@ module Experiments::ExperimentsHelper
           minObjects: row['minObjects']
       }
     }
+  end
+
+  def load_generic_entries_tsv(file)
+    # Loads entries from file
+    csv_file = File.join(Rails.root,file)
+    csv = CSV.read(csv_file, { :headers => true, :col_sep => "\t", :skip_blanks => true})
+    csv.map{ |row| row }
+  end
+
+  def load_generic_entries_csv(file)
+    # Loads entries from file
+    csv_file = File.join(Rails.root,file)
+    csv = CSV.read(csv_file, { :headers => true, :col_sep => ",", :skip_blanks => true})
+    csv.map{ |row| row }
   end
 
   def load_entries_done(file)

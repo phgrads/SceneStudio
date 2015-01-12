@@ -7,7 +7,7 @@ class Experiments::SelectSceneController < ApplicationController
   include Experiments::SelectSceneHelper
 
   before_filter :load_new_tab_params, only: [:index]
-  before_filter :load_data, only: [:index]
+  before_filter :load_data_generic_csv, only: [:index]
   before_filter :estimate_task_time, only: [:index]
 
   before_filter :can_manage_tasks_filter, only: [:results, :view]
@@ -35,19 +35,6 @@ class Experiments::SelectSceneController < ApplicationController
 
   def view
     render "experiments/select_scene/view", layout: true
-  end
-
-  def load
-    if @item.data
-      if @data['scene']
-        render :json => @data
-      else
-        # Scene was not saved, get scene from url
-        redirect_to get_path(@entry['url'])
-      end
-    else
-      raise ActionController::RoutingError.new('Item Not Found')
-    end
   end
 
   private
