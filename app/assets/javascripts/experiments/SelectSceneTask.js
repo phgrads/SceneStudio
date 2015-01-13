@@ -60,7 +60,7 @@ define([
           this.sceneImageFrameElems[idx].addClass("selected");
         }
       }
-    }
+    };
 
     SelectSceneTask.prototype.save = function() {
       var on_success = function(response) {

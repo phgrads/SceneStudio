@@ -9,7 +9,7 @@ define(function(require) {
       },function() {
       } );
 
-      var selectSceneTask = new SelectSceneTask({
+      var rateSceneTask = new RateSceneTask({
         base_url: window.globals.base_url,
         entries: window.globals.entries,
         conf: window.globals.conf
@@ -17,7 +17,7 @@ define(function(require) {
 
       $( '#instructionsToggle' ).click(function() { $( '#instructionsTextDiv' ).toggle(); });
       $('#help').show();
-      selectSceneTask.Launch();
+      rateSceneTask.Launch();
     } );
   })
 });

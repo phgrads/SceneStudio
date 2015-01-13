@@ -1,4 +1,4 @@
-class Experiments::SelectSceneController < ApplicationController
+class Experiments::RateSceneController < ApplicationController
   require 'action_view'
 
   include ActionView::Helpers::DateHelper

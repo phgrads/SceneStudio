@@ -32,7 +32,7 @@ num_assignments: 3
 conf:
   nScenes: 6
   sceneEditSecs: 20
-  inputFile: public/experiments/rate_scene/scenes.txt
+  inputFile: public/experiments/rate_scene/scenes.csv
   condition: pilot
   exampleImagesPath: /experiments/rate_scene/examples/
-  nChoices: 5
+  nChoices: 7
