@@ -15,6 +15,8 @@ class MturkController < ApplicationController
 
   # IFrame to be displayed in Amazon MTurk redirecting workers to actual task
   def task
+    # TODO: Check if require webgl based on task
+    @require_webgl = true
     # should improve on this and be less kludgy in the future...?
     # could build a table of experiment_urls in the initializer
     # and then do a lookup into that table by name...
