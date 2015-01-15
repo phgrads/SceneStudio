@@ -8,6 +8,7 @@ class Experiments::RateSceneController < ApplicationController
 
   before_filter :load_new_tab_params, only: [:index]
   before_filter :load_data_generic_csv, only: [:index]
+  before_filter :setup_experiment, only: [:index]
   before_filter :estimate_task_time, only: [:index]
 
   before_filter :can_manage_tasks_filter, only: [:results, :view]

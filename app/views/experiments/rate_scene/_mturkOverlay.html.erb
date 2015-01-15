@@ -31,18 +31,39 @@
 
 <div id="mturkOverlay" class="container wholescreenOverlay largeFont" style="display:none">
     <div id="instructionsTextDiv" class="center">
-    <p>Please rate on a scale of 1 to <%=@conf['nChoices']%> how well the scene matches the description</p>
+    <p>Please rate on a scale of 1 to <%=@nChoices%> on how well the scene matches the description</p>
     </div>
     <div id="sceneDescription" class='textDescription'>
     </div>
     <div class="container">
+        <div class="row">
         <%= image_tag '', id: "sceneImage" %>
-        <%for i in 1..@conf['nChoices']%>
-            <% if @conf['choices'] %>
-               <%= radio_button_tag 'rating' + i, i.to_s %>
-               <%= @conf['choices'][i-1] %>
-            <% end %>
+        </div>
+
+        <div class="row">
+        <% if @scale %>
+            <table class="center">
+                <tr><th></th>
+                    <%for i in 1..@nChoices %>
+                        <th><%= i.to_s%></th>
+                    <%end%>
+                    <th></th></tr>
+                <tr>
+                    <th><%=@choices[0]%></th>
+                    <%for i in 1..@nChoices %>
+                        <td class="rating"><%= radio_button_tag 'rating', i.to_s %></td>
+                    <%end%>
+                    <th><%=@choices[@nChoices-1]%></th>
+                </tr>
+            </table>
+        <% else %>
+          <%for i in 1..@nChoices %>
+            <div class="radio">
+                <label><%= radio_button_tag 'choice', i.to_s%><%=i.to_s%>-<%= @choices[i-1]%></label>
+            </div>
+          <%end%>
         <%end%>
+        </div>
     </div>
     <div class="center">
     <p>Click the "Next" button when you're ready to continue.</p>
