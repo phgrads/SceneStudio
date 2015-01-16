@@ -51,10 +51,10 @@ define([
       };
 
       // Check if a rating was given
-      var ok = true;
+      var rating = $('input[type=radio][name=rating]:checked').val();
+      var ok = rating;
       if(ok){
         var currentEntry = this.entries[this.entryIndex];
-        var rating = 0;
         var results = {
           rating: rating,
           entry: currentEntry

@@ -59,7 +59,7 @@
         <% else %>
           <%for i in 1..@nChoices %>
             <div class="radio">
-                <label><%= radio_button_tag 'choice', i.to_s%><%=i.to_s%>-<%= @choices[i-1]%></label>
+                <label><%= radio_button_tag 'rating', i.to_s%><%=i.to_s%>-<%= @choices[i-1]%></label>
             </div>
           <%end%>
         <%end%>
