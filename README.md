@@ -3,7 +3,7 @@ WebSceneStudio
 
 Installation / Setup  (local development)
 --------------
-0. Get Ruby if not already installed (http://rubyinstaller.org/ for Windows, or follow https://www.digitalocean.com/community/articles/how-to-install-ruby-on-rails-on-ubuntu-12-04-lts-precise-pangolin-with-rvm for Ubuntu/Linux)
+0. Get Ruby on Rails if not already installed (http://railsinstaller.org/en for Windows, or follow https://www.digitalocean.com/community/articles/how-to-install-ruby-on-rails-on-ubuntu-12-04-lts-precise-pangolin-with-rvm for Ubuntu/Linux)
 
 1. clone this repository onto your machine
 
