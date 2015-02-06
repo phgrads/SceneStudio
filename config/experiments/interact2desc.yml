@@ -1,0 +1,31 @@
+# mechanical turk experiment/task options file
+# the task will be launched with these options
+# by running the rake task
+#   > rake mturk:run name
+
+
+# REQUIRED FIELDS
+
+# appearance on the Mechanical Turk interface
+title: Give a command that describes the change from one scene to the other
+description: Please give a one-sentence command that would turn the scene on the left into the scene on the right.
+# pay per HIT in US cents
+reward: 5
+# number of assignments to be issued in this task/experiment
+num_assignments: 5
+
+
+# OPTIONAL FIELDS
+
+# maximum number of distinct workers allowed
+#max_workers:  # defaults to num_assignments
+# maximum number of assignments/HITs per worker
+#max_hits_per_worker:  # defaults to 1
+# keywords for display on mechanical turk interface (comma separated list)
+keywords: scenes, commands, modify
+# time in seconds before the HITs are automatically removed from MTurk
+#lifetime:  # defaults to 3 days
+# maximum time in seconds for a worker to complete a HIT after accepting
+#max_task_time:  # defaults to 1 hour
+
+# TODO: add a CONF section (see image2desc.yml)
