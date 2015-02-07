@@ -28,4 +28,10 @@ keywords: scenes, commands, modify
 # maximum time in seconds for a worker to complete a HIT after accepting
 #max_task_time:  # defaults to 1 hour
 
-# TODO: add a CONF section (see image2desc.yml)
+# EXPERIMENT CONFIGURATION
+conf:
+  nScenes: 6
+  sceneEditSecs: 20
+  inputFile: public/experiments/interact2desc/scene_pairs.txt
+  condition: pilot
+  exampleImagesPath: /experiments/interact2desc/examples/
