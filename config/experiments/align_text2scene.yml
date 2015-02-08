@@ -28,6 +28,9 @@ num_assignments: 3
 # maximum time in seconds for a worker to complete a HIT after accepting
 #max_task_time:  # defaults to 1 hour
 
+# whether this task requires WebGL
+require_webgl: true
+
 # EXPERIMENT CONFIGURATION
 conf:
   nScenes: 4

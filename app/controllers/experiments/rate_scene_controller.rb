@@ -15,7 +15,7 @@ class Experiments::RateSceneController < ApplicationController
   before_filter :retrieve_list, only: [:results]
   before_filter :retrieve_item, only: [:view, :load]
 
-  layout 'webgl_viewport', only: [:index, :view]
+  layout 'basic', only: [:index, :view]
 
   def index
     if not @via_turk then

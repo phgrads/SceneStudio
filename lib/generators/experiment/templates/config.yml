@@ -27,3 +27,11 @@ num_assignments: 3
 #lifetime:  # defaults to 3 days
 # maximum time in seconds for a worker to complete a HIT after accepting
 #max_task_time:  # defaults to 1 hour
+
+# whether this task requires WebGL
+require_webgl: true
+
+# EXPERIMENT CONFIGURATION
+#conf:
+#  inputFile: public/experiments/scenes.csv
+#  condition: pilot
