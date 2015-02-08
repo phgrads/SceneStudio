@@ -51,17 +51,14 @@
       <div class="col-md-12 text-center largeFont">
         <span class="pull-left"><%=@choices[0]%></span>
         <span class="pull-right"><%=@choices[-1]%></span>
-        <div id="ratingBtnGroup" class="btn-group btn-group-lg btn-group-justified" role="group" data-toggle="buttons">
+        <div id="ratingBtnGroup" class="btn-group btn-group-lg btn-group-justified" role="group">
           <%for i in 1..@nChoices %>
             <label class="btn btn-default">
-              <input type="radio" id="r<%=i.to_s%>" name="rating" value="<%=i.to_s%>"/><%=i.to_s%>
+              <input type="radio" style="display:none" id="r<%=i.to_s%>" name="rating" value="<%=i.to_s%>"/><%=i.to_s%>
             </label>
           <%end%>
         </div>
       </div>
-    </div>
-    <div class="row center">
-      <input type="button" id="nextButton" class="btn btn-lg btn-primary" value="Next"/>
     </div>
   </div>
 </div>
