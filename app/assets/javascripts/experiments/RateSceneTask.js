@@ -101,6 +101,10 @@ define([
     RateSceneTask.prototype.next = function() {
       this.entryIndex++;
       if (this.entryIndex < this.entries.length) {
+        // Reset radio selection
+        var checkedBtn = $('input[type=radio][name=rating]:checked');
+        checkedBtn.prop('checked', false);
+        $('#ratingBtnGroup label').removeClass('active');
         // Launch next scene
         this.showEntry(this.entryIndex);
       } else {

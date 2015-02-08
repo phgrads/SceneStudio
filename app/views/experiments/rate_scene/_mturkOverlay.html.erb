@@ -29,41 +29,29 @@
   </div>
 </div>
 
-<div id="mturkOverlay" class="container wholescreenOverlay largeFont" style="display:none">
-    <div id="instructionsTextDiv" class="center">
-      <p>Please rate on a scale of 1 (<%=@choices[0]%>) to <%=@nChoices%> (<%=@choices[-1]%>) indicating how well the scene matches the description.</p>
-    </div>
-    <div id="sceneDescription" class='textDescription'>
-    </div>
-    <div class="container">
-      <div class="row">
-        <%= image_tag '', id: 'sceneImage' %>
+<div id="mturkOverlay" style="display:none">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <%= image_tag '', id: 'sceneImage', class: 'img-responsive'%>
       </div>
-
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <% if @scale %>
-            <span class="pull-left"><%=@choices[0]%></span>
-            <span class="pull-right"><%=@choices[-1]%></span>
-            <div class="btn-group btn-group-lg btn-group-justified" role="group" data-toggle="buttons">
-              <%for i in 1..@nChoices %>
-                <label class="btn btn-default">
-                    <input type="radio" id="r<%=i.to_s%>" name="rating" value="<%=i.to_s%>"/><%=i.to_s%>
-                </label>
-              <%end%>
-            </div>
-          <% else %>
-            <%for i in 1..@nChoices %>
-              <div class="btn-group btn-group-lg" role="group">
-                  <label><%= radio_button_tag 'rating', i.to_s%><%=i.to_s%>-<%= @choices[i-1]%></label>
-              </div>
-            <%end%>
+    </div>
+    <div id="sceneDescription" class='row textDescription'></div>
+    <div class="row">
+      <div class="col-md-12 text-center largeFont">
+        <span class="pull-left"><%=@choices[0]%></span>
+        <span class="pull-right"><%=@choices[-1]%></span>
+        <div id="ratingBtnGroup" class="btn-group btn-group-lg btn-group-justified" role="group" data-toggle="buttons">
+          <%for i in 1..@nChoices %>
+            <label class="btn btn-default">
+              <input type="radio" id="r<%=i.to_s%>" name="rating" value="<%=i.to_s%>"/><%=i.to_s%>
+            </label>
           <%end%>
         </div>
       </div>
     </div>
-    <div class="center">
-    <p>Click the "Next" button when you're ready to continue.</p>
-    <input type="button" id="nextButton" class="largeButton" value="Next"/>
+    <div class="row center">
+      <input type="button" id="nextButton" class="btn btn-lg btn-primary" value="Next"/>
     </div>
+  </div>
 </div>

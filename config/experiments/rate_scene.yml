@@ -36,4 +36,4 @@ conf:
   condition: pilot
   exampleImagesPath: /experiments/rate_scene/examples/
   nChoices: 7
-  choices: ["very bad", "", "", "so-so", "", "", "very good"]
+  choices: ["bad match", "", "", "so-so", "", "", "good match"]
