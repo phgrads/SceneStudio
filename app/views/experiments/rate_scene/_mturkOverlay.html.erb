@@ -2,11 +2,21 @@
 <div id="taskInstructions" class="wholescreenOverlay">
   <div align="center" class="taskInstructions">
     <div style='text-align:left'>
-      <p>You will be shown <%=@entries.length%> scenes along with a description of the scene.
-          Please indicate how well the generated scene matches the description.
+      <p>
+        We built a program to automatically create interior scenes from a description.
+        You will be shown <%=@entries.length%> scenes along with the description from which they were created.
       </p>
       <p>
-        Each scene should take about <%=@taskTime['sceneTime'] %> to complete.
+        Please indicate on a scale of 1 (<%=@choices[0]%>) to 7 (<%=@choices[-1]%>) how well the scene matches the description.
+        Consider when giving your rating:
+      </p>
+      <ul>
+        <li>Does the scene look natural? (Is the room like what you would expect to see, if you heard the description?) Scenes that are unexpectedly bizarre or contain obvious glitches should receive lower ratings. However, unusual scenes are okay if the description calls for them.</li>
+        <li>Does the scene fit the description? (Is everything mentioned or implied in the description included in the scene?) Scenes that are missing objects mentioned in the description or have objects that are mostly irrelevant should receive lower ratings. However, extra objects are okay if they add to the scene or make it look more natural.</li>
+      </ul>
+      <p>
+        The scenes may look cartoonish or "artificial". Please mainly pay attention to the objects in the scene and how they are arranged, not whether the picture of them looks realistic or artistic.
+        Each scene should take <%=@taskTime['sceneTime'] %> to complete.
         The task should take about <%=@taskTime['taskTime'] %> in total.
       </p>
      </div>
