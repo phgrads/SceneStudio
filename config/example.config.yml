@@ -13,13 +13,13 @@ development:
     # The following secret is used by rails.
     # You can generate a new secret from scratch by running the rake task
     #   rake secret
-    APP_SECRET_TOKEN:         'xxxxxxxxxxxxxx'
+    APP_SECRET_TOKEN:         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
     # The following access keys are used to enable connection to
     # Amazon Mechanical Turk.  You can get copies from Amazon
     AWS_ACCESS_KEY_ID:        'xxxxx'
     AWS_SECRET_ACCESS_KEY:    'xxxxx'
     # The base url for this deployment (needed for rake tasks)
-    HOST_BASE_URL:            'http://xxxx.xxxx.xxx/xxxxxx/'
+    HOST_BASE_URL:            'http://localhost:3000'
 
 test:
     # copy development verbatim
