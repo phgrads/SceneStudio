@@ -14,7 +14,7 @@ class Experiments::SelectSceneController < ApplicationController
   before_filter :retrieve_list, only: [:results]
   before_filter :retrieve_item, only: [:view, :load]
 
-  layout 'webgl_viewport', only: [:index, :view]
+  layout 'basic', only: [:index]
 
   def index
     if not @via_turk then
