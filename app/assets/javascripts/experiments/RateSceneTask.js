@@ -123,9 +123,11 @@ define([
     RateSceneTask.prototype.showEntry = function(i) {
       var entry = this.entries[i];
       this.sceneDescriptionElem.text(entry['description']);
-      var sceneId = entry['scene'];
-      var url = this.getImageUrl(sceneId);
-      this.sceneImageElem.attr('src', url);
+      if (!entry.url) {
+        var sceneId = entry['scene'];
+        entry.url = this.getImageUrl(sceneId);
+      }
+      this.sceneImageElem.attr('src', entry.url);
     };
 
     RateSceneTask.prototype.start = function() {

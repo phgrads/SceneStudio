@@ -7,7 +7,7 @@
 # REQUIRED FIELDS
 
 # appearance on the Mechanical Turk interface
-title: Rate a scene
+title: Rate 3D scenes
 description: Rate how well a description of a scene matches the image of the scene.
 # pay per HIT in US cents
 reward: 5
