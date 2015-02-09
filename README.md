@@ -65,7 +65,7 @@ The following assumes that we are running in development mode on a local machine
 4. run `rake mturk:run[sampleName]` in order to launch the experiment
    you just created on the MTurk sandbox.
 
-5. go to the worker sandbox (https://workersandbox.mturk.com/) and try doing your new task.
+5. go to the worker sandbox (https://workersandbox.mturk.com/) and try doing your new task. You can switch to posting real HITs by flipping the sandbox boolean in `config/initializers/rturk.rb` -- make sure everything works out before doing this and remember to return back to sandbox mode after finishing with your task.
 
 6. After running a task, you can do `rake mturk:recall[sampleName]` to approve all workers 
    and withdraw the task from Amazon Mturk.  WARNING: This will remove all evidence of the
@@ -99,6 +99,12 @@ After running task, go to `experiments/desc2scene/results` to view results.
 Ask users to create a scene based on a image.
 
 After running task, go to `experiments/image2scene/results` to view results.
+
+### rate_scene
+Ask users to rate how well an image of a scene matches a description.
+
+After running task, go to `experiments/rate_scene/results` to view results.
+
 
 ### recon2scene (not working)
 Ask users to create a scene based on a scanned reconstruction.
