@@ -4,7 +4,7 @@ class Experiments::Interact2descController < ApplicationController
   include ActionView::Helpers::DateHelper
   include MturkHelper
   include Experiments::ExperimentsHelper
-  include Experiments::SelectSceneHelper
+  include Experiments::Interact2descHelper
 
   before_filter :load_new_tab_params, only: [:index]
   before_filter :load_data_generic_csv, only: [:index]
@@ -22,7 +22,7 @@ class Experiments::Interact2descController < ApplicationController
     end
     @title = @task.title
     if @entries.any? then
-      render "experiments/select_scene/index", layout: true
+      render "experiments/interact2desc/index", layout: true
     else
       @message = @no_entries_message
       render "mturk/message", layout: false

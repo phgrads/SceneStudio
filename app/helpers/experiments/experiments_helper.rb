@@ -3,6 +3,7 @@ module Experiments::ExperimentsHelper
   require 'set'
 
   def load_data_generic_tsv
+    # Loads data from a generic (headers can be anything) tsv file
     load_data(method(:load_generic_entries_tsv))
   end
 
@@ -10,7 +11,10 @@ module Experiments::ExperimentsHelper
     load_data(method(:load_generic_entries_csv))
   end
 
+
   def load_data(load_entries_func = method(:load_entries))
+    # Populates @entries based on config file, including choosing random entries to show to turker
+
     @conf = YAML.load_file("config/experiments/#{controller_name}.yml")['conf']
     @entries = load_and_select_random(@conf['inputFile'], @conf['doneFile'],
                                       @conf['doneThreshold'], @conf['perWorkerItemCompletedThreshold'],
@@ -138,8 +142,11 @@ module Experiments::ExperimentsHelper
     entries.each { |x| x[:count] = completed_counts[x[:id]]? completed_counts[x[:id]]:0 }
   end
 
+
   def load_entries(file)
-    # Loads entries from file
+    # default to load entries from file, but generic tsv/csv is better
+    # TODO: can we just delete this function and set the new default to generic tsv?
+
     csv_file = File.join(Rails.root,file)
     csv = CSV.read(csv_file, { :headers => true, :col_sep => "\t", :skip_blanks => true})
     # TODO: Make this more general

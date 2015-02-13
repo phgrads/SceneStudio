@@ -12,13 +12,13 @@ define(function(require) {
       var showEntryCallback = function(entry) {
         $('#sentence').text(entry['description']);
       };
-      var describeSceneTask = new DescribeSceneTask({
+      var describeInteractionTask = new DescribeInteractionTask({
         base_url: window.globals.base_url,
         entries: window.globals.entries,
         conf: window.globals.conf
       });
 
-      describeSceneTask.Launch();
+      describeInteractionTask.Launch();
     } );
   })
 });

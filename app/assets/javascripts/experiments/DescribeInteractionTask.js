@@ -14,7 +14,6 @@ define([
      */
     function DescribeInteractionTask(params)
     {
-      bootbox.alert("DescribeInteractionTask!!");
       this.entryIndex = 0;
 
       // Initialize from parameters
