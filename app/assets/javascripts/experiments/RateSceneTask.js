@@ -4,14 +4,12 @@ define([
   'bootbox',
   'jquery'
 ],
-  function (bootbox)
-  {
+  function (bootbox) {
     /**
      * Rate scene task
      * - User is shown a series of scenes and asked to rate how good they are
      */
-    function RateSceneTask(params)
-    {
+    function RateSceneTask(params) {
       this.entryIndex = 0;
 
       // Initialize from parameters
@@ -22,27 +20,32 @@ define([
       this.condition = params.conf['condition'];
       // Whether a scene preview should be saved
       this.savePreview = params.conf['savePreview'];
-
+      // Number of rating choices
       this.nChoices = params.conf['nChoices'];
+      // Base url for retrieving images
       this.base_url = params.base_url;
 
       // Summary to post for the overall task
       this.sceneSummary = [];
-      // TODO: Be flexible about binding actions to buttons...
+
+      // Hook up UI behavior
       this.taskInstructions = $('#taskInstructions');
       this.sceneDescriptionElem = $('#sceneDescription');
       this.mturkOverlay = $('#mturkOverlay');
       this.startButton = $('#startButton');
-      this.nextButton = $('#nextButton');
       this.completeTaskButton = $('#completeTaskButton');
       this.startButton.click(this.start.bind(this));
-      this.nextButton.click(this.save.bind(this));
       this.completeTaskButton.click(this.showCoupon.bind(this));
-
+      var taskState = this;
+      $('#ratingBtnGroup input[name=rating]').click(function() {
+        //$(this).addClass('active').prop('checked', true).siblings().removeClass('active');
+        var rating = $(this).val();
+        taskState.save(rating);
+      });
       this.sceneImageElem = $('#sceneImage');
     }
 
-    RateSceneTask.prototype.save = function() {
+    RateSceneTask.prototype.save = function(rating) {
       var on_success = function(response) {
         this.next();
       }.bind(this);
@@ -51,9 +54,7 @@ define([
       };
 
       // Check if a rating was given
-      var rating = $('input[type=radio][name=rating]:checked').val();
-      var ok = rating;
-      if(ok){
+      if(rating){
         var currentEntry = this.entries[this.entryIndex];
         var results = {
           rating: rating,
@@ -101,6 +102,9 @@ define([
     RateSceneTask.prototype.next = function() {
       this.entryIndex++;
       if (this.entryIndex < this.entries.length) {
+        // Reset radio selection
+        $('input[name=rating]:checked').prop('checked', false);
+        $('#ratingBtnGroup label').removeClass('active');
         // Launch next scene
         this.showEntry(this.entryIndex);
       } else {
@@ -119,9 +123,11 @@ define([
     RateSceneTask.prototype.showEntry = function(i) {
       var entry = this.entries[i];
       this.sceneDescriptionElem.text(entry['description']);
-      var sceneId = entry['scene'];
-      var url = this.getImageUrl(sceneId);
-      this.sceneImageElem.attr('src', url);
+      if (!entry.url) {
+        var sceneId = entry['scene'];
+        entry.url = this.getImageUrl(sceneId);
+      }
+      this.sceneImageElem.attr('src', entry.url);
     };
 
     RateSceneTask.prototype.start = function() {

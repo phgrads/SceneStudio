@@ -1,0 +1,4 @@
+id,description,scene,url
+"maxent-0","test description maxent-0","mturk.dev-maxent1.s99-00000","https://dovahkiin.stanford.edu/text2scene/angelx/eval/mturk-dev-maxent1/s99/mturk-dev-maxent1-00000-0.png"
+"sempre-0","test description sempre-0","mturk.dev-sempre101.s9","https://dovahkiin.stanford.edu/text2scene/angelx/eval/mturk-dev-sempre101/s9/mturk-dev-sempre101-00000-0.png"
+"manual-0","test description manual-0","manual.s01","https://dovahkiin.stanford.edu/text2scene/angelx/eval/mturk-dev-sempre1/s0/mturk-dev-sempre1-00000-0.png"

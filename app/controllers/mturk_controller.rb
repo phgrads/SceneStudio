@@ -3,7 +3,7 @@ class MturkController < ApplicationController
 
   before_filter :load_iframe_params, only: [:task]
   before_filter :require_assignment, only: [:report, :coupon, :report_item, :approve_assignment, :reject_assignment]
-  before_filter :load_task_conf, only: [:coupon]
+  before_filter :load_task_conf, only: [:task, :coupon]
 
   before_filter :can_manage_tasks_filter,
                 except: [:task, :report_item, :report, :coupon]
@@ -15,8 +15,6 @@ class MturkController < ApplicationController
 
   # IFrame to be displayed in Amazon MTurk redirecting workers to actual task
   def task
-    # TODO: Check if require webgl based on task
-    @require_webgl = true
     # should improve on this and be less kludgy in the future...?
     # could build a table of experiment_urls in the initializer
     # and then do a lookup into that table by name...
@@ -344,7 +342,9 @@ class MturkController < ApplicationController
     end
 
     def load_task_conf
-      @conf = YAML.load_file("config/experiments/#{@task.name}.yml")['conf']
+      task_conf = YAML.load_file("config/experiments/#{@task.name}.yml")
+      @require_webgl = task_conf['require_webgl']
+      @conf = task_conf['conf']
     end
 
     def list_tasks
