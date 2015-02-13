@@ -2,46 +2,67 @@
 <div id="taskInstructions" class="wholescreenOverlay">
   <div align="center" class="taskInstructions">
     <div style='text-align:left'>
-      <!-- <p>You will be shown <%=@entries.length%> simple indoor scenes. -->
-      <!--   For each scene, you will be asked to provide a description -->
-      <!--   that matches the scene. -->
-      <!-- </p> -->
+      <p>You will be shown <%=@entries.length%> pairs of simple indoor scenes.
+        For each pair, you will be asked to provide a command that turns the first scene into the second.
+      </p>
       <p>
         Each scene should take about <%=@taskTime['sceneTime'] %> to complete.
         The task should take about <%=@taskTime['taskTime'] %> in total.
       </p>
      </div>
   <div align="center">
+    <b>Example 1</b>
     <table class="exampleTable">
-      <thead>
-      <th></th>
-      <th>Example 1</th>
-      <th>Example 2</th>
-      </thead>
-      <tbody>
       <tr>
         <th>Scene</th>
         <td>
-          <div align="center" class="mturkExample">
-            <%= image_tag( @conf['exampleImagesPath'] + 'example1.png', { width: 400, class: "enlarge" } ) %>
-          </div>
-        </td>
-        <td>
-          <div align="center" class="mturkExample">
-            <%= image_tag( @conf['exampleImagesPath'] + 'example2.png', { width: 400, class: "enlarge" } ) %>
-          </div>
+	  <table class="exampleTable">
+	    <td>
+              <div align="center" class="mturkExample">
+		<%= image_tag( @conf['exampleImagesPath'] + 'before0000.png', { width: 400, class: "enlarge" } ) %>
+              </div>
+	    </td>
+	    <td>
+              <div align="center" class="mturkExample">
+		<%= image_tag( @conf['exampleImagesPath'] + 'after0000.png', { width: 400, class: "enlarge" } ) %>
+              </div>
+	    </td>
+	  </table>
         </td>
       </tr>
       <tr>
         <th>Description</th>
         <td>
-          There is a bed in the corner of the room.
-        </td>
-        <td>
-          There is a round table with a green table cloth and two plates.
+	  Put a bowl on the table.
         </td>
       </tr>
-      </tbody>
+    </table>
+
+    <b>Example 2</b>
+    <table class="exampleTable">
+      <tr>
+        <th>Scene</th>
+        <td>
+	  <table class="exampleTable">
+	    <td>
+              <div align="center" class="mturkExample">
+		<%= image_tag( @conf['exampleImagesPath'] + 'before0003.png', { width: 400, class: "enlarge" } ) %>
+              </div>
+	    </td>
+	    <td>
+              <div align="center" class="mturkExample">
+		<%= image_tag( @conf['exampleImagesPath'] + 'after0003.png', { width: 400, class: "enlarge" } ) %>
+              </div>
+	    </td>
+	  </table>
+        </td>
+      </tr>
+      <tr>
+        <th>Description</th>
+        <td>
+	  Put the chessboard on the table.
+        </td>
+      </tr>
     </table>
   </div>
   <div  class="center">
@@ -56,8 +77,8 @@
 <div id="mturkOverlay" class="mturkOverlay" style="display:none">
   <div id="editInstructions" class="editInstructions">
     <div class="textDescription center">
-    <p>Please write a couple of sentences that describe the scene.
-      Please try to provide concrete details about the appearance and location of the objects in the scene.</p>
+    <p>Please write a command to turn the first scene into the second, giving
+       some detail about the locations of the objects.</p>
     <div class='row'>
     <%= text_area_tag('sceneDescription', nil, {class: 'col-md-6 col-md-offset-3', rows: 4}) %>
     </div>

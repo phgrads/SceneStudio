@@ -1,4 +1,4 @@
-id	url	url2
+id	url1	url2
 scene_pair0000	https://dovahkiin.stanford.edu/text2scene/interactions/before0000.png	https://dovahkiin.stanford.edu/text2scene/interactions/after0000.png
 scene_pair0001	https://dovahkiin.stanford.edu/text2scene/interactions/before0001.png	https://dovahkiin.stanford.edu/text2scene/interactions/after0001.png
 scene_pair0002	https://dovahkiin.stanford.edu/text2scene/interactions/before0002.png	https://dovahkiin.stanford.edu/text2scene/interactions/after0002.png

@@ -12,8 +12,9 @@ define([
      * - User is show a series of images
      *   and asked to describe the scene in words
      */
-    function DescribeImageTask(params)
+    function DescribeInteractionTask(params)
     {
+      bootbox.alert("DescribeInteractionTask!!");
       this.entryIndex = 0;
 
       // Initialize from parameters
@@ -40,7 +41,7 @@ define([
       this.completeTaskButton.click(this.showCoupon.bind(this));
     }
 
-    DescribeImageTask.prototype.save = function() {
+    DescribeInteractionTask.prototype.save = function() {
       var on_success = function(response) {
         this.next();
       }.bind(this);
@@ -68,7 +69,7 @@ define([
       }
     };
 
-    DescribeImageTask.prototype.showComments = function() {
+    DescribeInteractionTask.prototype.showComments = function() {
       // Hide rest of UI
       $('#ui').hide();
       // Show comment area
@@ -77,7 +78,7 @@ define([
       $('#comments').focus();
     };
 
-    DescribeImageTask.prototype.showCoupon = function() {
+    DescribeInteractionTask.prototype.showCoupon = function() {
       // TODO: Improve coupon
       var on_success = function(response) {
         document.body.innerHTML = "<p>Thanks for participating!</p>" +
@@ -95,7 +96,7 @@ define([
       submit_mturk_report(results).error(on_error).success(on_success);
     };
 
-    DescribeImageTask.prototype.next = function() {
+    DescribeInteractionTask.prototype.next = function() {
       this.entryIndex++;
       if (this.entryIndex < this.entries.length) {
         // Launch next scene
@@ -105,7 +106,7 @@ define([
       }
     };
 
-    DescribeImageTask.prototype.showEntry = function(i) {
+    DescribeInteractionTask.prototype.showEntry = function(i) {
       this.sceneDescriptionElem.val('');
       var entry = this.entries[i];
       var url = entry['url'];
@@ -115,20 +116,20 @@ define([
       this.sceneImageElem.attr('src', url);
     };
 
-    DescribeImageTask.prototype.start = function() {
+    DescribeInteractionTask.prototype.start = function() {
       this.taskInstructions.hide();
       this.mturkOverlay.show();
       this.showEntry(this.entryIndex);
     };
 
-    DescribeImageTask.prototype.showInstructions = function() {
+    DescribeInteractionTask.prototype.showInstructions = function() {
       // TODO: Show instructions
     };
 
-    DescribeImageTask.prototype.Launch = function() {
+    DescribeInteractionTask.prototype.Launch = function() {
       this.showInstructions();
     };
 
     // Exports
-    return DescribeImageTask;
+    return DescribeInteractionTask;
 });
