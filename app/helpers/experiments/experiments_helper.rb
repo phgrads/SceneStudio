@@ -145,8 +145,7 @@ module Experiments::ExperimentsHelper
 
   def load_entries(file)
     # default to load entries from file, but generic tsv/csv is better
-    # TODO: can we just delete this function and set the new default to generic tsv?
-
+    # we're keeping this for the older experiments which use it
     csv_file = File.join(Rails.root,file)
     csv = CSV.read(csv_file, { :headers => true, :col_sep => "\t", :skip_blanks => true})
     # TODO: Make this more general

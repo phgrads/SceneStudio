@@ -21,6 +21,7 @@ define([
       // List of entries (i.e. images)
       // The url of where to load the image from is specified in the 'url' field of each entry
       this.entries = params.entries;
+
       // Experiment condition
       this.condition = params.conf['condition'];
       this.base_url = params.base_url;
@@ -29,7 +30,7 @@ define([
       this.sceneSummary = [];
       // TODO: Be flexible about binding actions to buttons...
       this.taskInstructions = $('#taskInstructions');
-      this.sceneDescriptionElem = $('#sceneDescription');
+      this.sceneDescriptionElem = $('#sceneDescription'); // box for user input
       this.sceneImageElem = $('#sceneImage');
       this.mturkOverlay = $('#mturkOverlay');
       this.startButton = $('#startButton');
@@ -108,11 +109,20 @@ define([
     DescribeInteractionTask.prototype.showEntry = function(i) {
       this.sceneDescriptionElem.val('');
       var entry = this.entries[i];
-      var url = entry['url'];
-      if (url.startsWith('/')) {
-        url = this.base_url + url;
+      var url1 = entry['url1'];
+      if (url1.startsWith('/')) {
+        url1 = this.base_url + url1;
       }
-      this.sceneImageElem.attr('src', url);
+      this.sceneImageElem.attr('src', url1);
+
+      // TODO: fix this function to show 2 images
+      // this.sceneDescriptionElem.val('');
+      // var entry = this.entries[i];
+      // var url = entry['url'];
+      // if (url.startsWith('/')) {
+      //   url = this.base_url + url;
+      // }
+      // this.sceneImageElem.attr('src', url);
     };
 
     DescribeInteractionTask.prototype.start = function() {

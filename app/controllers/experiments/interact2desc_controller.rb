@@ -7,7 +7,7 @@ class Experiments::Interact2descController < ApplicationController
   include Experiments::Interact2descHelper
 
   before_filter :load_new_tab_params, only: [:index]
-  before_filter :load_data_generic_csv, only: [:index]
+  before_filter :load_data_generic_tsv, only: [:index]
   before_filter :estimate_task_time, only: [:index]
 
   before_filter :can_manage_tasks_filter, only: [:results, :view]
