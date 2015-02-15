@@ -31,7 +31,8 @@ define([
       // TODO: Be flexible about binding actions to buttons...
       this.taskInstructions = $('#taskInstructions');
       this.sceneDescriptionElem = $('#sceneDescription'); // box for user input
-      this.sceneImageElem = $('#sceneImage');
+      this.sceneImageBeforeElem = $('#sceneImageBefore');
+      this.sceneImageAfterElem = $('#sceneImageAfter');
       this.mturkOverlay = $('#mturkOverlay');
       this.startButton = $('#startButton');
       this.nextButton = $('#nextButton');
@@ -113,7 +114,12 @@ define([
       if (url1.startsWith('/')) {
         url1 = this.base_url + url1;
       }
-      this.sceneImageElem.attr('src', url1);
+      var url2 = entry['url2'];
+      if (url2.startsWith('/')) { // TODO: make this its own function?
+        url2 = this.base_url + url2;
+      }
+      this.sceneImageBeforeElem.attr('src', url1);
+      this.sceneImageAfterElem.attr('src', url2);
 
       // TODO: fix this function to show 2 images
       // this.sceneDescriptionElem.val('');
