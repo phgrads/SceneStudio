@@ -8,3 +8,4 @@ RTurk::setup( INIT_CONFIG['AWS_ACCESS_KEY_ID'],
 
 # dump RTurk log statements to the main Rails log
 RTurk::Logger.logger = Rails.logger
+

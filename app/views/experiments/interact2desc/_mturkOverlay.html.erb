@@ -1,0 +1,99 @@
+<%= render '/experiments/largeimg' %>
+<div id="taskInstructions" class="wholescreenOverlay">
+  <div align="center" class="taskInstructions">
+    <div style='text-align:left'>
+      <p>You will be shown <%=@entries.length%> pairs of simple indoor scenes.
+        For each pair, you will be asked to provide a command that turns the first scene into the second.
+      </p>
+      <p>
+        Each scene should take about <%=@taskTime['sceneTime'] %> to complete.
+        The task should take about <%=@taskTime['taskTime'] %> in total.
+      </p>
+     </div>
+  <div align="center">
+    <b>Example 1</b>
+    <table class="exampleTable">
+      <tr>
+        <th>Scene</th>
+        <td>
+	  <table class="exampleTable">
+	    <td>
+              <div align="center" class="mturkExample">
+		<%= image_tag( @conf['exampleImagesPath'] + 'before0000.png', { width: 400, class: "enlarge" } ) %>
+              </div>
+	    </td>
+	    <td>
+              <div align="center" class="mturkExample">
+		<%= image_tag( @conf['exampleImagesPath'] + 'after0000.png', { width: 400, class: "enlarge" } ) %>
+              </div>
+	    </td>
+	  </table>
+        </td>
+      </tr>
+      <tr>
+        <th>Description</th>
+        <td>
+	  Put a bowl on the table.
+        </td>
+      </tr>
+    </table>
+
+    <b>Example 2</b>
+    <table class="exampleTable">
+      <tr>
+        <th>Scene</th>
+        <td>
+	  <table class="exampleTable">
+	    <td>
+              <div align="center" class="mturkExample">
+		<%= image_tag( @conf['exampleImagesPath'] + 'before0003.png', { width: 400, class: "enlarge" } ) %>
+              </div>
+	    </td>
+	    <td>
+              <div align="center" class="mturkExample">
+		<%= image_tag( @conf['exampleImagesPath'] + 'after0003.png', { width: 400, class: "enlarge" } ) %>
+              </div>
+	    </td>
+	  </table>
+        </td>
+      </tr>
+      <tr>
+        <th>Description</th>
+        <td>
+	  Put the chessboard on the table.
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div  class="center">
+    <input type="button" id="startButton" class="largeButton" value="Start"/>
+  </div>
+  </div>
+</div>
+
+<div>
+<table class="exampleTable">
+  <tr>
+    <td>
+	<img id="sceneImageBefore" style="width:100%;"/>
+    </td>
+    <td>
+	<img id="sceneImageAfter" style="width:100%;"/>
+    </td>
+  </tr>
+</table>
+<div>
+<div id="mturkOverlay" class="mturkOverlay" style="display:none">
+  <div id="editInstructions" class="editInstructions">
+    <div class="textDescription center">
+    <p>Please write a command to turn the first scene into the second, giving
+       some detail about the locations of the objects.</p>
+    <div class='row'>
+    <%= text_area_tag('sceneDescription', nil, {class: 'col-md-6 col-md-offset-3', rows: 4}) %>
+    </div>
+    <p>Click the "Next" button when you're done to go on to the next scene.</p>
+      <input type="button" id="nextButton" class="largeButton" value="Next"/>
+    </div>
+  </div>
+</div>
+

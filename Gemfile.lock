@@ -28,12 +28,14 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
+    addressable (2.3.6)
     annotate (2.5.0)
       rake
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-x86-mingw32)
-    bootstrap-sass (2.1.0.0)
+    bootstrap-sass (3.2.0.2)
+      sass (~> 3.2)
     bootstrap-will_paginate (0.0.6)
       will_paginate
     builder (3.0.4)
@@ -54,6 +56,12 @@ GEM
       execjs
     coffee-script-source (1.6.2)
     diff-lcs (1.1.3)
+    dragonfly (1.0.7)
+      addressable (~> 2.3)
+      multi_json (~> 1.0)
+      rack
+    erector (0.10.0)
+      treetop (>= 1.2.3)
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -76,9 +84,9 @@ GEM
     httpauth (0.2.0)
     i18n (0.6.1)
     journey (1.0.4)
-    jquery-rails (2.0.2)
-      railties (>= 3.2.0, < 5.0)
-      thor (~> 0.14)
+    jquery-rails (3.1.2)
+      railties (>= 3.0, < 5.0)
+      thor (>= 0.14, < 2.0)
     json (1.8.0)
     jwt (0.1.8)
       multi_json (>= 1.5)
@@ -146,10 +154,11 @@ GEM
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
-    requirejs-rails (0.9.1)
-      railties (>= 3.1.1, < 3.3)
-    rest-client (1.6.7)
-      mime-types (>= 1.16)
+    requirejs-rails (0.9.5)
+      railties (>= 3.1.1)
+    rest-client (1.6.8)
+      mime-types (~> 1.16)
+      rdoc (>= 2.4.2)
     rspec (2.11.0)
       rspec-core (~> 2.11.0)
       rspec-expectations (~> 2.11.0)
@@ -163,9 +172,10 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec (~> 2.11.0)
-    rturk (2.10.2)
-      nokogiri (>= 1.4.1)
-      rest-client (>= 1.4.0)
+    rturk (2.12.1)
+      erector
+      nokogiri
+      rest-client
     rubyzip (0.9.9)
     sass (3.2.9)
     sass-rails (3.2.6)
@@ -197,6 +207,9 @@ GEM
     will_paginate (3.0.3)
     xpath (0.1.4)
       nokogiri (~> 1.3)
+    yaml_db (0.3.0)
+      rails (>= 3.0, < 4.3)
+      rake (>= 0.8.7)
 
 PLATFORMS
   ruby
@@ -205,24 +218,27 @@ PLATFORMS
 DEPENDENCIES
   annotate (= 2.5.0)
   bcrypt-ruby (~> 3.0.1)
-  bootstrap-sass (= 2.1)
+  bootstrap-sass (~> 3.2.0)
   bootstrap-will_paginate (= 0.0.6)
   capybara (= 1.1.2)
   coffee-rails (~> 3.2.1)
+  dragonfly (~> 1.0.7)
   factory_girl_rails (= 4.1.0)
   faker (= 1.0.1)
-  font-awesome-sass-rails
-  jquery-rails (= 2.0.2)
-  omniauth-google-oauth2
-  omniauth-identity
-  omniauth-twitter
+  font-awesome-sass-rails (= 3.0.2.2)
+  jquery-rails (= 3.1.2)
+  omniauth-google-oauth2 (= 0.2.0)
+  omniauth-identity (= 1.1.1)
+  omniauth-twitter (= 1.0.0)
   paper_trail (~> 2)
   rack-reverse-proxy
   rails (= 3.2.13)
-  requirejs-rails
+  rake (= 10.1.0)
+  requirejs-rails (= 0.9.5)
   rspec-rails (= 2.11.0)
-  rturk (= 2.10.2)
+  rturk (= 2.12.1)
   sass-rails (~> 3.2.3)
   sqlite3 (= 1.3.5)
   uglifier (= 1.2.3)
   will_paginate (= 3.0.3)
+  yaml_db

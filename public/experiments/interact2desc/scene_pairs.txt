@@ -1,0 +1,11 @@
+id	url1	url2
+scene_pair0000	https://dovahkiin.stanford.edu/text2scene/interactions/before0000.png	https://dovahkiin.stanford.edu/text2scene/interactions/after0000.png
+scene_pair0001	https://dovahkiin.stanford.edu/text2scene/interactions/before0001.png	https://dovahkiin.stanford.edu/text2scene/interactions/after0001.png
+scene_pair0002	https://dovahkiin.stanford.edu/text2scene/interactions/before0002.png	https://dovahkiin.stanford.edu/text2scene/interactions/after0002.png
+scene_pair0003	https://dovahkiin.stanford.edu/text2scene/interactions/before0003.png	https://dovahkiin.stanford.edu/text2scene/interactions/after0003.png
+scene_pair0004	https://dovahkiin.stanford.edu/text2scene/interactions/before0004.png	https://dovahkiin.stanford.edu/text2scene/interactions/after0004.png
+scene_pair0005	https://dovahkiin.stanford.edu/text2scene/interactions/before0005.png	https://dovahkiin.stanford.edu/text2scene/interactions/after0005.png
+scene_pair0006	https://dovahkiin.stanford.edu/text2scene/interactions/before0006.png	https://dovahkiin.stanford.edu/text2scene/interactions/after0006.png
+scene_pair0007	https://dovahkiin.stanford.edu/text2scene/interactions/before0007.png	https://dovahkiin.stanford.edu/text2scene/interactions/after0007.png
+scene_pair0008	https://dovahkiin.stanford.edu/text2scene/interactions/before0008.png	https://dovahkiin.stanford.edu/text2scene/interactions/after0008.png
+scene_pair0009	https://dovahkiin.stanford.edu/text2scene/interactions/before0009.png	https://dovahkiin.stanford.edu/text2scene/interactions/after0009.png

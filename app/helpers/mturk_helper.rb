@@ -22,6 +22,10 @@ module MturkHelper
     true # in case this function is used as a filter
   end
 
+  # Load parameters (assignment, task, sandbox, etc.) as if it were a
+  # new tab (on SceneStudio?).
+  # The difference is we don't have to worry about preview mode or hit
+  # id
   def load_new_tab_params
     @via_turk = !!params['assignmentId']
     @sandbox  = RTurk.sandbox?

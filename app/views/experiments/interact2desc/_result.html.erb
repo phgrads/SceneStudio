@@ -1,0 +1,25 @@
+<tr>
+  <td><%= result.updated_at %></td>
+  <td><%= link_to result.item, params.merge(:item => result.item) %></td>
+  <td><%= link_to result.condition, params.merge(:condition => result.condition) %></td>
+  <td><%= link_to result.workerId, params.merge(:workerId => result.workerId) %></td>
+  <td>
+    <% entry = JSON.parse(result.data) %>
+    <% if entry %>
+        <% preview_url = get_path(entry['entry']['url']) %>
+        <% if preview_url %>
+            <%= image_tag 'scenePreview.jpg', { 'data-original' => preview_url, 'class' => 'img-responsive lazy'} %>
+        <% end %>
+    <% end %>
+  </td>
+  <td>
+    <% if entry %>
+        <%= entry['description'] %>
+    <% else %>
+        <%= result.item %>
+    <% end %>
+  </td>
+  <td>
+    <%= render 'mturk/itemStatusButtons', :result => result %>
+  </td>
+</tr>
