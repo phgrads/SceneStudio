@@ -34,6 +34,7 @@ define([
       this.mturkOverlay = $('#mturkOverlay');
       this.startButton = $('#startButton');
       this.completeTaskButton = $('#completeTaskButton');
+      this.progressTextDiv = $('#progressTextDiv');
       this.startButton.click(this.start.bind(this));
       this.completeTaskButton.click(this.showCoupon.bind(this));
       var taskState = this;
@@ -128,6 +129,8 @@ define([
         entry.url = this.getImageUrl(sceneId);
       }
       this.sceneImageElem.attr('src', entry.url);
+      var currEntryIdx = this.entryIndex + 1;
+      this.progressTextDiv.text(currEntryIdx + "/" + this.entries.length);
     };
 
     RateSceneTask.prototype.start = function() {
