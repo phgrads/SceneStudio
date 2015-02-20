@@ -120,15 +120,6 @@ define([
       }
       this.sceneImageBeforeElem.attr('src', url1);
       this.sceneImageAfterElem.attr('src', url2);
-
-      // TODO: fix this function to show 2 images
-      // this.sceneDescriptionElem.val('');
-      // var entry = this.entries[i];
-      // var url = entry['url'];
-      // if (url.startsWith('/')) {
-      //   url = this.base_url + url;
-      // }
-      // this.sceneImageElem.attr('src', url);
     };
 
     DescribeInteractionTask.prototype.start = function() {
