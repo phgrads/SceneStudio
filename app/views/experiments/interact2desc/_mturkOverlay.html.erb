@@ -89,7 +89,10 @@
     <p>Please write a command to turn the first scene into the second, giving
        some detail about the locations of the objects.</p>
     <div class='row'>
-    <%= text_area_tag('sceneDescription', nil, {class: 'col-md-6 col-md-offset-3', rows: 4}) %>
+      <div class="col-md-12 center">
+	<div id="progressTextDiv" class="largeFont"></div>
+      </div>
+      <%= text_area_tag('sceneDescription', nil, {class: 'col-md-6 col-md-offset-3', rows: 4}) %>
     </div>
     <p>Click the "Next" button when you're done to go on to the next scene.</p>
       <input type="button" id="nextButton" class="largeButton" value="Next"/>
