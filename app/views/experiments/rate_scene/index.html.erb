@@ -1,6 +1,10 @@
 <div id="ui">
   <%= render '/experiments/submit_mturk_report' %>
-  <%= render 'mturkOverlay' %>
+  <% if @conf['taskType'] == 'rate-scene-description-pair' %>
+    <%= render 'rateSceneDescriptionPair' %>
+  <% else %> <!-- assume 'rateScene' for now -->
+    <%= render 'rateScene' %>
+  <% end %>
   <%= render 'globals' %>
 </div>
 <%= render '/experiments/comments' %>

@@ -1,0 +1,73 @@
+<%= render '/experiments/largeimg' %>
+<div id="taskInstructions">
+  <div align="center" class="taskInstructions">
+    <div style='text-align:left'>
+      <p>
+        We built a program to automatically create interior scenes.
+        You will be shown <%=@entries.length%> scenes.
+      </p>
+      <p>
+        Please indicate on a scale of 1 (<%=@choices[0]%>) to 7 (<%=@choices[-1]%>) the plausibility of the scene.
+        Consider when giving your rating:
+      </p>
+      <ul>
+        <li>Are the objects that appear in the scene things you would expect to see together?</li>
+        <li>Are the relationships between the objects realistic? For instance, plates are usually on tables and not on the floor</li>
+        <li>Does the scene <b>look natural</b>? Scenes with obvious glitches should receive lower ratings.</li>
+      </ul>
+      <p>
+        The scenes may look "cartoonish". Please pay attention to the objects in the scene and how they are arranged, not whether the picture of them looks realistic.
+        Each scene should take <%=@taskTime['sceneTime'] %> to complete.
+        The task should take about <%=@taskTime['taskTime'] %> in total.
+      </p>
+     </div>
+  <hr>
+  <div align="center" style="text-align:center">
+    <table class="exampleTable">
+      <tr>
+        <div><b>Example: rating 7 (<%= @choices[-1]%>)</b></div>
+        <div class="mturkExample" style="max-width: 500px; margin: 0 auto;">
+          <%= image_tag(@conf['exampleImagesPath'] + 'good.png', {class: 'img-responsive'}) %>
+        </div>
+      </tr>
+      <hr>
+      <tr>
+        <div><b>Example: rating 1 (<%= @choices[0]%>)</b></div>
+        <div class="mturkExample" style="max-width: 500px; margin: 0 auto;">
+          <%= image_tag(@conf['exampleImagesPath'] + 'bad.png', {class: 'img-responsive'}) %>
+        </div>
+      </tr>
+    </table>
+  </div>
+  <hr>
+  <div class="center">
+    <input type="button" id="startButton" class="largeButton" value="Start"/>
+  </div>
+  </div>
+</div>
+
+<div id="mturkOverlay" style="display:none">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 center">
+        <div id="progressTextDiv" class="largeFont">TEST</div>
+      </div>
+      <div class="col-md-12">
+        <%= image_tag '', id: 'sceneImage', class: 'img-responsive'%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-center largeFont">
+        <span class="pull-left"><%=@choices[0]%></span>
+        <span class="pull-right"><%=@choices[-1]%></span>
+        <div id="ratingBtnGroup" class="btn-group btn-group-lg btn-group-justified" role="group">
+          <%for i in 1..@nChoices %>
+            <label class="btn btn-default">
+              <input type="radio" style="display:none" id="r<%=i.to_s%>" name="rating" value="<%=i.to_s%>"/><%=i.to_s%>
+            </label>
+          <%end%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
