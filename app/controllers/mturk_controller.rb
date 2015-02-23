@@ -188,9 +188,21 @@ class MturkController < ApplicationController
                     description: entry['description']
                   }
                 }
+              when "rate_scene"
+                mapped = @items.map{ |item|
+                  entry = JSON.parse(item.data)
+                  {
+                    annotationId: "#{item.id}",
+                    itemId: entry['entry']['id'],
+                    taskCondition: "#{item.condition}",
+                    condition: entry['entry']['condition'],
+                    description: entry['entry']['description'],
+                    rating: entry['rating']
+                  }
+                }
             end
           end
-          send_data as_csv(mapped, columns, :col_sep => "\t"), :filename => filename
+          send_data as_csv(mapped, columns), :filename => filename
         else
           # Normal export as csv
           send_data @items.as_csv(columns), :filename => filename
