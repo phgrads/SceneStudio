@@ -37,6 +37,7 @@ define([
       this.startButton = $('#startButton');
       this.nextButton = $('#nextButton');
       this.completeTaskButton = $('#completeTaskButton');
+      this.progressTextDiv = $('#progressTextDiv');
       this.startButton.click(this.start.bind(this));
       this.nextButton.click(this.save.bind(this));
       this.completeTaskButton.click(this.showCoupon.bind(this));
@@ -121,14 +122,8 @@ define([
       this.sceneImageBeforeElem.attr('src', url1);
       this.sceneImageAfterElem.attr('src', url2);
 
-      // TODO: fix this function to show 2 images
-      // this.sceneDescriptionElem.val('');
-      // var entry = this.entries[i];
-      // var url = entry['url'];
-      // if (url.startsWith('/')) {
-      //   url = this.base_url + url;
-      // }
-      // this.sceneImageElem.attr('src', url);
+      var currentEntryIdx = this.entryIndex + 1; // one-indexed entry idx
+      this.progressTextDiv.text(currentEntryIdx + "/" + this.entries.length);
     };
 
     DescribeInteractionTask.prototype.start = function() {

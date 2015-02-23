@@ -51,6 +51,11 @@ SceneStudio::Application.routes.draw do
   match 'experiments/desc2scene/:id/load',         to: 'experiments/desc2scene#load'
   match 'experiments/desc2scene/:id/view',         to: 'experiments/desc2scene#view'
 
+  get 'experiments/interact2desc', to: 'experiments/interact2desc#index'
+  get 'experiments/interact2desc/results', to: 'experiments/interact2desc#results'
+  match 'experiments/interact2desc/:id/load',      to: 'experiments/interact2desc#load'
+  match 'experiments/interact2desc/:id/view',      to: 'experiments/interact2desc#view'
+
   # Main app
   root                              to: 'static_pages#home'
   match '/help',                    to: 'static_pages#help'
