@@ -2,7 +2,8 @@
 
 define([
   'bootbox',
-  'jquery'
+  'jquery',
+  'jquery.hotkeys'
 ],
   function (bootbox) {
     /**
@@ -37,13 +38,22 @@ define([
       this.progressTextDiv = $('#progressTextDiv');
       this.startButton.click(this.start.bind(this));
       this.completeTaskButton.click(this.showCoupon.bind(this));
+      this.sceneImageElem = $('#sceneImage');
+
+      // Set rating button click
       var taskState = this;
       $('#ratingBtnGroup input[name=rating]').click(function() {
         //$(this).addClass('active').prop('checked', true).siblings().removeClass('active');
         var rating = $(this).val();
         taskState.save(rating);
       });
-      this.sceneImageElem = $('#sceneImage');
+      // Also hook up rating keys to keyboard numbers
+      for (var i = 1; i <= this.nChoices; i++) {
+        $(document).bind('keydown', i.toString(), function(rating) {
+          console.log(rating);
+          taskState.save(rating);
+        }.bind(this, i.toString()));
+      }
     }
 
     RateSceneTask.prototype.save = function(rating) {

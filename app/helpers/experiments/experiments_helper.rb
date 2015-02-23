@@ -85,14 +85,14 @@ module Experiments::ExperimentsHelper
 
     # Experimental code for different selection policies
     logger.debug "Selecting #{n} entries from #{entries.size} entries"
-    if select_policy == "random" || select_policy == nil
+    if select_policy == "random"
       # Do random selection from final remaining entries
       select_random(entries, n)
     elsif select_policy == "mincount"
       # Select entries that were completed least
       entries_counts = count_completed_entries_for(taskId, select_condition, entries)
       select_by_count_min(entries_counts, n)
-    elsif select_policy == "mincount_random"
+    elsif select_policy == "mincount_random" || select_policy == nil
       # Select entries randomly, favoring those with minimum completed count
       entries_counts = count_completed_entries_for(taskId, select_condition, entries)
       select_random_grouped(entries_counts, n)
