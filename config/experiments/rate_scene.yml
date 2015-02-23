@@ -12,7 +12,7 @@ description: Rate how well a description of a scene matches the image of the sce
 # pay per HIT in US cents
 reward: 50
 # number of assignments to be issued in this task/experiment
-num_assignments: 10
+num_assignments: 20
 
 
 # OPTIONAL FIELDS
@@ -42,3 +42,4 @@ conf:
   exampleImagesPath: /experiments/rate_scene/examples/
   nChoices: 7
   choices: ["bad", "", "", "so-so", "", "", "good"]
+  uploadSummary: true
