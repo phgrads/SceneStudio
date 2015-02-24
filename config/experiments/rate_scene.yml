@@ -44,3 +44,4 @@ conf:
   nChoices: 7
   choices: ["bad", "", "", "so-so", "", "", "good"]
   uploadSummary: true
+  doneThreshold: 5  # do not sample items if already this many responses
