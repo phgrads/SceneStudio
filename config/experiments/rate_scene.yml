@@ -37,8 +37,9 @@ conf:
   selectPolicy: mincount_random
   sceneEditSecs: 10
   taskType: rate-scene-description-pair  # rate-scene-description-pair or rate-scene
-  inputFile: public/experiments/rate_scene/seedsents.csv
-  condition: seedsents
+  inputFile: public/experiments/rate_scene/mturk.full-layout.csv
+  condition: mturk.full-layout
+  selectCondition: mturk.full-layout
   exampleImagesPath: /experiments/rate_scene/examples/
   nChoices: 7
   choices: ["bad", "", "", "so-so", "", "", "good"]
