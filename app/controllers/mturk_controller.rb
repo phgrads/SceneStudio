@@ -197,7 +197,8 @@ class MturkController < ApplicationController
                     taskCondition: "#{item.condition}",
                     condition: entry['entry']['condition'],
                     description: entry['entry']['description'],
-                    rating: entry['rating']
+                    rating: entry['rating'],
+                    workerId: item.workerId
                   }
                 }
             end
