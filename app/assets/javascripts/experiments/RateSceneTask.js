@@ -14,8 +14,7 @@ define([
       this.entryIndex = 0;
 
       // Initialize from parameters
-      // List of entries (i.e. scenes)
-      // The url of where to load the scene from is specified in the 'url' field of each entry
+      // List of entries (i.e. scenes) 
       this.entries = params.entries;
       // Experiment condition
       this.condition = params.conf['condition'];

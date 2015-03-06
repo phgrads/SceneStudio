@@ -2,8 +2,11 @@
 <div id="taskInstructions" class="wholescreenOverlay">
   <div align="center" class="taskInstructions">
     <div style='text-align:left'>
-      <p>You will be shown <%=@entries.length%> pairs of simple indoor scenes.
-        For each pair, you will be asked to provide a command that turns the first scene into the second.
+      <p>We are working on a system that, given some scene of a virtual room, will let you give a command to modify it.
+      </p>
+      <p>For this task, you will be shown <%=@entries.length%> pairs of simple indoor scenes.
+	Each pair consists of a before-command scene, and an after-command scene.
+	You will be asked to provide a command describing this change. Please give it in the imperative.
       </p>
       <p>
         Each scene should take about <%=@taskTime['sceneTime'] %> to complete.
@@ -17,16 +20,30 @@
         <th>Scene</th>
         <td>
 	  <table class="exampleTable">
-	    <td>
-              <div align="center" class="mturkExample">
-		<%= image_tag( @conf['exampleImagesPath'] + 'before0000.png', { width: 400, class: "enlarge" } ) %>
-              </div>
-	    </td>
-	    <td>
-              <div align="center" class="mturkExample">
-		<%= image_tag( @conf['exampleImagesPath'] + 'after0000.png', { width: 400, class: "enlarge" } ) %>
-              </div>
-	    </td>
+	    <tr>
+	      <td>
+		<div align="center">
+		  <b>Before</b>
+		</div>
+	      </td>
+	      <td>
+		<div align="center">
+		  <b>After</b>
+		</div>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>
+		<div align="center" class="mturkExample">
+		  <%= image_tag( @conf['exampleImagesPath'] + 'before0000.png', { width: 400, class: "enlarge" } ) %>
+		</div>
+	      </td>
+	      <td>
+		<div align="center" class="mturkExample">
+		  <%= image_tag( @conf['exampleImagesPath'] + 'after0000.png', { width: 400, class: "enlarge" } ) %>
+		</div>
+	      </td>
+	    </tr>
 	  </table>
         </td>
       </tr>
@@ -44,16 +61,30 @@
         <th>Scene</th>
         <td>
 	  <table class="exampleTable">
-	    <td>
-              <div align="center" class="mturkExample">
-		<%= image_tag( @conf['exampleImagesPath'] + 'before0003.png', { width: 400, class: "enlarge" } ) %>
-              </div>
-	    </td>
-	    <td>
-              <div align="center" class="mturkExample">
-		<%= image_tag( @conf['exampleImagesPath'] + 'after0003.png', { width: 400, class: "enlarge" } ) %>
-              </div>
-	    </td>
+	    <tr>
+	      <td>
+		<div align="center">
+		  <b>Before</b>
+		</div>
+	      </td>
+	      <td>
+		<div align="center">
+		  <b>After</b>
+		</div>
+	      </td>
+	    </tr>	    
+	    <tr>
+	      <td>
+		<div align="center" class="mturkExample">
+		  <%= image_tag( @conf['exampleImagesPath'] + 'before0003.png', { width: 400, class: "enlarge" } ) %>
+		</div>
+	      </td>
+	      <td>
+		<div align="center" class="mturkExample">
+		  <%= image_tag( @conf['exampleImagesPath'] + 'after0003.png', { width: 400, class: "enlarge" } ) %>
+		</div>
+	      </td>
+	    </tr>
 	  </table>
         </td>
       </tr>
