@@ -11,42 +11,44 @@
         The task should take about <%=@taskTime['taskTime'] %> in total.
       </p>
      </div>
-  <div align="center">
-    <table class="exampleTable">
-      <thead>
-      <th>Example</th>
-      </thead>
-      <tbody>
-	<tr>
-          <td>
-            <div class="wrap">
-              <%for i in 0...@conf['nChoices']%>
-	      <td>
-	        <div algin="center" class="mturkExample">
-		  <%= image_tag( @conf['exampleImagesPath'] + 'example-0-'+i.to_s+'.png', { width: 400, class: "enlarge"} )%>
-  		</div>
-	      </td>
-	      <%end%>
-            </div>
-            <!-- <div class="exampleTable"> -->
-            <!--   <div class="row"> -->
-            <!--     <%for i in 0...@conf['nChoices']%> -->
-	    <!-- 	  <td> -->
-	    <!-- 	    <%= image_tag( @conf['exampleImagesPath'] + 'example-0-'+i.to_s+'.png', { width: 400, class: "enlarge"} )%> -->
-	    <!-- 	  </td> -->
-            <!--     <\!-- <div class="col-md-2 col-sm-2 col-xs-2"> -\-> -->
-            <!--     <\!--     <div class="thumbnail" id='<%="exSceneImageFrame#{i}"%>' > -\-> -->
-            <!--     <\!--         <%= image_tag '', id: "exSceneImage#{i}" %> -\-> -->
-            <!--     <\!--     </div> -\-> -->
-            <!--     <\!-- </div> -\-> -->
-            <!--     <%end%> -->
-            <!--   </div> -->
-            <!-- </div> -->
-          </td>
-	</tr>
-      </tbody>
-    </table>
-  </div>
+
+    <!-- Want to stack the scenes... -->
+    <div align="center">
+      <%for i in 0...@conf['nChoices']%>
+      <!-- <td> -->
+	<div align="center" class="mturkExample" style="display:inline-block">
+	  <%= image_tag( @conf['exampleImagesPath'] + 'example-0-'+i.to_s+'.png', { width: 400, class: "enlarge"} )%>
+  	</div>
+      <!-- </td> -->
+      <%end%>
+    </div>
+  <!-- <div align="center"> -->
+  <!--   <table class="exampleTable"> -->
+  <!--     <thead> -->
+  <!--     <th>Example</th> -->
+  <!--     </thead> -->
+  <!--     <tbody> -->
+  <!-- 	<tr> -->
+  <!--         <td> -->
+  <!--           <\!-- <div class="exampleTable"> -\-> -->
+  <!--           <\!--   <div class="row"> -\-> -->
+  <!--           <\!--     <%for i in 0...@conf['nChoices']%> -\-> -->
+  <!-- 	    <\!-- 	  <td> -\-> -->
+  <!-- 	    <\!-- 	    <%= image_tag( @conf['exampleImagesPath'] + 'example-0-'+i.to_s+'.png', { width: 400, class: "enlarge"} )%> -\-> -->
+  <!-- 	    <\!-- 	  </td> -\-> -->
+  <!--           <\!--     <\\!-- <div class="col-md-2 col-sm-2 col-xs-2"> -\\-> -\-> -->
+  <!--           <\!--     <\\!--     <div class="thumbnail" id='<%="exSceneImageFrame#{i}"%>' > -\\-> -\-> -->
+  <!--           <\!--     <\\!--         <%= image_tag '', id: "exSceneImage#{i}" %> -\\-> -\-> -->
+  <!--           <\!--     <\\!--     </div> -\\-> -\-> -->
+  <!--           <\!--     <\\!-- </div> -\\-> -\-> -->
+  <!--           <\!--     <%end%> -\-> -->
+  <!--           <\!--   </div> -\-> -->
+  <!--           <\!-- </div> -\-> -->
+  <!--         </td> -->
+  <!-- 	</tr> -->
+  <!--     </tbody> -->
+  <!--   </table> -->
+  <!-- </div> -->
   <div  class="center">
     <input type="button" id="startButton" class="largeButton" value="Start"/>
   </div>
