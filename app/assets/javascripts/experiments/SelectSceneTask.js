@@ -35,10 +35,10 @@ define([
       this.sceneDescriptionElem = $('#sceneDescription');
       this.mturkOverlay = $('#mturkOverlay');
       this.startButton = $('#startButton');
-      this.nextButton = $('#nextButton');
+      //this.nextButton = $('#nextButton');
       this.completeTaskButton = $('#completeTaskButton');
       this.startButton.click(this.start.bind(this));
-      this.nextButton.click(this.save.bind(this));
+      //this.nextButton.click(this.save.bind(this));
       this.completeTaskButton.click(this.showCoupon.bind(this));
 
       this.sceneImageElems = [];
@@ -52,6 +52,8 @@ define([
     }
 
     SelectSceneTask.prototype.select = function(idx) {
+      console.log("scene "+idx+" selected")
+
       if (this.selected != idx) {
         if (this.selected >= 0) {
           this.sceneImageFrameElems[this.selected].removeClass("selected");
@@ -61,9 +63,15 @@ define([
           this.sceneImageFrameElems[idx].addClass("selected");
         }
       }
+
+      if (this.selected >= 0 && this.selected < this.nChoices) {
+	this.save();
+      }
     };
 
     SelectSceneTask.prototype.save = function() {
+      // A generic save function that may also be called from a "Next" button
+
       var on_success = function(response) {
         this.next();
       }.bind(this);

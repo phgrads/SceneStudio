@@ -36,7 +36,8 @@
     	      	<tr>
     	      	  <td>
     	      	    <div align="center" class="mturkExample">
-    	      	      <%= image_tag( @conf['exampleImagesPath'] + 'example-0-'+i.to_s+'.png', { width: 400, class: "enlarge"} )%>
+    	      	      <%= image_tag( @conf['exampleImagesPath'] + 'example-0-'+i.to_s+'.png', { width: 400} )%>
+		      <!-- can add enlarge later, if it works well -->
     	      	    </div>
     	      	  </td>
     	      	</tr>
@@ -62,8 +63,8 @@
   </div>
 </div>
 
-<div id="mturkOverlay" class="wholescreenOverlay largeFont" style="display:none">
-    <div id="instructionsTextDiv" class="center">
+<div id="mturkOverlay" class="wholescreenOverlay" style="display:none">
+    <div id="instructionsTextDiv" class="center largeFont">
     <p>Please select the scene that is most similar to the following description</p>
     </div>
     <div id="sceneDescription" class='textDescription'>
@@ -72,11 +73,16 @@
     <div align="center">
       <%for i in 0...@conf['nChoices']%>
       <div style="display:inline-block" id='<%="sceneImageFrame#{i}"%>' >
-	<%= image_tag '', id: "sceneImage#{i}", width: 400 %>
+	<%= image_tag '', id: "sceneImage#{i}", width: 600 %>
 	<!-- the class: "enlarge" is distracting (at least for now) -->
       </div>
       <%end%>
     </div>
+
+    <div align="center">
+    <p>Click on the scene to continue</p>
+    </div>
+
     <!-- <div class="container"> -->
     <!-- <div class="row"> -->
     <!-- <%for i in 0...@conf['nChoices']%> -->
@@ -88,8 +94,9 @@
     <!-- <%end%> -->
     <!-- </div> -->
     <!-- </div> -->
-    <div class="center">
-    <p>Click the "Next" button when you're ready to continue.</p>
-    <input type="button" id="nextButton" class="largeButton" value="Next"/>
-    </div>
+
+    <!-- <div class="center"> -->
+    <!-- <p>Click the "Next" button when you're ready to continue.</p> -->
+    <!-- <input type="button" id="nextButton" class="largeButton" value="Next"/> -->
+    <!-- </div> -->
 </div>
