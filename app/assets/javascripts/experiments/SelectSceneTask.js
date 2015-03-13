@@ -2,7 +2,8 @@
 
 define([
   'bootbox',
-  'jquery'
+  'jquery',
+  'base'
 ],
   function (bootbox)
   {
