@@ -17,21 +17,33 @@
       <th>Example</th>
       </thead>
       <tbody>
-      <tr>
-        <td>
-            <div class="container">
-                <div class="row">
-                    <%for i in 0...@conf['nChoices']%>
-                        <div class="col-md-2 col-sm-2 col-xs-2">
-                            <div class="thumbnail" id='<%="exSceneImageFrame#{i}"%>' >
-                                <%= image_tag '', id: "exSceneImage#{i}" %>
-                            </div>
-                        </div>
-                    <%end%>
-                </div>
+	<tr>
+          <td>
+            <div class="wrap">
+              <%for i in 0...@conf['nChoices']%>
+	      <td>
+	        <div algin="center" class="mturkExample">
+		  <%= image_tag( @conf['exampleImagesPath'] + 'example-0-'+i.to_s+'.png', { width: 400, class: "enlarge"} )%>
+  		</div>
+	      </td>
+	      <%end%>
             </div>
-        </td>
-      </tr>
+            <!-- <div class="exampleTable"> -->
+            <!--   <div class="row"> -->
+            <!--     <%for i in 0...@conf['nChoices']%> -->
+	    <!-- 	  <td> -->
+	    <!-- 	    <%= image_tag( @conf['exampleImagesPath'] + 'example-0-'+i.to_s+'.png', { width: 400, class: "enlarge"} )%> -->
+	    <!-- 	  </td> -->
+            <!--     <\!-- <div class="col-md-2 col-sm-2 col-xs-2"> -\-> -->
+            <!--     <\!--     <div class="thumbnail" id='<%="exSceneImageFrame#{i}"%>' > -\-> -->
+            <!--     <\!--         <%= image_tag '', id: "exSceneImage#{i}" %> -\-> -->
+            <!--     <\!--     </div> -\-> -->
+            <!--     <\!-- </div> -\-> -->
+            <!--     <%end%> -->
+            <!--   </div> -->
+            <!-- </div> -->
+          </td>
+	</tr>
       </tbody>
     </table>
   </div>
