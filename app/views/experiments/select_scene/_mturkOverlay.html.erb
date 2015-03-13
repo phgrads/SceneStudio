@@ -30,6 +30,7 @@
     	<tr>
           <td>
     	    <div align="center">
+	      <% checkNr = 4 %>
     	      <%for i in 0...@conf['nChoices']%>
     	      <table style="display:inline-block">
     	      	<tr>
@@ -42,8 +43,8 @@
     	      	<tr>
     	      	  <td>
     	      	    <!-- checkmark or x-mark -->
-		    <font color=<%= (i == 4) ? "green" : "red" %>>
-    	      	      <%= (i == 4) ? raw("&#x2714;") : raw("&#x2718;") %>
+		    <font color=<%= (i == checkNr) ? "green" : "red" %>>
+    	      	      <%= (i == checkNr) ? raw("&#x2714;") : raw("&#x2718;") %>
 		    </font>
     	      	  </td>
     	      	</tr>
@@ -67,17 +68,26 @@
     </div>
     <div id="sceneDescription" class='textDescription'>
     </div>
-    <div class="container">
-        <div class="row">
-          <%for i in 0...@conf['nChoices']%>
-            <div class="col-md-2 col-sm-2 col-xs-2">
-              <div class="thumbnail" id='<%="sceneImageFrame#{i}"%>' >
-                <%= image_tag '', id: "sceneImage#{i}" %>
-              </div>
-            </div>
-          <%end%>
-        </div>
+    
+    <div align="center">
+      <%for i in 0...@conf['nChoices']%>
+      <div style="display:inline-block" id='<%="sceneImageFrame#{i}"%>' >
+	<%= image_tag '', id: "sceneImage#{i}", width: 400 %>
+	<!-- the class: "enlarge" is distracting (at least for now) -->
+      </div>
+      <%end%>
     </div>
+    <!-- <div class="container"> -->
+    <!-- <div class="row"> -->
+    <!-- <%for i in 0...@conf['nChoices']%> -->
+    <!-- <div class="col-md-2 col-sm-2 col-xs-2"> -->
+    <!--   <div class="thumbnail" id='<%="sceneImageFrame#{i}"%>' > -->
+    <!--     <%= image_tag '', id: "sceneImage#{i}" %> -->
+    <!--   </div> -->
+    <!-- </div> -->
+    <!-- <%end%> -->
+    <!-- </div> -->
+    <!-- </div> -->
     <div class="center">
     <p>Click the "Next" button when you're ready to continue.</p>
     <input type="button" id="nextButton" class="largeButton" value="Next"/>
