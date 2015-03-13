@@ -13,6 +13,7 @@ define([
      */
     function SelectSceneTask(params)
     {
+      console.log("starting selectSceneTask");
       this.entryIndex = 0;
 
       // Initialize from parameters
@@ -136,6 +137,8 @@ define([
       var parts = fullId.split('.');
       var source = parts[0];
       var sceneId = parts[1];
+      console.log("https://dovahkiin.stanford.edu/text2scene/screenshots/scenes/"
+            + source + "/" + sceneId + "/" + sceneId + "-0.png");
       return "https://dovahkiin.stanford.edu/text2scene/screenshots/scenes/"
             + source + "/" + sceneId + "/" + sceneId + "-0.png";
     };

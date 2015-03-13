@@ -14,7 +14,7 @@ define([
       this.entryIndex = 0;
 
       // Initialize from parameters
-      // List of entries (i.e. scenes) 
+      // List of entries (i.e. scenes)
       this.entries = params.entries;
       // Experiment condition
       this.condition = params.conf['condition'];
