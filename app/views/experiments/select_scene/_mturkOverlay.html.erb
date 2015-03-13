@@ -12,44 +12,49 @@
       </p>
      </div>
 
-    <b>Example</b>
-
-    <div align="center">
-      <%for i in 0...@conf['nChoices']%>
-      <!-- <td> -->
-	<div align="center" class="mturkExample" style="display:inline-block">
-	  <%= image_tag( @conf['exampleImagesPath'] + 'example-0-'+i.to_s+'.png', { width: 400, class: "enlarge"} )%>
-  	</div>
-      <!-- </td> -->
-      <%end%>
-    </div>
-  <!-- <div align="center"> -->
-  <!--   <table class="exampleTable"> -->
-  <!--     <thead> -->
-  <!--     <th>Example</th> -->
-  <!--     </thead> -->
-  <!--     <tbody> -->
-  <!-- 	<tr> -->
-  <!--         <td> -->
-  <!--           <\!-- <div class="exampleTable"> -\-> -->
-  <!--           <\!--   <div class="row"> -\-> -->
-  <!--           <\!--     <%for i in 0...@conf['nChoices']%> -\-> -->
-  <!-- 	    <\!-- 	  <td> -\-> -->
-  <!-- 	    <\!-- 	    <%= image_tag( @conf['exampleImagesPath'] + 'example-0-'+i.to_s+'.png', { width: 400, class: "enlarge"} )%> -\-> -->
-  <!-- 	    <\!-- 	  </td> -\-> -->
-  <!--           <\!--     <\\!-- <div class="col-md-2 col-sm-2 col-xs-2"> -\\-> -\-> -->
-  <!--           <\!--     <\\!--     <div class="thumbnail" id='<%="exSceneImageFrame#{i}"%>' > -\\-> -\-> -->
-  <!--           <\!--     <\\!--         <%= image_tag '', id: "exSceneImage#{i}" %> -\\-> -\-> -->
-  <!--           <\!--     <\\!--     </div> -\\-> -\-> -->
-  <!--           <\!--     <\\!-- </div> -\\-> -\-> -->
-  <!--           <\!--     <%end%> -\-> -->
-  <!--           <\!--   </div> -\-> -->
-  <!--           <\!-- </div> -\-> -->
-  <!--         </td> -->
-  <!-- 	</tr> -->
-  <!--     </tbody> -->
-  <!--   </table> -->
-  <!-- </div> -->
+  <div align="center">
+    <table class="exampleTable">
+      <thead>
+    	<th>
+    	  <div align="center">
+    	    Example
+    	  </div>
+    	</th>
+      </thead>
+      <tbody>
+    	<tr>
+    	  <td>
+    	    <b>Description:</b> I see am empty book shelf and i desk that has nothing on it. In the corner of the room there are shelves that have nothing on them.
+    	  </td>
+    	</tr>
+    	<tr>
+          <td>
+    	    <div align="center">
+    	      <%for i in 0...@conf['nChoices']%>
+    	      <table style="display:inline-block">
+    	      	<tr>
+    	      	  <td>
+    	      	    <div align="center" class="mturkExample">
+    	      	      <%= image_tag( @conf['exampleImagesPath'] + 'example-0-'+i.to_s+'.png', { width: 400, class: "enlarge"} )%>
+    	      	    </div>
+    	      	  </td>
+    	      	</tr>
+    	      	<tr>
+    	      	  <td>
+    	      	    <!-- checkmark or x-mark -->
+		    <font color=<%= (i == 4) ? "green" : "red" %>>
+    	      	      <%= (i == 4) ? raw("&#x2714;") : raw("&#x2718;") %>
+		    </font>
+    	      	  </td>
+    	      	</tr>
+    	      </table>
+    	      <%end%>
+    	    </div>
+          </td>
+    	</tr>
+      </tbody>
+    </table>
+  </div>
   <div  class="center">
     <input type="button" id="startButton" class="largeButton" value="Start"/>
   </div>
