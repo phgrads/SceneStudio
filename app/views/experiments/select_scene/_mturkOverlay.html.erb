@@ -2,9 +2,11 @@
 <div id="taskInstructions" class="wholescreenOverlay">
   <div align="center" class="taskInstructions">
     <div style='text-align:left'>
-      <p>You will be shown <%=@entries.length%> sentences.  For each sentence,
-        you will be shown <%=@conf['nChoices']%> images.  Please select
-        the image that best matches the sentence.
+      <p>
+	In this task, we ask you to choose the scene that best matches the description.
+      </p>
+      <p>You will be given a total of <%=@entries.length%> descriptions.  For each one,
+        there will be <%=@conf['nChoices']%> images, and you should pick the best match.
       </p>
       <p>
         Each sentence should take about <%=@taskTime['sceneTime'] %> to complete.

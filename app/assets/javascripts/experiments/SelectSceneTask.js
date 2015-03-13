@@ -84,16 +84,23 @@ define([
       if(ok){
         var currentEntry = this.entries[this.entryIndex];
         var correct = this.selected == currentEntry["correctIndex"];
+	
+	console.log("testing...");
+	console.log(this.getImageUrl(currentEntry['scene' + this.selected]));
+
+	var selectedSceneId = currentEntry['scene' + this.selected];
+
         var results = {
           selectedIndex: this.selected,
-          selectedSceneId: currentEntry['scene' + this.selected],
+          selectedSceneId: selectedSceneId,
+	  selectedSceneUrl: this.getImageUrl(selectedSceneId),
           correct: correct,
           entry: currentEntry
         };
         this.sceneSummary[this.entryIndex] = {
           entryId: currentEntry.id,
           selectedIndex: this.selected,
-          selectedSceneId: currentEntry['scene' + this.selected],
+          selectedSceneId: selectedSceneId,
           correct: correct
         };
         // This is included somewhere...

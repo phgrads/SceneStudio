@@ -1,22 +1,28 @@
+<% entry = JSON.parse(result.data) %>
 <tr>
   <td><%= result.updated_at %></td>
   <td><%= link_to result.item, params.merge(:item => result.item) %></td>
   <td><%= link_to result.condition, params.merge(:condition => result.condition) %></td>
   <td><%= link_to result.workerId, params.merge(:workerId => result.workerId) %></td>
   <td>
-    <% entry = JSON.parse(result.data) %>
     <% if entry %>
-        <% preview_url = get_preview_for_scene_url(entry['entry']['url']) %>
-        <% if preview_url %>
-            <%= image_tag 'scenePreview.jpg', { 'data-original' => preview_url, 'class' => 'img-responsive lazy'} %>
-        <% end %>
+      <% preview_url = get_path(entry['selectedSceneUrl']) %>
+      <% if preview_url %>
+        <%= image_tag 'scenePreview.jpg', { 'data-original' => preview_url, 'class' => 'img-responsive lazy' } %>
+      <% end %>
     <% end %>
   </td>
   <td>
     <% if entry %>
-        <%= link_to entry['description'], { action: 'view', id: result.id } %>
+      <%= entry["correct"] %>
+    <% end %>
+  </td>
+  <td>
+    <% if entry %>
+    <%= entry['entry']['text'] %>
+    <!-- <%= link_to entry['description'], { action: 'view', id: result.id } %> -->
     <% else %>
-        <%= link_to result.item, { action: 'view', id: result.id } %>
+      <%= link_to result.item, { action: 'view', id: result.id } %>
     <% end %>
   </td>
   <td>
