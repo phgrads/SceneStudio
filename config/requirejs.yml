@@ -14,6 +14,7 @@ paths:
   'gl-matrix-ext': 'gl_app/gl-matrix-ext'
   'bootstrap': 'bootstrap'
   'bootbox': 'bootbox.min'
+  'slick': 'slick.min'
 
 shim:
   'jquery.debouncedresize': ['jquery']
@@ -28,3 +29,4 @@ shim:
   'gl-matrix-ext': ['gl-matrix']
   'loader': ['base']
   'base': ['jquery']
+  'slick': ['jquery']

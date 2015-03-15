@@ -41,6 +41,18 @@ define([
       this.startButton.click(this.start.bind(this));
       this.nextButton.click(this.save.bind(this));
       this.completeTaskButton.click(this.showCoupon.bind(this));
+
+      // Set before/after fading for scene image pairs
+      $('.before-after').slick({
+        autoplay: true,
+        autoplaySpeed: 2500,
+        speed: 500,
+        arrows: false,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        fade: true,
+        cssEase: 'linear'
+      });
     }
 
     DescribeInteractionTask.prototype.save = function() {

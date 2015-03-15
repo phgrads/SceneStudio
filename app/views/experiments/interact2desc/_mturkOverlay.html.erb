@@ -1,132 +1,75 @@
-<%= render '/experiments/largeimg' %>
-<div id="taskInstructions" class="wholescreenOverlay">
-  <div align="center" class="taskInstructions">
-    <div style='text-align:left'>
-      <p>We are working on a system that, given some scene of a virtual room, will let you give a command to modify it.
-      </p>
-      <p>For this task, you will be shown <%=@entries.length%> pairs of simple indoor scenes.
-	Each pair consists of a before-command scene, and an after-command scene.
-	You will be asked to provide a command describing this change. Please give it in the imperative.
-      </p>
-      <p>
-        Each scene should take about <%=@taskTime['sceneTime'] %> to complete.
-        The task should take about <%=@taskTime['taskTime'] %> in total.
-      </p>
-     </div>
-  <div align="center">
-    <b>Example 1</b>
-    <table class="exampleTable">
-      <tr>
-        <th>Scene</th>
-        <td>
-	  <table class="exampleTable">
-	    <tr>
-	      <td>
-		<div align="center">
-		  <b>Before</b>
-		</div>
-	      </td>
-	      <td>
-		<div align="center">
-		  <b>After</b>
-		</div>
-	      </td>
-	    </tr>
-	    <tr>
-	      <td>
-		<div align="center" class="mturkExample">
-		  <%= image_tag( @conf['exampleImagesPath'] + 'before0000.png', { width: 400, class: "enlarge" } ) %>
-		</div>
-	      </td>
-	      <td>
-		<div align="center" class="mturkExample">
-		  <%= image_tag( @conf['exampleImagesPath'] + 'after0000.png', { width: 400, class: "enlarge" } ) %>
-		</div>
-	      </td>
-	    </tr>
-	  </table>
-        </td>
-      </tr>
-      <tr>
-        <th>Description</th>
-        <td>
-	  Put a bowl on the table.
-        </td>
-      </tr>
-    </table>
+<div id="taskInstructions" align="center" class="taskInstructions">
+  <div style='text-align:left'>
+    <p>
+      We built a program that will let you give commands to change a virtual room.
+      You will be shown <%=@entries.length%> pairs of rooms.
+    </p>
+    <p>
+      Each pair shows the scene <b>before</b> and <b>after</b> the command.
+      Please provide a command that would <b>cause the change from before to after</b>.
+      Give the command in the imperative (e.g., "Put a flower pot on the table").
+    </p>
+    <p>
+      Each scene should take about <%=@taskTime['sceneTime'] %> to complete.
+      The task should take about <%=@taskTime['taskTime'] %> in total.
+    </p>
+  </div>
 
-    <b>Example 2</b>
-    <table class="exampleTable">
-      <tr>
-        <th>Scene</th>
-        <td>
-	  <table class="exampleTable">
-	    <tr>
-	      <td>
-		<div align="center">
-		  <b>Before</b>
-		</div>
-	      </td>
-	      <td>
-		<div align="center">
-		  <b>After</b>
-		</div>
-	      </td>
-	    </tr>	    
-	    <tr>
-	      <td>
-		<div align="center" class="mturkExample">
-		  <%= image_tag( @conf['exampleImagesPath'] + 'before0003.png', { width: 400, class: "enlarge" } ) %>
-		</div>
-	      </td>
-	      <td>
-		<div align="center" class="mturkExample">
-		  <%= image_tag( @conf['exampleImagesPath'] + 'after0003.png', { width: 400, class: "enlarge" } ) %>
-		</div>
-	      </td>
-	    </tr>
-	  </table>
-        </td>
-      </tr>
-      <tr>
-        <th>Description</th>
-        <td>
-	  Put the chessboard on the table.
-        </td>
-      </tr>
-    </table>
-  </div>
-  <div  class="center">
-    <input type="button" id="startButton" class="largeButton" value="Start"/>
-  </div>
-  </div>
-</div>
+  <hr>
 
-<div>
-<table class="exampleTable">
-  <tr>
-    <td>
-	<img id="sceneImageBefore" style="width:100%;"/>
-    </td>
-    <td>
-	<img id="sceneImageAfter" style="width:100%;"/>
-    </td>
-  </tr>
-</table>
-</div>
-<div id="mturkOverlay" class="mturkOverlay" style="display:none">
-  <div id="editInstructions" class="editInstructions">
-    <div class="textDescription center">
-    <p>Please write a command to turn the first scene into the second, giving
-       some detail about the locations of the objects.</p>
-    <div class='row'>
-      <div class="col-md-12 center">
-	<div id="progressTextDiv" class="largeFont"></div>
-      </div>
-      <%= text_area_tag('sceneDescription', nil, {class: 'col-md-6 col-md-offset-3', rows: 4}) %>
+  <div>Example 1: "Put a bowl on the table"</div>
+  <div class="before-after thumbnail">
+    <div>
+      <div><h2>BEFORE</h2></div>
+      <%= image_tag( @conf['exampleImagesPath'] + 'before0000.png', {class: 'img-responsive'}) %>
     </div>
-    <p>Click the "Next" button when you're done to go on to the next scene.</p>
-      <input type="button" id="nextButton" class="largeButton" value="Next"/>
+    <div>
+      <div><h2>AFTER</h2></div>
+      <%= image_tag( @conf['exampleImagesPath'] + 'after0000.png', {class: 'img-responsive'}) %>
+    </div>
+  </div>
+
+  <hr>
+
+  <div>Example 2: "Put the chessboard on the table"</div>
+  <div class="before-after thumbnail">
+    <div>
+      <div><h2>BEFORE</h2></div>
+      <%= image_tag( @conf['exampleImagesPath'] + 'before0003.png', {class: 'img-responsive'}) %>
+    </div>
+    <div>
+      <div><h2>AFTER</h2></div>
+      <%= image_tag( @conf['exampleImagesPath'] + 'after0003.png', {class: 'img-responsive'}) %>
+    </div>
+  </div>
+
+  <hr>
+
+  <input type="button" id="startButton" class="largeButton" value="Start"/>
+</div>
+
+
+<div id="mturkOverlay" style="display:none">
+  <div class="container">
+    <div class="row">
+      <div id="progressTextDiv" class="col-md-12 center largeFont">TEST</div>
+      <div class="col-md-12 before-after thumbnail">
+        <div>
+          <h2>BEFORE</h2>
+          <%= image_tag '', id: 'sceneImageBefore', class: 'img-responsive' %>
+        </div>
+        <div>
+          <h2>AFTER</h2>
+          <%= image_tag '', id: 'sceneImageAfter', class: 'img-responsive' %>
+        </div>
+      </div>
+    </div>
+    <div class="row textDescription center">
+      <div class="col-md-12">
+        <p>Write a command to change the first scene into the second</p>
+        <%= text_area_tag('sceneDescription', nil, {class: 'col-md-6 col-md-offset-3', rows: 2}) %>
+        <input type="button" id="nextButton" class="largeButton" value="Next"/>
+      </div>
     </div>
   </div>
 </div>
