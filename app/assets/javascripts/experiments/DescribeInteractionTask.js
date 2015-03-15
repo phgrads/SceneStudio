@@ -123,7 +123,7 @@ define([
     DescribeInteractionTask.prototype.showEntry = function(i) {
       this.sceneDescriptionElem.val('');
       this.sceneDescriptionElem.focus();
-      $('.before-after').slick('slickGoTo', 0);
+      $('.before-after').slick('slickGoTo', 0, false);
 
       var entry = this.entries[i];
       var url1 = entry['url1'];
