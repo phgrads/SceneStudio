@@ -10,9 +10,9 @@
 title: Give a description of a 3D scene
 description: In one or two sentences, describe a 3D scene of a room containing various objects.
 # pay per HIT in US cents
-reward: 25
+reward: 65
 # number of assignments to be issued in this task/experiment
-num_assignments: 5
+num_assignments: 20
 
 
 # OPTIONAL FIELDS
@@ -34,13 +34,15 @@ require_webgl: true
 
 # EXPERIMENT CONFIGURATION
 conf:
-  nScenes: 6
-  sceneEditSecs: 20
-  inputFile: public/experiments/scene2desc/scenes.txt
-  condition: pilot
+  nScenes: 8
+  sceneEditSecs: 29
+  inputFile: public/experiments/scene2desc/desc2scene-items-randomroom.csv
+  condition: random-room-char-limited
   # If nonzero, include maximum suggested character length text and
   # a character counter. Don't forget to change the condition to
   # "char-limited" to keep track of which assignments used this setting!
-  characterLimit: 0
+  characterLimit: 100
   uploadSummary: true
   exampleImagesPath: /experiments/scene2desc/examples/
+  selectPolicy: mincount_random
+  loadViewIndex: 0

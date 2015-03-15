@@ -8,7 +8,7 @@
 
 # appearance on the Mechanical Turk interface
 title: Rate 3D scenes
-description: Rate how well a description of a scene matches the image of the scene.
+description: Rate how well automatically generated 3D scenes match a description
 # pay per HIT in US cents
 reward: 50
 # number of assignments to be issued in this task/experiment
@@ -34,12 +34,12 @@ require_webgl: false
 # EXPERIMENT CONFIGURATION
 conf:
   nScenes: 30
-  selectPolicy: mincount_random
+  selectPolicy: random #mincount_random
   sceneEditSecs: 10
-  taskType: rate-scene-description-pair  # rate-scene-description-pair or rate-scene
-  inputFile: public/experiments/rate_scene/mturk.full-layout.csv
-  condition: mturk.full-layout
-  selectCondition: mturk.full-layout
+  taskType: rate-scene-description-pair # rate-scene-description-pair or rate-scene
+  inputFile: public/experiments/rate_scene/seedSents2.csv
+  condition: seedsents
+  selectCondition: seedsents
   exampleImagesPath: /experiments/rate_scene/examples/
   nChoices: 7
   choices: ["bad", "", "", "so-so", "", "", "good"]
