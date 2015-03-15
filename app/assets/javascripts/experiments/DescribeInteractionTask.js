@@ -122,6 +122,7 @@ define([
 
     DescribeInteractionTask.prototype.showEntry = function(i) {
       this.sceneDescriptionElem.val('');
+      this.sceneDescriptionElem.focus();
       var entry = this.entries[i];
       var url1 = entry['url1'];
       if (url1.startsWith('/')) {
