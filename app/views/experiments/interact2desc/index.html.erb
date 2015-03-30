@@ -1,6 +1,10 @@
 <div id="ui">
   <%= render '/experiments/submit_mturk_report' %>
-  <%= render 'mturkOverlay' %>
+  <% if @conf['taskType'] == 'interact2desc-select' %>
+    <%= render 'interact2descSelect' %>
+  <% else %> <!-- assume 'interact2desc' for now -->
+    <%= render 'interact2desc' %>
+  <% end %>
   <%= render 'globals' %>
 </div>
 <%= render '/experiments/comments' %>
