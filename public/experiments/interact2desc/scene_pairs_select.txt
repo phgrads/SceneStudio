@@ -1,0 +1,3 @@
+id	url1	url2
+scene_pair0001	https://dovahkiin.stanford.edu/text2scene/interactions/interaction0001b.jpg	https://dovahkiin.stanford.edu/text2scene/interactions/interaction0001a.jpg
+scene_pair0002	https://dovahkiin.stanford.edu/text2scene/interactions/interaction0002b.jpg	https://dovahkiin.stanford.edu/text2scene/interactions/interaction0002a.jpg
