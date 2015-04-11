@@ -37,9 +37,9 @@ conf:
   selectPolicy: random #mincount_random
   sceneEditSecs: 10
   taskType: rate-scene-description-pair # rate-scene-description-pair or rate-scene
-  inputFile: public/experiments/rate_scene/seedSents2.csv
-  condition: seedsents
-  selectCondition: seedsents
+  inputFile: public/experiments/rate_scene/seeds-layout.csv
+  condition: seeds-layout
+  selectCondition: seeds-layout
   exampleImagesPath: /experiments/rate_scene/examples/
   nChoices: 7
   choices: ["bad", "", "", "so-so", "", "", "good"]
