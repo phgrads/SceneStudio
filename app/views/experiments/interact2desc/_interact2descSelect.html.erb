@@ -1,46 +1,55 @@
 <div id="taskInstructions" align="center" class="taskInstructions">
   <div style='text-align:left'>
-    <!-- TODO: make introduction specific to select -->
+    <!-- TODO: make introduction specific to select
+     CHANGE INSTRUCTIONS HERE!!!!
+     DESCRIBE TASK IN MORE DETAIL...-->
     <p>
-      We built a program that will let you give commands to change a virtual room.
-      You will be shown <%=@entries.length%> pairs of rooms.
+      You will be shown <%=@entries.length%> pairs of images of scenes. Each pair of images shows a scene <b>before</b>
+        and <b>after</b> an object in the scene has been selected. The before and
+        after images are automatically switched every few seconds. The selected object in the <b>after</b> scene will
+        be highlighted in green. <br></br>
     </p>
     <p>
-      Each pair shows the scene <b>before</b> and <b>after</b> the command.
-	  The before and after images are switched automatically every few seconds. Put the mouse over the image to pause switching between them.
-      Please provide a command that would <b>cause the change from before to after</b>.
-      Give the command in the imperative (e.g., "Select the flower pot on the table").
+
+      <b> YOUR TASK: </b>  Please provide a descriptive, imperative command that would cause the given object
+     to be highlighted. A good command will give an informative description of the spatial location of the object
+     in its scene, using any information about the relative positioning of other objects in the scene. Make sure to
+        provide your command in the form <i>Select the flower pot on the table.</i> Two examples of good commands
+        for <b>before</b>/<b>after</b> scenes are provided below. <br></br>
+
+        <b>NOTE:</b> You can hover your mouse over the image to pause switching between them. <br></br>
+
     </p>
     <p>
-      The task should take about <%=@taskTime['taskTime'] %> in total.
+      <b>The task should take about <%=@taskTime['taskTime'] %> in total. </b>
     </p>
   </div>
 
   <hr>
 
-  <div>Example 1: "Put a bowl on the table"</div>
+  <div>Example 1: "Select the toy on the edge of the top shelf."</div>
   <div class="before-after thumbnail">
     <div>
       <div><h2>BEFORE</h2></div>
-      <%= image_tag( @conf['exampleImagesPath'] + 'before0000.png', {class: 'img-responsive'}) %>
+      <%= image_tag( @conf['exampleImagesPath'] + 'scene00017_1_before.png', {class: 'img-responsive'}) %>
     </div>
     <div>
       <div><h2>AFTER</h2></div>
-      <%= image_tag( @conf['exampleImagesPath'] + 'after0000.png', {class: 'img-responsive'}) %>
+      <%= image_tag( @conf['exampleImagesPath'] + 'scene00017_1_black.png', {class: 'img-responsive'}) %>
     </div>
   </div>
 
   <hr>
 
-  <div>Example 2: "Put the chessboard on the table"</div>
+  <div>Example 2: "Select the monitor to the left of the glasses."</div>
   <div class="before-after thumbnail">
     <div>
       <div><h2>BEFORE</h2></div>
-      <%= image_tag( @conf['exampleImagesPath'] + 'before0003.png', {class: 'img-responsive'}) %>
+      <%= image_tag( @conf['exampleImagesPath'] + 'scene00028_3_before.png', {class: 'img-responsive'}) %>
     </div>
     <div>
       <div><h2>AFTER</h2></div>
-      <%= image_tag( @conf['exampleImagesPath'] + 'after0003.png', {class: 'img-responsive'}) %>
+      <%= image_tag( @conf['exampleImagesPath'] + 'scene00028_3_black.png', {class: 'img-responsive'}) %>
     </div>
   </div>
 
