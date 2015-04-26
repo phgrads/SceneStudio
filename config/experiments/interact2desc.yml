@@ -7,8 +7,8 @@
 # REQUIRED FIELDS
 
 # appearance on the Mechanical Turk interface
-title: Give commands that describe the change in a 3D scene
-description: Give one-sentence commands that would change a 3D scene in the displayed way.
+title: Selection Commands to Describe Item In Scene Being Selected
+description: Give imperative commands that would cause the given item in the scene to be selected.
 # pay per HIT in US cents
 reward: 30
 # number of assignments to be issued in this task/experiment
