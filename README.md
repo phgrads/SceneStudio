@@ -3,7 +3,7 @@ WebSceneStudio
 
 Installation / Setup  (local development)
 --------------
-0. Get Ruby if not already installed (http://rubyinstaller.org/ for Windows, or follow https://www.digitalocean.com/community/articles/how-to-install-ruby-on-rails-on-ubuntu-12-04-lts-precise-pangolin-with-rvm for Ubuntu/Linux)
+0. Get Ruby on Rails if not already installed (http://railsinstaller.org/en for Windows, or follow https://www.digitalocean.com/community/articles/how-to-install-ruby-on-rails-on-ubuntu-12-04-lts-precise-pangolin-with-rvm for Ubuntu/Linux)
 
 1. clone this repository onto your machine
 
@@ -65,7 +65,7 @@ The following assumes that we are running in development mode on a local machine
 4. run `rake mturk:run[sampleName]` in order to launch the experiment
    you just created on the MTurk sandbox.
 
-5. go to the worker sandbox (https://workersandbox.mturk.com/) and try doing your new task.
+5. go to the worker sandbox (https://workersandbox.mturk.com/) and try doing your new task. You can switch to posting real HITs by flipping the sandbox boolean in `config/initializers/rturk.rb` -- make sure everything works out before doing this and remember to return back to sandbox mode after finishing with your task.
 
 6. After running a task, you can do `rake mturk:recall[sampleName]` to approve all workers 
    and withdraw the task from Amazon Mturk.  WARNING: This will remove all evidence of the
@@ -100,6 +100,12 @@ Ask users to create a scene based on a image.
 
 After running task, go to `experiments/image2scene/results` to view results.
 
+### rate_scene
+Ask users to rate how well an image of a scene matches a description.
+
+After running task, go to `experiments/rate_scene/results` to view results.
+
+
 ### recon2scene (not working)
 Ask users to create a scene based on a scanned reconstruction.
 
@@ -133,6 +139,14 @@ Troubleshooting
 * Error during `bundle install`.
 
   Try removing your `Gemfile.lock`
+  
+* SSL error during `bundle install`
+
+    Gem::RemoteFetcher::FetchError: SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B 
+
+  Try modifying Gemfile to use http instead of https
+    source 'http://rubygems.org'
+  See http://railsapps.github.io/openssl-certificate-verify-failed.html 
 
 * Error precompiling assets.
 
