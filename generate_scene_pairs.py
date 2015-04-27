@@ -29,7 +29,7 @@ with open('scene_pairs_select.txt', 'w') as file:
         before_after_pairs = [] #Stores (before,after) image file names
         all_files = [f for f in os.listdir('.') if os.path.isfile(f)] #Get names of all files in subdirectory
         filename_split_file_mapping = {f: f.split('_') for f in all_files} #Map from filename to a list of the filename split
-        #inverse_split_mapping = {v:k for k,v in filename_split_file_mapping.items()} #Inverse mapping
+        
 
         split_files = filename_split_file_mapping.values()
         #Iterate over all pairs of files in directory
