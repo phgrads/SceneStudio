@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.2.13'
-gem 'rake', '10.4.2'
+gem 'rake', '10.1.0'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'bcrypt-ruby', '~> 3.0.1'
 gem 'faker', '1.0.1'
@@ -27,7 +27,7 @@ gem 'dragonfly', '~> 1.0.7'
 #gem 'sunspot_rails'
 
 group :development, :test, :production do
-  gem 'sqlite3', '1.3.10'
+  gem 'sqlite3', '1.3.5'
   gem 'paper_trail', '~> 2'
 end
 

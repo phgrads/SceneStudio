@@ -12,7 +12,7 @@ description: Rate how well automatically generated 3D scenes match a description
 # pay per HIT in US cents
 reward: 50
 # number of assignments to be issued in this task/experiment
-num_assignments: 20
+num_assignments: 10
 
 
 # OPTIONAL FIELDS
@@ -34,7 +34,7 @@ require_webgl: false
 # EXPERIMENT CONFIGURATION
 conf:
   nScenes: 30
-  selectPolicy: random #mincount_random
+  selectPolicy: mincount_random #mincount_random
   sceneEditSecs: 10
   taskType: rate-scene-description-pair # rate-scene-description-pair or rate-scene
   inputFile: public/experiments/rate_scene/seeds-layout.csv
