@@ -10,7 +10,7 @@
 title: Selection Commands to Describe Item In Scene Being Selected
 description: Give imperative commands that would cause the given item in the scene to be selected.
 # pay per HIT in US cents
-reward: 30
+reward: 60
 # number of assignments to be issued in this task/experiment
 num_assignments: 5
 
@@ -37,6 +37,7 @@ conf:
   sceneEditSecs: 20
   taskType: interact2desc-select # one of [interact2desc-select, interact2desc]
   inputFile: public/experiments/interact2desc/scene_pairs_select.txt # one of [scene_pairs.txt, scene_pairs_select.txt]
-  condition: pilot
+  condition: select-pilot
+  uploadSummary: true
   exampleImagesPath: /experiments/interact2desc/examples/
   # TODO: setup "doneFile" and "doneThreshold"

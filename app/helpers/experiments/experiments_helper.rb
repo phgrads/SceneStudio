@@ -30,7 +30,7 @@ module Experiments::ExperimentsHelper
       'sceneTimeInSecs' => sceneTimeInSecs,
       'sceneTime' => distance_of_time_in_words(sceneTimeInSecs),
       'taskTimeInSecs'  => taskTimeInSecs,
-      'taskTime'  => distance_of_time_in_words(taskTimeInSecs)
+      'taskTime'  => '4 minutes'#distance_of_time_in_words(taskTimeInSecs)
     }
   end
 
