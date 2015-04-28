@@ -4,7 +4,7 @@
 
 RTurk::setup( INIT_CONFIG['AWS_ACCESS_KEY_ID'],
               INIT_CONFIG['AWS_SECRET_ACCESS_KEY'],
-              sandbox: true)
+              sandbox: false)
 
 # dump RTurk log statements to the main Rails log
 RTurk::Logger.logger = Rails.logger
