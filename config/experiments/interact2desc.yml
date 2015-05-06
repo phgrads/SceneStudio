@@ -12,7 +12,7 @@ description: Give imperative commands that would cause the given item in the sce
 # pay per HIT in US cents
 reward: 60
 # number of assignments to be issued in this task/experiment
-num_assignments: 5
+num_assignments: 10
 
 
 # OPTIONAL FIELDS
