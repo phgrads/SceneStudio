@@ -35,9 +35,11 @@ require_webgl: false
 conf:
   nScenes: 10
   sceneEditSecs: 20
+  selectPolicy: mincount_random
   taskType: interact2desc-select # one of [interact2desc-select, interact2desc]
   inputFile: public/experiments/interact2desc/scene_pairs_select.txt # one of [scene_pairs.txt, scene_pairs_select.txt]
   condition: select-pilot
+  selectCondition: select-pilot
   uploadSummary: true
   exampleImagesPath: /experiments/interact2desc/examples/
   # TODO: setup "doneFile" and "doneThreshold"
