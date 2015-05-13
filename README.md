@@ -3,19 +3,17 @@ WebSceneStudio
 
 Installation / Setup  (local development)
 --------------
-0. Get Ruby on Rails if not already installed (http://railsinstaller.org/en for Windows, or follow https://www.digitalocean.com/community/articles/how-to-install-ruby-on-rails-on-ubuntu-12-04-lts-precise-pangolin-with-rvm for Ubuntu/Linux)
+0. Get Ruby on Rails if not already installed (http://railsinstaller.org/en for Windows or Mac OS, or follow https://www.digitalocean.com/community/articles/how-to-install-ruby-on-rails-on-ubuntu-12-04-lts-precise-pangolin-with-rvm for Ubuntu/Linux)
 
 1. clone this repository onto your machine
 
 2. get a copy of the `config/config.yml` file from your teammates or look at the `config/example.config.yml` file for some directions on how to create your own from scratch.  The values in this file are secrets, so you ABSOLUTELY don't want to put this file under version control or make it publicly available. For development purposes, set `HOST_BASE_URL` to `localhost:3000`.  For running on MTurk, make sure the `HOST_BASE_URL` starts with `https:` and that you have a proper SSL certificate for your server.
 
-3. download the model data directory and symlink it into `public/data`
+3. run `bundle install` to get all the ruby gems you need.   If you have problems running `bundle install`, try removing your `Gemfile.lock`.
 
-4. run `bundle install` to get all the ruby gems you need.   If you have problems running `bundle install`, try removing your `Gemfile.lock`.
+4. run `rake db:migrate` to build/update the database
 
-5. run `rake db:migrate` to build/update the database
-
-6. run `rails server` to start an instance of the server running at `localhost:3000`.  Point your browser here to visit the app.
+5. run `rails server` to start an instance of the server running at `localhost:3000`.  Point your browser here to visit the app.
 
 Deployment (Apache + Passenger)
 ----------
