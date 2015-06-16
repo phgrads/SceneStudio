@@ -1,6 +1,23 @@
 SceneStudio::Application.routes.draw do
 
+  get 'experiments/interact2desc', to: 'experiments/interact2desc#index'
+
   # Mturk tasks
+  get 'experiments/align_text2scene', to: 'experiments/align_text2scene#index'
+  get 'experiments/align_text2scene/results', to: 'experiments/align_text2scene#results'
+  match 'experiments/align_text2scene/:id/load',         to: 'experiments/align_text2scene#load'
+  match 'experiments/align_text2scene/:id/view',         to: 'experiments/align_text2scene#view'
+
+  get 'experiments/rate_scene', to: 'experiments/rate_scene#index'
+  get 'experiments/rate_scene/results', to: 'experiments/rate_scene#results'
+  match 'experiments/rate_scene/:id/load',         to: 'experiments/rate_scene#load'
+  match 'experiments/rate_scene/:id/view',         to: 'experiments/rate_scene#view'
+
+  get 'experiments/select_scene', to: 'experiments/select_scene#index'
+  get 'experiments/select_scene/results', to: 'experiments/select_scene#results'
+  match 'experiments/select_scene/:id/load',         to: 'experiments/select_scene#load'
+  match 'experiments/select_scene/:id/view',         to: 'experiments/select_scene#view'
+
   get 'experiments/enrich_scene', to: 'experiments/enrich_scene#index'
   get 'experiments/enrich_scene/results', to: 'experiments/enrich_scene#results'
   match 'experiments/enrich_scene/:id/load',         to: 'experiments/enrich_scene#load'
@@ -33,6 +50,11 @@ SceneStudio::Application.routes.draw do
   get 'experiments/desc2scene/results', to: 'experiments/desc2scene#results'
   match 'experiments/desc2scene/:id/load',         to: 'experiments/desc2scene#load'
   match 'experiments/desc2scene/:id/view',         to: 'experiments/desc2scene#view'
+
+  get 'experiments/interact2desc', to: 'experiments/interact2desc#index'
+  get 'experiments/interact2desc/results', to: 'experiments/interact2desc#results'
+  match 'experiments/interact2desc/:id/load',      to: 'experiments/interact2desc#load'
+  match 'experiments/interact2desc/:id/view',      to: 'experiments/interact2desc#view'
 
   # Main app
   root                              to: 'static_pages#home'

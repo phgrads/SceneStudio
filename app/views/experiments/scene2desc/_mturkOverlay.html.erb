@@ -6,6 +6,13 @@
         For each scene, you will be asked to provide a description
         that matches the scene.
       </p>
+      <% if @conf['characterLimit'] != 0 %>
+      <p>As a rough guideline, try to limit your descriptions to less than
+        <%= @conf['characterLimit'] %> characters. We have provided a character
+        counter for convenience (although we will not reject work just because
+        it is too long).
+      </p>
+      <% end %>
       <p>
         Each scene should take about <%=@taskTime['sceneTime'] %> to complete.
         The task should take about <%=@taskTime['taskTime'] %> in total.
@@ -56,11 +63,17 @@
 <div id="mturkOverlay" class="mturkOverlay" style="display:none">
   <div id="editInstructions" class="editInstructions">
     <div id="instructionsTextDiv" class="textDescription center">
-    <p>Write a couple of sentences describing the scene.
-      Try to give details about the appearance and location of objects in the scene.</p>
+    <p>Write a sentence or two describing the scene.
+      Try to give details about the appearance and location of the prominent
+      objects in the scene<% if @conf['characterLimit'] != 0 %> in approximately
+      <%= @conf['characterLimit'] %> characters or less<% end %>.</p>
+      
     <div class='row'>
     <%= text_area_tag('sceneDescription', nil, {class: 'col-md-10 col-md-offset-1', rows: 2}) %>
     </div>
+    <% if @conf['characterLimit'] != 0 %>
+      <div id="chars" class="chars">Characters: 0</div>
+    <% end %>
     <p>Click "Done" when you're finished to go on to the next scene.</p>
     </div>
     <p id="instructionsToggle" class="textDescription center">Click here to hide/show instructions and input box.</p>

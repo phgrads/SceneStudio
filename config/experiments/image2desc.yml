@@ -28,6 +28,9 @@ keywords: scenes, pictures, scene description
 # maximum time in seconds for a worker to complete a HIT after accepting
 #max_task_time:  # defaults to 1 hour
 
+# whether this task requires WebGL
+require_webgl: false
+
 # EXPERIMENT CONFIGURATION
 conf:
   nScenes: 6

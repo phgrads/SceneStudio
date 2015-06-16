@@ -1,0 +1,43 @@
+# mechanical turk experiment/task options file
+# the task will be launched with these options
+# by running the rake task
+#   > rake mturk:run name
+
+
+# REQUIRED FIELDS
+
+# appearance on the Mechanical Turk interface
+title: Match phrases to objects in scenes
+description: Given simple indoor scene with some common household objects and a description of the scene, you will be asked to match phrases describes the objects to the objects in the scene.
+# pay per HIT in US cents
+reward: 5
+# number of assignments to be issued in this task/experiment
+num_assignments: 3
+
+
+# OPTIONAL FIELDS
+
+# maximum number of distinct workers allowed
+#max_workers:  # defaults to num_assignments
+# maximum number of assignments/HITs per worker
+#max_hits_per_worker:  # defaults to 1
+# keywords for display on mechanical turk interface (comma separated list)
+#keywords:  # defaults to nothing
+# time in seconds before the HITs are automatically removed from MTurk
+#lifetime:  # defaults to 3 days
+# maximum time in seconds for a worker to complete a HIT after accepting
+#max_task_time:  # defaults to 1 hour
+
+# whether this task requires WebGL
+require_webgl: true
+
+# EXPERIMENT CONFIGURATION
+conf:
+  nScenes: 4
+  sceneEditSecs: 60
+  inputFile: public/experiments/align_text2scene/desc2scene-input.txt
+  condition: random-room
+  uploadSummary: true
+  exampleImagesPath: /experiments/desc2scene/examples/
+  selectPolicy: mincount_random
+  selectCondition: random-room

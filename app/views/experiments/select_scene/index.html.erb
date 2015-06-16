@@ -1,0 +1,7 @@
+<div id="ui">
+  <%= render '/experiments/submit_mturk_report' %>
+  <%= render 'mturkOverlay' %>
+  <%= render 'globals' %>
+</div>
+<%= render '/experiments/comments' %>
+<%= requirejs_include_tag('experiments/select-scene') %>

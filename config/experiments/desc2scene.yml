@@ -12,7 +12,7 @@ description: Add 3D models to a scene in order to match a text description. Appr
 # pay per HIT in US cents
 reward: 50
 # number of assignments to be issued in this task/experiment
-num_assignments: 5
+num_assignments: 20
 
 
 # OPTIONAL FIELDS
@@ -29,6 +29,9 @@ keywords: 3D models, scenes, pictures, scene design
 # maximum time in seconds for a worker to complete a HIT after accepting
 #max_task_time:  # defaults to 1 hour
 
+# whether this task requires WebGL
+require_webgl: true
+
 # EXPERIMENT CONFIGURATION
 conf:
   nScenes: 4
@@ -39,6 +42,7 @@ conf:
   uploadSummary: true
   exampleImagesPath: /experiments/desc2scene/examples/
   selectPolicy: mincount_random
+  selectCondition: pilot
 #  allRooms: [ "room00", "room01", "room02", "room03", "room04", "room05", "room06", "room07", "room08", "room09", "room10", "room11", "room12", "room13", "room14", "room15", "room16", "room17" ]
 # Rooms without roofs
   rootModelIds: [ "room00", "room01", "room02", "room04", "room05", "room07", "room08", "room09", "room10", "room17" ]

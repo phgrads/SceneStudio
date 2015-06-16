@@ -8,11 +8,10 @@
   </td>
   <td><%= link_to assignment.taskName, params.merge(:taskName => assignment.taskName) %></td>
   <td><%= link_to assignment.hitId, params.merge(:hitId => assignment.hitId) %></td>
-  <td><%= link_to assignment.assignmentId, params.merge(:hitId => assignment.assignmentId) %></td>
+  <td><%= link_to assignment.assignmentId, params.merge(:assignmentId => assignment.assignmentId) %></td>
   <td><%= link_to assignment.workerId, params.merge(:workerId => assignment.workerId) %></td>
-  <!-- TODO: Filter on assignment id -->
   <td>
-    <%= link_to assignment.data, { controller: 'experiments/' + assignment.taskName, action: 'results', workerId: assignment.workerId }  rescue assignment.data %>
+    <%= link_to assignment.data, { controller: 'experiments/' + assignment.taskName, action: 'results', assignmentId: assignment.assignmentId }  rescue assignment.data %>
   </td>
   <td>
     <% if false %>
