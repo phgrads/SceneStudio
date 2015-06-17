@@ -4,12 +4,12 @@
 
 'use strict';
 
-define(['./TextToSceneGenerator',
+define(['./TextToSceneGenerator', './Constants',
   'gl-matrix',
   'jquery',
   'jquery.console'
 ],
-  function(TextToSceneGenerator)
+  function(TextToSceneGenerator, Constants)
   {
     function TextToScene(app) {
       this.app = app;

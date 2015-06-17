@@ -35,7 +35,7 @@ function Program(gl, shaders) {
     this.uniformLocs[active_uniform.name] = gl.getUniformLocation(
       this.handle_, active_uniform.name);
   }
-};
+}
 
 Program.prototype.info = function() {
   return this.gl_.getProgramInfoLog(this.handle_);
