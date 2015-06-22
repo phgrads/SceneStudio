@@ -5,3 +5,4 @@
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
 SceneStudio::Application.config.secret_token = INIT_CONFIG['APP_SECRET_TOKEN']
+SceneStudio::Application.config.secret_key_base = ('a' * 30) # should be at least 30 chars long

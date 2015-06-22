@@ -1,10 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '4.1.11'
 gem 'rake', '10.1.0'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'bcrypt-ruby', '~> 3.0.1'
 gem 'faker', '1.0.1'
+gem 'activeresource'
 
 # For authenticating with twitter/google
 gem 'omniauth-twitter', '1.0.0'
@@ -27,17 +28,17 @@ gem 'dragonfly', '~> 1.0.7'
 #gem 'sunspot_rails'
 
 group :development, :test, :production do
-  gem 'sqlite3', '1.3.5'
-  gem 'paper_trail', '~> 2'
+  gem 'paper_trail' #'~> 2'
 end
 
 #group :production do
+  gem 'sqlite3' #'1.3.5'
 #  gem 'mysql2', '~> 0.3.16'
 #end
 
 group :development, :test do
   gem "rack-reverse-proxy", :require => "rack/reverse_proxy"
-  gem 'rspec-rails', '2.11.0'
+  gem 'rspec-rails' #'2.11.0'
 end
 
 group :development do
@@ -53,15 +54,15 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'sass-rails' #'~> 3.2.3'
+  gem 'coffee-rails' #'~> 3.2.1'
 
   gem 'uglifier', '1.2.3'
 end
 
-gem 'jquery-rails', '3.1.2'
-gem 'requirejs-rails', '0.9.5'
-gem 'font-awesome-sass-rails', '3.0.2.2'
+gem 'jquery-rails' #'3.1.2'
+gem 'requirejs-rails' #'0.9.5'
+gem 'font-awesome-sass-rails' #'3.0.2.2'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
