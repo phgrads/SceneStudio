@@ -1,0 +1,90 @@
+<%= render '/experiments/largeimg' %>
+<div id="taskInstructions">
+  <div align="center" class="taskInstructions">
+    <div style='text-align:left'>
+      <p>
+        We built a program to automatically create interior scenes from a description.
+        You will be shown <%=@entries.length%> scenes along with the description from which they were created.
+      </p>
+      <p>
+        Please indicate on a scale of 1 (<%=@choices[0]%>) to 7 (<%=@choices[-1]%>) how well the scene matches the description.
+	    You can click the button with the appropriate rating, or use the keyboard number keys as shortcuts.
+        Consider when giving your rating:
+      </p>
+      <ul>
+        <li>Are the objects mentioned in the description included in the scene? For instance, if the description mentions a <b>black lamp</b>, is there a <b>black lamp</b> in the scene?</li>
+        <li>Are the described relationships between the objects correct in the scene? For instance, if a lamp is <b>on the table</b>, is it found <b>on the table</b> in the scene?</li>
+        <li>Overall, does the scene <b>fit the description</b>? Scenes missing objects in the description, or with irrelevant objects should receive lower ratings. Extra objects are okay if they make the scene look more natural.</li>
+      </ul>
+      <p>
+        The scenes may look "cartoonish". Please pay attention to the objects in the scene and how they are arranged, not whether the picture of them looks realistic.
+        The task should take about <%=@taskTime['taskTime'] %> in total.
+      </p>
+     </div>
+  <hr>
+  <div align="center" style="text-align:center">
+    <table class="exampleTable">
+      <tr>
+        <div><b>Example: rating 7 (<%= @choices[-1]%>)</b></div>
+        <div class="mturkExample" style="max-width: 500px; margin: 0 auto;">
+          <%= image_tag(@conf['exampleImagesPath'] + 'good.png', {class: 'img-responsive'}) %>
+        </div>
+        <div class="textDescription">
+          There is a coffee table and there is a couch behind the coffee table. There is a vase on the coffee table.
+        </div>
+      </tr>
+      <hr>
+      <tr>
+      <div><b>Example: rating 3 (<%= @choices[3]%>)</b></div>
+      <div class="mturkExample" style="max-width: 500px; margin: 0 auto;">
+        <%= image_tag(@conf['exampleImagesPath'] + 'medium.png', {class: 'img-responsive'}) %>
+      </div>
+      <div class="textDescription">
+        There is a table and there is a plate. There is a sandwich on the plate.
+      </div>
+      </tr>
+      <hr>
+      <tr>
+        <div><b>Example: rating 1 (<%= @choices[0]%>)</b></div>
+        <div class="mturkExample" style="max-width: 500px; margin: 0 auto;">
+          <%= image_tag(@conf['exampleImagesPath'] + 'bad.png', {class: 'img-responsive'}) %>
+        </div>
+        <div class="textDescription">
+          There is a bed and there is a nightstand next to the bed. There is a lamp on the nightstand.
+        </div>
+      </tr>
+    </table>
+  </div>
+  <hr>
+  <div class="center">
+    <input type="button" id="startButton" class="largeButton" value="Start"/>
+  </div>
+  </div>
+</div>
+
+<div id="mturkOverlay" style="display:none">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 center">
+        <div id="progressTextDiv" class="largeFont">TEST</div>
+      </div>
+      <div class="col-md-12">
+        <%= image_tag '', id: 'sceneImage', class: 'img-responsive'%>
+      </div>
+    </div>
+    <div id="sceneDescription" class='row textDescription'></div>
+    <div class="row">
+      <div class="col-md-12 text-center largeFont">
+        <span class="pull-left"><%=@choices[0]%></span>
+        <span class="pull-right"><%=@choices[-1]%></span>
+        <div id="ratingBtnGroup" class="btn-group btn-group-lg btn-group-justified" role="group">
+          <%for i in 1..@nChoices %>
+            <label class="btn btn-default">
+              <input type="radio" style="display:none" id="r<%=i.to_s%>" name="rating" value="<%=i.to_s%>"/><%=i.to_s%>
+            </label>
+          <%end%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

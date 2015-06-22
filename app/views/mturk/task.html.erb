@@ -80,7 +80,9 @@
       </p>
       <% end %>
 
+      <% if @require_webgl %>
       <%= render partial: 'webgl-test' %>
+      <% end %>
 
       <% if @sandbox %>
       <!-- show extra debug information when we're on the sandbox -->

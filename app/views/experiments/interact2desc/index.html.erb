@@ -1,0 +1,11 @@
+<div id="ui">
+  <%= render '/experiments/submit_mturk_report' %>
+  <% if @conf['taskType'] == 'interact2desc-select' %>
+    <%= render 'interact2descSelect' %>
+  <% else %> <!-- assume 'interact2desc' for now -->
+    <%= render 'interact2desc' %>
+  <% end %>
+  <%= render 'globals' %>
+</div>
+<%= render '/experiments/comments' %>
+<%= requirejs_include_tag('experiments/interact2desc') %>

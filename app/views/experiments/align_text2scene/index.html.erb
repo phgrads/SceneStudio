@@ -1,0 +1,9 @@
+<div id="ui">
+  <%= render '/scenes/graphicsArea' %>
+  <%= render '/scenes/graphicsOverlay', :allowEdit => false %>
+  <%= render '/experiments/submit_mturk_report' %>
+  <%= render 'mturkOverlay' %>
+  <%= render 'globals' %>
+</div>
+<%= render '/experiments/comments' %>
+<%= requirejs_include_tag('experiments/align-text2scene') %>

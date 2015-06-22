@@ -10,6 +10,7 @@ class AssignmentsView < ActiveRecord::Base
 
   scope :workerId, lambda { |workerId| where(workerId: workerId) }
   scope :hitId, lambda { |hitId| where(hitId: hitId) }
+  scope :assignmentId, lambda { |assignmentId| where(assignmentId: assignmentId) }
   scope :taskName, lambda { |taskName| where(taskName: taskName) }
 
   def completed?

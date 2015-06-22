@@ -1,0 +1,34 @@
+# This is only an example of a config.yml file
+# you will need to create a config/config.yml file
+# in this format for the app to work
+
+development:
+    # The following keys and secrets are used for O-Auth authentication
+    # By registering with the respective service, you can get copies
+    # of these values
+    TWITTER_CONSUMER_KEY:     'xxxxx' # register w/ twitter
+    TWITTER_CONSUMER_SECRET:  'xxxxx' # register w/ twitter
+    GOOGLE_CONSUMER_KEY:      'xxxxx' # register w/ Google
+    GOOGLE_CONSUMER_SECRET:   'xxxxx' # register w/ Google
+    # The following secret is used by rails.
+    # You can generate a new secret from scratch by running the rake task
+    #   rake secret
+    APP_SECRET_TOKEN:         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+    # The following access keys are used to enable connection to
+    # Amazon Mechanical Turk.  You can get copies from Amazon
+    AWS_ACCESS_KEY_ID:        'xxxxx'
+    AWS_SECRET_ACCESS_KEY:    'xxxxx'
+    # The base url for this deployment (needed for rake tasks)
+    HOST_BASE_URL:            'http://localhost:3000'
+
+test:
+    # copy development verbatim
+
+production:
+    # copy again verbatim
+
+# If you want to configure differently in dev and production, you can
+# control that here
+
+# If you want to ensure that code (i.e. rake tasks) only run under a given
+# environment then only include that environment section in this file.

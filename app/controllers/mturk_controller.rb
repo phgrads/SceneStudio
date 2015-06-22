@@ -3,7 +3,7 @@ class MturkController < ApplicationController
 
   before_filter :load_iframe_params, only: [:task]
   before_filter :require_assignment, only: [:report, :coupon, :report_item, :approve_assignment, :reject_assignment]
-  before_filter :load_task_conf, only: [:coupon]
+  before_filter :load_task_conf, only: [:task, :coupon]
 
   before_filter :can_manage_tasks_filter,
                 except: [:task, :report_item, :report, :coupon]
@@ -156,6 +156,14 @@ class MturkController < ApplicationController
     respond_to do |format|
       format.csv {
         columns = params[:columns]
+        if params[:filename]
+          filename = params[:filename]
+        elsif params[:taskName]
+          taskName = params[:taskName]
+          filename = "#{taskName}-items.csv"
+        else
+          filename = 'items.csv'
+        end
         if columns
           columns = columns.split(',')
         end
@@ -166,12 +174,39 @@ class MturkController < ApplicationController
           mapped = @items.map{ |item| {
               id: "#{item.taskName}-#{item.id}",
               url: get_item_load_scene_url(item)
-#              url: item.preview.url
+              #              url: item.preview.url
           }}
-          send_data as_csv(mapped, columns, :col_sep => "\t")
+          # Special remappings
+          if params[:taskName]
+            case taskName
+              when "scene2desc", "image2desc"
+                mapped = @items.map{ |item|
+                  entry = JSON.parse(item.data)
+                  {
+                    id: "#{item.taskName}-#{item.id}",
+                    url: get_item_load_scene_url(item),
+                    description: entry['description']
+                  }
+                }
+              when "rate_scene"
+                mapped = @items.map{ |item|
+                  entry = JSON.parse(item.data)
+                  {
+                    annotationId: "#{item.id}",
+                    itemId: entry['entry']['id'],
+                    taskCondition: "#{item.condition}",
+                    condition: entry['entry']['condition'],
+                    description: entry['entry']['description'],
+                    rating: entry['rating'],
+                    workerId: item.workerId
+                  }
+                }
+            end
+          end
+          send_data as_csv(mapped, columns), :filename => filename
         else
           # Normal export as csv
-          send_data @items.as_csv(columns)
+          send_data @items.as_csv(columns), :filename => filename
         end
       }
     end
@@ -320,7 +355,9 @@ class MturkController < ApplicationController
     end
 
     def load_task_conf
-      @conf = YAML.load_file("config/experiments/#{@task.name}.yml")['conf']
+      task_conf = YAML.load_file("config/experiments/#{@task.name}.yml")
+      @require_webgl = task_conf['require_webgl']
+      @conf = task_conf['conf']
     end
 
     def list_tasks
@@ -342,11 +379,7 @@ class MturkController < ApplicationController
     end
 
     def list_items
-      @items = CompletedItemsView.filter(params.slice(:workerId, :taskName, :condition, :item, :status, :hitId, :assignmentId))
-      if params[:ok]
-        @items = @items.select{ |item| item.ok? == params[:ok].to_bool }
-      end
-      @items
+      @items = CompletedItemsView.filter(params.slice(:workerId, :taskName, :condition, :item, :status, :hitId, :assignmentId, :ok))
     end
 
     def get_item_load_scene_url(item)

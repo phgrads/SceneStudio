@@ -6,6 +6,7 @@ paths:
   'async': 'async.min'
   'jquery': 'jquery-1.11.1.min'
   'jquery-ui': 'jquery-ui-1.11.1.min'
+  'jquery.hotkeys': 'jquery.hotkeys'
   'jquery.datatables': 'jquery.dataTables.min'
   'jquery.datatables.bootstrap': 'dataTables.bootstrap'
   'jquery.datatables.tabletools': 'dataTables.tableTools.min'
@@ -13,11 +14,13 @@ paths:
   'gl-matrix-ext': 'gl_app/gl-matrix-ext'
   'bootstrap': 'bootstrap'
   'bootbox': 'bootbox.min'
+  'slick': 'slick.min'
 
 shim:
   'jquery.debouncedresize': ['jquery']
   'jquery-ui': ['jquery']
   'jquery.console': ['jquery']
+  'jquery.hotkeys': ['jquery']
   'jquery.datatables': ['jquery']
   'jquery.datatables.bootstrap': ['jquery.datatables']
   'jquery.datatables.tabletools': ['jquery.datatables']
@@ -26,3 +29,4 @@ shim:
   'gl-matrix-ext': ['gl-matrix']
   'loader': ['base']
   'base': ['jquery']
+  'slick': ['jquery']
