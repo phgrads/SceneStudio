@@ -33,5 +33,5 @@ class Scene < ActiveRecord::Base
   validates :name,    presence: true, length: { maximum: 80 }
   validates :user_id, presence: true
 
-  default_scope order: 'scenes.created_at DESC'
+  default_scope{order('scenes.created_at DESC')}
 end
