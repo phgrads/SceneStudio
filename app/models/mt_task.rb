@@ -68,7 +68,7 @@ class MtTask < ActiveRecord::Base
   has_many :mt_assignments, through: :mt_hits
 
   # by default, present tasks in reverse chronological order
-  default_scope order: 'mt_tasks.created_at DESC'
+  default_scope{order('mt_tasks.created_at DESC')}
 
   # Status
   def submitted?

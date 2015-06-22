@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '4.1.11'
 gem 'rake', '10.1.0'
 gem 'bootstrap-sass', '~> 3.2.0'
-gem 'bcrypt-ruby', '~> 3.0.1'
+gem 'bcrypt-ruby', '~> 3.1.0'
 gem 'faker', '1.0.1'
 gem 'activeresource'
 
@@ -63,6 +63,9 @@ end
 gem 'jquery-rails' #'3.1.2'
 gem 'requirejs-rails' #'0.9.5'
 gem 'font-awesome-sass-rails' #'3.0.2.2'
+
+#Gems added for update to rails 4
+gem 'protected_attributes' 
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
