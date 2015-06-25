@@ -28,7 +28,7 @@ ModelMaterial.prototype.Bind = function(program, options)
 		gl.uniform4f(colLoc, this.color[0], this.color[1], this.color[2], alpha);
 	
 	this.texture.Bind(program);
-}
+};
 
 
 //// ManipulatorMaterial ////
@@ -43,7 +43,7 @@ ManipulatorMaterial.prototype.UpdateColor = function(color)
 {
 	this.color = color;
 	this.isTransparent = this.color[3] < 1;
-}
+};
 
 ManipulatorMaterial.prototype.Bind = function(program, options)
 {
@@ -51,7 +51,7 @@ ManipulatorMaterial.prototype.Bind = function(program, options)
 	var colLoc = program.uniformLocs.u_color;
 	if (colLoc)
 		gl.uniform4fv(colLoc, this.color);
-}
+};
 
 
 // Exports
