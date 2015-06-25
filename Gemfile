@@ -31,9 +31,9 @@ group :development, :test, :production do
   gem 'paper_trail', '~> 2'
 end
 
-#group :production do
-#  gem 'mysql2', '~> 0.3.16'
-#end
+group :production do
+  gem 'mysql2', '~> 0.3.16'
+end
 
 group :development, :test do
   gem "rack-reverse-proxy", :require => "rack/reverse_proxy"
